@@ -1,0 +1,322 @@
+{
+    "name": "InputSystem",
+    "maps": [
+        {
+            "name": "Player",
+            "id": "8631abaf-2d91-4c22-bdb2-dac0f91d224f",
+            "actions": [
+                {
+                    "name": "Interact",
+                    "type": "Value",
+                    "id": "65d37153-203e-4b50-a910-ee7642439c7b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Pause/Unpause",
+                    "type": "Value",
+                    "id": "1e4aff3e-1917-40da-8014-7d96c7a4c95b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "ViewMode",
+                    "type": "Button",
+                    "id": "32927fcb-cf3d-484c-80b0-c5efef2e5c99",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "CloseUI",
+                    "type": "Value",
+                    "id": "0ccfe84a-68ca-429f-b632-1859fb6ecb9a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "CameraDistance",
+                    "type": "Value",
+                    "id": "c20d41af-da83-4ad3-a0b1-42fe9e5ad8ba",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "7445681d-d62f-4707-98f9-36a3ac83bb1f",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "219a544c-4ec1-464e-a2bf-e890f516c769",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pause/Unpause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2a15d4e2-1b18-4d0d-8135-ff89ce209e1e",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CloseUI",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e911b805-667c-4295-be55-0af2ac0fb5b2",
+                    "path": "<Mouse>/scroll",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CameraDistance",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9598b464-7d2e-4366-94f8-e75ac9d0ec20",
+                    "path": "<Keyboard>/z",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ViewMode",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "ConfiguratorMap",
+            "id": "8c8372c1-84f5-4973-b7d1-edc45e1c18b7",
+            "actions": [
+                {
+                    "name": "Interact",
+                    "type": "Value",
+                    "id": "5c89e33d-a299-4758-bc84-22a837e637d0",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Configurator_Neighbores",
+                    "type": "Button",
+                    "id": "7ff61a82-a362-4378-9b2c-68e82fb5c76e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Configurator_SaveCHanges",
+                    "type": "Button",
+                    "id": "40bd5696-778b-483a-b3fb-cd600e5d5fcf",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Configurator_CellType",
+                    "type": "Button",
+                    "id": "9e4d6cdd-8675-44d6-a305-bb311745db2f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Configurator_SetBase",
+                    "type": "Button",
+                    "id": "7daa7395-ae26-4916-97f3-f1150531d757",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Configurator_SetBuild_Foxhole",
+                    "type": "Button",
+                    "id": "19d865f0-11ec-4493-9dc7-064d33f68106",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Configurator_SetBuild_Camp",
+                    "type": "Button",
+                    "id": "223b4673-237a-42e4-866f-362fdf6f3f95",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Configurator_SetBuild_Fort",
+                    "type": "Button",
+                    "id": "60312e2f-e929-487c-aff3-7bacdc2cf9fa",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Configurator_SetControll_Enemy",
+                    "type": "Button",
+                    "id": "60d27330-b985-4873-9a32-169564b9413b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Configurator_SetControl_Allies",
+                    "type": "Button",
+                    "id": "a0ec4b05-481a-446a-8076-4cbc42cf6077",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "a387a09c-8355-4adb-95cd-4ab4e6105b18",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "65b49489-ac76-4f2b-9abe-c9ff4bb5f4a1",
+                    "path": "<Keyboard>/n",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Configurator_Neighbores",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "90feb2ba-c96b-4497-b342-6cc3735420b3",
+                    "path": "<Keyboard>/o",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Configurator_SaveCHanges",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5e7c3865-c357-42f3-8de5-9ea5938bb0c0",
+                    "path": "<Keyboard>/t",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Configurator_CellType",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "990aebdc-1476-48d1-9339-d79591906290",
+                    "path": "<Keyboard>/b",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Configurator_SetBase",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2ffc3a9d-a5f7-4c0d-84b4-3c80a2322ed3",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Configurator_SetBuild_Foxhole",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "40d67055-d316-48d4-b12a-33d66b236ee5",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Configurator_SetBuild_Camp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d94e37bc-ead9-45b2-b598-01cebeb33d23",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Configurator_SetBuild_Fort",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5bca1282-1d10-447c-8b7a-51bdee256d8a",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Configurator_SetControll_Enemy",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "800c911a-30b3-4be3-8843-3b15a38b7303",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Configurator_SetControl_Allies",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

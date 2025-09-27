@@ -1,0 +1,7095 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a216b7c56ea417f459e8977642920ac4, type: 3}
+  m_Name: CellsParameters_V1
+  m_EditorClassIdentifier: 
+  cellsParameters:
+  - currentCellName: VoronoiCell(280)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(327)
+    - VoronoiCell(267)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 19.792223
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(267)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(280)
+    - VoronoiCell(327)
+    - VoronoiCell(339)
+    - VoronoiCell(334)
+    - VoronoiCell(333)
+    - VoronoiCell(297)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 11.909358
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(297)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(267)
+    - VoronoiCell(333)
+    - VoronoiCell(334)
+    - VoronoiCell(314)
+    - VoronoiCell(288)
+    - VoronoiCell(256)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 10.986528
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(256)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(297)
+    - VoronoiCell(288)
+    - VoronoiCell(257)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 12.283201
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(257)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(256)
+    - VoronoiCell(288)
+    - VoronoiCell(238)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 13.982307
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(238)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(241)
+    - VoronoiCell(257)
+    - VoronoiCell(268)
+    - VoronoiCell(261)
+    - VoronoiCell(251)
+    - VoronoiCell(231)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 27.254213
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(241)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(238)
+    neighboresCells:
+    - {fileID: 0}
+    height: 28.03737
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(231)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(238)
+    - VoronoiCell(251)
+    - VoronoiCell(204)
+    - VoronoiCell(208)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(208)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(231)
+    - VoronoiCell(203)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(204)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(231)
+    - VoronoiCell(184)
+    - VoronoiCell(214)
+    - VoronoiCell(232)
+    - VoronoiCell(245)
+    - VoronoiCell(251)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(203)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(208)
+    - VoronoiCell(184)
+    - VoronoiCell(166)
+    - VoronoiCell(188)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(188)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(166)
+    - VoronoiCell(203)
+    - VoronoiCell(148)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(148)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(166)
+    - VoronoiCell(188)
+    - VoronoiCell(153)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(153)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(148)
+    - VoronoiCell(166)
+    - VoronoiCell(154)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(166)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(154)
+    - VoronoiCell(153)
+    - VoronoiCell(148)
+    - VoronoiCell(188)
+    - VoronoiCell(203)
+    - VoronoiCell(184)
+    - VoronoiCell(171)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(154)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(153)
+    - VoronoiCell(166)
+    - VoronoiCell(171)
+    - VoronoiCell(167)
+    - VoronoiCell(147)
+    - VoronoiCell(140)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(140)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(147)
+    - VoronoiCell(154)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(147)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(140)
+    - VoronoiCell(154)
+    - VoronoiCell(167)
+    - VoronoiCell(134)
+    - VoronoiCell(129)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(129)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(134)
+    - VoronoiCell(147)
+    - VoronoiCell(128)
+    - VoronoiCell(105)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(105)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(129)
+    - VoronoiCell(128)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(128)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(105)
+    - VoronoiCell(129)
+    - VoronoiCell(134)
+    - VoronoiCell(135)
+    - VoronoiCell(123)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(123)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(128)
+    - VoronoiCell(135)
+    - VoronoiCell(124)
+    - VoronoiCell(91)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(91)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(123)
+    - VoronoiCell(126)
+    - VoronoiCell(118)
+    - VoronoiCell(86)
+    - VoronoiCell(66)
+    - VoronoiCell(74)
+    - VoronoiCell(89)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(89)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(90)
+    - VoronoiCell(56)
+    - VoronoiCell(74)
+    - VoronoiCell(91)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(90)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(56)
+    - VoronoiCell(89)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(56)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(90)
+    - VoronoiCell(89)
+    - VoronoiCell(74)
+    - VoronoiCell(62)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(62)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(56)
+    - VoronoiCell(74)
+    - VoronoiCell(66)
+    - VoronoiCell(52)
+    - VoronoiCell(28)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(28)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(62)
+    - VoronoiCell(52)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(52)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(28)
+    - VoronoiCell(62)
+    - VoronoiCell(66)
+    - VoronoiCell(65)
+    - VoronoiCell(32)
+    - VoronoiCell(39)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(39)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(52)
+    - VoronoiCell(32)
+    - VoronoiCell(15)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(15)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(39)
+    - VoronoiCell(32)
+    - VoronoiCell(22)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(22)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(15)
+    - VoronoiCell(32)
+    - VoronoiCell(35)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(35)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(18)
+    - VoronoiCell(32)
+    - VoronoiCell(63)
+    - VoronoiCell(60)
+    - VoronoiCell(48)
+    - VoronoiCell(40)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(18)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(35)
+    neighboresCells:
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(40)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(35)
+    - VoronoiCell(48)
+    - VoronoiCell(43)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(43)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(40)
+    - VoronoiCell(48)
+    - VoronoiCell(47)
+    - VoronoiCell(19)
+    - VoronoiCell(17)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(17)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(19)
+    - VoronoiCell(43)
+    - VoronoiCell(10)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(10)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(17)
+    - VoronoiCell(19)
+    - VoronoiCell(9)
+    - VoronoiCell(8)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(327)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(280)
+    - VoronoiCell(267)
+    - VoronoiCell(339)
+    - VoronoiCell(357)
+    - VoronoiCell(350)
+    - VoronoiCell(312)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 10.019197
+    cellType: 1
+    isBase: 0
+    controlSide: 2
+    buildings: 01000000
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(312)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(327)
+    - VoronoiCell(336)
+    - VoronoiCell(326)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 24.982933
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(326)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(312)
+    - VoronoiCell(336)
+    - VoronoiCell(362)
+    - VoronoiCell(329)
+    - VoronoiCell(356)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 13.0946665
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 04000000
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(329)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(328)
+    - VoronoiCell(326)
+    - VoronoiCell(362)
+    - VoronoiCell(388)
+    - VoronoiCell(376)
+    - VoronoiCell(345)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 28.913242
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 04000000
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(328)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(329)
+    - VoronoiCell(345)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 28.077703
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 04000000
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(345)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(328)
+    - VoronoiCell(313)
+    - VoronoiCell(329)
+    - VoronoiCell(376)
+    - VoronoiCell(378)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 28.960022
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 04000000
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(378)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: "\u0413\u043E\u0440\u043E\u0434 \u0413\u0440\u043E\u0434\u043D\u043E"
+    neighboresCellsNames:
+    - VoronoiCell(345)
+    - VoronoiCell(376)
+    - VoronoiCell(391)
+    - VoronoiCell(395)
+    - VoronoiCell(416)
+    - VoronoiCell(406)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 28.932594
+    cellType: 5
+    isBase: 1
+    controlSide: 0
+    buildings: 04000000
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(406)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(378)
+    - VoronoiCell(416)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 19.816349
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(313)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(345)
+    neighboresCells:
+    - {fileID: 0}
+    height: 14.279649
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(416)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(406)
+    - VoronoiCell(378)
+    - VoronoiCell(395)
+    - VoronoiCell(468)
+    - VoronoiCell(447)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 21.974178
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 01000000
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(447)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(416)
+    - VoronoiCell(468)
+    - VoronoiCell(499)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 19.906557
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(499)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(447)
+    - VoronoiCell(468)
+    - VoronoiCell(515)
+    - VoronoiCell(552)
+    - VoronoiCell(547)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 13.867458
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 02000000
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(547)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(499)
+    - VoronoiCell(552)
+    - VoronoiCell(584)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 18.930508
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 01000000
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(584)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(547)
+    - VoronoiCell(552)
+    - VoronoiCell(536)
+    - VoronoiCell(598)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 20.670635
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 01000000
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(552)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(547)
+    - VoronoiCell(499)
+    - VoronoiCell(515)
+    - VoronoiCell(536)
+    - VoronoiCell(584)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 11.005041
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 02000000
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(598)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(584)
+    - VoronoiCell(536)
+    - VoronoiCell(596)
+    - VoronoiCell(677)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(677)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(596)
+    - VoronoiCell(598)
+    - VoronoiCell(717)
+    - VoronoiCell(697)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(536)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(584)
+    - VoronoiCell(552)
+    - VoronoiCell(515)
+    - VoronoiCell(463)
+    - VoronoiCell(514)
+    - VoronoiCell(596)
+    - VoronoiCell(598)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 29.752811
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 01000000
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(515)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(499)
+    - VoronoiCell(468)
+    - VoronoiCell(463)
+    - VoronoiCell(536)
+    - VoronoiCell(552)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 20.076813
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 02000000
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(468)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(447)
+    - VoronoiCell(499)
+    - VoronoiCell(515)
+    - VoronoiCell(463)
+    - VoronoiCell(395)
+    - VoronoiCell(416)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 13.280285
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(395)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(468)
+    - VoronoiCell(463)
+    - VoronoiCell(455)
+    - VoronoiCell(391)
+    - VoronoiCell(378)
+    - VoronoiCell(416)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 10.427294
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 01000000
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(391)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(395)
+    - VoronoiCell(455)
+    - VoronoiCell(415)
+    - VoronoiCell(376)
+    - VoronoiCell(378)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 16.866423
+    cellType: 1
+    isBase: 0
+    controlSide: 2
+    buildings: 01000000
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(376)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(329)
+    - VoronoiCell(345)
+    - VoronoiCell(391)
+    - VoronoiCell(415)
+    - VoronoiCell(356)
+    - VoronoiCell(388)
+    - VoronoiCell(378)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 13.635035
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 04000000
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(362)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(326)
+    - VoronoiCell(356)
+    - VoronoiCell(388)
+    - VoronoiCell(329)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 21.762672
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(388)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(329)
+    - VoronoiCell(362)
+    - VoronoiCell(356)
+    - VoronoiCell(376)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 15.460995
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(356)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(388)
+    - VoronoiCell(362)
+    - VoronoiCell(326)
+    - VoronoiCell(336)
+    - VoronoiCell(350)
+    - VoronoiCell(415)
+    - VoronoiCell(376)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 16.709932
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(336)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(326)
+    - VoronoiCell(356)
+    - VoronoiCell(350)
+    - VoronoiCell(312)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 10.443018
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 04000000
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(350)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(336)
+    - VoronoiCell(327)
+    - VoronoiCell(357)
+    - VoronoiCell(417)
+    - VoronoiCell(415)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 28.240461
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 04000000
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(415)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(356)
+    - VoronoiCell(376)
+    - VoronoiCell(391)
+    - VoronoiCell(455)
+    - VoronoiCell(464)
+    - VoronoiCell(417)
+    - VoronoiCell(350)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 11.3607235
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 04000000
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(417)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(446)
+    - VoronoiCell(454)
+    - VoronoiCell(464)
+    - VoronoiCell(415)
+    - VoronoiCell(350)
+    - VoronoiCell(396)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 26.169014
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(463)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(468)
+    - VoronoiCell(515)
+    - VoronoiCell(395)
+    - VoronoiCell(455)
+    - VoronoiCell(536)
+    - VoronoiCell(514)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 16.357403
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(514)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(463)
+    - VoronoiCell(536)
+    - VoronoiCell(596)
+    - VoronoiCell(615)
+    - VoronoiCell(585)
+    - VoronoiCell(517)
+    - VoronoiCell(476)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 28.930193
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 01000000
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(455)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(476)
+    - VoronoiCell(463)
+    - VoronoiCell(395)
+    - VoronoiCell(391)
+    - VoronoiCell(415)
+    - VoronoiCell(464)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 22.216179
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(476)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(455)
+    - VoronoiCell(514)
+    - VoronoiCell(517)
+    - VoronoiCell(454)
+    - VoronoiCell(464)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 24.694994
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 0100000004000000
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(454)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(476)
+    - VoronoiCell(464)
+    - VoronoiCell(417)
+    - VoronoiCell(446)
+    - VoronoiCell(488)
+    - VoronoiCell(517)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 23.508541
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 02000000
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(464)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(415)
+    - VoronoiCell(417)
+    - VoronoiCell(454)
+    - VoronoiCell(476)
+    - VoronoiCell(455)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 27.599747
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 0100000004000000
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(396)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(417)
+    - VoronoiCell(446)
+    - VoronoiCell(445)
+    - VoronoiCell(411)
+    - VoronoiCell(357)
+    - VoronoiCell(350)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 20.323854
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 01000000
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(357)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(350)
+    - VoronoiCell(396)
+    - VoronoiCell(327)
+    - VoronoiCell(339)
+    - VoronoiCell(372)
+    - VoronoiCell(410)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 12.650349
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 01000000
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(339)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(267)
+    - VoronoiCell(327)
+    - VoronoiCell(357)
+    - VoronoiCell(372)
+    - VoronoiCell(348)
+    - VoronoiCell(334)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 15.126646
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(334)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(333)
+    - VoronoiCell(267)
+    - VoronoiCell(297)
+    - VoronoiCell(348)
+    - VoronoiCell(339)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 13.383768
+    cellType: 1
+    isBase: 1
+    controlSide: 1
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(333)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(267)
+    - VoronoiCell(297)
+    - VoronoiCell(334)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 15.458721
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(314)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(297)
+    - VoronoiCell(288)
+    - VoronoiCell(319)
+    - VoronoiCell(343)
+    - VoronoiCell(353)
+    - VoronoiCell(348)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 13.374116
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(288)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(314)
+    - VoronoiCell(319)
+    - VoronoiCell(297)
+    - VoronoiCell(256)
+    - VoronoiCell(257)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 10.991311
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(372)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(357)
+    - VoronoiCell(339)
+    - VoronoiCell(387)
+    - VoronoiCell(410)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 18.63355
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(410)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(357)
+    - VoronoiCell(372)
+    - VoronoiCell(387)
+    - VoronoiCell(389)
+    - VoronoiCell(427)
+    - VoronoiCell(411)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 12.216982
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(411)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(410)
+    - VoronoiCell(396)
+    - VoronoiCell(445)
+    - VoronoiCell(427)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 16.610804
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(445)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(411)
+    - VoronoiCell(446)
+    - VoronoiCell(480)
+    - VoronoiCell(427)
+    - VoronoiCell(396)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 26.225533
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(488)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames: []
+    neighboresCells: []
+    height: 28.693584
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 01000000
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(446)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(454)
+    - VoronoiCell(488)
+    - VoronoiCell(445)
+    - VoronoiCell(396)
+    - VoronoiCell(417)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 21.738743
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 01000000
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(251)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(238)
+    - VoronoiCell(231)
+    - VoronoiCell(204)
+    - VoronoiCell(245)
+    - VoronoiCell(261)
+    - VoronoiCell(266)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(261)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(251)
+    - VoronoiCell(238)
+    - VoronoiCell(268)
+    - VoronoiCell(266)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 27.918827
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(268)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(238)
+    - VoronoiCell(261)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 26.422009
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(266)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(261)
+    - VoronoiCell(251)
+    - VoronoiCell(294)
+    - VoronoiCell(245)
+    - VoronoiCell(286)
+    - VoronoiCell(301)
+    - VoronoiCell(303)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 23.123104
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(245)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(266)
+    - VoronoiCell(251)
+    - VoronoiCell(204)
+    - VoronoiCell(232)
+    - VoronoiCell(253)
+    - VoronoiCell(278)
+    - VoronoiCell(286)
+    - VoronoiCell(294)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(299)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(301)
+    - VoronoiCell(286)
+    - VoronoiCell(282)
+    - VoronoiCell(317)
+    - VoronoiCell(344)
+    - VoronoiCell(343)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 10.166912
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(301)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(303)
+    - VoronoiCell(266)
+    - VoronoiCell(299)
+    - VoronoiCell(343)
+    - VoronoiCell(319)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 16.931644
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(303)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(266)
+    - VoronoiCell(301)
+    - VoronoiCell(319)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 15.166514
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(319)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(303)
+    - VoronoiCell(301)
+    - VoronoiCell(343)
+    - VoronoiCell(314)
+    - VoronoiCell(288)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 11.408487
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(343)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(319)
+    - VoronoiCell(314)
+    - VoronoiCell(353)
+    - VoronoiCell(344)
+    - VoronoiCell(299)
+    - VoronoiCell(301)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 12.974421
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(353)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(343)
+    - VoronoiCell(314)
+    - VoronoiCell(352)
+    - VoronoiCell(386)
+    - VoronoiCell(383)
+    - VoronoiCell(344)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 15.07122
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(348)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(314)
+    - VoronoiCell(334)
+    - VoronoiCell(339)
+    - VoronoiCell(387)
+    - VoronoiCell(389)
+    - VoronoiCell(352)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 18.535627
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(352)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(348)
+    - VoronoiCell(353)
+    - VoronoiCell(402)
+    - VoronoiCell(386)
+    - VoronoiCell(389)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 13.835642
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(389)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(387)
+    - VoronoiCell(348)
+    - VoronoiCell(352)
+    - VoronoiCell(402)
+    - VoronoiCell(427)
+    - VoronoiCell(410)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 19.093853
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(387)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(389)
+    - VoronoiCell(410)
+    - VoronoiCell(372)
+    - VoronoiCell(348)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 10.828231
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(294)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(266)
+    - VoronoiCell(245)
+    - VoronoiCell(286)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 24.299248
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(286)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(294)
+    - VoronoiCell(245)
+    - VoronoiCell(282)
+    - VoronoiCell(299)
+    - VoronoiCell(266)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 21.780384
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(282)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(286)
+    - VoronoiCell(278)
+    - VoronoiCell(317)
+    - VoronoiCell(299)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 20.322647
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(317)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(282)
+    - VoronoiCell(278)
+    - VoronoiCell(318)
+    - VoronoiCell(335)
+    - VoronoiCell(349)
+    - VoronoiCell(346)
+    - VoronoiCell(299)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 25.192066
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(346)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(344)
+    - VoronoiCell(317)
+    - VoronoiCell(349)
+    - VoronoiCell(426)
+    - VoronoiCell(428)
+    - VoronoiCell(429)
+    - VoronoiCell(386)
+    - VoronoiCell(383)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 15.900805
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(344)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(299)
+    - VoronoiCell(346)
+    - VoronoiCell(383)
+    - VoronoiCell(353)
+    - VoronoiCell(343)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 14.487321
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(383)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(344)
+    - VoronoiCell(353)
+    - VoronoiCell(386)
+    - VoronoiCell(346)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 18.171944
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(596)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(677)
+    - VoronoiCell(598)
+    - VoronoiCell(536)
+    - VoronoiCell(514)
+    - VoronoiCell(615)
+    - VoronoiCell(635)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(635)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(596)
+    - VoronoiCell(615)
+    - VoronoiCell(657)
+    - VoronoiCell(692)
+    - VoronoiCell(727)
+    - VoronoiCell(732)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(615)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(596)
+    - VoronoiCell(514)
+    - VoronoiCell(585)
+    - VoronoiCell(618)
+    - VoronoiCell(657)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 27.635532
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(618)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(615)
+    - VoronoiCell(657)
+    - VoronoiCell(653)
+    - VoronoiCell(616)
+    - VoronoiCell(617)
+    - VoronoiCell(571)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 19.154163
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(571)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(618)
+    - VoronoiCell(616)
+    - VoronoiCell(545)
+    - VoronoiCell(617)
+    - VoronoiCell(585)
+    - VoronoiCell(546)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 15.506758
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(617)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(618)
+    - VoronoiCell(615)
+    - VoronoiCell(585)
+    - VoronoiCell(571)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 15.698955
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(585)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(615)
+    - VoronoiCell(617)
+    - VoronoiCell(571)
+    - VoronoiCell(517)
+    - VoronoiCell(514)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 11.525671
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(517)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(585)
+    - VoronoiCell(546)
+    - VoronoiCell(488)
+    - VoronoiCell(454)
+    - VoronoiCell(476)
+    - VoronoiCell(514)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 25.293686
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 01000000
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(546)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(517)
+    - VoronoiCell(488)
+    - VoronoiCell(571)
+    - VoronoiCell(480)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 10.254043
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 01000000
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(657)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(615)
+    - VoronoiCell(618)
+    - VoronoiCell(653)
+    - VoronoiCell(715)
+    - VoronoiCell(692)
+    - VoronoiCell(635)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(653)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(657)
+    - VoronoiCell(676)
+    - VoronoiCell(700)
+    - VoronoiCell(671)
+    - VoronoiCell(640)
+    - VoronoiCell(626)
+    - VoronoiCell(616)
+    - VoronoiCell(618)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(640)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(653)
+    - VoronoiCell(671)
+    - VoronoiCell(672)
+    - VoronoiCell(641)
+    - VoronoiCell(637)
+    - VoronoiCell(647)
+    - VoronoiCell(626)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(626)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(640)
+    - VoronoiCell(653)
+    - VoronoiCell(616)
+    - VoronoiCell(647)
+    - VoronoiCell(566)
+    - VoronoiCell(545)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 23.273697
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(616)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(653)
+    - VoronoiCell(626)
+    - VoronoiCell(545)
+    - VoronoiCell(571)
+    - VoronoiCell(618)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 23.187725
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(545)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(626)
+    - VoronoiCell(616)
+    - VoronoiCell(571)
+    - VoronoiCell(480)
+    - VoronoiCell(471)
+    - VoronoiCell(566)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 21.9301
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(566)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(545)
+    - VoronoiCell(626)
+    - VoronoiCell(647)
+    - VoronoiCell(550)
+    - VoronoiCell(471)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 13.144196
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(429)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(346)
+    - VoronoiCell(386)
+    - VoronoiCell(451)
+    - VoronoiCell(456)
+    - VoronoiCell(428)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 14.497497
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(456)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(429)
+    - VoronoiCell(428)
+    - VoronoiCell(393)
+    - VoronoiCell(479)
+    - VoronoiCell(477)
+    - VoronoiCell(451)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 21.704063
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(477)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(456)
+    - VoronoiCell(479)
+    - VoronoiCell(522)
+    - VoronoiCell(524)
+    - VoronoiCell(450)
+    - VoronoiCell(451)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 23.828156
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(524)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(477)
+    - VoronoiCell(522)
+    - VoronoiCell(487)
+    - VoronoiCell(450)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 21.726786
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(522)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(524)
+    - VoronoiCell(479)
+    - VoronoiCell(535)
+    - VoronoiCell(563)
+    - VoronoiCell(539)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 20.014359
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(563)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(539)
+    - VoronoiCell(522)
+    - VoronoiCell(535)
+    - VoronoiCell(597)
+    - VoronoiCell(606)
+    - VoronoiCell(565)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 11.89836
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(606)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(563)
+    - VoronoiCell(597)
+    - VoronoiCell(659)
+    - VoronoiCell(684)
+    - VoronoiCell(669)
+    - VoronoiCell(670)
+    - VoronoiCell(565)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 22.70029
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(669)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(684)
+    - VoronoiCell(606)
+    - VoronoiCell(670)
+    - VoronoiCell(565)
+    - VoronoiCell(667)
+    - VoronoiCell(688)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(667)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(669)
+    - VoronoiCell(565)
+    - VoronoiCell(642)
+    - VoronoiCell(704)
+    - VoronoiCell(688)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(642)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(641)
+    - VoronoiCell(704)
+    - VoronoiCell(667)
+    - VoronoiCell(565)
+    - VoronoiCell(567)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(641)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(642)
+    - VoronoiCell(704)
+    - VoronoiCell(672)
+    - VoronoiCell(640)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(672)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(641)
+    - VoronoiCell(640)
+    - VoronoiCell(671)
+    - VoronoiCell(714)
+    - VoronoiCell(716)
+    - VoronoiCell(704)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(671)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(672)
+    - VoronoiCell(640)
+    - VoronoiCell(653)
+    - VoronoiCell(714)
+    - VoronoiCell(733)
+    - VoronoiCell(700)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(670)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(669)
+    - VoronoiCell(565)
+    - VoronoiCell(606)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 20.756334
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(565)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(670)
+    - VoronoiCell(667)
+    - VoronoiCell(642)
+    - VoronoiCell(567)
+    - VoronoiCell(539)
+    - VoronoiCell(563)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 27.13715
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(567)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(565)
+    - VoronoiCell(642)
+    - VoronoiCell(637)
+    - VoronoiCell(550)
+    - VoronoiCell(544)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 11.527481
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(637)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(567)
+    - VoronoiCell(640)
+    - VoronoiCell(647)
+    - VoronoiCell(550)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 20.126694
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(647)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(566)
+    - VoronoiCell(637)
+    - VoronoiCell(640)
+    - VoronoiCell(626)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 18.061401
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(550)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(637)
+    - VoronoiCell(566)
+    - VoronoiCell(471)
+    - VoronoiCell(567)
+    - VoronoiCell(544)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 27.118073
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(544)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(567)
+    - VoronoiCell(550)
+    - VoronoiCell(471)
+    - VoronoiCell(492)
+    - VoronoiCell(539)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 19.293255
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(539)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(565)
+    - VoronoiCell(563)
+    - VoronoiCell(522)
+    - VoronoiCell(487)
+    - VoronoiCell(492)
+    - VoronoiCell(544)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 10.456575
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(471)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(550)
+    - VoronoiCell(545)
+    - VoronoiCell(566)
+    - VoronoiCell(480)
+    - VoronoiCell(427)
+    - VoronoiCell(449)
+    - VoronoiCell(492)
+    - VoronoiCell(544)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 14.639394
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 1
+    countOfAlliesSquads: 4
+  - currentCellName: VoronoiCell(480)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(545)
+    - VoronoiCell(546)
+    - VoronoiCell(488)
+    - VoronoiCell(445)
+    - VoronoiCell(427)
+    - VoronoiCell(471)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 26.797993
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(427)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(445)
+    - VoronoiCell(480)
+    - VoronoiCell(471)
+    - VoronoiCell(449)
+    - VoronoiCell(402)
+    - VoronoiCell(389)
+    - VoronoiCell(410)
+    - VoronoiCell(411)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 15.673113
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 1
+    countOfAlliesSquads: 4
+  - currentCellName: VoronoiCell(449)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(427)
+    - VoronoiCell(402)
+    - VoronoiCell(386)
+    - VoronoiCell(450)
+    - VoronoiCell(487)
+    - VoronoiCell(492)
+    - VoronoiCell(471)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 19.691591
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(402)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(427)
+    - VoronoiCell(389)
+    - VoronoiCell(352)
+    - VoronoiCell(386)
+    - VoronoiCell(449)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 22.01442
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(386)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(353)
+    - VoronoiCell(352)
+    - VoronoiCell(402)
+    - VoronoiCell(449)
+    - VoronoiCell(451)
+    - VoronoiCell(429)
+    - VoronoiCell(346)
+    - VoronoiCell(383)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 21.730217
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(451)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(386)
+    - VoronoiCell(429)
+    - VoronoiCell(456)
+    - VoronoiCell(477)
+    - VoronoiCell(450)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 20.410696
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(450)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(451)
+    - VoronoiCell(449)
+    - VoronoiCell(487)
+    - VoronoiCell(477)
+    - VoronoiCell(524)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 17.151333
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(487)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(450)
+    - VoronoiCell(449)
+    - VoronoiCell(492)
+    - VoronoiCell(539)
+    - VoronoiCell(524)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 11.794296
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(492)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(487)
+    - VoronoiCell(539)
+    - VoronoiCell(544)
+    - VoronoiCell(471)
+    - VoronoiCell(449)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 12.561319
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(479)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames: []
+    neighboresCells: []
+    height: 25.64019
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(535)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames: []
+    neighboresCells: []
+    height: 18.939709
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(549)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames: []
+    neighboresCells: []
+    height: 20.637907
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(509)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames: []
+    neighboresCells: []
+    height: 23.165901
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(508)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames: []
+    neighboresCells: []
+    height: 22.193466
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(475)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames: []
+    neighboresCells: []
+    height: 12.903069
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(393)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames: []
+    neighboresCells: []
+    height: 26.891665
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(428)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames: []
+    neighboresCells: []
+    height: 20.627745
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(349)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames: []
+    neighboresCells: []
+    height: 15.327902
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(426)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames: []
+    neighboresCells: []
+    height: 18.797865
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(478)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames: []
+    neighboresCells: []
+    height: 13.020185
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(548)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames: []
+    neighboresCells: []
+    height: 24.725887
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(554)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames: []
+    neighboresCells: []
+    height: 18.287443
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(570)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames: []
+    neighboresCells: []
+    height: 17.73502
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(505)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames: []
+    neighboresCells: []
+    height: 19.133535
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(504)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames: []
+    neighboresCells: []
+    height: 14.812973
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(474)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames: []
+    neighboresCells: []
+    height: 15.317469
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(380)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames: []
+    neighboresCells: []
+    height: 16.28234
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(513)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames: []
+    neighboresCells: []
+    height: 12.75317
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(503)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames: []
+    neighboresCells: []
+    height: 11.226383
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(473)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames: []
+    neighboresCells: []
+    height: 12.333075
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(425)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames: []
+    neighboresCells: []
+    height: 25.061838
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(392)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames: []
+    neighboresCells: []
+    height: 15.317585
+    cellType: 1
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(381)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames: []
+    neighboresCells: []
+    height: 23.11837
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(332)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames: []
+    neighboresCells: []
+    height: 25.793404
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(340)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames: []
+    neighboresCells: []
+    height: 21.578537
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(365)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames: []
+    neighboresCells: []
+    height: 25.142628
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(320)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames: []
+    neighboresCells: []
+    height: 22.748482
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(298)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames: []
+    neighboresCells: []
+    height: 22.710802
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(304)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames: []
+    neighboresCells: []
+    height: 24.848217
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(337)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames: []
+    neighboresCells: []
+    height: 22.420853
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(335)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames: []
+    neighboresCells: []
+    height: 23.640535
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(318)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames: []
+    neighboresCells: []
+    height: 28.039371
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(278)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames: []
+    neighboresCells: []
+    height: 24.468834
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(281)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames: []
+    neighboresCells: []
+    height: 25.585457
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(307)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames: []
+    neighboresCells: []
+    height: 28.686941
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(586)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames: []
+    neighboresCells: []
+    height: 26.277046
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(589)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames: []
+    neighboresCells: []
+    height: 29.887213
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(608)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames: []
+    neighboresCells: []
+    height: 23.58329
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(607)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames: []
+    neighboresCells: []
+    height: 27.938723
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(605)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames: []
+    neighboresCells: []
+    height: 27.19751
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(579)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames: []
+    neighboresCells: []
+    height: 22.991657
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(597)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames: []
+    neighboresCells: []
+    height: 25.631773
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(627)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames: []
+    neighboresCells: []
+    height: 21.484444
+    cellType: 2
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(717)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(677)
+    - VoronoiCell(596)
+    - VoronoiCell(721)
+    - VoronoiCell(771)
+    - VoronoiCell(697)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(697)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(717)
+    - VoronoiCell(677)
+    - VoronoiCell(771)
+    - VoronoiCell(757)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(771)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(697)
+    - VoronoiCell(757)
+    - VoronoiCell(717)
+    - VoronoiCell(721)
+    - VoronoiCell(797)
+    - VoronoiCell(790)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(757)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(771)
+    - VoronoiCell(697)
+    - VoronoiCell(780)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(780)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(757)
+    - VoronoiCell(790)
+    - VoronoiCell(738)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(738)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(790)
+    - VoronoiCell(795)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(795)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(790)
+    - VoronoiCell(738)
+    - VoronoiCell(852)
+    - VoronoiCell(794)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(794)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(795)
+    - VoronoiCell(853)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(853)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(794)
+    - VoronoiCell(852)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(852)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(853)
+    - VoronoiCell(795)
+    - VoronoiCell(838)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(790)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(738)
+    - VoronoiCell(795)
+    - VoronoiCell(780)
+    - VoronoiCell(771)
+    - VoronoiCell(815)
+    - VoronoiCell(838)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(838)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(790)
+    - VoronoiCell(852)
+    - VoronoiCell(815)
+    - VoronoiCell(882)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(815)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(790)
+    - VoronoiCell(797)
+    - VoronoiCell(825)
+    - VoronoiCell(881)
+    - VoronoiCell(882)
+    - VoronoiCell(838)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(882)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(838)
+    - VoronoiCell(815)
+    - VoronoiCell(881)
+    - VoronoiCell(891)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(891)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(882)
+    - VoronoiCell(930)
+    - VoronoiCell(972)
+    - VoronoiCell(971)
+    - VoronoiCell(964)
+    - VoronoiCell(885)
+    - VoronoiCell(881)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(930)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(891)
+    - VoronoiCell(972)
+    - VoronoiCell(994)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(972)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(930)
+    - VoronoiCell(891)
+    - VoronoiCell(971)
+    - VoronoiCell(1004)
+    - VoronoiCell(1005)
+    - VoronoiCell(994)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(994)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(930)
+    - VoronoiCell(972)
+    - VoronoiCell(1005)
+    - VoronoiCell(970)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(970)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(994)
+    - VoronoiCell(1005)
+    - VoronoiCell(1019)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(1005)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(970)
+    - VoronoiCell(994)
+    - VoronoiCell(972)
+    - VoronoiCell(1004)
+    - VoronoiCell(1038)
+    - VoronoiCell(1019)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(1019)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(1005)
+    - VoronoiCell(970)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(1038)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(1004)
+    - VoronoiCell(1005)
+    - VoronoiCell(1037)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(1004)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(1037)
+    - VoronoiCell(1038)
+    - VoronoiCell(1005)
+    - VoronoiCell(972)
+    - VoronoiCell(971)
+    - VoronoiCell(1008)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(1037)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(1008)
+    - VoronoiCell(1004)
+    - VoronoiCell(1038)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(1008)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(1004)
+    - VoronoiCell(1037)
+    - VoronoiCell(991)
+    - VoronoiCell(997)
+    - VoronoiCell(971)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(971)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(991)
+    - VoronoiCell(1008)
+    - VoronoiCell(1004)
+    - VoronoiCell(972)
+    - VoronoiCell(891)
+    - VoronoiCell(964)
+    - VoronoiCell(965)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(965)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(964)
+    - VoronoiCell(971)
+    - VoronoiCell(991)
+    - VoronoiCell(959)
+    - VoronoiCell(885)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(997)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(991)
+    - VoronoiCell(1008)
+    - VoronoiCell(959)
+    - VoronoiCell(983)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(991)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(997)
+    - VoronoiCell(1008)
+    - VoronoiCell(971)
+    - VoronoiCell(965)
+    - VoronoiCell(959)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(959)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(965)
+    - VoronoiCell(991)
+    - VoronoiCell(997)
+    - VoronoiCell(983)
+    - VoronoiCell(919)
+    - VoronoiCell(885)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(885)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(959)
+    - VoronoiCell(965)
+    - VoronoiCell(964)
+    - VoronoiCell(891)
+    - VoronoiCell(881)
+    - VoronoiCell(825)
+    - VoronoiCell(870)
+    - VoronoiCell(857)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(964)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(885)
+    - VoronoiCell(891)
+    - VoronoiCell(971)
+    - VoronoiCell(965)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(983)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(997)
+    - VoronoiCell(959)
+    - VoronoiCell(919)
+    - VoronoiCell(990)
+    - VoronoiCell(925)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(925)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(983)
+    - VoronoiCell(990)
+    - VoronoiCell(919)
+    - VoronoiCell(913)
+    - VoronoiCell(924)
+    - VoronoiCell(962)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(990)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(983)
+    - VoronoiCell(925)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(919)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(925)
+    - VoronoiCell(983)
+    - VoronoiCell(959)
+    - VoronoiCell(885)
+    - VoronoiCell(857)
+    - VoronoiCell(913)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(857)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(870)
+    - VoronoiCell(885)
+    - VoronoiCell(919)
+    - VoronoiCell(913)
+    - VoronoiCell(872)
+    - VoronoiCell(802)
+    - VoronoiCell(820)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(870)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(885)
+    - VoronoiCell(857)
+    - VoronoiCell(803)
+    - VoronoiCell(829)
+    - VoronoiCell(830)
+    - VoronoiCell(825)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(825)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(870)
+    - VoronoiCell(885)
+    - VoronoiCell(881)
+    - VoronoiCell(815)
+    - VoronoiCell(797)
+    - VoronoiCell(830)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(881)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(885)
+    - VoronoiCell(891)
+    - VoronoiCell(882)
+    - VoronoiCell(815)
+    - VoronoiCell(825)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(830)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(870)
+    - VoronoiCell(825)
+    - VoronoiCell(797)
+    - VoronoiCell(829)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(797)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(815)
+    - VoronoiCell(825)
+    - VoronoiCell(830)
+    - VoronoiCell(829)
+    - VoronoiCell(787)
+    - VoronoiCell(721)
+    - VoronoiCell(771)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(721)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(717)
+    - VoronoiCell(771)
+    - VoronoiCell(797)
+    - VoronoiCell(787)
+    - VoronoiCell(772)
+    - VoronoiCell(752)
+    - VoronoiCell(732)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(787)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(797)
+    - VoronoiCell(721)
+    - VoronoiCell(772)
+    - VoronoiCell(803)
+    - VoronoiCell(829)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(829)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(830)
+    - VoronoiCell(870)
+    - VoronoiCell(803)
+    - VoronoiCell(787)
+    - VoronoiCell(797)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(803)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(829)
+    - VoronoiCell(870)
+    - VoronoiCell(820)
+    - VoronoiCell(772)
+    - VoronoiCell(787)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(772)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(721)
+    - VoronoiCell(787)
+    - VoronoiCell(820)
+    - VoronoiCell(802)
+    - VoronoiCell(741)
+    - VoronoiCell(752)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(732)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(635)
+    - VoronoiCell(727)
+    - VoronoiCell(721)
+    - VoronoiCell(752)
+    - VoronoiCell(741)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(752)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(732)
+    - VoronoiCell(721)
+    - VoronoiCell(772)
+    - VoronoiCell(741)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(802)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(772)
+    - VoronoiCell(820)
+    - VoronoiCell(857)
+    - VoronoiCell(872)
+    - VoronoiCell(842)
+    - VoronoiCell(828)
+    - VoronoiCell(766)
+    - VoronoiCell(749)
+    - VoronoiCell(741)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(820)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(802)
+    - VoronoiCell(857)
+    - VoronoiCell(803)
+    - VoronoiCell(772)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(872)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(802)
+    - VoronoiCell(857)
+    - VoronoiCell(913)
+    - VoronoiCell(842)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(727)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(732)
+    - VoronoiCell(635)
+    - VoronoiCell(692)
+    - VoronoiCell(741)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(741)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(727)
+    - VoronoiCell(732)
+    - VoronoiCell(752)
+    - VoronoiCell(772)
+    - VoronoiCell(802)
+    - VoronoiCell(749)
+    - VoronoiCell(692)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(692)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(741)
+    - VoronoiCell(727)
+    - VoronoiCell(635)
+    - VoronoiCell(657)
+    - VoronoiCell(715)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(715)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(692)
+    - VoronoiCell(657)
+    - VoronoiCell(686)
+    - VoronoiCell(749)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(749)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(715)
+    - VoronoiCell(741)
+    - VoronoiCell(686)
+    - VoronoiCell(676)
+    - VoronoiCell(700)
+    - VoronoiCell(766)
+    - VoronoiCell(802)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(766)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(700)
+    - VoronoiCell(749)
+    - VoronoiCell(767)
+    - VoronoiCell(828)
+    - VoronoiCell(802)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(828)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(766)
+    - VoronoiCell(802)
+    - VoronoiCell(842)
+    - VoronoiCell(868)
+    - VoronoiCell(867)
+    - VoronoiCell(819)
+    - VoronoiCell(767)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(767)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(828)
+    - VoronoiCell(766)
+    - VoronoiCell(754)
+    - VoronoiCell(774)
+    - VoronoiCell(819)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(913)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(857)
+    - VoronoiCell(919)
+    - VoronoiCell(925)
+    - VoronoiCell(924)
+    - VoronoiCell(842)
+    - VoronoiCell(872)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(842)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(872)
+    - VoronoiCell(802)
+    - VoronoiCell(828)
+    - VoronoiCell(868)
+    - VoronoiCell(924)
+    - VoronoiCell(913)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(924)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(913)
+    - VoronoiCell(925)
+    - VoronoiCell(962)
+    - VoronoiCell(948)
+    - VoronoiCell(868)
+    - VoronoiCell(842)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(962)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(925)
+    - VoronoiCell(924)
+    - VoronoiCell(948)
+    - VoronoiCell(1003)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(1003)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(962)
+    - VoronoiCell(967)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(967)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(1003)
+    - VoronoiCell(948)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(948)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(967)
+    - VoronoiCell(924)
+    - VoronoiCell(868)
+    - VoronoiCell(936)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(868)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(924)
+    - VoronoiCell(948)
+    - VoronoiCell(867)
+    - VoronoiCell(842)
+    - VoronoiCell(828)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(867)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(828)
+    - VoronoiCell(868)
+    - VoronoiCell(819)
+    - VoronoiCell(931)
+    - VoronoiCell(936)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(936)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(948)
+    - VoronoiCell(867)
+    - VoronoiCell(931)
+    - VoronoiCell(973)
+    - VoronoiCell(993)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(993)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(936)
+    - VoronoiCell(973)
+    - VoronoiCell(957)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(973)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(936)
+    - VoronoiCell(931)
+    - VoronoiCell(957)
+    - VoronoiCell(993)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(676)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(686)
+    - VoronoiCell(653)
+    - VoronoiCell(700)
+    - VoronoiCell(749)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(686)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(676)
+    - VoronoiCell(749)
+    - VoronoiCell(715)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(700)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(653)
+    - VoronoiCell(676)
+    - VoronoiCell(671)
+    - VoronoiCell(733)
+    - VoronoiCell(754)
+    - VoronoiCell(749)
+    - VoronoiCell(766)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(754)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(700)
+    - VoronoiCell(733)
+    - VoronoiCell(746)
+    - VoronoiCell(774)
+    - VoronoiCell(767)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(774)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(754)
+    - VoronoiCell(767)
+    - VoronoiCell(746)
+    - VoronoiCell(728)
+    - VoronoiCell(777)
+    - VoronoiCell(819)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(819)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(774)
+    - VoronoiCell(767)
+    - VoronoiCell(828)
+    - VoronoiCell(867)
+    - VoronoiCell(909)
+    - VoronoiCell(861)
+    - VoronoiCell(777)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(777)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(819)
+    - VoronoiCell(861)
+    - VoronoiCell(865)
+    - VoronoiCell(843)
+    - VoronoiCell(801)
+    - VoronoiCell(751)
+    - VoronoiCell(728)
+    - VoronoiCell(774)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(733)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(754)
+    - VoronoiCell(700)
+    - VoronoiCell(671)
+    - VoronoiCell(714)
+    - VoronoiCell(746)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(746)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(733)
+    - VoronoiCell(714)
+    - VoronoiCell(719)
+    - VoronoiCell(728)
+    - VoronoiCell(774)
+    - VoronoiCell(754)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(714)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(733)
+    - VoronoiCell(746)
+    - VoronoiCell(716)
+    - VoronoiCell(671)
+    - VoronoiCell(672)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(716)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(714)
+    - VoronoiCell(672)
+    - VoronoiCell(704)
+    - VoronoiCell(719)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(719)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(716)
+    - VoronoiCell(746)
+    - VoronoiCell(728)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(728)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(719)
+    - VoronoiCell(688)
+    - VoronoiCell(703)
+    - VoronoiCell(751)
+    - VoronoiCell(777)
+    - VoronoiCell(774)
+    - VoronoiCell(746)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(751)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(728)
+    - VoronoiCell(777)
+    - VoronoiCell(801)
+    - VoronoiCell(785)
+    - VoronoiCell(743)
+    - VoronoiCell(756)
+    - VoronoiCell(703)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(704)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(716)
+    - VoronoiCell(672)
+    - VoronoiCell(641)
+    - VoronoiCell(642)
+    - VoronoiCell(667)
+    - VoronoiCell(688)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(688)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(704)
+    - VoronoiCell(667)
+    - VoronoiCell(669)
+    - VoronoiCell(684)
+    - VoronoiCell(703)
+    - VoronoiCell(728)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(703)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(688)
+    - VoronoiCell(728)
+    - VoronoiCell(751)
+    - VoronoiCell(756)
+    - VoronoiCell(743)
+    - VoronoiCell(711)
+    - VoronoiCell(684)
+    - VoronoiCell(659)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(659)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(684)
+    - VoronoiCell(703)
+    - VoronoiCell(711)
+    - VoronoiCell(689)
+    - VoronoiCell(665)
+    - VoronoiCell(597)
+    - VoronoiCell(606)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(684)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(703)
+    - VoronoiCell(688)
+    - VoronoiCell(669)
+    - VoronoiCell(606)
+    - VoronoiCell(659)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(689)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(659)
+    - VoronoiCell(665)
+    - VoronoiCell(683)
+    - VoronoiCell(723)
+    - VoronoiCell(711)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(711)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(689)
+    - VoronoiCell(659)
+    - VoronoiCell(703)
+    - VoronoiCell(743)
+    - VoronoiCell(742)
+    - VoronoiCell(723)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(665)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(597)
+    - VoronoiCell(627)
+    - VoronoiCell(689)
+    - VoronoiCell(659)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(723)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(689)
+    - VoronoiCell(711)
+    - VoronoiCell(760)
+    - VoronoiCell(761)
+    - VoronoiCell(683)
+    - VoronoiCell(745)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(760)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(742)
+    - VoronoiCell(763)
+    - VoronoiCell(761)
+    - VoronoiCell(723)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(742)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(711)
+    - VoronoiCell(760)
+    - VoronoiCell(763)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(743)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(711)
+    - VoronoiCell(703)
+    - VoronoiCell(756)
+    - VoronoiCell(751)
+    - VoronoiCell(785)
+    - VoronoiCell(763)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(756)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(743)
+    - VoronoiCell(751)
+    - VoronoiCell(703)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(801)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(777)
+    - VoronoiCell(751)
+    - VoronoiCell(785)
+    - VoronoiCell(824)
+    - VoronoiCell(843)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(843)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(777)
+    - VoronoiCell(801)
+    - VoronoiCell(824)
+    - VoronoiCell(865)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(865)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(843)
+    - VoronoiCell(777)
+    - VoronoiCell(824)
+    - VoronoiCell(876)
+    - VoronoiCell(892)
+    - VoronoiCell(861)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(892)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(865)
+    - VoronoiCell(876)
+    - VoronoiCell(932)
+    - VoronoiCell(961)
+    - VoronoiCell(951)
+    - VoronoiCell(909)
+    - VoronoiCell(861)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(861)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(892)
+    - VoronoiCell(865)
+    - VoronoiCell(777)
+    - VoronoiCell(819)
+    - VoronoiCell(909)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(909)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(892)
+    - VoronoiCell(861)
+    - VoronoiCell(819)
+    - VoronoiCell(931)
+    - VoronoiCell(957)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(931)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(957)
+    - VoronoiCell(973)
+    - VoronoiCell(936)
+    - VoronoiCell(867)
+    - VoronoiCell(909)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(957)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(909)
+    - VoronoiCell(931)
+    - VoronoiCell(973)
+    - VoronoiCell(993)
+    - VoronoiCell(951)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(951)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(957)
+    - VoronoiCell(909)
+    - VoronoiCell(892)
+    - VoronoiCell(961)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(961)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(951)
+    - VoronoiCell(892)
+    - VoronoiCell(932)
+    - VoronoiCell(980)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(980)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(961)
+    - VoronoiCell(981)
+    - VoronoiCell(984)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(981)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(980)
+    - VoronoiCell(932)
+    - VoronoiCell(949)
+    - VoronoiCell(984)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(932)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(981)
+    - VoronoiCell(961)
+    - VoronoiCell(892)
+    - VoronoiCell(876)
+    - VoronoiCell(899)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(876)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(932)
+    - VoronoiCell(892)
+    - VoronoiCell(865)
+    - VoronoiCell(824)
+    - VoronoiCell(832)
+    - VoronoiCell(858)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(899)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(932)
+    - VoronoiCell(949)
+    - VoronoiCell(912)
+    - VoronoiCell(876)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(824)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(876)
+    - VoronoiCell(865)
+    - VoronoiCell(843)
+    - VoronoiCell(801)
+    - VoronoiCell(832)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(785)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(751)
+    - VoronoiCell(743)
+    - VoronoiCell(763)
+    - VoronoiCell(782)
+    - VoronoiCell(821)
+    - VoronoiCell(801)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(821)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(801)
+    - VoronoiCell(785)
+    - VoronoiCell(782)
+    - VoronoiCell(817)
+    - VoronoiCell(833)
+    - VoronoiCell(832)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(833)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(821)
+    - VoronoiCell(817)
+    - VoronoiCell(796)
+    - VoronoiCell(832)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(832)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(833)
+    - VoronoiCell(821)
+    - VoronoiCell(824)
+    - VoronoiCell(876)
+    - VoronoiCell(858)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(858)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(876)
+    - VoronoiCell(832)
+    - VoronoiCell(796)
+    - VoronoiCell(860)
+    - VoronoiCell(912)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(912)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(899)
+    - VoronoiCell(858)
+    - VoronoiCell(873)
+    - VoronoiCell(923)
+    - VoronoiCell(937)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(949)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(912)
+    - VoronoiCell(899)
+    - VoronoiCell(932)
+    - VoronoiCell(981)
+    - VoronoiCell(984)
+    - VoronoiCell(937)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(984)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(981)
+    - VoronoiCell(980)
+    - VoronoiCell(949)
+    - VoronoiCell(937)
+    - VoronoiCell(999)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(999)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(937)
+    - VoronoiCell(984)
+    - VoronoiCell(953)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(953)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(999)
+    - VoronoiCell(937)
+    - VoronoiCell(923)
+    - VoronoiCell(985)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(937)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(999)
+    - VoronoiCell(984)
+    - VoronoiCell(949)
+    - VoronoiCell(912)
+    - VoronoiCell(923)
+    - VoronoiCell(953)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(985)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(953)
+    - VoronoiCell(955)
+    - VoronoiCell(1022)
+    - VoronoiCell(1028)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(1028)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(985)
+    - VoronoiCell(1022)
+    - VoronoiCell(1026)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(1022)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(985)
+    - VoronoiCell(1028)
+    - VoronoiCell(1026)
+    - VoronoiCell(1006)
+    - VoronoiCell(955)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(1026)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(1022)
+    - VoronoiCell(1028)
+    - VoronoiCell(1031)
+    - VoronoiCell(1011)
+    - VoronoiCell(998)
+    - VoronoiCell(1006)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(1031)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(1026)
+    - VoronoiCell(1011)
+    - VoronoiCell(1034)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(1034)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(1031)
+    - VoronoiCell(1011)
+    - VoronoiCell(1012)
+    - VoronoiCell(1000)
+    - VoronoiCell(1048)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(1006)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(1026)
+    - VoronoiCell(1022)
+    - VoronoiCell(955)
+    - VoronoiCell(950)
+    - VoronoiCell(998)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(955)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(1006)
+    - VoronoiCell(1022)
+    - VoronoiCell(985)
+    - VoronoiCell(954)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(954)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(955)
+    - VoronoiCell(950)
+    - VoronoiCell(896)
+    - VoronoiCell(918)
+    - VoronoiCell(923)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(923)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(954)
+    - VoronoiCell(953)
+    - VoronoiCell(937)
+    - VoronoiCell(912)
+    - VoronoiCell(873)
+    - VoronoiCell(896)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(873)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(923)
+    - VoronoiCell(912)
+    - VoronoiCell(860)
+    - VoronoiCell(871)
+    - VoronoiCell(896)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(860)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(873)
+    - VoronoiCell(858)
+    - VoronoiCell(796)
+    - VoronoiCell(835)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(796)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(860)
+    - VoronoiCell(858)
+    - VoronoiCell(833)
+    - VoronoiCell(782)
+    - VoronoiCell(745)
+    - VoronoiCell(786)
+    - VoronoiCell(817)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(817)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(796)
+    - VoronoiCell(833)
+    - VoronoiCell(821)
+    - VoronoiCell(782)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(782)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(817)
+    - VoronoiCell(796)
+    - VoronoiCell(745)
+    - VoronoiCell(761)
+    - VoronoiCell(763)
+    - VoronoiCell(785)
+    - VoronoiCell(821)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(763)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(761)
+    - VoronoiCell(782)
+    - VoronoiCell(785)
+    - VoronoiCell(743)
+    - VoronoiCell(742)
+    - VoronoiCell(760)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(761)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(763)
+    - VoronoiCell(760)
+    - VoronoiCell(723)
+    - VoronoiCell(745)
+    - VoronoiCell(782)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0
+  - currentCellName: VoronoiCell(745)
+    currentCell: {fileID: 0}
+    cellNameWhatPlayerSee: 
+    neighboresCellsNames:
+    - VoronoiCell(761)
+    - VoronoiCell(723)
+    - VoronoiCell(683)
+    - VoronoiCell(744)
+    - VoronoiCell(796)
+    - VoronoiCell(782)
+    neighboresCells:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    height: 0
+    cellType: 0
+    isBase: 0
+    controlSide: 0
+    buildings: 
+    isAlliesControll: 0
+    countOfAlliesSquads: 0

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 26478491e85aed741991ddb572a49d6e
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - onEnterMaterial: {fileID: 2100000, guid: b62014abc737848498379dbf1503cfe8, type: 2}
+  - onExitMaterial: {fileID: 2100000, guid: 6f6c5a8adda84f248971c88d8082408a, type: 2}
+  - selectedStageMaterial_MouseOnObject: {fileID: 2100000, guid: 1e1427eb1ede0f24a8428f599f0c5720, type: 2}
+  - selectedStageMaterial_MouseOffObject: {fileID: 2100000, guid: f160caad56b100040a8bedaa99a0a92d, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
