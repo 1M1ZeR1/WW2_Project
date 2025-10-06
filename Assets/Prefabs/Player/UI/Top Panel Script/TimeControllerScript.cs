@@ -6,9 +6,6 @@ using UnityEngine;
 
 public class TimeControllerScript : MonoBehaviour
 {
-    [Header("Главный контроллер")]
-    [SerializeField] private GameObject gameControllerObject;
-    private GameController gameControllerScript;
 
     [Header("Год панель")]
     [SerializeField] private GameObject yearPanelObject;
@@ -33,8 +30,7 @@ public class TimeControllerScript : MonoBehaviour
         monthDayPanelObject.TryGetComponent( out monthDayPanelText);
         hourPanelObject.TryGetComponent( out hourPanelText);
 
-        gameControllerObject.TryGetComponent(out gameControllerScript);
-        gameControllerScript.oneHourLeft += OtherTimeTaker;
+        ServiceRegistry.WorkWithController<GameController>().oneHourLeft += OtherTimeTaker;
     }
 
     private void OtherTimeTaker()

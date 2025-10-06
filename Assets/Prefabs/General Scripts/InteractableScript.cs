@@ -15,18 +15,6 @@ public class InteractableScript : MonoBehaviour
     }
     protected ChoiseHelper _choiseHelper = ChoiseHelper.None;
 
-    [Header("Контроллер битв")]
-    [SerializeField] private GameObject battleControllerObject;
-    private BattleController battleController;
-
-    [Header("Контроллер передвижения")]
-    [SerializeField] private GameObject squadMovementCotroller;
-    private SquadMovementMonoBehaviour squadMovementScript;
-
-    [Header("Главный контроллер")]
-    [SerializeField] private GameObject gameControllerObject;
-    private GameController gameController;
-
     private ChoosingScript choosingScript;
     private SmartSelectionSquadsScript smartSelectionSquadsScript;
 
@@ -59,12 +47,6 @@ public class InteractableScript : MonoBehaviour
     {
         debugButton.TryGetComponent(out debugButtonScript);
         messagePanel.TryGetComponent(out messageScript);
-
-        battleControllerObject.TryGetComponent(out battleController);
-
-        squadMovementCotroller.TryGetComponent(out squadMovementScript);
-
-        gameControllerObject.TryGetComponent(out gameController);
 
         choosingScript = GetComponent<ChoosingScript>();
         smartSelectionSquadsScript = GetComponent<SmartSelectionSquadsScript>();
@@ -152,7 +134,7 @@ public class InteractableScript : MonoBehaviour
             {
                 List<AbstractSquad> squadsToDelete = squadsWhatStartChoise.ToList();
 
-                battleController.TryStartBattle(cell, cellWhatStartChoise, squadsWhatStartChoise);
+                ServiceRegistry.WorkWithController<BattleController>().TryStartBattle(cell, cellWhatStartChoise, squadsWhatStartChoise);
                 foreach (var squad in squadsToDelete) { squadsWhatStartChoise.Remove(squad); }
             });
 

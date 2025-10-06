@@ -12,11 +12,6 @@ public class TrainingPanelScript : MonoBehaviour
     [Header("Панель создания")]
     [SerializeField] private GameObject creatingPanel;
 
-
-    [Header("Главный контроллер")]
-    [SerializeField] private GameObject gameController;
-    private GameController gameControllerScript;
-
     protected GameObject _interactableCell;
 
     protected Dictionary<AbstractSquad, GameObject> _squadToCell = new Dictionary<AbstractSquad, GameObject>();
@@ -25,15 +20,13 @@ public class TrainingPanelScript : MonoBehaviour
     {
         PauseScript.SetGameState(GameState.Play);
     }
-    public void GetAllTrainingSqauds(GameObject cell)
+    public void GetAllTrainingSquads(GameObject cell)
     {
         _interactableCell = cell;
 
         ClearList(trainingSquadPanel.transform.parent);
 
-        if(gameControllerScript == null) { gameController.TryGetComponent<GameController>(out gameControllerScript); }
-
-        List<AbstractSquad> trainingSquads = gameControllerScript.GetAllSquadsInTraining(_interactableCell);
+        List<AbstractSquad> trainingSquads = ServiceRegistry.WorkWithController<GameController>().GetAllSquadsInTraining(_interactableCell);
 
         if(trainingSquads != null)
         {
@@ -59,11 +52,11 @@ public class TrainingPanelScript : MonoBehaviour
     }
     public void CreateSquadTrainingPanel(AbstractSquad squad)
     {
-        gameControllerScript.AddSquadInTraining(_interactableCell, squad);
+        ServiceRegistry.WorkWithController<GameController>().AddSquadInTraining(_interactableCell, squad);
 
         CreateTrainingSquad(squad);
 
-        GetAllTrainingSqauds(_interactableCell);
+        GetAllTrainingSquads(_interactableCell);
     }
     public bool CheckAccessToTrain(BuildsEnum buildType)
     {

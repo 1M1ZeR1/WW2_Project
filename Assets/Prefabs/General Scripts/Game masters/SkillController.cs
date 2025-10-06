@@ -16,29 +16,18 @@ public class SkillController : MonoBehaviour
     [Header("Контроллер разведки")]
     [SerializeField] private GameObject explorationObject;
 
-    [Header("Главный контроллер")]
-    [SerializeField] private GameObject gameControllerObject;
-    private GameController gameControllerScript;
-
-    [Header("Контроллер ресурсов")]
-    [SerializeField] private GameObject resourceControllerObject;
-    private ResourcesController resourcesControllerScript;
 
     private delegate void OneSkillSeconsPassed();
     private event OneSkillSeconsPassed timer;
 
     void Start()
     {
-        gameControllerObject.TryGetComponent(out gameControllerScript);
-
         interactableObject.TryGetComponent(out interactableScript);
-
-        resourceControllerObject.TryGetComponent(out resourcesControllerScript);
     }
 
     public void FixSkill(AbstractSquad squad)
     {
-        squad.SetMasters(gameControllerObject,buffsControllerObject,explorationObject);
+        squad.SetMasters(buffsControllerObject,explorationObject);
 
         switch(squad)
         {
@@ -49,7 +38,7 @@ public class SkillController : MonoBehaviour
             case TankSquad tankSquad:
                 SkillWithoutChoise(tankSquad); break;
             case ArtillerySquad artillerySquad:
-                if (resourcesControllerScript.CheckReourcesToSkill(ResourcesController.SkillType_ForCost.Artillary)){StartCoroutine(SkillWithChoise(artillerySquad));}
+                if (ServiceRegistry.WorkWithController<ResourcesController>().CheckReourcesToSkill(ResourcesController.SkillType_ForCost.Artillary)){StartCoroutine(SkillWithChoise(artillerySquad));}
                 break;
             case ScoutSquad scoutSquad:
                 StartCoroutine(SkillWithChoise(scoutSquad)); break;
@@ -57,7 +46,7 @@ public class SkillController : MonoBehaviour
     }
     private void SkillWithoutChoise(AbstractSquad squadUsedSkill)
     {
-        Action usedSkill = squadUsedSkill.UseClassSkill(this,gameControllerScript.GetCellWithThisSquad(squadUsedSkill));
+        Action usedSkill = squadUsedSkill.UseClassSkill(this,ServiceRegistry.WorkWithController<GameController>().GetCellWithThisSquad(squadUsedSkill));
 
         if(usedSkill != null) { usedSkill.Invoke();}
     }
@@ -80,7 +69,7 @@ public class SkillController : MonoBehaviour
         {
             scoutSquad.SetSelectedCell(selectedObject);
 
-            Action usedSkill = scoutSquad.UseClassSkill(this, gameControllerScript.GetCellWithThisSquad(squadUsedSkill));
+            Action usedSkill = scoutSquad.UseClassSkill(this, ServiceRegistry.WorkWithController<GameController>().GetCellWithThisSquad(squadUsedSkill));
 
             if(usedSkill != null) { usedSkill.Invoke(); }
         }

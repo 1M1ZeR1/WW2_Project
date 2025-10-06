@@ -15,16 +15,10 @@ public class BuildMenuUpgradeScript : MonoBehaviour
     [Header("Затемнение построеек")]
     [SerializeField] private GameObject[] blackPanels;
 
-    [Header("Контроллер ресурсов")]
-    [SerializeField] private GameObject resourcesControllerObject;
-    private ResourcesController resourcesControllerScript;
-
     protected GameObject _currentCell;
 
     private void Start()
     {
-        resourcesControllerObject.TryGetComponent(out resourcesControllerScript);
-
         SetPrices();
         gameObject.SetActive(false);
     }
@@ -36,8 +30,8 @@ public class BuildMenuUpgradeScript : MonoBehaviour
             BuildsEnum buildType = panel.GetComponent<BuildItemPanel>().GetBuidType();
 
             buttonsByType.Add(buildType, (panel.Find("BuildButton").gameObject, panel.Find("UpgradeButton").gameObject));
-            buttonsByType[buildType].Item1.transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = resourcesControllerScript.GetBuildingCost(buildType, BuildsLevel.First).ToString();
-            buttonsByType[buildType].Item2.transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = resourcesControllerScript.GetBuildingCost(buildType, BuildsLevel.Second).ToString();
+            buttonsByType[buildType].Item1.transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = ServiceRegistry.WorkWithController<ResourcesController>().GetBuildingCost(buildType, BuildsLevel.First).ToString();
+            buttonsByType[buildType].Item2.transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = ServiceRegistry.WorkWithController<ResourcesController>().GetBuildingCost(buildType, BuildsLevel.Second).ToString();
         }
     }
 

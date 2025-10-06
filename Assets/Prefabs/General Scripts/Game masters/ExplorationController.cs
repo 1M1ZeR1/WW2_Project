@@ -12,10 +12,6 @@ public class ExplorationController : MonoBehaviour
         Buildings
     }
 
-    [Header("Главный контроллер")]
-    [SerializeField] private GameObject gameControllerObject;
-    private GameController gameControllerScript;
-
     [Header("Всплывающее уведомление")]
     [SerializeField] private GameObject messageTaker;
     private MessageScript messageScript;
@@ -41,7 +37,6 @@ public class ExplorationController : MonoBehaviour
 
     private void Start()
     {
-        gameControllerObject.TryGetComponent(out gameControllerScript);
         messageTaker.TryGetComponent(out messageScript);
 
         explorationTypePanelObject.TryGetComponent(out explorationTypePanelScript);
@@ -124,7 +119,7 @@ public class ExplorationController : MonoBehaviour
 
         for(int i = 0; i < countOfSquadsExploration; i++)
         {
-            var newExploratedSquad = gameControllerScript.GetNewEnemySquad(exploretedSquadsOnCell[cell],cell);
+            var newExploratedSquad = ServiceRegistry.WorkWithController<GameController>().GetNewEnemySquad(exploretedSquadsOnCell[cell],cell);
 
             if(newExploratedSquad != null) { exploretedSquadsOnCell[cell].Add(newExploratedSquad); }
         }

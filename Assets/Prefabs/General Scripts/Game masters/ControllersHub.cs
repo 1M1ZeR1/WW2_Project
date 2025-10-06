@@ -18,12 +18,26 @@ public class ControllersHub
     {
         return (T)controllers[typeof(T)];
     }
+    public void Start()
+    {
+        Get<ResourcesController>().Start();
+        Get<GameController>().Start();
+        Get<EnemysController>().Start();
+        Get<MovementController>().Start();
+    }
 
     public ControllersHub()
     {
-        Register(GameObject.FindAnyObjectByType<GameController>());
+        Register(GameObject.FindAnyObjectByType<MonobehaviourMaster>());
+        Register(GameObject.FindAnyObjectByType<CellUIScript>());
 
-        Register(GameObject.FindAnyObjectByType<BattleController>());
+        Register(GameObject.FindAnyObjectByType<FocusOnCellScript>());
+        Register(new ObjectsFactory());
+
+
+        Register(new GameController());
+
+        Register(new BattleController());
 
         Register(new MovementController());
 
@@ -31,20 +45,21 @@ public class ControllersHub
 
         Register(new UnitsSpawner());
 
-        Register(GameObject.FindAnyObjectByType<AAlgorithm>());
+        Register(new AAlgorithm());
 
         Register(new CellController());
 
         Register(new CellInteraction());
 
-        Register(GameObject.FindAnyObjectByType<ResourcesController>());
+        Register(new ResourcesController());
+
         Register(GameObject.FindAnyObjectByType<MessageScript>());
         Register(GameObject.FindAnyObjectByType<WorldOnCanvasScript>());
-        Register(GameObject.FindAnyObjectByType<CellUIScript>());
 
         Register(new BuilderController());
 
         Register(GameObject.FindAnyObjectByType<InteractableScript>());
+        Register(new EnemysController());
     }
 
 }

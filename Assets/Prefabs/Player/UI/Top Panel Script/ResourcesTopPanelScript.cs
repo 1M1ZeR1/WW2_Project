@@ -5,9 +5,6 @@ using UnityEngine;
 
 public class ResourcesTopPanelScript : MonoBehaviour
 {
-    [Header("Контроллер ресурсов")]
-    [SerializeField] private GameObject resourcesControllerObject;
-    private ResourcesController resourcesController;
 
     [Header("Кол-во стройматериалов")]
     [SerializeField] private GameObject buildMaterialPanel;
@@ -31,7 +28,6 @@ public class ResourcesTopPanelScript : MonoBehaviour
 
     private void Awake()
     {
-        resourcesControllerObject.TryGetComponent(out resourcesController);
 
         buildMaterialPanel.TryGetComponent(out buildMaterialText);
         weaponMaterialPanel.TryGetComponent(out weaponMaterialText);
@@ -39,7 +35,7 @@ public class ResourcesTopPanelScript : MonoBehaviour
         peopleMaterialPanel.TryGetComponent(out peopleMaterialText);
         transportMaterialPanel.TryGetComponent(out transportMaterialText);
 
-        resourcesController.ChangedResourceCount += ChangeData;
+        ServiceRegistry.WorkWithController<ResourcesController>().ChangedResourceCount += ChangeData;
     }
 
     public void ChangeData(int count,ResourcesEnum type)

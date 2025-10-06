@@ -4,13 +4,6 @@ using UnityEngine;
 
 public class EventController : MonoBehaviour
 {
-    [Header("Главный контроллер")]
-    [SerializeField] private GameObject gameController;
-    private GameController gameControllerScript;
-
-    [Header("Контроллер ресурсов")]
-    [SerializeField] private GameObject resourcesControllerObject;
-    private ResourcesController resourcesControllerScript;
 
     [Header("Панель ивента")]
     [SerializeField] private GameObject eventPanelObject;
@@ -36,11 +29,7 @@ public class EventController : MonoBehaviour
 
     void Start()
     {
-        gameController.TryGetComponent(out gameControllerScript);
-
-        resourcesControllerObject.TryGetComponent(out resourcesControllerScript);
-
-        gameControllerScript.oneSecondPassed += OtherTimerController;
+        ServiceRegistry.WorkWithController<GameController>().oneSecondPassed += OtherTimerController;
 
         eventPanelObject.TryGetComponent(out eventPanelController);
 
@@ -65,7 +54,7 @@ public class EventController : MonoBehaviour
     private void StartEvent()
     {
         RandomEvent currentEvent = (RandomEvent)eventCreater.CreateEvent(CreateRandomTagsForEvent());
-        eventCreater.CreateActionsForEvent(currentEvent,gameControllerScript.GetAllSquadsInGame().ToArray(), workingCells);
+        eventCreater.CreateActionsForEvent(currentEvent,ServiceRegistry.WorkWithController<GameController>().GetAllSquadsInGame().ToArray(), workingCells);
 
         PauseScript.SetGameState(GameState.Pause);
 
@@ -92,7 +81,7 @@ public class EventController : MonoBehaviour
     }
     private AbstractSquad GetRandomSquad()
     {
-        List<AbstractSquad>? squads = gameControllerScript.GetAllSquadsInGame();
+        List<AbstractSquad>? squads = ServiceRegistry.WorkWithController<GameController>().GetAllSquadsInGame();
 
         if (squads == null)
         {
@@ -103,12 +92,12 @@ public class EventController : MonoBehaviour
     private void GetSuppliesEvent()
     {
         //Добавить множетели
-        float ration = resourcesControllerScript.GetInfluenceRation();
+        float ration = ServiceRegistry.WorkWithController<ResourcesController>().GetInfluenceRation();
 
-        resourcesControllerScript.AddSomeResourcesByType(ResourcesEnum.Building,200+(int)(200*ration));
-        resourcesControllerScript.AddSomeResourcesByType(ResourcesEnum.Weapon, 50 + (int)(100 * ration));
-        resourcesControllerScript.AddSomeResourcesByType(ResourcesEnum.People, 30 + (int)(100 * ration));
-        resourcesControllerScript.AddSomeResourcesByType(ResourcesEnum.Transport, 50 + (int)(100 * ration));
+        ServiceRegistry.WorkWithController<ResourcesController>().AddSomeResourcesByType(ResourcesEnum.Building,200+(int)(200*ration));
+        ServiceRegistry.WorkWithController<ResourcesController>().AddSomeResourcesByType(ResourcesEnum.Weapon, 50 + (int)(100 * ration));
+        ServiceRegistry.WorkWithController<ResourcesController>().AddSomeResourcesByType(ResourcesEnum.People, 30 + (int)(100 * ration));
+        ServiceRegistry.WorkWithController<ResourcesController>().AddSomeResourcesByType(ResourcesEnum.Transport, 50 + (int)(100 * ration));
     }
 
     public void SetWorkingArray(GameObject[] cells)

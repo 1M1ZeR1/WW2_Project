@@ -12,19 +12,9 @@ public class EnemysSpawner : MonoBehaviour
     [SerializeField] private int time;
     protected float _timer;
 
-    [SerializeField] private GameObject gameControllerObject;
-    private GameController gameController;
-
-    [Header("Контроллер противника")]
-    [SerializeField] private GameObject enemysControllerObject;
-    private EnemysController enemysControllerScript;
-
     private void Start()
     {
-        gameControllerObject.TryGetComponent<GameController>(out gameController);
-        enemysControllerObject.TryGetComponent(out enemysControllerScript);
-
-        gameController.oneSecondPassed += OtherTimerController;
+        ServiceRegistry.WorkWithController<GameController>().oneSecondPassed += OtherTimerController;
     }
     private void OtherTimerController()
     {
@@ -48,8 +38,8 @@ public class EnemysSpawner : MonoBehaviour
             InfantrySquad squad = new InfantrySquad(3, Random.Range(10, 25), RandomTransport(), RandomWeapon());
             squad.Side = SideEnum.Enemys;
 
-            enemysControllerScript.AddBot(squad,gameObject);
-            gameController.AddSquadInDictionary(squad, gameObject);
+            ServiceRegistry.WorkWithController<EnemysController>().AddBot(squad,gameObject);
+            ServiceRegistry.WorkWithController<GameController>().AddSquadInDictionary(squad, gameObject);
             return;
         }
         else
@@ -57,8 +47,8 @@ public class EnemysSpawner : MonoBehaviour
             EngineerSquad squad = new EngineerSquad(3, Random.Range(10, 25),RandomTransport(),RandomWeapon());
             squad.Side = SideEnum.Enemys;
 
-            enemysControllerScript.AddBot(squad, gameObject);
-            gameController.AddSquadInDictionary(squad, gameObject);
+            ServiceRegistry.WorkWithController<EnemysController>().AddBot(squad, gameObject);
+            ServiceRegistry.WorkWithController<GameController>().AddSquadInDictionary(squad, gameObject);
             return;
         }
     }

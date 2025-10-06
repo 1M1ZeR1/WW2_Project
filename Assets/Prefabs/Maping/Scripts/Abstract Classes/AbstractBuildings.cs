@@ -29,7 +29,7 @@ public abstract class AbstractBuildings:IName,IType<BuildsEnum>
 
 public class HeadquartersBuild : AbstractBuildings
 {
-    private List<GameObject> cellsInArea = new();
+    public List<GameObject> cellsInArea { get; private set; } = new();
 
     protected int _searchingRadius = 200;
     protected Transform _cellWithThisBuild;
@@ -65,30 +65,64 @@ public class HeadquartersBuild : AbstractBuildings
 
     private void SearchingCells()
     {
-        var findedCells = Physics.OverlapSphere(_cellWithThisBuild.position, _searchingRadius).Select(colider => colider.gameObject).ToList();
+        var findedCells = Physics.OverlapSphere(_cellWithThisBuild.position, _searchingRadius).Select(colider => colider.gameObject).Where(cell => cell.CompareTag("Interactable Cell")).ToList();
 
-        if(cellsInArea.Count == 0) { cellsInArea = findedCells.ToList();AddBonusToCells(); return; }
+        if(cellsInArea.Count == 0) { cellsInArea = findedCells.ToList();
+            foreach (var cell in cellsInArea) { AddBonusToCell(cell); }
+            return; 
+        }
 
         foreach(var cell in findedCells)
         {
             if (cellsInArea.Contains(cell)) continue;
 
             cellsInArea.Add(cell);
-        }
 
-        AddBonusToCells();
+            ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).GetParameter<CellArea>().cellChangedSide += CellInListChangedSide;
+
+            AddBonusToCell(cell);
+        }
     }
-    private void AddBonusToCells()
+
+
+    private void CellInListChangedSide(GameObject cell)
     {
-        foreach(var cell in cellsInArea)
+
+    }
+
+    //Transfer code
+    public void TransferCell(HeadquartersBuild otherHeadquartersBuild, GameObject cell)
+    {
+        cellsInArea.Remove(cell);
+        ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).GetParameter<CellArea>().cellChangedSide -= CellInListChangedSide;
+
+        otherHeadquartersBuild.GetTransfer(cell);
+    }
+    public void GetTransfer(GameObject cell)
+    {
+        cellsInArea.Add(cell);
+
+        ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).GetParameter<CellArea>().cellChangedSide += CellInListChangedSide;
+    }
+
+
+
+    private void AddBonusToCell(GameObject cell)
+    {
+        var cellSquadOnAreaScript = ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).GetParameter<CellSquadsOnArea>();
+        if (cellSquadOnAreaScript != null)
         {
-            var cellSquadOnAreaScript = ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).GetParameter<CellSquadsOnArea>();
-            if(cellSquadOnAreaScript != null)
+            if (CheckSideProperties(cell))
             {
                 cellSquadOnAreaScript.BonusHeadquarters = headquartersBonus;
             }
-            else { Debug.Log($"{cell.name} не настроенна"); }
         }
+        else { Debug.Log($"{cell.name} не настроенна"); }
+    }
+    private bool CheckSideProperties(GameObject cell)
+    {
+        return ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).GetParameter<CellArea>().Side ==
+                    ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(_cellWithThisBuild.gameObject).GetParameter<CellArea>().Side;
     }
 }
 public class CampBuild : AbstractBuildings

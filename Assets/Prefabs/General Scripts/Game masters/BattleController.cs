@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using static BattleController;
 
-public class BattleController : MonoBehaviour
+public class BattleController
 {
     public enum BattleSide
     {
@@ -26,25 +26,11 @@ public class BattleController : MonoBehaviour
     public delegate void OnlyEnemy_SquadInfo(List<AbstractSquad> squads);
     public event OnlyEnemy_SquadInfo OnlyEnemySquadInfo;
 
-    [Header("Главный контроллер")]
-    [SerializeField] private GameObject gameControllerObject;
-    private GameController gameController;
-
-    [Header("Контроллер ресурсов")]
-    [SerializeField] private GameObject resourcesControllerObject;
-    private ResourcesController resourcesController;
-
-    [Header("Canvas битвы")]
-    [SerializeField]private GameObject battleCanvas;
     private WorldOnCanvasScript battleCanvasScript;
 
-    private void Start()
+    public BattleController()
     {
-        gameControllerObject.TryGetComponent(out gameController);
-
-        resourcesControllerObject.TryGetComponent(out resourcesController);
-
-        battleCanvas.TryGetComponent(out battleCanvasScript);
+        battleCanvasScript = Component.FindAnyObjectByType<WorldOnCanvasScript>();
     }
     public void TryStartBattle(GameObject disputedTerritory,GameObject startBattleCell, List<AbstractSquad> squadsStartAttack)
     {
@@ -52,7 +38,7 @@ public class BattleController : MonoBehaviour
 
         GameObject newBattleModule = battleCanvasScript.CreateBattleModule();
 
-        Battle newBattle = new Battle(disputedTerritory, startBattleCell,gameController, newBattleModule.GetComponent<BattleModule>(), squadsStartAttack);
+        Battle newBattle = new Battle(disputedTerritory, startBattleCell, newBattleModule.GetComponent<BattleModule>(), squadsStartAttack);
 
         _cellToBattlemodule.Add(disputedTerritory, newBattleModule);
         _currentBattles.Add(disputedTerritory,newBattle);
@@ -69,7 +55,7 @@ public class BattleController : MonoBehaviour
     {
         foreach(AbstractSquad squad in squads)
         {
-            TryStartBattle(disputedTerritory,gameController.GetCellWithThisSquad(squad),new List<AbstractSquad> { squad });
+            TryStartBattle(disputedTerritory,ServiceRegistry.WorkWithController<GameController>().GetCellWithThisSquad(squad),new List<AbstractSquad> { squad });
         }
     }
 
@@ -118,16 +104,16 @@ public sealed class Battle
 
     public Battle
         (GameObject currentBattleCell, GameObject attackCell, 
-        GameController gameControllerScript,BattleModule battleModuleScript, 
+        BattleModule battleModuleScript, 
         List<AbstractSquad> squadsStartAttack)
     {
         this.currentBattleCell = currentBattleCell;
 
         listOfAttackCells = new List<GameObject>() { attackCell};
 
-        squadsManager = new SquadsManager(gameControllerScript);
+        squadsManager = new SquadsManager();
 
-        foreach(var squad in gameControllerScript.GetAllSquadsOnCell(currentBattleCell))
+        foreach(var squad in ServiceRegistry.WorkWithController<GameController>().GetAllSquadsOnCell(currentBattleCell))
         {
             squadsManager.AddToSquadsInDefence(squad);
         }
@@ -210,11 +196,6 @@ public class SquadsManager
 
     private Dictionary<GameObject, List<AbstractSquad>> attackCellsToSquadsInAttack = new Dictionary<GameObject, List<AbstractSquad>>();
 
-    private GameController gameControllerScript;
-
-    
-    public SquadsManager(GameController gameControllerScript) { this.gameControllerScript = gameControllerScript; }
-
     public void AddToSquadsInDefence(AbstractSquad squad) 
     { 
         squadsInDefence.Add(squad);
@@ -240,11 +221,11 @@ public class SquadsManager
             squad.Action = SquadActions.None;
         }
 
-        gameControllerScript.UpdateSquadInformation_SwipeState(squad);
+        ServiceRegistry.WorkWithController<GameController>().UpdateSquadInformation_SwipeState(squad);
     }
 
-    public void DeleteAllDefenceSquads() { foreach(var squad in squadsInDefence)gameControllerScript.SingleThrasher_Squad(squad); }
-    public void DeleteAllAttackSquads(GameObject cell) { foreach (var squad in attackCellsToSquadsInAttack[cell]) gameControllerScript.SingleThrasher_Squad(squad); }
+    public void DeleteAllDefenceSquads() { foreach(var squad in squadsInDefence)ServiceRegistry.WorkWithController<GameController>().SingleThrasher_Squad(squad); }
+    public void DeleteAllAttackSquads(GameObject cell) { foreach (var squad in attackCellsToSquadsInAttack[cell]) ServiceRegistry.WorkWithController<GameController>().SingleThrasher_Squad(squad); }
     public void RemoveAllAttackSquads(GameObject cell) { attackCellsToSquadsInAttack.Remove(cell); }
 
     public void ResultBattleForDefenders()
@@ -253,11 +234,11 @@ public class SquadsManager
         {
             if (squad.IsDead)
             {
-                gameControllerScript.SingleThrasher_Squad(squad); continue;
+                ServiceRegistry.WorkWithController<GameController>().SingleThrasher_Squad(squad); continue;
             }
 
             SetSquadAction(squad);
-            gameControllerScript.AllowBotToAct(squad);
+            ServiceRegistry.WorkWithController<GameController>().AllowBotToAct(squad);
         }
     }
     public void ResultBattleForAttackers(GameObject cell, GameObject cellTo) 
@@ -266,18 +247,18 @@ public class SquadsManager
         {
             if (squad.IsDead)
             {
-                gameControllerScript.SingleThrasher_Squad(squad); continue;
+                ServiceRegistry.WorkWithController<GameController>().SingleThrasher_Squad(squad); continue;
             }
 
             squad.Action = SquadActions.None;
 
-            gameControllerScript.UpdateSquadInformation_ChangeCell(squad, cell, cellTo);
-            gameControllerScript.AllowBotToAct(squad);
+            ServiceRegistry.WorkWithController<GameController>().UpdateSquadInformation_ChangeCell(squad, cell, cellTo);
+            ServiceRegistry.WorkWithController<GameController>().AllowBotToAct(squad);
         }   
     } 
 
     public void HelpSquadSwipeCell(AbstractSquad squad, GameObject cellFrom, GameObject cellTo)
     {
-        gameControllerScript.UpdateSquadInformation_ChangeCell(squad, cellFrom, cellTo);
+        ServiceRegistry.WorkWithController<GameController>().UpdateSquadInformation_ChangeCell(squad, cellFrom, cellTo);
     }
 }

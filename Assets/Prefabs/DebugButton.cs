@@ -7,14 +7,9 @@ using UnityEngine;
 public class DebugButton : MonoBehaviour
 {
     protected GameObject selectedCell;
-    [SerializeField] private GameObject gameControllerObject;
-    private GameController gameController;
 
     [SerializeField] private SquadEnum choisedSquad = SquadEnum.None;
-    private void Start()
-    {
-        gameControllerObject.TryGetComponent<GameController>(out gameController);
-    }
+
 
     public void SpawnUnit()
     {

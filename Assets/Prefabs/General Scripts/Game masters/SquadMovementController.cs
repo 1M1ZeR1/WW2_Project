@@ -5,18 +5,6 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class SquadMovementMonoBehaviour : MonoBehaviour
-{
-    [SerializeField] private CellUIScript cellUIScript;
-    [SerializeField]private AAlgorithm aAlgorithm;
-
- 
-    private void Start()
-    {
-        ServiceRegistry.WorkWithController<MovementController>().SetWorkers(aAlgorithm,cellUIScript.UpdatePanelInfo, this);
-    }
-}
-
 public interface ICoroutineAction
 {
     IEnumerator Execute();
@@ -24,21 +12,15 @@ public interface ICoroutineAction
 
 public class MovementController
 {
-    private AAlgorithm aAlgorithm;
     private Action<GameObject> updateSquadsAction;
-
-    private MonoBehaviour coroutineStarter;//СДЕЛАТЬ ОТДЕЛЬНЫЙ COROUTINE HOST для запуска и контроля всех коротин в игре!!!!!
 
     protected Dictionary<AbstractSquad, SquadMovement> _squadAndThierMovement = new();
 
     private Dictionary<AbstractSquad,Action<AbstractSquad,GameObject>> squadsNotification = new();
 
-    public void SetWorkers(AAlgorithm aAlgorithm, Action<GameObject> actionToUpdateInfo, MonoBehaviour coroutineStarter)
+    public void Start()
     {
-        this.aAlgorithm = aAlgorithm;
-        updateSquadsAction = actionToUpdateInfo;
-
-        this.coroutineStarter = coroutineStarter;
+        updateSquadsAction = ServiceRegistry.WorkWithController<CellUIScript>().UpdatePanelInfo;
     }
 
     public void AddMovementForSquad(GameObject startCell, GameObject finishCell, AbstractSquad squad)
@@ -51,7 +33,7 @@ public class MovementController
 
         if (squad.Side == SideEnum.Enemys) 
         {
-            SquadMovement newMovement = new SquadMovement(aAlgorithm.CreateWay_Enemy(startCell, finishCell),squad);
+            SquadMovement newMovement = new SquadMovement(ServiceRegistry.WorkWithController<AAlgorithm>().CreateWay_Enemy(startCell, finishCell),squad);
             _squadAndThierMovement.Add(squad, newMovement);
 
             newMovement.squadEndMovement += (AbstractSquad squad, GameObject cell) =>
@@ -61,11 +43,11 @@ public class MovementController
                 if (squadsNotification.ContainsKey(squad)) { squadsNotification[squad].Invoke(squad, cell); squadsNotification.Remove(squad); }
             };
 
-            coroutineStarter.StartCoroutine(newMovement.Execute()); 
+            ServiceRegistry.WorkWithController<MonobehaviourMaster>().CoroutineStarter(newMovement.Execute()); 
         }
         else 
         {
-            SquadMovement newMovement = new SquadMovement(aAlgorithm.CreateWay(startCell, finishCell), squad);
+            SquadMovement newMovement = new SquadMovement(ServiceRegistry.WorkWithController<AAlgorithm>().CreateWay(startCell, finishCell), squad);
             _squadAndThierMovement.Add(squad, newMovement);
 
             newMovement.squadEndMovement += (AbstractSquad squad, GameObject cell) =>
@@ -75,7 +57,7 @@ public class MovementController
                 if (squadsNotification.ContainsKey(squad)) { squadsNotification[squad].Invoke(squad, cell); squadsNotification.Remove(squad); }
             };
 
-            coroutineStarter.StartCoroutine(newMovement.Execute());
+            ServiceRegistry.WorkWithController<MonobehaviourMaster>().CoroutineStarter(newMovement.Execute());
         }
     }
 

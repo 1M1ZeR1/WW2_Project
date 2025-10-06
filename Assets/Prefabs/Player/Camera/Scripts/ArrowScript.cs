@@ -19,27 +19,10 @@ public class ArrowScript : MonoBehaviour
 
     protected AbstractSquad _squad;
 
-    [SerializeField] private GameObject gameController;
-    private GameController gameControllerScript;
-
-    private void Start()
-    {
-        gameController.TryGetComponent<GameController>(out gameControllerScript);
-
-        //gameControllerScript.oneSecondPassed += OtherTimerController;
-    }
     private void Update()
     {
         if (PauseScript.CurrentGameState != GameState.Play) { return; }
         if (_isMove)
-        {
-            FillArrow();
-        }
-    }
-    private void OtherTimerController()
-    {
-        if (PauseScript.CurrentGameState != GameState.Play) { return; }
-        if(_isMove)
         {
             FillArrow();
         }

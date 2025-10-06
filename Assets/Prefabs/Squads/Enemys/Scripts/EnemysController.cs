@@ -4,7 +4,7 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class EnemysController : MonoBehaviour
+public class EnemysController
 {
     protected Dictionary<AbstractSquad,GameObject> _squadToCell = new Dictionary<AbstractSquad, GameObject>();
 
@@ -18,9 +18,9 @@ public class EnemysController : MonoBehaviour
 
     private int difficulty = 1;
 
-    void Start()
+    public void Start()
     {
-        StartCoroutine(baseCollector());
+        ServiceRegistry.WorkWithController<MonobehaviourMaster>().CoroutineStarter(baseCollector());
 
         ServiceRegistry.WorkWithController<BattleController>().SideOnCellWasChanged += CapturedCellListener;
 
@@ -90,8 +90,6 @@ public class EnemysController : MonoBehaviour
         if (!_capturedCells[selectedCell]) { return GetRandomCapturedCell(); }
         else { return selectedCell; }
     }
-
-    public void StartCoroutineFromTree(IEnumerator coroutine) { StartCoroutine(coroutine); }
 }
 
 public class DecisionTreeController
@@ -335,7 +333,7 @@ public class DecisionAction_ReturnTerritory:DecisionAction,IDecisionAction_WorkW
 
     public void CoroutineWorker()
     {
-        enemysControllerScript.StartCoroutineFromTree(Cooldown(30 - enemysControllerScript.GetDifficulty()));
+        ServiceRegistry.WorkWithController<MonobehaviourMaster>().CoroutineStarter(Cooldown(30 - enemysControllerScript.GetDifficulty()));
     }
     private IEnumerator Cooldown(int count)
     {

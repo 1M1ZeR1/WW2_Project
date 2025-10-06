@@ -4,11 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class AAlgorithm : MonoBehaviour
+public class AAlgorithm
 {
-
-    [Header("Пенальти")]
-    [SerializeField] private int penalty;
+    private int penalty = 20;
 
     protected static List<GameObject> _cells;
 

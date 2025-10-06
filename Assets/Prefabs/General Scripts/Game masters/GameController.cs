@@ -5,7 +5,7 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class GameController : MonoBehaviour
+public class GameController
 {
     public delegate void GameTimer();
     public GameTimer oneSecondPassed;
@@ -19,10 +19,6 @@ public class GameController : MonoBehaviour
     public event CellCaptured SideOnCellWasChanged;
 
     private Dictionary<AbstractSquad,GameObject> squadsDictionary = new Dictionary<AbstractSquad,GameObject>();
-
-    [Header("Контроллер противника")]
-    [SerializeField] private GameObject enemysControllerObject;
-    private EnemysController enemysControllerScript;
 
     private Dictionary<GameObject,List<AbstractSquad>> campsAndThereTrainingSquads = new Dictionary<GameObject, List<AbstractSquad>>();
 
@@ -42,22 +38,20 @@ public class GameController : MonoBehaviour
     public delegate void SquadDictionaryHasChanged_SquadRemoved(AbstractSquad squad);
     public event SquadDictionaryHasChanged_SquadRemoved squadRemovedEvent;
 
-    [Header("Сетка клеток")]
-    [SerializeField] private GameObject cellGrid;
-
-    private void Awake()
+    public void Start()
     {
-        for(int i = 0; i < cellGrid.transform.childCount; i++)
+        Transform cellGrid = GameObject.Find("2 Layer(Grid)").transform;
+
+        for(int i = 0; i < cellGrid.childCount; i++)
         {
-            cellsList.Add(cellGrid.transform.GetChild(i).gameObject);
+            cellsList.Add(cellGrid.GetChild(i).gameObject);
         }
 
-        enemysControllerObject.TryGetComponent(out enemysControllerScript);
-
-        StartCoroutine(LoadPreset());
+        ServiceRegistry.WorkWithController<MonobehaviourMaster>().CoroutineStarter(LoadPreset());
+        ServiceRegistry.WorkWithController<MonobehaviourMaster>().actionsToUpdate.Add(Update);
     }
 
-    protected IEnumerator LoadPreset() { yield return new WaitForSeconds(0.5f);BuildLoader.LoadPreset(GameObject.Find("Enemys Master").GetComponent<EnemysController>()); }
+    protected IEnumerator LoadPreset() { yield return new WaitForSeconds(0.5f);BuildLoader.LoadPreset(); }
     private void Update()
     {
         _timer += Time.deltaTime;
@@ -96,7 +90,7 @@ public class GameController : MonoBehaviour
         squadsDictionary.Add(squad,cell);
         dictionaryIncreased.Invoke(squad,cell);
 
-        if(squad.Side == SideEnum.Enemys) { enemysControllerScript.AddBot(squad,cell); }
+        if(squad.Side == SideEnum.Enemys) { ServiceRegistry.WorkWithController<EnemysController>().AddBot(squad,cell); }
     }
     public void AddSquadInDictionary_Safety(AbstractSquad squad, GameObject cell)
     {
@@ -105,14 +99,14 @@ public class GameController : MonoBehaviour
             squadsDictionary[squad] = cell;
             dictionaryIncreased.Invoke(squad, cell);
 
-            if (squad.Side == SideEnum.Enemys) { enemysControllerScript.SetCell(squad, cell); }
+            if (squad.Side == SideEnum.Enemys) { ServiceRegistry.WorkWithController<EnemysController>().SetCell(squad, cell); }
         }
         else
         {
             squadsDictionary.Add(squad, cell);
             if(dictionaryIncreased != null)dictionaryIncreased.Invoke(squad, cell);
 
-            if (squad.Side == SideEnum.Enemys) { enemysControllerScript.AddBot(squad, cell); }
+            if (squad.Side == SideEnum.Enemys) { ServiceRegistry.WorkWithController<EnemysController>().AddBot(squad, cell); }
         }
     }
     public void RemoveSquadFromDictionary(AbstractSquad squad, GameObject cell)
@@ -129,7 +123,7 @@ public class GameController : MonoBehaviour
 
             if(squad.Side == SideEnum.Enemys)
             {
-                enemysControllerScript.SetCell(squad, cellTo);
+                ServiceRegistry.WorkWithController<EnemysController>().SetCell(squad, cellTo);
             }
         }
     }
@@ -169,7 +163,7 @@ public class GameController : MonoBehaviour
     }
     public List<AbstractSquad> GetAllEnemysOnCell(GameObject cell)
     {
-        return enemysControllerScript.GetAllEnemysOnCell(cell);
+        return ServiceRegistry.WorkWithController<EnemysController>().GetAllEnemysOnCell(cell);
     }
     public GameObject GetCellWithThisSquad(AbstractSquad squad) { return squadsDictionary[squad]; }
 
@@ -188,7 +182,7 @@ public class GameController : MonoBehaviour
 
     public void AllowBotToAct(AbstractSquad squad)
     {
-        enemysControllerScript.AllowAll(squad);
+        ServiceRegistry.WorkWithController<EnemysController>().AllowAll(squad);
     }
 
 

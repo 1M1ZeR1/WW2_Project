@@ -5,18 +5,6 @@ using UnityEngine;
 
 public class QuestController : MonoBehaviour
 {
-    [Header("Главный контроллер")]
-    [SerializeField] private GameObject gameControllerObject;
-    protected GameController _gameControllerScript;
-
-    [Header("Контроллер битв")]
-    [SerializeField] private GameObject battleControllerObject;
-    protected BattleController _battleControllerScript;
-
-    [Header("Контроллер ресурсов")]
-    [SerializeField] private GameObject resourcesControllerObject;
-    protected ResourcesController _resourcesControllerScript;
-
     [SerializeField] private int timeToGetNewSecondaryQuest;
 
     [Header("Держатель времени")]
@@ -32,10 +20,6 @@ public class QuestController : MonoBehaviour
     protected float _timer;
     void Start()
     {
-        gameControllerObject.TryGetComponent(out _gameControllerScript);
-        battleControllerObject.TryGetComponent(out _battleControllerScript);
-        resourcesControllerObject.TryGetComponent(out _resourcesControllerScript);
-
         timeTaker.TryGetComponent(out timeControllerScript);
         questUI.TryGetComponent(out questUIScript);
 
@@ -70,8 +54,8 @@ public class QuestController : MonoBehaviour
         {
             if (_globalQuests[0].GetType() == typeof(CaptureCellQuest)) 
             {
-                _battleControllerScript.SideOnCellWasChanged += ChechCapturedCellInQuest;
-                _gameControllerScript.SideOnCellWasChanged += ChechCapturedCellInQuest;
+                ServiceRegistry.WorkWithController<BattleController>().SideOnCellWasChanged += ChechCapturedCellInQuest;
+                ServiceRegistry.WorkWithController<GameController>().SideOnCellWasChanged += ChechCapturedCellInQuest;
             }
             InvokeQuest(_globalQuests[0]);
         }
@@ -87,7 +71,7 @@ public class QuestController : MonoBehaviour
 
                     foreach(var itemReward in captureQuest.GetReward())
                     {
-                        _resourcesControllerScript.AddSomeResourcesByType(itemReward.Key, itemReward.Value);
+                        ServiceRegistry.WorkWithController<ResourcesController>().AddSomeResourcesByType(itemReward.Key, itemReward.Value);
                     }
 
                     _startedQuests.Remove(quest);

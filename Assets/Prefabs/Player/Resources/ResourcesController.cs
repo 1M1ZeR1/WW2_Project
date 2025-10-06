@@ -1,14 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ResourcesController : MonoBehaviour
+public class ResourcesController
 {
-    [Header("Кол-во влияния за захват клетки")]
-    [SerializeField] private int influenceReward;
+    [SerializeField] private int influenceReward = 50;
 
-    [Header("Панель с изменением ресурсов")]
-    [SerializeField] private GameObject resourcesChangesPanel;
     private ResourcesUIScript resourcesUIScript;
 
     protected InfluenceController influenceController = new InfluenceController();
@@ -17,8 +15,7 @@ public class ResourcesController : MonoBehaviour
     protected TransportResource transportResource = new TransportResource(0);
     protected PeopleResource peopleResource = new PeopleResource(0);
 
-    public delegate void ChangedCountResource(int count, ResourcesEnum type);
-    public event ChangedCountResource ChangedResourceCount;
+    public Action<int, ResourcesEnum> ChangedResourceCount;
 
     protected Dictionary<(BuildsEnum,BuildsLevel), int> _buildCost = new Dictionary<(BuildsEnum, BuildsLevel), int> 
     {
@@ -41,10 +38,12 @@ public class ResourcesController : MonoBehaviour
         {SkillType_ForCost.Artillary, 50 }
     };
 
-    void Start()
+    public ResourcesController()
     {
-        resourcesChangesPanel.TryGetComponent(out resourcesUIScript);
-
+        resourcesUIScript = GameObject.FindFirstObjectByType<ResourcesUIScript>().GetComponent<ResourcesUIScript>();
+    }
+    public void Start()
+    {
         ChangedResourceCount.Invoke(influenceController.GetInfluenceCount(), ResourcesEnum.Influence);
         ChangedResourceCount.Invoke(weaponResource.GetCount(), ResourcesEnum.Weapon);
         ChangedResourceCount.Invoke(buildingResource.GetCount(), ResourcesEnum.Building);

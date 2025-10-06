@@ -63,7 +63,7 @@ public class CellParametersHandler:ICellParser,IParametersHandlerParser
     }
     protected void CellAreaRegistry()
     {
-        var newCellAreaObject = new CellArea(this);
+        var newCellAreaObject = new CellArea(this,this);
 
         savedParameters.Add(typeof(CellArea), newCellAreaObject);
         savedParameters.Add(typeof(ISide), newCellAreaObject);
@@ -240,6 +240,7 @@ public class CellMovementParameters
 public class CellDiscription
 {
     private ICellParser cellParser;
+    private string cellType = "";
 
     public CellDiscription(ICellParser cellParser)
     {
@@ -249,10 +250,17 @@ public class CellDiscription
     private string cellName;
 
 
-    public void SetCellName(string name) { cellName = name; }
+    public void SetCellName(string name) { cellName = name; cellType = ServiceRegistry.WorkWithController<CellController>().
+            WorkWithCell<CellParametersHandler>(cellParser.GetCellWorkWith()).GetParameter<CellType>().
+            ConntectWithAbstractCell().GetTypeCell();
+    }
     public string GetCellName() { return cellName; }
+    public string GetCellType() { return cellType; }
 
-    public void SetBasicCellName() { cellName = ServiceRegistry.WorkWithController<CellController>().
+    public void SetBasicCellName() {
+        cellName = $"Неизвестная {ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cellParser.GetCellWorkWith()).GetParameter<CellType>().ConntectWithAbstractCell().GetTypeCell()}";
+
+        cellType = ServiceRegistry.WorkWithController<CellController>().
             WorkWithCell<CellParametersHandler>(cellParser.GetCellWorkWith()).GetParameter<CellType>().
             ConntectWithAbstractCell().GetTypeCell();
     }
@@ -268,13 +276,23 @@ public class CellArea:ISide
 {
     protected IParametersHandlerParser _parser;
 
-    public CellArea(IParametersHandlerParser parser)
+    protected ICellParser _cellParser;
+
+    public Action<GameObject> cellChangedSide;
+
+    public CellArea(IParametersHandlerParser parser, ICellParser cellParser)
     {
         _parser = parser;
+        _cellParser = cellParser;
     }
 
 
-    public SideEnum Side { get; set; } = SideEnum.None;
+    private SideEnum _side = SideEnum.None;
+    public SideEnum Side
+    {
+        get { return _side;}
+        set { _side = value; cellChangedSide?.Invoke(_cellParser.GetCellWorkWith()); }
+    }
 
     private List<GameObject> cellNeighbores = new List<GameObject>();
 
@@ -304,7 +322,7 @@ public class CellBuildings
 
     public CellBuildings(ICellParser cellParser) { this.cellParser = cellParser; }
 
-    private Dictionary<BuildsEnum, AbstractBuildings> builds = new Dictionary<BuildsEnum, AbstractBuildings>();
+    public Dictionary<BuildsEnum, AbstractBuildings> builds { get; private set; } = new();
 
     public Dictionary<BuildsEnum, bool> beenBuildingBuilt { get; private set; } = new()
     {

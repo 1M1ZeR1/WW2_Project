@@ -68,7 +68,7 @@ public class MapLoader : EditorWindow
     [MenuItem("Tools/Load map preset")]
     static void LoadPresetWithMenu()
     {
-        BuildLoader.LoadPreset(GameObject.Find("Enemys Master").GetComponent<EnemysController>());
+        BuildLoader.LoadPreset();
     }
    
     [MenuItem("Tools/Save working cells")]
@@ -84,7 +84,7 @@ public class MapLoader : EditorWindow
 
 public class BuildLoader
 {
-    public static void LoadPreset(EnemysController enemysController)
+    public static void LoadPreset()
     {
         ParametersCellsDataHolder parametersHolder = Resources.Load<ParametersCellsDataHolder>("CellsParameters_V1");
         if (parametersHolder == null) { Debug.Log("‘‡ÈÎ ÔÛÒÚ"); return; }
@@ -98,7 +98,7 @@ public class BuildLoader
 
             ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).SetParameters(cell);
 
-            ConfigureCell(cell, parameter,enemysController);
+            ConfigureCell(cell, parameter);
         }
 
         AAlgorithm.SetAllCells(allCells.ToList());
@@ -106,7 +106,7 @@ public class BuildLoader
         PauseScript.SetGameState(GameState.Play);
         Debug.Log("«¿√–”« ¿ œ–≈—≈“¿ «¿ ŒÕ◊≈ÕÕ¿.");
     }
-    static void ConfigureCell(GameObject cell, Parameters parameters, EnemysController enemysController)
+    static void ConfigureCell(GameObject cell, Parameters parameters)
     {
         if (parameters == null)
         {
@@ -157,7 +157,7 @@ public class BuildLoader
                 ConfigurateCell_Type(CellTypes_enum.Plain);
         }
 
-        if (parameters.cellNameWhatPlayerSee == null)
+        if (parameters.cellNameWhatPlayerSee == null || parameters.cellNameWhatPlayerSee == "")
         {
             ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).
                 GetParameter<CellDiscription>().SetBasicCellName();
@@ -198,7 +198,7 @@ public class BuildLoader
         }
         if (parameters.controlSide == ControlSide.allies)
         {
-            enemysController.AddToCapturedCell_Safety(cell);
+            ServiceRegistry.WorkWithController<EnemysController>().AddToCapturedCell_Safety(cell);
             for (int i = 0; i < Random.Range(1, ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).GetParameter<CellSquadsOnArea>().GetCountCurrentMax().Item2); i++)
             {
                 ServiceRegistry.WorkWithController<UnitsSpawner>().SpawnSquadOnCell(SideEnum.Enemys, cell);
@@ -216,5 +216,9 @@ public static class ServiceRegistry
     public static void Initialize()
     {
         ControllersHub = new ControllersHub();
+    }
+    public static void Start()
+    {
+        ControllersHub.Start();
     }
 }

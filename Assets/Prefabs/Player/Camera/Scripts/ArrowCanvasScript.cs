@@ -10,19 +10,10 @@ public class ArrowCanvasScript : MonoBehaviour
     [Header("Спрайт стрелки(Противник)")]
     [SerializeField] private GameObject arrow_Enemys;
 
-    [Header("Главный контроллер")]
-    [SerializeField] private GameObject GameControllerObject;
-    private GameController gameControllerScript;
-
     public delegate void UpdateSquadInfo(AbstractSquad squad);
     public event UpdateSquadInfo squadUpdateRequest;
 
     [SerializeField] private float timer;
-
-    private void Start()
-    {
-        GameControllerObject.TryGetComponent<GameController>(out gameControllerScript);
-    }
 
     public void CreateArrow(Vector3 startPosition, Vector3 endPosition, float speed,AbstractSquad squad)
     {

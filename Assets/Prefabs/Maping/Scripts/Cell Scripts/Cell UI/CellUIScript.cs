@@ -16,9 +16,6 @@ public class CellUIScript : MonoBehaviour
     [Header("Главное UI окно")]
     [SerializeField] private GameObject informationPanel;
 
-    [Header("Главный контроллер")]
-    [SerializeField]private GameController gameController;
-
     [Header("Контроллер навыков")]
     [SerializeField] private GameObject skillControllerObject;
     private SkillController skillControllerScript;
@@ -30,9 +27,6 @@ public class CellUIScript : MonoBehaviour
     protected TrainingPanelScript _trainingPanelScript;
     [SerializeField] private SquadsPresetPanelScript _squadsPresetPanelScript;
 
-    [Header("Контроллер построеек")]
-    [SerializeField] private GameObject buildingControllerObject;
-    private BuildingsController buildingsControllerScript;
 
     [Header("Держатель типовых бафов")]
     [SerializeField] private GameObject buffsTaker;
@@ -46,9 +40,9 @@ public class CellUIScript : MonoBehaviour
 
     void Start()
     {
-        foreach(var cell in gameController.GetGlobalList())
+        foreach(var cell in ServiceRegistry.WorkWithController<GameController>().GetGlobalList())
         {
-            var newCellPanelObject = new CellPanel(cell, gameController, this);
+            var newCellPanelObject = new CellPanel(cell, this);
 
             cellsAndTheirPanels.Add(cell, newCellPanelObject);
             
@@ -104,11 +98,10 @@ public class CellUIScript : MonoBehaviour
 
         if(_currentInteractionCell == cell) { informationPanel.SetActive(false); CameraMovementScript.UnBlockMovement(); nameCell.text = "";_currentInteractionCell = null; return; }
 
-        var cellTypeComponent = ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).GetParameter<CellType>();
-        var cellDiscriptionComponent = ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).GetParameter<CellDiscription>();
+        SetParent(panelSquad.transform.parent, cell);
 
-        PrintInformation(nameCell, $"{cellDiscriptionComponent.GetCellName()}");
-        PrintInformation(typeCell, $"Тип: {cellTypeComponent.GetType()}");
+        PrintInformation(nameCell, $"{ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).GetParameter<CellDiscription>().GetCellName()}");
+        PrintInformation(typeCell, $"Тип: {ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).GetParameter<CellDiscription>().GetCellType()}");
         GetBuffsCell(cell);
 
         ClearList(scrollViewerSquads.transform);
@@ -170,7 +163,7 @@ public class CellUIScript : MonoBehaviour
     {
         cellsAndTheirPanels[cell].ShowInformation();
     }
-    private void ClearList(Transform transformToClean)
+    public void ClearList(Transform transformToClean)
     {
         foreach (Transform child in transformToClean)
         {
@@ -222,6 +215,8 @@ public class CellUIScript : MonoBehaviour
         }
     }
 
+    public void HideInformationPanel() { informationPanel.SetActive(false); }
+
     //Панели с отрядами
 
     [Header("Главная UI панель отряда")]
@@ -254,8 +249,8 @@ public class CellUIScript : MonoBehaviour
     {
         trainingPanel.SetActive(true);
 
-        _trainingPanelScript.GetAllTrainingSqauds(_currentInteractionCell);
-        _squadsPresetPanelScript.ShowList();
+        //_trainingPanelScript.GetAllTrainingSquads(_currentInteractionCell);
+        //_squadsPresetPanelScript.ShowList();
     }
     public void HideTrainingPanel()
     {
@@ -269,6 +264,11 @@ public class CellUIScript : MonoBehaviour
     private void UpdateCountCurrentMaxSquads(GameObject cell)
     {
         countCurrentMaxSquads.text = ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).GetParameter<CellDiscription>().GetCurrentMaxCountOfSquads_String();
+    }
+
+    public void SetParent(Transform parent, GameObject cell)
+    {
+        cellsAndTheirPanels[cell].SwipeParent(parent);
     }
 }
 
@@ -284,9 +284,11 @@ public class CellPanel
     private Action<SquadPanel,GameObject> swipeHelperFromController;
     private Action<GameObject> invokeUpdateEvent;
 
-    public CellPanel(GameObject cell, GameController gameController, CellUIScript cellUIScript)
+    public CellPanel(GameObject cell, CellUIScript cellUIScript)
     {
         _currentCell = cell;
+
+        GameController gameController = ServiceRegistry.WorkWithController<GameController>();
 
         gameController.dictionaryUpdatedEvent += UpdateSquadsPanels;
         gameController.dictionaryIncreased += AddSquadsPanels;
@@ -372,6 +374,14 @@ public class CellPanel
     {
         squadsObjectsStateUse[squadPanel] = false;
     }
+
+    public void SwipeParent(Transform transform)
+    {
+        foreach (var squad in squadsObjects)
+        {
+            squad.Value.SwipeParent(transform);
+        }
+    }
 }
 public class SquadPanel : IUIConstructor
 {
@@ -426,6 +436,7 @@ public class SquadPanel : IUIConstructor
     public AbstractSquad GetSquad() { return squadForPanel; }
 
     public void SwitchActiveState(bool state) { if (squadForPanel.Side != SideEnum.Allies) return; squadPanel.SetActive(state); }
+    public void SwipeParent(Transform parent) { squadPanel.transform.SetParent(parent); }
 }
 
 public interface IUIConstructor

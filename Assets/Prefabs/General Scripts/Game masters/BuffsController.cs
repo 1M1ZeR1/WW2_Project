@@ -5,10 +5,6 @@ using UnityEngine;
 
 public class BuffsController : MonoBehaviour
 {
-    [Header("Главный контроллер")]
-    [SerializeField] private GameObject gameControllerObject;
-    private GameController gameControllerScript;
-
     [Header("Контроллер времени")]
     [SerializeField] private GameObject timeControllerObject;
     private TimeControllerScript timeControllerScript;
@@ -17,7 +13,6 @@ public class BuffsController : MonoBehaviour
 
     private void Start()
     {
-        gameControllerObject.TryGetComponent(out gameControllerScript);
         timeControllerObject.TryGetComponent(out timeControllerScript);
 
         timeControllerScript.OnHourHasPassed += HourHasPassed;

@@ -8,4 +8,8 @@ public class GameLoader : MonoBehaviour
     {
         ServiceRegistry.Initialize();
     }
+    private void Start()
+    {
+        ServiceRegistry.Start();
+    }
 }
