@@ -285,16 +285,16 @@ public class MapConfigurator : MonoBehaviour
     {
         if (context.performed)
         {
-            if (currentDictionary[currentSelectedCell].buildings.Any(x => x is BuildsEnum.Foxhole))
-            {
-                Debug.Log($"”дал€ю:Foxhole с клетки:{currentSelectedCell}");
-                currentDictionary[currentSelectedCell].buildings.RemoveAll(x => x is BuildsEnum.Foxhole);
-            }
-            else
-            {
-                Debug.Log($"ƒобавл€ю:Foxhole на клетку:{currentSelectedCell}");
-                currentDictionary[currentSelectedCell].buildings.Add(BuildsEnum.Foxhole);
-            }
+            //if (currentDictionary[currentSelectedCell].buildings.Any(x => x is BuildsEnum.Foxhole))
+            //{
+            //    Debug.Log($"”дал€ю:Foxhole с клетки:{currentSelectedCell}");
+            //    currentDictionary[currentSelectedCell].buildings.RemoveAll(x => x is BuildsEnum.Foxhole);
+            //}
+            //else
+            //{
+            //    Debug.Log($"ƒобавл€ю:Foxhole на клетку:{currentSelectedCell}");
+            //    currentDictionary[currentSelectedCell].buildings.Add(BuildsEnum.Foxhole);
+            //}
             CameraMovementScript.UnBlockMovement();
             ShowAllConfiguredCells();
         }
@@ -303,16 +303,16 @@ public class MapConfigurator : MonoBehaviour
     {
         if (context.performed)
         {
-            if (currentDictionary[currentSelectedCell].buildings.Any(x => x is BuildsEnum.Camp))
-            {
-                Debug.Log($"”дал€ю:CampBuild с клетки:{currentSelectedCell}");
-                currentDictionary[currentSelectedCell].buildings.RemoveAll(x => x is BuildsEnum.Camp);
-            }
-            else
-            {
-                Debug.Log($"ƒобавл€ю:CampBuild на клетку:{currentSelectedCell}");
-                currentDictionary[currentSelectedCell].buildings.Add(BuildsEnum.Camp);
-            }
+            //if (currentDictionary[currentSelectedCell].buildings.Any(x => x is BuildsEnum.Camp))
+            //{
+            //    Debug.Log($"”дал€ю:CampBuild с клетки:{currentSelectedCell}");
+            //    currentDictionary[currentSelectedCell].buildings.RemoveAll(x => x is BuildsEnum.Camp);
+            //}
+            //else
+            //{
+            //    Debug.Log($"ƒобавл€ю:CampBuild на клетку:{currentSelectedCell}");
+            //    currentDictionary[currentSelectedCell].buildings.Add(BuildsEnum.Camp);
+            //}
             CameraMovementScript.UnBlockMovement();
             ShowAllConfiguredCells();
         }
@@ -321,16 +321,16 @@ public class MapConfigurator : MonoBehaviour
     {
         if (context.performed)
         {
-            if (currentDictionary[currentSelectedCell].buildings.Any(x => x is BuildsEnum.Fort))
-            {
-                Debug.Log($"”дал€ю:FortBuild с клетки:{currentSelectedCell}");
-                currentDictionary[currentSelectedCell].buildings.RemoveAll(x => x is BuildsEnum.Fort);
-            }
-            else
-            {
-                Debug.Log($"ƒобавл€ю:FortBuild на клетку:{currentSelectedCell}");
-                currentDictionary[currentSelectedCell].buildings.Add(BuildsEnum.Fort);
-            }
+            //if (currentDictionary[currentSelectedCell].buildings.Any(x => x is BuildsEnum.Fort))
+            //{
+            //    Debug.Log($"”дал€ю:FortBuild с клетки:{currentSelectedCell}");
+            //    currentDictionary[currentSelectedCell].buildings.RemoveAll(x => x is BuildsEnum.Fort);
+            //}
+            //else
+            //{
+            //    Debug.Log($"ƒобавл€ю:FortBuild на клетку:{currentSelectedCell}");
+            //    currentDictionary[currentSelectedCell].buildings.Add(BuildsEnum.Fort);
+            //}
             CameraMovementScript.UnBlockMovement();
             ShowAllConfiguredCells();
         }

@@ -58,5 +58,5 @@ public class Parameters
 
     public ControlSide controlSide;
 
-    public List<BuildsEnum> buildings = new List<BuildsEnum>();
+    public List<BuildData> buildings = new();
 }

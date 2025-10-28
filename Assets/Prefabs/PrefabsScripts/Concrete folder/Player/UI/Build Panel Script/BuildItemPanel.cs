@@ -1,0 +1,112 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
+
+public class BuildItemPanel : MonoBehaviour
+{
+    public string id { set; get; }
+
+    [SerializeField] private Button buildButton;
+    private GameObject buildButtonObject;
+    [SerializeField] private Button upgradeButton;
+    private GameObject upgradeButtonObject;
+
+    private GameObject currentCell;
+
+    public void InstantiateComponent()
+    {
+        buildButtonObject = buildButton.gameObject;
+        upgradeButtonObject = upgradeButton.gameObject;
+
+        ServiceRegistry.WorkWithService<EventBus>().Subscribe<InteractableScript, GameObject>((sender, cell) =>
+        {
+            currentCell = cell;
+        });
+        ServiceRegistry.WorkWithService<EventBus>().Subscribe<OpenBuildMenuScript>((sender) =>
+        {
+            CheckBuildForButtonState();
+        });
+        ServiceRegistry.WorkWithService<EventBus>().Subscribe<CellBuildings, GameObject, AbstractBuildings>((sender, cell, build) =>
+        {
+            if(currentCell == cell)
+            {
+                CheckBuildForButtonState(cell);
+            }
+        });
+
+
+        buildButton.onClick.AddListener(() =>
+        {
+            buildButton.interactable = false;
+
+            var coroutine = ServiceRegistry.WorkWithController<BuilderController>().StartBuildProccess(currentCell, id, 1);
+
+            if (coroutine != null)
+            {
+                ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(currentCell).GetParameter<CellBuildings>().buildInBuilding = id;
+                GameController.AddActionToQueue(() => StartCoroutine(coroutine));
+            }
+        });
+
+        upgradeButton.onClick.AddListener(() =>
+        {
+            upgradeButton.interactable = false;
+
+            var coroutine = ServiceRegistry.WorkWithController<BuilderController>().StartBuildProccess(currentCell, id, 2);
+
+            if (coroutine != null)
+            {
+                ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(currentCell).GetParameter<CellBuildings>().buildInBuilding = id;
+                GameController.AddActionToQueue(() => StartCoroutine(coroutine));
+            }
+        });
+
+        EventTrigger.Entry entry = new EventTrigger.Entry { eventID = EventTriggerType.PointerClick };
+
+        entry.callback.AddListener((eventData) =>
+        {
+            if (ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(currentCell).GetParameter<CellBuildings>().CheckBuildIsBuilt(id))
+            {
+                ServiceRegistry.WorkWithService<EventBus>().Publish<BuildItemPanel, string,GameObject>(this, id,currentCell);
+            }
+        });
+
+        GetComponent<EventTrigger>().triggers.Add(entry);
+    }
+
+    public void CheckBuildForButtonState(GameObject cell = null)
+    {
+        buildButtonObject.SetActive(true);
+        upgradeButtonObject.SetActive(true);
+
+        buildButton.interactable = true;
+        upgradeButton.interactable = true;
+
+        CellBuildings cellBuildings;
+
+        if (cell != null) {  cellBuildings = ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).GetParameter<CellBuildings>(); }
+        else { cellBuildings = ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(currentCell).GetParameter<CellBuildings>(); }
+
+        if (cellBuildings.CheckBuildIsBuilt(id))
+        {
+            buildButtonObject.SetActive(false);
+            upgradeButtonObject.SetActive(true);
+        }
+        else { upgradeButtonObject.SetActive(false); }
+
+        if(cellBuildings.buildInBuilding == id)
+        {
+            buildButton.interactable = false;
+            upgradeButton.interactable = false;
+        }
+
+        if (!cellBuildings.CheckBuildIsBuilt("HeadquartersBuild"))
+        {
+            if(id == "HeadquartersBuild") { return; }
+            buildButton.interactable = false;
+            upgradeButton.interactable = false;
+        }
+    }
+}

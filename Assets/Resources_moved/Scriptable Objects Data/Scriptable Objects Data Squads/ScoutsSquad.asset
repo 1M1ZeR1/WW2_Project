@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: ScoutsSquad
+  m_EditorClassIdentifier: Assembly-CSharp::SquadData
+  squadSprite: {fileID: 21300000, guid: 5a9985b225579b74b90f693636d9bcad, type: 3}
+  id: ScoutsSquad
+  squadName: "\u0420\u0430\u0437\u0432\u0435\u0434\u0447\u0438\u043A\u0438"
+  weapons: 020000000300000004000000
+  transports: 0100000002000000
+  squadCostPeople: 5
+  squadSpeedOfMovement: 4

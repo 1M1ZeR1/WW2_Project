@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: TanksSquad
+  m_EditorClassIdentifier: Assembly-CSharp::SquadData
+  squadSprite: {fileID: 21300000, guid: cdfd622b5368fab438734119f160da1c, type: 3}
+  id: TanksSquad
+  squadName: "\u0422\u0430\u043D\u043A\u0438\u0441\u0442\u044B"
+  weapons: 05000000
+  transports: 04000000
+  squadCostPeople: 20
+  needAcademy: 1
+  squadSpeedOfMovement: 2

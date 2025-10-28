@@ -1,0 +1,119 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Default Local Group
+  m_EditorClassIdentifier: 
+  m_GroupName: Default Local Group
+  m_Data:
+    m_SerializedData: []
+  m_GUID: daf1f3ea0962c3a43a961c0c4f7d2b21
+  m_SerializeEntries:
+  - m_GUID: 9ec85d1c39f20fb478cb00536d125d1b
+    m_Address: Scriptable Objects Panels/BuildPanels/CampPanel
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - BuildPanel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: beddfc8ce8ee91046a59c3364beff967
+    m_Address: Scriptable Objects Panels/BuildPanels/AcademyBuild
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - BuildPanel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 38752963ada4a2741ac9d68c194f1b63
+    m_Address: Scriptable Objects Panels/BuildPanels/FortPanel
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - BuildPanel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 07336ddf6b215c440bba4dad3cff6a09
+    m_Address: Scriptable Objects Panels/BuildPanels/HeadquartersPanel
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - BuildPanel
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a94a63c7de8538e4e9b6b5cafdb0ac0c
+    m_Address: Assets/Resources_moved/Scriptable Objects Data/Scriptable Objects
+      Data Builds/FoxholeBuild.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - BuildData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d5c988e26dd03614db6864ae50454f10
+    m_Address: Assets/Resources_moved/Scriptable Objects Data/Scriptable Objects
+      Data Builds/AcademyBuild.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - BuildData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0bc63e7174ba75d48b31c87b94af5467
+    m_Address: Assets/Resources_moved/Scriptable Objects Data/Scriptable Objects
+      Data Builds/FortBuild.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - BuildData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 68574f660cc8e4045a4991257619e076
+    m_Address: Assets/Resources_moved/Scriptable Objects Data/Scriptable Objects
+      Data Builds/CampBuild.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - BuildData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0ea24a6b721eb5a47aa0532cc0d3a2ba
+    m_Address: Assets/Resources_moved/Scriptable Objects Data/Scriptable Objects
+      Data Builds/HeadquartersBuild.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - BuildData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fe6f45cf30b57b049a34e52af6428664
+    m_Address: Assets/Resources_moved/Scriptable Objects Data/Scriptable Objects
+      Data Squads/TanksSquad.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - SquadData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ce4c7b54089e603429192fa82fbcd128
+    m_Address: Assets/Resources_moved/Scriptable Objects Data/Scriptable Objects
+      Data Squads/ScoutsSquad.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - SquadData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 18645a3d5e86b4344a7e8d9c521c314e
+    m_Address: Assets/Resources_moved/Scriptable Objects Data/Scriptable Objects
+      Data Squads/EngineersSquad.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - SquadData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c7f5d06619ef521418a7a63b7dea7525
+    m_Address: Assets/Resources_moved/Scriptable Objects Data/Scriptable Objects
+      Data Squads/AtrillerySquad.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - SquadData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 01d5d8046f59da843ab0beb957af5e03
+    m_Address: Assets/Resources_moved/Scriptable Objects Data/Scriptable Objects
+      Data Squads/InfantrySquad.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - SquadData
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 849e3fbc5fd8aab409b557c22e536b7c, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: ab52eb7ac8a22684db11223136f5f870, type: 2}
+    - {fileID: 11400000, guid: 54f944774285b4b4e85cd789ea2497bf, type: 2}

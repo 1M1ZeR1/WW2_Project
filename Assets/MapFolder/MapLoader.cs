@@ -84,6 +84,7 @@ public class MapLoader : EditorWindow
 
 public class BuildLoader
 {
+    private static string[] squadsId = new string[] {"InfantrySquad","EngineersSquad" };
     public static void LoadPreset()
     {
         ParametersCellsDataHolder parametersHolder = Resources.Load<ParametersCellsDataHolder>("CellsParameters_V1");
@@ -116,7 +117,7 @@ public class BuildLoader
                 neighboresCells = new List<GameObject>(),
                 height = 8,
                 cellType = CellTypes_enum.Plain,
-                buildings = new List<BuildsEnum>()
+                buildings = new List<BuildData>()
             };
         }
 
@@ -176,15 +177,11 @@ public class BuildLoader
 
         for (int i = 0; i < parameters.buildings.Count; i++)
         {
-            if (parameters.buildings[i] is BuildsEnum.Foxhole) {
-                ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).
-                GetParameter<CellBuildings>().AddToBuildsList(new FortBuild(), BuildsEnum.Foxhole); }
-            if (parameters.buildings[i] is BuildsEnum.Camp) {
-                ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).
-                GetParameter<CellBuildings>().AddToBuildsList(new CampBuild(), BuildsEnum.Camp); }
-            if (parameters.buildings[i] is BuildsEnum.MilitaryAcademy) {
-                ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).
-                GetParameter<CellBuildings>().AddToBuildsList(new FortBuild(), BuildsEnum.Fort); }
+            ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).
+                GetParameter<CellBuildings>().AddToBuildsList(
+                (AbstractBuildings)ServiceRegistry.WorkWithService<ObjectFactory_Builds>().CreateObject(parameters.buildings[i].Id),
+                parameters.buildings[i].Id
+                );
         }
 
 
@@ -193,7 +190,7 @@ public class BuildLoader
 
             for (int i = 0; i < Random.Range(1, ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).GetParameter<CellSquadsOnArea>().GetCountCurrentMax().Item2); i++)
             {
-                ServiceRegistry.WorkWithController<UnitsSpawner>().SpawnSquadOnCell(SideEnum.Allies, cell);
+                ServiceRegistry.WorkWithController<UnitsSpawner>().SpawnSquadOnCell(squadsId[Random.Range(0, squadsId.Length)],SideEnum.Allies, cell);
             }
         }
         if (parameters.controlSide == ControlSide.allies)
@@ -201,7 +198,7 @@ public class BuildLoader
             ServiceRegistry.WorkWithController<EnemysController>().AddToCapturedCell_Safety(cell);
             for (int i = 0; i < Random.Range(1, ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).GetParameter<CellSquadsOnArea>().GetCountCurrentMax().Item2); i++)
             {
-                ServiceRegistry.WorkWithController<UnitsSpawner>().SpawnSquadOnCell(SideEnum.Enemys, cell);
+                ServiceRegistry.WorkWithController<UnitsSpawner>().SpawnSquadOnCell(squadsId[Random.Range(0, squadsId.Length)],SideEnum.Enemys, cell);
             }
         }
     }
@@ -211,11 +208,16 @@ public static class ServiceRegistry
 {
     private static ControllersHub ControllersHub { get; set; }
 
+
     public static T WorkWithController<T>() { return ControllersHub.Get<T>(); }
+    public static T WorkWithService<T>() { return ControllersHub.GetService<T>(); }
 
     public static void Initialize()
     {
         ControllersHub = new ControllersHub();
+
+        ControllersHub.RegisterServices();
+        ControllersHub.RegisterControllers();
     }
     public static void Start()
     {
