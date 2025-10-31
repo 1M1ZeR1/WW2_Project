@@ -3,12 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEditor;
 using UnityEngine;
 
 public class ControllersHub 
 {
+    public Action StartLoadMap;
+
     private readonly Dictionary<Type, object> controllers = new();
     private readonly Dictionary<Type, object> services = new();
+
+    protected int _countOfRegisterInterfaces = 0;
+    protected List<object> _registerInterfaces = new List<object>();
 
     private void Register_Controller<T>(T controller)
     {
@@ -18,6 +24,23 @@ public class ControllersHub
     {
         services[typeof(T)] = service;
     }
+
+    public void AddINeedTimeInterfaceToList(INeedTime inputInterface)
+    {
+        Debug.Log($"Registered new interface, count of registered interfaces:{_countOfRegisterInterfaces}");
+        _countOfRegisterInterfaces++;
+
+        _registerInterfaces.Add(inputInterface);
+
+        inputInterface.Completed += (sender) => { _registerInterfaces.Remove(sender); Debug.Log($"Loaded interface, {_countOfRegisterInterfaces-_registerInterfaces.Count}/{_countOfRegisterInterfaces} loaded"); };
+    }
+    public System.Collections.IEnumerator LoadWaiter()
+    {
+        yield return new WaitUntil(()=>_registerInterfaces.Count == 0);
+
+        StartLoadMap?.Invoke();
+    }
+
 
     public T Get<T>()
     {
@@ -36,6 +59,13 @@ public class ControllersHub
         Get<MovementController>().Start();
     }
 
+    public void RegisterAllObjects()
+    {
+        RegisterServices();
+        RegisterControllers();
+
+        GetService<MonobehaviourMaster>().CoroutineStarter(LoadWaiter());
+    }
     public void RegisterServices()
     {
         Register_Service(new DataHolder());
@@ -90,6 +120,22 @@ public class ControllersHub
 
         Register_Controller(GameObject.FindAnyObjectByType<InteractableScript>());
         Register_Controller(new EnemysController());
+
+        Register_Controller(GameObject.FindAnyObjectByType<TimeControllerScript>());
+        Register_Controller(new BuffsController());
+
+        Register_Controller(GameObject.FindAnyObjectByType<ExplorationController>());
     }
 
 }
+public static class RuntimeWarmup
+{
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    static void Init()
+    {
+        var _ = typeof(BuildData);
+        var __ = typeof(BuildPanelSO);
+        var ___ = typeof(SquadData);
+    }
+}
+

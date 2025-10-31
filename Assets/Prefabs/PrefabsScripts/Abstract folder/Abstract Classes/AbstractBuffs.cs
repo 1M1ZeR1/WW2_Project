@@ -58,7 +58,7 @@ public class RandomEventBuff : AbstractBuffs, IChangeSquadParameters
     private readonly List<string> DiscriptionSAP;
     private readonly float[] hardSAP;
 
-    public float[] sap_scale { set; get; }
+    public float[] Sap_scale { set; get; }
 
     public RandomEventBuff(float[] hardSAP, DateTime dateTime, int hours)
     {
@@ -106,7 +106,7 @@ public class RandomEventBuff : AbstractBuffs, IChangeSquadParameters
 
     public void SetSAP(float speed, float attack, float protection)
     {
-        sap_scale = new float[]
+        Sap_scale = new float[]
         {
             speed, attack, protection
         };
@@ -115,7 +115,7 @@ public class RandomEventBuff : AbstractBuffs, IChangeSquadParameters
     {
         squad.AddBuff(this);
     }
-    public float[] GetSAP() { return sap_scale; }
+    public float[] GetSAP() { return Sap_scale; }
 }
 
 public enum UnReachableBuffType
@@ -169,7 +169,7 @@ public class UnReachableBuff : AbstractBuffs,IEventBuff
 
 public class PlainBuff : AbstractBuffs,IChangeSquadParameters
 {
-    public float[] sap_scale { get; set; }
+    public float[] Sap_scale { get; set; }
 
     public PlainBuff() { SetBuffType(BuffTypes.Territory); }
     public override string GetBuffDescription()
@@ -191,7 +191,7 @@ public class PlainBuff : AbstractBuffs,IChangeSquadParameters
 
     public void SetSAP(float speed, float attack, float protection)
     {
-        sap_scale = new float[]
+        Sap_scale = new float[]
         {
             speed, attack, protection
         };
@@ -199,12 +199,12 @@ public class PlainBuff : AbstractBuffs,IChangeSquadParameters
 
     public float[] GetSAP()
     {
-        return sap_scale;
+        return Sap_scale;
     }
 }
 public class ForestBuff : AbstractBuffs,IChangeSquadParameters
 {
-    public float[] sap_scale { get; set; }
+    public float[] Sap_scale { get; set; }
 
     public ForestBuff() { SetBuffType(BuffTypes.Territory); }
     public override string GetBuffDescription()
@@ -226,7 +226,7 @@ public class ForestBuff : AbstractBuffs,IChangeSquadParameters
 
     public void SetSAP(float speed, float attack, float protection)
     {
-        sap_scale = new float[]
+        Sap_scale = new float[]
         {
             speed, attack, protection
         };
@@ -234,7 +234,7 @@ public class ForestBuff : AbstractBuffs,IChangeSquadParameters
 
     public float[] GetSAP()
     {
-        return sap_scale;
+        return Sap_scale;
     }
 }
 public class CityBuff : AbstractBuffs,IChangeSquadParameters
@@ -242,7 +242,7 @@ public class CityBuff : AbstractBuffs,IChangeSquadParameters
     private int protectionScale = 0;
     private float speedScale = 0f;
 
-    public float[] sap_scale { get; set; }
+    public float[] Sap_scale { get; set; }
 
     public CityBuff() { SetBuffType(BuffTypes.Territory); }
     public override string GetBuffDescription()
@@ -271,7 +271,7 @@ public class CityBuff : AbstractBuffs,IChangeSquadParameters
 
     public void SetSAP(float speed, float attack, float protection)
     {
-        sap_scale = new float[]
+        Sap_scale = new float[]
         {
             speed, attack, protection
         };
@@ -279,14 +279,14 @@ public class CityBuff : AbstractBuffs,IChangeSquadParameters
 
     public float[] GetSAP()
     {
-        return sap_scale;
+        return Sap_scale;
     }
 }
 
 //Squads buffs
 public class Mativation : AbstractBuffs,IChangeSquadParameters
 {
-    public float[] sap_scale { get; set; }
+    public float[] Sap_scale { get; set; }
 
     public override string GetBuffDescription()
     {
@@ -309,7 +309,7 @@ public class Mativation : AbstractBuffs,IChangeSquadParameters
 
     public void SetSAP(float speed, float attack, float protection)
     {
-        sap_scale = new float[]
+        Sap_scale = new float[]
         {
             speed, attack, protection
         };
@@ -317,12 +317,12 @@ public class Mativation : AbstractBuffs,IChangeSquadParameters
 
     public float[] GetSAP()
     {
-        return sap_scale;
+        return Sap_scale;
     }
 }
 public class Rested : AbstractBuffs,IChangeSquadParameters
 {
-    public float[] sap_scale { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+    public float[] Sap_scale { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
     public override string GetBuffDescription()
     {
@@ -347,7 +347,7 @@ public class Rested : AbstractBuffs,IChangeSquadParameters
 
     public void SetSAP(float speed, float attack, float protection)
     {
-        sap_scale = new float[]
+        Sap_scale = new float[]
         {
             speed, attack, protection
         };
@@ -355,12 +355,12 @@ public class Rested : AbstractBuffs,IChangeSquadParameters
 
     public float[] GetSAP()
     {
-        return sap_scale;
+        return Sap_scale;
     }
 }
 public class InfantrySkill : AbstractBuffs,IChangeSquadParameters
 {
-    public float[] sap_scale { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+    public float[] Sap_scale { get; set; }
 
     public InfantrySkill(int buffScale, DateTime dateTime, int hours)
     {
@@ -383,7 +383,7 @@ public class InfantrySkill : AbstractBuffs,IChangeSquadParameters
 
     public void SetSAP(float speed, float attack, float protection)
     {
-        sap_scale = new float[]
+        Sap_scale = new float[]
         {
             speed, attack, protection
         };
@@ -391,12 +391,12 @@ public class InfantrySkill : AbstractBuffs,IChangeSquadParameters
 
     public float[] GetSAP()
     {
-        return sap_scale;
+        return Sap_scale;
     }
 }
 public class TanksSkill : AbstractBuffs,IChangeSquadParameters
 {
-    public float[] sap_scale { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+    public float[] Sap_scale { get; set; }
 
     public TanksSkill(int buffScale)
     {
@@ -422,7 +422,7 @@ public class TanksSkill : AbstractBuffs,IChangeSquadParameters
 
     public void SetSAP(float speed, float attack, float protection)
     {
-        sap_scale = new float[]
+        Sap_scale = new float[]
         {
             speed, attack, protection
         };
@@ -430,14 +430,14 @@ public class TanksSkill : AbstractBuffs,IChangeSquadParameters
 
     public float[] GetSAP()
     {
-        return sap_scale;
+        return Sap_scale;
     }
 }
 
 //Building buffs
 public class FoxholeBuff : AbstractBuffs,IChangeSquadParameters
 {
-    public float[] sap_scale { get; set; }
+    public float[] Sap_scale { get; set; }
 
     public FoxholeBuff() { SetBuffType(BuffTypes.Building); }
     public override string GetBuffDescription()
@@ -456,7 +456,7 @@ public class FoxholeBuff : AbstractBuffs,IChangeSquadParameters
 
     public void SetSAP(float speed, float attack, float protection)
     {
-        sap_scale = new float[]
+        Sap_scale = new float[]
         {
             speed, attack, protection
         };
@@ -464,7 +464,7 @@ public class FoxholeBuff : AbstractBuffs,IChangeSquadParameters
 
     public float[] GetSAP()
     {
-        return sap_scale;
+        return Sap_scale;
     }
 }
 
@@ -485,7 +485,7 @@ public class FoxholeBuff : AbstractBuffs,IChangeSquadParameters
 //}
 public class FortBuff : AbstractBuffs,IChangeSquadParameters
 {
-    public float[] sap_scale { get; set; }
+    public float[] Sap_scale { get; set; }
 
     public FortBuff() { SetBuffScale(20); SetBuffType(BuffTypes.Building); }
     public override string GetBuffDescription()
@@ -506,7 +506,7 @@ public class FortBuff : AbstractBuffs,IChangeSquadParameters
 
     public void SetSAP(float speed, float attack, float protection)
     {
-        sap_scale = new float[]
+        Sap_scale = new float[]
         {
             speed, attack, protection
         };
@@ -514,7 +514,7 @@ public class FortBuff : AbstractBuffs,IChangeSquadParameters
 
     public float[] GetSAP()
     {
-        return sap_scale;
+        return Sap_scale;
     }
 }
 public class MilitaryAcademyBuff : AbstractBuffs
@@ -536,7 +536,7 @@ public interface IEventBuff
 
 public interface IChangeSquadParameters
 {
-    public float[] sap_scale { set; get; }
+    public float[] Sap_scale { set; get; }
 
     public void AddBuff(AbstractSquad squad);
     public void SetSAP(float speed, float attack, float protection);

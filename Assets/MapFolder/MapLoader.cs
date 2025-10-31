@@ -212,12 +212,15 @@ public static class ServiceRegistry
     public static T WorkWithController<T>() { return ControllersHub.Get<T>(); }
     public static T WorkWithService<T>() { return ControllersHub.GetService<T>(); }
 
+    public static void RegisterInterface(INeedTime inputInterface) { ControllersHub.AddINeedTimeInterfaceToList(inputInterface); }
+
     public static void Initialize()
     {
         ControllersHub = new ControllersHub();
 
-        ControllersHub.RegisterServices();
-        ControllersHub.RegisterControllers();
+        ControllersHub.StartLoadMap += () => BuildLoader.LoadPreset();
+
+        ControllersHub.RegisterAllObjects();
     }
     public static void Start()
     {

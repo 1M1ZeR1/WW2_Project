@@ -40,11 +40,11 @@ public class EventController : MonoBehaviour
     {
         if (PauseScript.CurrentGameState != GameState.Play) { return; }
         _timer++;   _timerForSupplies++;
-        if(_timer >= timerToEvent)
-        {
-            _timer = 0;
-            StartEvent();
-        }
+        //if(_timer >= timerToEvent)
+        //{
+        //    _timer = 0;
+        //    StartEvent();
+        //}
         if(_timerForSupplies >= timerToSupplies)
         {
             _timerForSupplies = 0;

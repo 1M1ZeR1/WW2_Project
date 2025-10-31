@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public enum SquadTransport
 {
     None,
@@ -11,6 +12,7 @@ public enum SquadTransport
     Tank,
     Artillery
 }
+[System.Serializable]
 public enum SquadWeapon
 {
     None,

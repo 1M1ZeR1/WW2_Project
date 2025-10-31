@@ -1,12 +1,7 @@
-using Mono.Reflection;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.Android.Gradle;
 using UnityEngine;
-using UnityEngine.InputSystem.XR;
-using UnityEngine.UI;
 
 public class BuilderController
 {
@@ -48,9 +43,9 @@ public class BuilderController
         foreach (AbstractSquad squad in ServiceRegistry.WorkWithController<GameController>().GetAllSquadsOnCell(cell))
         {
             Debug.LogError($"Squad name:{squad.Name}, Squad speed:{squad.Speed}, Squad build skill:{squad.BuildingSkill}");
-            if (squad.Action != SquadActions.None) { continue; }
+            if (squad.SquadAction != SquadActions.None) { continue; }
             parameters[0] += squad.BuildingSkill;
-            squad.Action = SquadActions.Building;
+            squad.SquadAction = SquadActions.Building;
         }
         if (parameters[0] == 0)
         {
@@ -105,7 +100,7 @@ public class BuilderController
 
         foreach (var squad in ServiceRegistry.WorkWithController<GameController>().GetAllSquadsOnCell(cell))
         {
-            squad.Action = SquadActions.None;
+            squad.SquadAction = SquadActions.None;
         }
         
 

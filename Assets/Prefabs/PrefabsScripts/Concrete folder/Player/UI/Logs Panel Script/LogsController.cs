@@ -27,6 +27,8 @@ public class LogsController : MonoBehaviour
         if(Instance != null)
         {
             if (sideEnum == SideEnum.Enemys && accessLevel == AccessLevel.Normal) return;
+
+            if(sideEnum == SideEnum.None){Instance.AddToLog_Console(inputLogText);return;}
             Instance.AddToLog(inputLogText);
         }
     }
@@ -35,6 +37,16 @@ public class LogsController : MonoBehaviour
         GameObject newLogPanel = Instantiate(logPanel, logContent.transform);
 
         newLogPanel.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = input;
+
+        newLogPanel.SetActive(true);
+    }
+    public void AddToLog_Console(string input) 
+    {
+        GameObject newLogPanel = Instantiate(logPanel, logContent.transform);
+
+        newLogPanel.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = input;
+
+        newLogPanel.transform.GetChild(0).GetComponent<TextMeshProUGUI>().color = Color.green;
 
         newLogPanel.SetActive(true);
     }

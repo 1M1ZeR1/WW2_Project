@@ -172,7 +172,7 @@ public class BattleModule : MonoBehaviour
     {
         foreach (var squad in squadsNeedAddLater.Keys)
         {
-            squad.Action = SquadActions.Battle;
+            squad.SquadAction = SquadActions.Battle;
 
             if (squadsNeedAddLater[squad] == BattleController.BattleSide.Attack) { _squadAttack.Add(squad); _battleModuleUIScript.TryAddSquad(_battleCell, squad, true); }
             else { _squadDefence.Add(squad); _battleModuleUIScript.TryAddSquad(_battleCell, squad, false); }

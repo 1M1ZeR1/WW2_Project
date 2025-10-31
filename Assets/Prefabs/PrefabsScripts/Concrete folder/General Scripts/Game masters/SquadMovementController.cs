@@ -25,8 +25,8 @@ public class MovementController
 
     public void AddMovementForSquad(GameObject startCell, GameObject finishCell, AbstractSquad squad)
     {
-        if (squad.Action != SquadActions.None) { return; }
-        squad.Action = SquadActions.Moving;
+        if (squad.SquadAction != SquadActions.None) { return; }
+        squad.SquadAction = SquadActions.Moving;
 
         ServiceRegistry.WorkWithController<GameController>().UpdateSquadInformation_SwipeState(squad);
         updateSquadsAction.Invoke(startCell);
@@ -151,14 +151,12 @@ public class SquadMovement:ICoroutineAction
         }
 
         squadEndMovement?.Invoke(squad, wayCells[0]);
-        squad.Action = SquadActions.None;
+        squad.SquadAction = SquadActions.None;
         LogsController.AddLogElement($"Отряд {squad.Name} прибыл на клетку {wayCells[0]}", squad.Side);
 
         ServiceRegistry.WorkWithController<BattleController>().CheckDrawnIntoBattle(squad, wayCells[0]);
 
         ServiceRegistry.WorkWithController<GameController>().UpdateSquadInformation_ChangeCell(squad, startWayCell, wayCells[0]);
-
-        ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(wayCells[0]).GetParameter<CellSquadsOnArea>().squadsOnCell.Add(squad);
     }
 }
 public class ArrowCanvasWorker

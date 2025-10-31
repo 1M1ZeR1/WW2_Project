@@ -5,30 +5,8 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.Scripting;
 using UnityEngine.UI;
-
-[CreateAssetMenu(menuName = "Data objects/Squad data")]
-public class SquadData:ScriptableObject
-{
-    public Sprite squadSprite;
-
-    public string id;
-    public string squadName;
-
-    [Header("Weapons and transports for this squad")]
-    public List<SquadWeapon> weapons;
-    public List<SquadTransport> transports;
-
-    [Header("Squad cost of people(By 1 human)")]
-    public int squadCostPeople;
-
-    [Header("Squad need academy to train")]
-    public bool needAcademy = false;
-
-    [Header("Squad parameters")]
-
-    [Header("Squad speed")] public int squadSpeedOfMovement;
-}
 
 
 public class SquadAttribute : Attribute
@@ -88,7 +66,18 @@ public abstract class AbstractSquad : ISquad_Master, IType<SquadEnum>, IName, IS
     public List<AbstractBuffs> buffs { get; set; } = new();
 
     public SideEnum Side { get; set; }
-    public SquadActions Action { get; set; } = SquadActions.None;
+    private SquadActions _action { get; set; } = SquadActions.None;
+    public SquadActions SquadAction
+    {
+        get { return _action; }
+        set
+        {
+            if(value == SquadActions.None) { ServiceRegistry.WorkWithService<EventBus>().Publish<string, AbstractSquad, bool>("ChangeState_BlockAction", this, false); }
+            else { ServiceRegistry.WorkWithService<EventBus>().Publish<string, AbstractSquad, bool>("ChangeState_BlockAction", this, true); }
+
+            _action = value;
+        }
+    }
 
     public SquadWeapon Weapon { get; set; }
     public SquadTransport Transport { get; set; }
@@ -207,8 +196,6 @@ public abstract class AbstractSquad : ISquad_Master, IType<SquadEnum>, IName, IS
         }
     }
 
-    public abstract void SetMasters( GameObject buffsControllerObject, GameObject explorationControllerObject);
-
     public virtual Action UseSkill(int time, SkillType skillType, Action action, AbstractBuffs buff) 
     {
 
@@ -222,10 +209,13 @@ public abstract class AbstractSquad : ISquad_Master, IType<SquadEnum>, IName, IS
     public virtual IEnumerator SkillCooldownCoroutine()
     {
         int currentSkillCooldownCoroutine = SkillCooldown;
+        ServiceRegistry.WorkWithService<EventBus>().Publish<string,AbstractSquad,bool>("ChangeState_BlockSkill",this,true);
 
         void oneSecondPassed()
         {
             currentSkillCooldownCoroutine--;
+
+            ServiceRegistry.WorkWithService<EventBus>().Publish<AbstractSquad, int, int>(this, currentSkillCooldownCoroutine, SkillCooldown);
 
             if (currentSkillCooldownCoroutine <= 0)
             {
@@ -244,16 +234,18 @@ public abstract class AbstractSquad : ISquad_Master, IType<SquadEnum>, IName, IS
         }
 
         ServiceRegistry.WorkWithController<GameController>().oneSecondPassed -= oneSecondPassed;
+
+        ServiceRegistry.WorkWithService<EventBus>().Publish<string, AbstractSquad, bool>("ChangeState_BlockSkill", this, false);
+        ServiceRegistry.WorkWithService<EventBus>().Publish<AbstractSquad, int, int>(this, 0, SkillCooldown);
     }
 
-    public abstract Action UseClassSkill(MonoBehaviour monoBehaviour, GameObject currentCell);
+    public abstract Action UseClassSkill();
+    public bool SkillWithChoise { get; set; } = false;
 }
 
 [Squad("InfantrySquad")]
 public class InfantrySquad : AbstractSquad
 {
-    private BuffsController buffsControllerScript;
-
     protected int _skillScale;
 
     public override object Clone() { return new InfantrySquad(); }
@@ -285,24 +277,18 @@ public class InfantrySquad : AbstractSquad
         Attack = PeopleCount * 3;
         Protection = PeopleCount * 1;
     }
-
-    public override void SetMasters(GameObject buffsControllerObject, GameObject explorationControllerObject)
-    {
-        if(buffsControllerScript!= null) { return; }
-        buffsControllerObject.TryGetComponent(out buffsControllerScript);
-    }
-    public override Action UseClassSkill(MonoBehaviour userMonoBehaviour, GameObject currentCell)
+    public override Action UseClassSkill()
     {
         if (IsSkillInCooldown) {return null;}
         IsSkillInCooldown = true;
 
         InfantrySkill infantrySkillBuff = new InfantrySkill(20, TimeControllerScript.GetCurrentDateTime(),5);
 
-        userMonoBehaviour.StartCoroutine(base.SkillCooldownCoroutine());
+        ServiceRegistry.WorkWithService<MonobehaviourMaster>().CoroutineStarter(base.SkillCooldownCoroutine());
 
         return ()=> { 
             base.UseSkill(20, SkillType.Buff, null,infantrySkillBuff); 
-            buffsControllerScript.AddBuffToList(infantrySkillBuff);
+            ServiceRegistry.WorkWithController<BuffsController>().AddBuffToList(infantrySkillBuff);
             AddBuffWithTimer(infantrySkillBuff);
         };
     }
@@ -337,34 +323,41 @@ public class EngineerSquad : AbstractSquad
         Attack = PeopleCount * 2;
         Protection = PeopleCount * 3;
     }
-    public override void SetMasters(GameObject buffsControllerObject, GameObject explorationControllerObject)
-    {
-
-    }
-    public override Action UseClassSkill(MonoBehaviour userMonoBehaviour, GameObject currentCell)
+    public override Action UseClassSkill()
     {
         if (IsSkillInCooldown) { return null; }
 
-        if (currentCell.GetComponent<CellBuildings>().CheckBuildIsBuilt("FoxholeBuild")) { return null; }
+        if (ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(
+            ServiceRegistry.WorkWithController<GameController>().GetCellWithThisSquad(this)).GetParameter<CellBuildings>().CheckBuildIsBuilt("FoxholeBuild")) { return null; }
         IsSkillInCooldown = true;
 
-        userMonoBehaviour.StartCoroutine(base.SkillCooldownCoroutine());
-        return () => { base.UseSkill(0, SkillType.Action, () => EngeenerSkill(currentCell), null); }; 
+        ServiceRegistry.WorkWithService<MonobehaviourMaster>().CoroutineStarter(base.SkillCooldownCoroutine());
+        return () => { base.UseSkill(0, SkillType.Action, () => EngeenerSkill(
+            ServiceRegistry.WorkWithController<GameController>().GetCellWithThisSquad(this)), null); }; 
         
     }
     private void EngeenerSkill(GameObject currentCell)
     {
-        currentCell.GetComponent<CellBuildings>().AddToBuildsList(new FoxholeBuild(), "FoxholeBuild");
+        ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(currentCell).GetParameter<CellBuildings>().AddToBuildsList(new FoxholeBuild(), "FoxholeBuild");
     }
 }
 
 [Squad("ScoutsSquad")]
 public class ScoutSquad : AbstractSquad
 {
-    protected ExplorationController explorationControllerScript;
-    private GameObject selectedCell = null;
+    protected GameObject _selectedCell;
+    public override object Clone() {
 
-    public override object Clone() { return new ScoutSquad(); }
+        ScoutSquad newSquad = new ScoutSquad();
+
+        newSquad.SkillWithChoise = true;
+
+        ServiceRegistry.WorkWithService<EventBus>().Subscribe<SkillController, AbstractSquad, GameObject>((sender, squad, selectedCell) =>
+        {
+            if (squad == newSquad) { newSquad._selectedCell = selectedCell; }
+        });
+
+        return newSquad; }
     public override void Initialize(float speedOfMovement, int countOfPeople, SquadTransport typeTransport, SquadWeapon typeWeapon)
     {
         TrainingTime = 4;
@@ -390,23 +383,18 @@ public class ScoutSquad : AbstractSquad
         Attack = PeopleCount * 2;
         Protection = PeopleCount * 2;
     }
-    public override void SetMasters(GameObject buffsControllerObject, GameObject explorationControllerObject)
-    {
-        if (explorationControllerScript != null) { return; }
-        explorationControllerObject.TryGetComponent(out explorationControllerScript);
-    }
-    public void SetSelectedCell(GameObject cell) { selectedCell = cell; }
-    public override Action UseClassSkill(MonoBehaviour userMonoBehaviour, GameObject currentCell)
+    public override Action UseClassSkill()
     {
         if (IsSkillInCooldown) { return null; }
 
-        if (!explorationControllerScript.CheckCellInExplorationing(selectedCell) && !ServiceRegistry.WorkWithController<CellController>().FastDrop_IsAllies(selectedCell))
+        if (!ServiceRegistry.WorkWithController<ExplorationController>().CheckCellInExplorationing(
+            _selectedCell) && !ServiceRegistry.WorkWithController<CellController>().FastDrop_IsAllies(_selectedCell))
         {
             IsSkillInCooldown = true;
 
-            userMonoBehaviour.StartCoroutine(base.SkillCooldownCoroutine());
+            ServiceRegistry.WorkWithService<MonobehaviourMaster>().CoroutineStarter(base.SkillCooldownCoroutine());
 
-            return () => { base.UseSkill(0, SkillType.Action, () => explorationControllerScript.RequestToStartExploration(selectedCell, 20 * PeopleCount), null); };
+            return () => { base.UseSkill(0, SkillType.Action, () => ServiceRegistry.WorkWithController<ExplorationController>().RequestToStartExploration(_selectedCell, 20 * PeopleCount), null); };
         }
         return null;
     }
@@ -417,9 +405,21 @@ public class ArtillerySquad : AbstractSquad
 {
     private int gunsCount;
 
-    private GameObject selectedCell = null;
+    protected GameObject _selectedCell;
 
-    public override object Clone() { return new ArtillerySquad(); }
+    public override object Clone()
+    {
+        ArtillerySquad newSquad = new ArtillerySquad();
+
+        newSquad.SkillWithChoise = true;
+
+        ServiceRegistry.WorkWithService<EventBus>().Subscribe<SkillController, AbstractSquad, GameObject>((sender, squad, selectedCell) =>
+        {
+            if (squad == newSquad) { newSquad._selectedCell = selectedCell; }
+        });
+
+        return newSquad;
+    }
     public override void Initialize(float speedOfMovement, int countOfPeople, SquadTransport typeTransport, SquadWeapon typeWeapon)
     {
         TrainingTime = 20;
@@ -450,22 +450,19 @@ public class ArtillerySquad : AbstractSquad
         Attack = TypesConverter.ConvertWeaponType(Weapon, Attack);
         Protection = TypesConverter.ConvertTransportTypeProtection(Transport, Protection);
     }
-    public override void SetMasters(GameObject buffsControllerObject, GameObject explorationControllerObject)
+    public override Action UseClassSkill()
     {
-
-    }
-    public void SetSelectedCell(GameObject cell) { selectedCell = cell; }
-    public override Action UseClassSkill(MonoBehaviour userMonoBehaviour, GameObject currentCell)
-    {
+        if (!ServiceRegistry.WorkWithController<ResourcesController>().CheckReourcesToSkill(ResourcesController.SkillType_ForCost.Artillary)) return null;
         if (IsSkillInCooldown) { return null; }
 
-        if (Vector3.Distance(currentCell.transform.position, selectedCell.transform.position) <= 700)
+        if (Vector3.Distance(
+            ServiceRegistry.WorkWithController<GameController>().GetCellWithThisSquad(this).transform.position, _selectedCell.transform.position) <= 700)
         {
             IsSkillInCooldown = true;
 
-            userMonoBehaviour.StartCoroutine(base.SkillCooldownCoroutine());
+            ServiceRegistry.WorkWithService<MonobehaviourMaster>().CoroutineStarter(base.SkillCooldownCoroutine());
 
-            return base.UseSkill(2, SkillType.Action, () => ClearSomeSquads(selectedCell), null);
+            return base.UseSkill(2, SkillType.Action, () => ClearSomeSquads(_selectedCell), null);
         }
         else { return null; } 
     }
@@ -491,7 +488,7 @@ public class ArtillerySquad : AbstractSquad
             ServiceRegistry.WorkWithController<GameController>().SingleThrasher_Squad(squad);
         }
 
-        selectedCell = null;
+        _selectedCell = null;
     }
     public override void KillSomePerson(int count)
     {
@@ -504,7 +501,6 @@ public class ArtillerySquad : AbstractSquad
 [Squad("TanksSquad")]
 public class TankSquad : AbstractSquad
 {
-    private BuffsController buffsControllerScript;
     private int tanksCount;
 
     private int minimalCountOfCrew = 3;
@@ -532,11 +528,6 @@ public class TankSquad : AbstractSquad
 
         Type = SquadEnum.Tanks;
     }
-    public override void SetMasters(GameObject buffsControllerObject, GameObject explorationControllerObject)
-    {
-        if(buffsControllerScript != null) { return; }
-        buffsControllerObject.TryGetComponent(out buffsControllerScript);
-    }
     public override void CalculateParam()
     {
         Attack = tanksCount*30;
@@ -545,14 +536,14 @@ public class TankSquad : AbstractSquad
         Attack = TypesConverter.ConvertWeaponType(Weapon,Attack);
         Protection = TypesConverter.ConvertTransportTypeProtection(Transport,Protection);
     }
-    public override Action UseClassSkill(MonoBehaviour userMonoBehaviour, GameObject currentCell)
+    public override Action UseClassSkill()
     {
         if (IsSkillInCooldown) { return null; }
         IsSkillInCooldown = false;
 
-        userMonoBehaviour.StartCoroutine(base.SkillCooldownCoroutine());
+        ServiceRegistry.WorkWithService<MonobehaviourMaster>().CoroutineStarter(base.SkillCooldownCoroutine());
 
-        return ()=> { BuffAllSquadsInCell(currentCell); };
+        return ()=> { BuffAllSquadsInCell(ServiceRegistry.WorkWithController<GameController>().GetCellWithThisSquad(this)); };
     }
     private void BuffAllSquadsInCell(GameObject currentCell)
     {
@@ -561,7 +552,7 @@ public class TankSquad : AbstractSquad
         foreach (var squad in ServiceRegistry.WorkWithController<GameController>().GetAllSquadsOnCell(currentCell))
         {
             squad.AddBuffWithTimer(newBuff);
-            buffsControllerScript.AddBuffToList(newBuff);
+            ServiceRegistry.WorkWithController<BuffsController>().AddBuffToList(newBuff);
         }
     }
     public override void KillSomePerson(int count)

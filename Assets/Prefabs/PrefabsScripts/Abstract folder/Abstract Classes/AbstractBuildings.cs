@@ -5,20 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-[CreateAssetMenu(menuName =("Data objects/Build data"))]
-public class BuildData : ScriptableObject
-{
-    public string Id;
-
-    public int MaxLevel;
-    public int TimeToBuild;
-    public int TimeToUpgrade;
-
-    public int CostToBuild;
-    public int CostToUpgrade;
-    public int CostMultiplier;
-}
-
 [AttributeUsage(AttributeTargets.Class)]
 public class BuildingAttribute : Attribute
 {

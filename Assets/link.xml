@@ -1,0 +1,7 @@
+<linker>
+  <assembly fullname="Assembly-CSharp">
+    <type fullname="BuildPanelSO" preserve="all"/>
+    <type fullname="BuildData" preserve="all"/>
+    <type fullname="SquadData" preserve="all"/>
+  </assembly>
+</linker>

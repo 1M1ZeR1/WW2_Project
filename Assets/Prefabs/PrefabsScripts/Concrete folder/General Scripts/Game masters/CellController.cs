@@ -421,6 +421,12 @@ public class CellSquadsOnArea:ICellNeeder_Type
         }
 
     }
+    public void SwitchSquad(AbstractSquad squad,GameObject toCell)
+    {
+        squadsOnCell.Remove(squad);
+
+        ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(toCell).GetParameter<CellSquadsOnArea>().squadsOnCell.Add(squad);
+    }
 
     private void CheckCount()
     {

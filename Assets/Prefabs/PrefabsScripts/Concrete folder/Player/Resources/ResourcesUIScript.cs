@@ -93,7 +93,7 @@ public class ResourcesUIScript : MonoBehaviour
         {
             if (rectTransform.anchoredPosition.y >= 0){ break;}
 
-            rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, rectTransform.anchoredPosition.y + 0.001f ) * Time.deltaTime;
+            rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, rectTransform.anchoredPosition.y + 10f*Time.deltaTime );
 
             yield return null;
         }

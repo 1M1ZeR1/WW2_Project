@@ -60,22 +60,6 @@ public class CellUIScript : MonoBehaviour
         ServiceRegistry.WorkWithController<BuilderController>().RequestUIUpdate += UpdateByBuildingsController;
     }
 
-    private void Update()
-    {
-        //foreach(var squad in cellsSquad.Keys)
-        //{
-        //    GameObject cooldownPanel = panelsSquad[squad].transform.GetChild(4).GetChild(1).gameObject;
-        //    if (!squad.GetCanUseSkill())
-        //    {
-        //        cooldownPanel.SetActive(true);
-
-        //        cooldownPanel.GetComponent<UnityEngine.UI.Image>().fillAmount = (float)squad.GetCurrentSkillCooldown() / squad.GetSkillCooldown();
-        //    }
-        //    else {cooldownPanel.SetActive(false); }
-        //}
-    }
-
-
     private TextMeshProUGUI nameCell;
 
     private TextMeshProUGUI typeCell;
@@ -290,10 +274,16 @@ public class CellPanel
 
         GameController gameController = ServiceRegistry.WorkWithController<GameController>();
 
+
+
         gameController.dictionaryUpdatedEvent += UpdateSquadsPanels;
         gameController.dictionaryIncreased += AddSquadsPanels;
-        gameController.squadUpdateEvent += SwipeStateSquad;
-        gameController.squadRemovedEvent += RemoveSquadFromListCell;
+
+        ServiceRegistry.WorkWithService<EventBus>().Subscribe<GameController, int, AbstractSquad>((sender, var, squad) =>
+        {
+            if (var == 1) { SwipeStateSquad(squad); }
+            if (var == 2) { RemoveSquadFromListCell(squad); }
+        });
 
         createSquadPanelFromController = cellUIScript.CreateSquadPanel;
         invokeUpdateEvent = cellUIScript.UpdatePanelInfo;
@@ -321,9 +311,9 @@ public class CellPanel
 
     protected void AddSquadToListCell_Simple(SquadPanel squadPanel) 
     { 
-        squadsObjects.Add(squadPanel.GetSquad(), squadPanel); 
+        squadsObjects.Add(squadPanel.SquadOfThisPanel, squadPanel); 
         squadsObjectsStateUse.Add(squadPanel, true); 
-        squadPanel.ChangeCurrentCell(_currentCell, this);
+        squadPanel.ChangeCurrentCell(_currentCell);
     }
 
     private void UpdateSquadsPanels(AbstractSquad squad, GameObject cellFrom, GameObject cellTo)
@@ -385,22 +375,21 @@ public class CellPanel
 }
 public class SquadPanel : IUIConstructor
 {
-    private GameObject squadPanel;
-    private GameObject currentCell;
+    private GameObject squadPanel, currentCell, actionPanelBlock;
 
-    private AbstractSquad squadForPanel;
+    public AbstractSquad SquadOfThisPanel { get; private set; }
 
     private SquadPanelScript squadPanelScript;
-    private CellPanel cellPanel;
 
     private UnityEngine.UI.Button skillButton, actionButton, informationButton;
+
+    private UnityEngine.UI.Image blackPanelSkill;
 
     public SquadPanel(GameObject createdPanel, GameObject currentCell, AbstractSquad squadForPanel, CellPanel cellPanel)
     {
         squadPanel = createdPanel;
         this.currentCell = currentCell;
-        this.squadForPanel = squadForPanel;
-        this.cellPanel = cellPanel;
+        SquadOfThisPanel = squadForPanel;
 
         createdPanel.TryGetComponent(out squadPanelScript);
 
@@ -415,27 +404,48 @@ public class SquadPanel : IUIConstructor
 
         var eventTrigger_Sprite = squadPanel.transform.Find("Sprite").GetComponent<EventTrigger>();
 
-        skillButton.onClick.AddListener(() => { squadPanelScript.BintButton_UseSkill(squadForPanel); });
+
+        skillButton.onClick.AddListener(() => { squadPanelScript.BintButton_UseSkill(SquadOfThisPanel); });
         actionButton.onClick.AddListener(() => {
-            squadPanelScript.BindButton_Interaction(currentCell, squadForPanel);
+            squadPanelScript.BindButton_Interaction(currentCell, SquadOfThisPanel);
         });
-        informationButton.onClick.AddListener(() => { squadPanelScript.BindButton_ShowInformation(squadForPanel); });
+        informationButton.onClick.AddListener(() => { squadPanelScript.BindButton_ShowInformation(SquadOfThisPanel); });
+
 
         EventTrigger.Entry entry = new EventTrigger.Entry();
         entry.eventID = EventTriggerType.PointerClick;
-        entry.callback.AddListener((eventData) => { squadPanelScript.BindImageEvent_AddToSelectedList(squadForPanel); });
+        entry.callback.AddListener((eventData) => { squadPanelScript.BindImageEvent_AddToSelectedList(SquadOfThisPanel); });
         eventTrigger_Sprite.triggers.Add(entry);
+
+        blackPanelSkill = squadPanel.transform.Find("SquadSkillPanel/CooldownPanel").GetComponent<UnityEngine.UI.Image>();
+        actionPanelBlock = squadPanel.transform.Find("BlockPanel").gameObject;
+
+        ServiceRegistry.WorkWithService<EventBus>().Subscribe< AbstractSquad, int, int>((squad, timer, skillCooldown) =>
+        {
+            if(squad == SquadOfThisPanel)
+            {
+                blackPanelSkill.fillAmount = (float)timer/skillCooldown;
+            }
+        });
+        ServiceRegistry.WorkWithService<EventBus>().Subscribe<string,AbstractSquad,bool>((command,squad,state) =>
+        {
+            if (squad == SquadOfThisPanel) 
+            { 
+                if (command == "ChangeState_BlockSkill") { blackPanelSkill.gameObject.SetActive(state); return; } 
+                if (command == "ChangeState_BlockAction") { actionPanelBlock.gameObject.SetActive(state); return; }
+            }
+        });
+
     }
-    public void ChangeCurrentCell(GameObject cell, CellPanel cellPanel) { currentCell = cell; this.cellPanel = cellPanel; }
+    public void ChangeCurrentCell(GameObject cell) { currentCell = cell;}
     public void ChangeInformation(AbstractSquad squad)
     {
         TextMeshProUGUI nameSquad = squadPanel.transform.Find("Name").transform.GetComponent<TextMeshProUGUI>();
 
         nameSquad.text = squad.Name;
     }
-    public AbstractSquad GetSquad() { return squadForPanel; }
 
-    public void SwitchActiveState(bool state) { if (squadForPanel.Side != SideEnum.Allies) return; squadPanel.SetActive(state); }
+    public void SwitchActiveState(bool state) { if (SquadOfThisPanel.Side != SideEnum.Allies) return; squadPanel.SetActive(state); }
     public void SwipeParent(Transform parent) { squadPanel.transform.SetParent(parent); }
 }
 

@@ -4,10 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UI;
-using static PanelFactory_BuildPanel;
 
 /// <summary>
 /// Concrete realizations of factorys
@@ -28,8 +25,12 @@ public class ObjectsFactory:FactoryOfGameObjects
     public override void StartFactory(){}
 }
 
-public class PanelFactory_BuildPanel : FactoryOfGameObjects
+public class PanelFactory_BuildPanel : FactoryOfGameObjects,INeedTime
 {
+    public Action<object> Completed {  get; set; }
+
+    protected bool _buildDataIsLoaded = false;
+
     public enum PanelType
     {
         Minimize,
@@ -45,15 +46,28 @@ public class PanelFactory_BuildPanel : FactoryOfGameObjects
 
     public override void StartFactory()
     {
-        List<BuildPanelSO> allPresets = new();
+        ServiceRegistry.RegisterInterface(this);
 
-        Addressables.LoadAssetsAsync<BuildPanelSO>("BuildPanel", panel =>
+        ServiceRegistry.WorkWithService<EventBus>().Subscribe<ObjectFactory_Builds>((sender) =>
         {
-            allPresets.Add(panel);
-            keysToData.Add($"{panel.buildId}_panel");
-        }).Completed += handle =>
+            _buildDataIsLoaded = true;
+        });
+
+        Debug.Log($"Starting factory:{this}");
+
+        DataLoader.LoadArrayData<BuildPanelSO>(this, "BuildPanel");
+        DataLoader.LoadedArrayData += (sender, array) =>
         {
-            if (handle.Status == AsyncOperationStatus.Succeeded) { SaveInDataHolder(allPresets); }
+            if (sender.GetType() == GetType()) 
+            {
+                foreach (var obj in array) 
+                {
+                    BuildPanelSO buildPanel = (BuildPanelSO)obj;
+                    keysToData.Add($"{buildPanel.buildId}_panel");
+                }
+
+                SaveInDataHolder(array.Cast<BuildPanelSO>().ToList());
+            }
         };
     }
 
@@ -65,29 +79,35 @@ public class PanelFactory_BuildPanel : FactoryOfGameObjects
     }
     private void SaveInDataHolder(List<BuildPanelSO> allPresets)
     {
+        Debug.Log($"Start to save objects in data holder:{this}");
+
         var dataholderObject = ServiceRegistry.WorkWithService<DataHolder>();
 
-        foreach(var preset in allPresets)
+        foreach (var preset in allPresets)
         {
             Debug.Log($"{this}:Saving {preset} in data holder by id:{preset.buildId}_panel");
             dataholderObject.AddDataToHolder($"{preset.buildId}_panel", preset);
         }
 
-        CreatePanels();
+        ServiceRegistry.WorkWithService<MonobehaviourMaster>().CoroutineStarter(CreatePanels());
     }
-    private void CreatePanels()
+    private IEnumerator CreatePanels()
     {
+        yield return new WaitUntil(()=>_buildDataIsLoaded);
+
+        Debug.Log($"Start creating panels:{this}");
+
         for(int i =0;i<parents.Length;i++)
         {
             BuildPrototypePanel configurator;
 
-            switch (types[i]) 
+            switch (types[i])
             {
-                case PanelType.Minimize:configurator = prototypes[0].GetComponent<BuildPrototypePanel>();break;
+                case PanelType.Minimize: configurator = prototypes[0].GetComponent<BuildPrototypePanel>(); break;
                 case PanelType.Normal: configurator = prototypes[1].GetComponent<BuildPrototypePanel>(); break;
                 case PanelType.Maximize: configurator = prototypes[2].GetComponent<BuildPrototypePanel>(); break;
 
-                default:configurator = null;break;
+                default: configurator = null; break;
             }
 
             foreach (string key in keysToData)
@@ -99,12 +119,17 @@ public class PanelFactory_BuildPanel : FactoryOfGameObjects
                     ServiceRegistry.WorkWithController<ResourcesController>().GetBuildingCost(preset.buildId, 2),
                     preset.buildDescription, preset.buildId,
                     parents[i]);
+
+                Debug.Log($"{this}:Create new panel by preset:{preset}");
             }
         }
+        Completed?.Invoke(this);
     }
 }
-public class PanelFactory_SquadPanel : FactoryOfGameObjects
+public class PanelFactory_SquadPanel : FactoryOfGameObjects,INeedTime
 {
+    public Action<object> Completed { get; set; }
+
     private TMP_Dropdown dropdown;
 
     private List<string> keys = new();
@@ -113,19 +138,31 @@ public class PanelFactory_SquadPanel : FactoryOfGameObjects
 
     public override void StartFactory()
     {
-        List<SquadData> allPresets = new();
+        ServiceRegistry.RegisterInterface(this);
 
-        Addressables.LoadAssetsAsync<SquadData>("SquadData", data =>
+        Debug.Log($"Starting factory:{this}");
+
+        DataLoader.LoadArrayData<SquadData>(this, "SquadData");
+        DataLoader.LoadedArrayData += (sender, array) =>
         {
-            allPresets.Add(data);
-            keys.Add(data.id);
-        }).Completed += handle =>
-        {
-            if (handle.Status == AsyncOperationStatus.Succeeded) { SaveInDataHolder(allPresets); }
+            if (sender.GetType() == GetType())
+            {
+                foreach (var obj in array)
+                {
+                    SquadData squadData = (SquadData)obj;
+                    keys.Add(squadData.id);
+                }
+
+                SaveInDataHolder(array.Cast<SquadData>().ToList());
+
+                CreateLinks();
+            }
         };
     }
     private void SaveInDataHolder(List<SquadData> allPresets)
     {
+        Debug.Log($"Start to save objects in data holder:{this}");
+
         var dataholderObject = ServiceRegistry.WorkWithService<DataHolder>();
 
         foreach (var preset in allPresets)
@@ -152,6 +189,8 @@ public class PanelFactory_SquadPanel : FactoryOfGameObjects
         }
 
         dropdown.AddOptions(options);
+
+        Completed?.Invoke(this);
     }
     public void SetObjects(TMP_Dropdown dropdown)
     {
@@ -159,8 +198,10 @@ public class PanelFactory_SquadPanel : FactoryOfGameObjects
     }
 }
 
-public class ObjectFactory_Builds : FactoryOfConcreteObjects
+public class ObjectFactory_Builds : FactoryOfConcreteObjects,INeedTime
 {
+    public Action<object> Completed {  get; set; }
+
     protected Dictionary<string, AbstractBuildings> _idToBuildings = new();
 
     protected Dictionary<string, BuildData> _buildsData = new();
@@ -171,16 +212,28 @@ public class ObjectFactory_Builds : FactoryOfConcreteObjects
     }
     public override void StartFactory()
     {
-        Addressables.LoadAssetsAsync<BuildData>("BuildData", data =>
-        {
-            _buildsData.Add(data.Id,data);
+        ServiceRegistry.RegisterInterface(this);
 
-            ServiceRegistry.WorkWithService<DataHolder>().AddDataToHolder(data.Id, data);
-        }).Completed += handle =>
+        Debug.Log($"Starting factory:{this}");
+
+        DataLoader.LoadArrayData<BuildData>(this, "BuildData");
+        DataLoader.LoadedArrayData += (sender, array) =>
         {
-            if (handle.Status == AsyncOperationStatus.Succeeded) { StartBuildingsInstance(); }
+            if (sender.GetType() == GetType())
+            {
+                foreach (var obj in array)
+                {
+                    BuildData buildData = (BuildData)obj;
+                    _buildsData.Add(buildData.Id, buildData);
+                    ServiceRegistry.WorkWithService<DataHolder>().AddDataToHolder(buildData.Id, buildData);
+                }
+
+                ServiceRegistry.WorkWithService<EventBus>().Publish<ObjectFactory_Builds>(this);
+                StartBuildingsInstance();
+            }
         };
     }
+
     private void StartBuildingsInstance()
     {
         var types = AppDomain.CurrentDomain.GetAssemblies().SelectMany(a => a.GetTypes())
@@ -197,6 +250,8 @@ public class ObjectFactory_Builds : FactoryOfConcreteObjects
 
             Debug.Log($"{this}:Saving object with id:{attr.Id}. Count of saving data build is:{_idToBuildings.Count}");
         }
+
+        Completed?.Invoke(this);
     }
     private AbstractBuildings CreateInstance(string id,Type buildType)
     {

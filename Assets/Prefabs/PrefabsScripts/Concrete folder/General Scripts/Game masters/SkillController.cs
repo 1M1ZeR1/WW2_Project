@@ -6,49 +6,19 @@ using UnityEngine;
 
 public class SkillController : MonoBehaviour
 {
-    [Header("Контроллер взаимодействия")]
-    [SerializeField] private GameObject interactableObject;
-    private InteractableScript interactableScript;
-
-    [Header("Контроллер бафов")]
-    [SerializeField] private GameObject buffsControllerObject;
-
-    [Header("Контроллер разведки")]
-    [SerializeField] private GameObject explorationObject;
-
 
     private delegate void OneSkillSeconsPassed();
     private event OneSkillSeconsPassed timer;
 
-    void Start()
-    {
-        interactableObject.TryGetComponent(out interactableScript);
-    }
 
     public void FixSkill(AbstractSquad squad)
     {
-        squad.SetMasters(buffsControllerObject,explorationObject);
-
-        switch(squad)
-        {
-            case InfantrySquad infantrySquad:
-                SkillWithoutChoise(infantrySquad); break;
-            case EngineerSquad engineerSquad:
-                SkillWithoutChoise(engineerSquad); break;
-            case TankSquad tankSquad:
-                SkillWithoutChoise(tankSquad); break;
-            case ArtillerySquad artillerySquad:
-                if (ServiceRegistry.WorkWithController<ResourcesController>().CheckReourcesToSkill(ResourcesController.SkillType_ForCost.Artillary)){StartCoroutine(SkillWithChoise(artillerySquad));}
-                break;
-            case ScoutSquad scoutSquad:
-                StartCoroutine(SkillWithChoise(scoutSquad)); break;
-        }
+        if(squad.SkillWithChoise)ServiceRegistry.WorkWithService<MonobehaviourMaster>().CoroutineStarter(SkillWithChoise(squad));
+        else SkillWithoutChoise(squad);
     }
     private void SkillWithoutChoise(AbstractSquad squadUsedSkill)
     {
-        Action usedSkill = squadUsedSkill.UseClassSkill(this,ServiceRegistry.WorkWithController<GameController>().GetCellWithThisSquad(squadUsedSkill));
-
-        if(usedSkill != null) { usedSkill.Invoke();}
+        squadUsedSkill.UseClassSkill()?.Invoke();
     }
     private IEnumerator SkillWithChoise(AbstractSquad squadUsedSkill)
     {
@@ -62,20 +32,11 @@ public class SkillController : MonoBehaviour
 
         yield return new WaitUntil(() => selectedObject != null);
 
+        ServiceRegistry.WorkWithService<EventBus>().Publish<SkillController, AbstractSquad, GameObject>(this, squadUsedSkill, selectedObject);
+
         ChoosingScript.ChangeChooseState();
 
-        if (squadUsedSkill is ArtillerySquad artillerySquad)
-        {
-            artillerySquad.SetSelectedCell(selectedObject);
-        }
-        else if (squadUsedSkill is ScoutSquad scoutSquad)
-        {
-            scoutSquad.SetSelectedCell(selectedObject);
-
-            Action usedSkill = scoutSquad.UseClassSkill(this, ServiceRegistry.WorkWithController<GameController>().GetCellWithThisSquad(squadUsedSkill));
-
-            if(usedSkill != null) { usedSkill.Invoke(); }
-        }
+        squadUsedSkill.UseClassSkill()?.Invoke();
 
         selectedObject = null;
     }

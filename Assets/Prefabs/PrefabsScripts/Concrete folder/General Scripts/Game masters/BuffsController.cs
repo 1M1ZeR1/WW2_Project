@@ -3,19 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BuffsController : MonoBehaviour
+public class BuffsController
 {
-    [Header("Контроллер времени")]
-    [SerializeField] private GameObject timeControllerObject;
-    private TimeControllerScript timeControllerScript;
-
     protected List<AbstractBuffs> buffsWithTimer = new List<AbstractBuffs>();
 
-    private void Start()
+    public BuffsController()
     {
-        timeControllerObject.TryGetComponent(out timeControllerScript);
-
-        timeControllerScript.OnHourHasPassed += HourHasPassed;
+        ServiceRegistry.WorkWithController<TimeControllerScript>().OnHourHasPassed += HourHasPassed;
     }
 
     public void AddBuffToList(AbstractBuffs buff)
@@ -30,7 +24,6 @@ public class BuffsController : MonoBehaviour
         {
             if (buffsWithTimer[0].NeedToExpire(currentTime))
             {
-                Debug.Log("Эту случилось");
                 List<AbstractBuffs> buffsToRemove = new List<AbstractBuffs>();
 
                 foreach (AbstractBuffs buff in buffsWithTimer)

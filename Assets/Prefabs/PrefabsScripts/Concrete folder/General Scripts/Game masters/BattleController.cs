@@ -83,7 +83,7 @@ public class BattleController
     {
         if (_currentBattles.ContainsKey(cell))
         {
-            squad.Action = SquadActions.Battle;
+            squad.SquadAction = SquadActions.Battle;
             _currentBattles[cell].DragInBattle(squad);
         }
     }
@@ -215,10 +215,10 @@ public class SquadsManager
 
     private void SetSquadAction(AbstractSquad squad)
     {
-        if (squad.Action != SquadActions.Battle) { squad.Action = SquadActions.Battle; }
+        if (squad.SquadAction != SquadActions.Battle) { squad.SquadAction = SquadActions.Battle; }
         else
         {
-            squad.Action = SquadActions.None;
+            squad.SquadAction = SquadActions.None;
         }
 
         ServiceRegistry.WorkWithController<GameController>().UpdateSquadInformation_SwipeState(squad);
@@ -250,7 +250,7 @@ public class SquadsManager
                 ServiceRegistry.WorkWithController<GameController>().SingleThrasher_Squad(squad); continue;
             }
 
-            squad.Action = SquadActions.None;
+            squad.SquadAction = SquadActions.None;
 
             ServiceRegistry.WorkWithController<GameController>().UpdateSquadInformation_ChangeCell(squad, cell, cellTo);
             ServiceRegistry.WorkWithController<GameController>().AllowBotToAct(squad);

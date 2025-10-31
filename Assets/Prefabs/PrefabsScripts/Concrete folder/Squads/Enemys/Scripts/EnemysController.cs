@@ -67,7 +67,7 @@ public class EnemysController
 
     public void AllowAll(AbstractSquad squad)
     {
-        if (_squadToCell.ContainsKey(squad)) { squad.Action = SquadActions.None; }
+        if (_squadToCell.ContainsKey(squad)) { squad.SquadAction = SquadActions.None; }
     }
     public void AddBot(AbstractSquad squad,GameObject cell) { _squadToCell.Add(squad,cell); }
     public void RemoveBot(AbstractSquad squad) { _squadToCell.Remove(squad); }
@@ -476,10 +476,13 @@ public class DecisionAction_CatchTerritory:DecisionAction,IDecisionAction_WorkWi
             ServiceRegistry.WorkWithController<UnitsSpawner>().SpawnSquadOnCell(squadsId[Random.Range(0, squadsId.Length)],SideEnum.Enemys, mainBase);
         }
 
-        ServiceRegistry.WorkWithController<GameController>().squadRemovedEvent += (AbstractSquad squad) =>
+        ServiceRegistry.WorkWithService<EventBus>().Subscribe<GameController, int, AbstractSquad>((sender, var, squad) =>
         {
-            if (squadsInAction.Contains(squad)) { squadsInAction.Remove(squad);}
-        };
+            if (var == 2)
+            {
+                if (squadsInAction.Contains(squad)) { squadsInAction.Remove(squad); }
+            }
+        });
 
 
     }
@@ -502,7 +505,7 @@ public class DecisionAction_CatchTerritory:DecisionAction,IDecisionAction_WorkWi
             {
                 if (squadsInAction.Contains(squad))
                 {
-                    if (squad.Action == SquadActions.None) { _freeSquads++; }
+                    if (squad.SquadAction == SquadActions.None) { _freeSquads++; }
 
                     if (_freeSquads == squadsInAction.Count)
                     {
