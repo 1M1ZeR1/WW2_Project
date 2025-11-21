@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class MonobehaviourHandler : MonoBehaviour
 {
+
     [Header("Build Prototype Object")]
     [SerializeField] private Transform[] buildPrototype;
     [Header("Build Prototype Needers")]

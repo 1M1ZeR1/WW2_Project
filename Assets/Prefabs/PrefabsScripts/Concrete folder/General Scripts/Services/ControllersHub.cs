@@ -10,8 +10,12 @@ public class ControllersHub
 {
     public Action StartLoadMap;
 
+    protected bool _servicesLoaded = false;
+
     private readonly Dictionary<Type, object> controllers = new();
     private readonly Dictionary<Type, object> services = new();
+
+    private readonly Queue<INeedTime> queueToLoad_Services = new();
 
     protected int _countOfRegisterInterfaces = 0;
     protected List<object> _registerInterfaces = new List<object>();
@@ -23,6 +27,8 @@ public class ControllersHub
     private void Register_Service<T>(T service)
     {
         services[typeof(T)] = service;
+
+        if(service.GetType() == typeof(INeedTime)) queueToLoad_Services.Enqueue((INeedTime)service);
     }
 
     public void AddINeedTimeInterfaceToList(INeedTime inputInterface)
@@ -36,7 +42,7 @@ public class ControllersHub
     }
     public System.Collections.IEnumerator LoadWaiter()
     {
-        yield return new WaitUntil(()=>_registerInterfaces.Count == 0);
+        yield return new WaitUntil(()=>_registerInterfaces.Count == 0 && _servicesLoaded);
 
         StartLoadMap?.Invoke();
     }
@@ -65,9 +71,15 @@ public class ControllersHub
         RegisterControllers();
 
         GetService<MonobehaviourMaster>().CoroutineStarter(LoadWaiter());
+
     }
     public void RegisterServices()
     {
+        Register_Service(new EventBus());
+        Register_Service(new CommandBus());
+
+        Register_Service(new NavigationMesh());
+
         Register_Service(new DataHolder());
         Register_Service(GameObject.FindAnyObjectByType<MonobehaviourMaster>());
         Register_Service(new ObjectsFactory());
@@ -82,7 +94,9 @@ public class ControllersHub
 
         Register_Service(new PanelFactory_BuildPanel());
 
-        Register_Service(new EventBus());
+        _servicesLoaded = true;
+
+        GameObject.FindAnyObjectByType<TimeControllerScript>().StartTime();
     }
 
     public void RegisterControllers()
@@ -127,15 +141,9 @@ public class ControllersHub
         Register_Controller(GameObject.FindAnyObjectByType<ExplorationController>());
     }
 
-}
-public static class RuntimeWarmup
-{
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-    static void Init()
-    {
-        var _ = typeof(BuildData);
-        var __ = typeof(BuildPanelSO);
-        var ___ = typeof(SquadData);
-    }
+    //private IEnumerator ServicesLoader()
+    //{
+
+    //}
 }
 

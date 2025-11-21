@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.Build.Pipeline.Utilities;
 using UnityEngine;
 
 [AttributeUsage(AttributeTargets.Class)]
@@ -51,7 +52,7 @@ public class HeadquartersBuild : AbstractBuildings
     }
 
     protected int _searchingRadius = 200;
-    protected Transform _cellWithThisBuild;
+    public Transform CellWithThisBuild { get; set; }
 
     private int headquartersBonus = 3;
 
@@ -70,7 +71,6 @@ public class HeadquartersBuild : AbstractBuildings
     {
         var newClone = new HeadquartersBuild();
         newClone.InstanceBuild(TimeBuild, TimeUpgrade, MaxLevelBuild);
-        newClone._cellWithThisBuild = ServiceRegistry.WorkWithController<InteractableScript>().currentInteractableCell.transform;
         return newClone;
     }
     public override void ActivateBuild()
@@ -113,7 +113,7 @@ public class HeadquartersBuild : AbstractBuildings
 
     private void SearchingCells()
     {
-        var findedCells = Physics.OverlapSphere(_cellWithThisBuild.position, _searchingRadius).Select(colider => colider.gameObject).Where(cell => cell.CompareTag("Interactable Cell")).ToList();
+        var findedCells = Physics.OverlapSphere(CellWithThisBuild.position, _searchingRadius).Select(colider => colider.gameObject).Where(cell => cell.CompareTag("Interactable Cell")).ToList();
 
         if(CellsInArea.Count == 0) { CellsInArea = findedCells.ToList();
             foreach (var cell in CellsInArea) { AddBonusToCell(cell); }
@@ -171,7 +171,7 @@ public class HeadquartersBuild : AbstractBuildings
     private bool CheckSideProperties(GameObject cell)
     {
         return ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).GetParameter<CellArea>().Side ==
-                    ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(_cellWithThisBuild.gameObject).GetParameter<CellArea>().Side;
+                    ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(CellWithThisBuild.gameObject).GetParameter<CellArea>().Side;
     }
 }
 

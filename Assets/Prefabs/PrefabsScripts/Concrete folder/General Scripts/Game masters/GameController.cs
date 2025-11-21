@@ -11,8 +11,6 @@ public class GameController
     public GameTimer oneSecondPassed;
     protected float _timer;
 
-    public delegate void TimeTake();
-    public TimeTake oneHourLeft;
     protected float _timerTime;
 
     public delegate void CellCaptured(GameObject cell);
@@ -62,7 +60,7 @@ public class GameController
             _timerTime += Time.deltaTime;
             if(_timerTime >= 1f)
             {
-                if(oneHourLeft != null) { oneHourLeft.Invoke();}
+                ServiceRegistry.WorkWithService<EventBus>().Publish<GameController>(this);
                 _timerTime = 0f;
             }
 
@@ -83,7 +81,7 @@ public class GameController
         squadsDictionary.Add(squad,cell);
         dictionaryIncreased.Invoke(squad,cell);
 
-        if(squad.Side == SideEnum.Enemys) { ServiceRegistry.WorkWithController<EnemysController>().AddBot(squad,cell); }
+        if(squad.Side == SideEnum.Enemys) { /*ServiceRegistry.WorkWithController<EnemysController>().AddBot(squad,cell);*/ }
     }
     public void AddSquadInDictionary_Safety(AbstractSquad squad, GameObject cell)
     {
@@ -92,14 +90,14 @@ public class GameController
             squadsDictionary[squad] = cell;
             dictionaryIncreased.Invoke(squad, cell);
 
-            if (squad.Side == SideEnum.Enemys) { ServiceRegistry.WorkWithController<EnemysController>().SetCell(squad, cell); }
+            if (squad.Side == SideEnum.Enemys) { /*ServiceRegistry.WorkWithController<EnemysController>().SetCell(squad, cell);*/ }
         }
         else
         {
             squadsDictionary.Add(squad, cell);
             if(dictionaryIncreased != null)dictionaryIncreased.Invoke(squad, cell);
 
-            if (squad.Side == SideEnum.Enemys) { ServiceRegistry.WorkWithController<EnemysController>().AddBot(squad, cell); }
+            if (squad.Side == SideEnum.Enemys) {/* ServiceRegistry.WorkWithController<EnemysController>().AddBot(squad, cell);*/ }
         }
     }
     public void RemoveSquadFromDictionary(AbstractSquad squad, GameObject cell)
@@ -117,7 +115,7 @@ public class GameController
 
             if (squad.Side == SideEnum.Enemys)
             {
-                ServiceRegistry.WorkWithController<EnemysController>().SetCell(squad, cellTo);
+                //ServiceRegistry.WorkWithController<EnemysController>().SetCell(squad, cellTo);
             }
         }
     }
@@ -155,10 +153,6 @@ public class GameController
     {
         return squadsDictionary.Where(p => p.Value == cell).Select(p => p.Key).ToList();
     }
-    public List<AbstractSquad> GetAllEnemysOnCell(GameObject cell)
-    {
-        return ServiceRegistry.WorkWithController<EnemysController>().GetAllEnemysOnCell(cell);
-    }
     public GameObject GetCellWithThisSquad(AbstractSquad squad) { return squadsDictionary[squad]; }
 
     public AbstractSquad GetNewEnemySquad(List<AbstractSquad> squads, GameObject cell)
@@ -176,7 +170,7 @@ public class GameController
 
     public void AllowBotToAct(AbstractSquad squad)
     {
-        ServiceRegistry.WorkWithController<EnemysController>().AllowAll(squad);
+        //ServiceRegistry.WorkWithController<EnemysController>().AllowAll(squad);
     }
 
 

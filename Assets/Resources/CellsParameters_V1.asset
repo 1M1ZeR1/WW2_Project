@@ -27,6 +27,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 2
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(267)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -49,6 +50,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 2
     buildings: []
+    isFront: 1
   - currentCellName: VoronoiCell(297)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -71,6 +73,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 1
     buildings: []
+    isFront: 1
   - currentCellName: VoronoiCell(256)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -87,6 +90,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 1
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(257)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -103,6 +107,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 1
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(238)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -125,6 +130,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(241)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -137,6 +143,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(231)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -155,6 +162,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(208)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -169,6 +177,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(204)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -191,6 +200,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(203)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -209,6 +219,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(188)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -225,6 +236,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(148)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -241,6 +253,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(153)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -257,6 +270,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(166)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -281,6 +295,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(154)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -303,6 +318,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(140)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -317,6 +333,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(147)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -337,6 +354,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(129)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -355,6 +373,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(105)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -369,6 +388,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(128)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -389,6 +409,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(123)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -407,6 +428,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(91)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -431,6 +453,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(89)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -449,6 +472,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(90)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -463,6 +487,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(56)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -481,6 +506,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(62)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -501,6 +527,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(28)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -515,6 +542,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(52)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -537,6 +565,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(39)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -553,6 +582,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(15)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -569,6 +599,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(22)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -585,6 +616,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(35)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -607,6 +639,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(18)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -619,6 +652,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(40)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -635,6 +669,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(43)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -655,6 +690,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(17)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -671,6 +707,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(10)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -689,6 +726,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(327)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -711,6 +749,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 2
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(312)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -727,6 +766,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 2
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(326)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -747,6 +787,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 2
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(329)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -769,6 +810,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 2
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(328)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -783,6 +825,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 2
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(345)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -803,6 +846,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 2
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(378)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: "\u0413\u043E\u0440\u043E\u0434 \u0413\u0440\u043E\u0434\u043D\u043E"
@@ -824,7 +868,9 @@ MonoBehaviour:
     cellType: 5
     isBase: 1
     controlSide: 2
-    buildings: []
+    buildings:
+    - {fileID: 11400000, guid: 0ea24a6b721eb5a47aa0532cc0d3a2ba, type: 2}
+    isFront: 0
   - currentCellName: VoronoiCell(406)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -839,6 +885,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 2
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(313)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -851,6 +898,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 2
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(416)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -871,6 +919,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 2
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(447)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -887,6 +936,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 2
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(499)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -907,6 +957,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 2
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(547)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -923,6 +974,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 2
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(584)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -941,6 +993,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 2
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(552)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -961,6 +1014,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 2
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(598)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -979,6 +1033,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 1
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(677)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -997,6 +1052,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(536)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -1021,6 +1077,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 2
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(515)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -1041,6 +1098,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 2
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(468)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -1063,6 +1121,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 2
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(395)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -1085,6 +1144,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 2
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(391)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -1105,6 +1165,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 2
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(376)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -1128,7 +1189,9 @@ MonoBehaviour:
     cellType: 1
     isBase: 0
     controlSide: 2
-    buildings: []
+    buildings:
+    - {fileID: 11400000, guid: 0ea24a6b721eb5a47aa0532cc0d3a2ba, type: 2}
+    isFront: 0
   - currentCellName: VoronoiCell(362)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -1147,6 +1210,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 2
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(388)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -1165,6 +1229,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 2
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(356)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -1189,6 +1254,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 2
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(336)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -1207,6 +1273,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 2
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(350)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -1227,6 +1294,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 2
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(415)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -1251,6 +1319,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 2
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(417)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -1273,6 +1342,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 2
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(463)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -1295,6 +1365,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 2
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(514)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -1319,6 +1390,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 2
     buildings: []
+    isFront: 1
   - currentCellName: VoronoiCell(455)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -1341,6 +1413,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 2
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(476)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -1361,6 +1434,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 2
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(454)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -1383,6 +1457,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 2
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(464)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -1403,6 +1478,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 2
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(396)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -1425,6 +1501,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 2
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(357)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -1447,6 +1524,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 2
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(339)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -1469,6 +1547,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 2
     buildings: []
+    isFront: 1
   - currentCellName: VoronoiCell(334)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -1489,6 +1568,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 1
     buildings: []
+    isFront: 1
   - currentCellName: VoronoiCell(333)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -1505,6 +1585,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 1
     buildings: []
+    isFront: 1
   - currentCellName: VoronoiCell(314)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -1527,6 +1608,7 @@ MonoBehaviour:
     isBase: 1
     controlSide: 1
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(288)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -1547,6 +1629,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 1
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(372)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -1565,6 +1648,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 2
     buildings: []
+    isFront: 1
   - currentCellName: VoronoiCell(410)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -1587,6 +1671,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 2
     buildings: []
+    isFront: 1
   - currentCellName: VoronoiCell(411)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -1605,6 +1690,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 2
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(445)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -1625,6 +1711,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 2
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(488)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -1635,6 +1722,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 2
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(446)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -1655,6 +1743,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 2
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(251)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -1677,6 +1766,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(261)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -1695,6 +1785,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(268)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -1709,6 +1800,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(266)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -1733,6 +1825,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(245)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -1759,6 +1852,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(299)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -1781,6 +1875,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(301)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -1801,6 +1896,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(303)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -1817,6 +1913,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(319)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -1837,6 +1934,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 1
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(343)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -1859,6 +1957,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 1
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(353)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -1881,6 +1980,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 1
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(348)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -1903,6 +2003,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 1
     buildings: []
+    isFront: 1
   - currentCellName: VoronoiCell(352)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -1923,6 +2024,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 1
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(389)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -1945,6 +2047,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 1
     buildings: []
+    isFront: 1
   - currentCellName: VoronoiCell(387)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -1963,6 +2066,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 1
     buildings: []
+    isFront: 1
   - currentCellName: VoronoiCell(294)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -1979,6 +2083,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(286)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -1999,6 +2104,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(282)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -2017,6 +2123,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(317)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -2041,6 +2148,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(346)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -2067,6 +2175,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(344)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -2087,6 +2196,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(383)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -2105,6 +2215,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(596)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -2127,6 +2238,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 1
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(635)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -2149,6 +2261,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 1
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(615)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -2169,6 +2282,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 1
     buildings: []
+    isFront: 1
   - currentCellName: VoronoiCell(618)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -2191,6 +2305,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 1
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(571)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -2213,6 +2328,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 2
     buildings: []
+    isFront: 1
   - currentCellName: VoronoiCell(617)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -2231,6 +2347,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 1
     buildings: []
+    isFront: 1
   - currentCellName: VoronoiCell(585)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -2251,6 +2368,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 2
     buildings: []
+    isFront: 1
   - currentCellName: VoronoiCell(517)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -2273,6 +2391,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 2
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(546)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -2291,6 +2410,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 2
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(657)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -2313,6 +2433,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 1
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(653)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -2339,6 +2460,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 1
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(640)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -2363,6 +2485,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(626)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -2385,6 +2508,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 1
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(616)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -2405,6 +2529,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 1
     buildings: []
+    isFront: 1
   - currentCellName: VoronoiCell(545)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -2427,6 +2552,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 1
     buildings: []
+    isFront: 1
   - currentCellName: VoronoiCell(566)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -2447,6 +2573,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 1
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(429)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -2467,6 +2594,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(456)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -2489,6 +2617,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(477)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -2511,6 +2640,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(524)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -2529,6 +2659,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(522)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -2549,6 +2680,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(563)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -2571,6 +2703,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(606)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -2595,6 +2728,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(669)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -2617,6 +2751,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(667)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -2637,6 +2772,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(642)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -2657,6 +2793,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(641)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -2675,6 +2812,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(672)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -2697,6 +2835,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(671)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -2719,6 +2858,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(670)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -2735,6 +2875,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(565)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -2757,6 +2898,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(567)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -2777,6 +2919,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 1
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(637)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -2795,6 +2938,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(647)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -2813,6 +2957,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(550)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -2833,6 +2978,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 1
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(544)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -2853,6 +2999,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 1
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(539)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -2875,6 +3022,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(471)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -2901,6 +3049,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 1
     buildings: []
+    isFront: 1
   - currentCellName: VoronoiCell(480)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -2923,6 +3072,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 2
     buildings: []
+    isFront: 1
   - currentCellName: VoronoiCell(427)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -2949,6 +3099,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 2
     buildings: []
+    isFront: 1
   - currentCellName: VoronoiCell(449)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -2972,7 +3123,9 @@ MonoBehaviour:
     cellType: 1
     isBase: 0
     controlSide: 1
-    buildings: []
+    buildings:
+    - {fileID: 11400000, guid: 0ea24a6b721eb5a47aa0532cc0d3a2ba, type: 2}
+    isFront: 1
   - currentCellName: VoronoiCell(402)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -2993,6 +3146,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 1
     buildings: []
+    isFront: 1
   - currentCellName: VoronoiCell(386)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3019,6 +3173,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 1
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(451)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3039,6 +3194,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(450)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3059,6 +3215,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(487)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3079,6 +3236,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(492)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3099,6 +3257,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 1
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(479)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3109,6 +3268,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(535)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3119,6 +3279,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(549)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3129,6 +3290,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(509)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3139,6 +3301,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(508)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3149,6 +3312,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(475)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3159,6 +3323,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(393)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3169,6 +3334,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(428)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3179,6 +3345,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(349)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3189,6 +3356,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(426)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3199,6 +3367,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(478)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3209,6 +3378,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(548)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3219,6 +3389,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(554)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3229,6 +3400,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(570)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3239,6 +3411,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(505)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3249,6 +3422,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(504)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3259,6 +3433,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(474)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3269,6 +3444,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(380)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3279,6 +3455,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(513)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3289,6 +3466,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(503)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3299,6 +3477,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(473)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3309,6 +3488,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(425)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3319,6 +3499,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(392)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3329,6 +3510,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(381)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3339,6 +3521,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(332)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3349,6 +3532,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(340)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3359,6 +3543,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(365)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3369,6 +3554,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(320)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3379,6 +3565,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(298)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3389,6 +3576,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(304)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3399,6 +3587,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(337)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3409,6 +3598,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(335)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3419,6 +3609,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(318)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3429,6 +3620,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(278)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3439,6 +3631,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(281)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3449,6 +3642,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(307)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3459,6 +3653,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(586)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3469,6 +3664,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(589)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3479,6 +3675,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(608)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3489,6 +3686,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(607)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3499,6 +3697,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(605)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3509,6 +3708,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(579)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3519,6 +3719,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(597)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3529,6 +3730,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(627)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3539,6 +3741,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(717)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3559,6 +3762,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(697)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3577,6 +3781,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(771)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3599,6 +3804,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(757)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3615,6 +3821,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(780)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3631,6 +3838,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(738)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3645,6 +3853,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(795)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3663,6 +3872,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(794)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3677,6 +3887,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(853)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3691,6 +3902,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(852)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3707,6 +3919,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(790)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3729,6 +3942,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(838)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3747,6 +3961,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(815)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3769,6 +3984,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(882)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3787,6 +4003,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(891)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3811,6 +4028,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(930)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3827,6 +4045,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(972)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3849,6 +4068,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(994)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3867,6 +4087,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(970)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3883,6 +4104,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(1005)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3905,6 +4127,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(1019)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3919,6 +4142,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(1038)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3935,6 +4159,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(1004)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3957,6 +4182,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(1037)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3973,6 +4199,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(1008)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -3993,6 +4220,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(971)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -4017,6 +4245,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(965)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -4037,6 +4266,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(997)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -4055,6 +4285,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(991)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -4075,6 +4306,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(959)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -4097,6 +4329,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(885)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -4123,6 +4356,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(964)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -4141,6 +4375,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(983)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -4161,6 +4396,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(925)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -4183,6 +4419,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(990)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -4197,6 +4434,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(919)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -4219,6 +4457,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(857)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -4243,6 +4482,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(870)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -4265,6 +4505,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(825)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -4287,6 +4528,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(881)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -4307,6 +4549,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(830)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -4325,6 +4568,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(797)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -4349,6 +4593,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(721)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -4373,6 +4618,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(787)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -4393,6 +4639,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(829)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -4413,6 +4660,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(803)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -4433,6 +4681,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(772)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -4455,6 +4704,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(732)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -4475,6 +4725,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(752)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -4493,6 +4744,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(802)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -4521,6 +4773,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(820)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -4539,6 +4792,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(872)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -4557,6 +4811,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(727)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -4575,6 +4830,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(741)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -4599,6 +4855,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(692)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -4619,6 +4876,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(715)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -4637,6 +4895,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(749)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -4661,6 +4920,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(766)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -4681,6 +4941,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(828)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -4705,6 +4966,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(767)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -4725,6 +4987,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(913)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -4747,6 +5010,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(842)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -4769,6 +5033,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(924)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -4791,6 +5056,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(962)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -4809,6 +5075,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(1003)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -4823,6 +5090,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(967)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -4837,6 +5105,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(948)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -4855,6 +5124,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(868)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -4875,6 +5145,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(867)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -4895,6 +5166,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(936)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -4915,6 +5187,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(993)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -4931,6 +5204,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(973)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -4949,6 +5223,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(676)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -4967,6 +5242,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(686)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -4983,6 +5259,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(700)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -5007,6 +5284,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(754)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -5027,6 +5305,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(774)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -5049,6 +5328,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(819)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -5073,6 +5353,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(777)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -5099,6 +5380,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(733)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -5119,6 +5401,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(746)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -5141,6 +5424,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(714)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -5161,6 +5445,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(716)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -5179,6 +5464,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(719)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -5195,6 +5481,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(728)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -5219,6 +5506,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(751)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -5243,6 +5531,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(704)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -5265,6 +5554,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(688)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -5287,6 +5577,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(703)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -5313,6 +5604,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(659)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -5337,6 +5629,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(684)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -5357,6 +5650,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(689)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -5377,6 +5671,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(711)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -5399,6 +5694,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(665)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -5417,6 +5713,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(723)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -5439,6 +5736,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(760)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -5457,6 +5755,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(742)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -5473,6 +5772,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(743)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -5495,6 +5795,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(756)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -5511,6 +5812,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(801)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -5531,6 +5833,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(843)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -5549,6 +5852,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(865)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -5571,6 +5875,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(892)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -5595,6 +5900,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(861)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -5615,6 +5921,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(909)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -5635,6 +5942,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(931)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -5655,6 +5963,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(957)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -5675,6 +5984,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(951)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -5693,6 +6003,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(961)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -5711,6 +6022,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(980)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -5727,6 +6039,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(981)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -5745,6 +6058,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(932)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -5765,6 +6079,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(876)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -5787,6 +6102,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(899)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -5805,6 +6121,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(824)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -5825,6 +6142,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(785)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -5847,6 +6165,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(821)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -5869,6 +6188,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(833)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -5887,6 +6207,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(832)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -5907,6 +6228,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(858)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -5927,6 +6249,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(912)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -5947,6 +6270,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(949)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -5969,6 +6293,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(984)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -5989,6 +6314,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(999)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -6005,6 +6331,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(953)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -6023,6 +6350,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(937)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -6045,6 +6373,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(985)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -6063,6 +6392,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(1028)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -6079,6 +6409,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(1022)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -6099,6 +6430,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(1026)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -6121,6 +6453,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(1031)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -6137,6 +6470,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(1034)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -6157,6 +6491,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(1006)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -6177,6 +6512,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(955)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -6195,6 +6531,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(954)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -6215,6 +6552,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(923)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -6237,6 +6575,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(873)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -6257,6 +6596,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(860)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -6275,6 +6615,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(796)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -6299,6 +6640,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(817)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -6317,6 +6659,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(782)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -6341,6 +6684,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(763)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -6363,6 +6707,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(761)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -6383,6 +6728,7 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0
   - currentCellName: VoronoiCell(745)
     currentCell: {fileID: 0}
     cellNameWhatPlayerSee: 
@@ -6405,3 +6751,4 @@ MonoBehaviour:
     isBase: 0
     controlSide: 0
     buildings: []
+    isFront: 0

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,580 +7,457 @@ using UnityEngine;
 
 public class EnemysController
 {
-    protected Dictionary<AbstractSquad,GameObject> _squadToCell = new Dictionary<AbstractSquad, GameObject>();
+    public DecisionTree DecisionTree { get; private set; } = new();
+    public Dictionary<HeadquartersBuild, int> HeadquartersDangerPoints { get; set; } = new();
 
-    [SerializeField] private GameObject mainBase;
+    public Dictionary<AbstractSquad, GameObject> SquadOnCell { get; private set; } = new();
 
-    protected Dictionary<GameObject,bool> _capturedCells = new Dictionary<GameObject, bool>();
+    public Dictionary<GameObject, HeadquartersBuild> CellWithHeadquarters_Bot { get; private set; } = new();
+    public Dictionary<GameObject, HeadquartersBuild> CellWithHeadquarters_Player { get; private set; } = new();
 
-    protected DecisionTreeController treeController;
+    protected int timer = 5;
 
-    [SerializeField] private AAlgorithm aAlgorithm;
 
-    private int difficulty = 1;
+    public void Start()=> ServiceRegistry.WorkWithController<GameController>().oneSecondPassed += AddToTimer;
+    private void AddToTimer() { timer++;if(timer == 10) { DecisionTree.OneStep(); } }
 
-    public void Start()
-    {
-        ServiceRegistry.WorkWithService<MonobehaviourMaster>().CoroutineStarter(baseCollector());
 
-        ServiceRegistry.WorkWithController<BattleController>().SideOnCellWasChanged += CapturedCellListener;
-
-        treeController = new DecisionTreeController(this);
-
-        ServiceRegistry.WorkWithController<GameController>().oneSecondPassed += OneStep;
-    }
-
-    private IEnumerator baseCollector()
-    {
-        yield return new WaitForSeconds(5);
-
-        foreach (var cell in ServiceRegistry.WorkWithController<GameController>().GetGlobalList())
-        {
-            if (cell.GetComponent<EnemysSpawner>().enabled)
-            {
-                _capturedCells.Add(cell,true);
-            }
-        }
-    }
-
-    private void OneStep()
-    {
-        //treeController.OneStep();
-    }
-
-    private void CapturedCellListener(GameObject cell)
-    {
-        if (_capturedCells.Keys.Contains(cell)) 
-        {
-            if (!_capturedCells[cell]) { _capturedCells[cell] = true; return; }
-            treeController.AddLostedCells(cell); _capturedCells[cell] = false; 
-        }
-    }
-
-    public List<AbstractSquad> GetAllEnemysOnCell(GameObject cell)
-    {
-        return _squadToCell.Where(p => p.Value == cell).Select(p => p.Key).ToList();
-    }
-    public void SetCell(AbstractSquad squad,GameObject cell)
-    {
-        _squadToCell[squad] = cell;
-    }
-
-    public void AllowAll(AbstractSquad squad)
-    {
-        if (_squadToCell.ContainsKey(squad)) { squad.SquadAction = SquadActions.None; }
-    }
-    public void AddBot(AbstractSquad squad,GameObject cell) { _squadToCell.Add(squad,cell); }
-    public void RemoveBot(AbstractSquad squad) { _squadToCell.Remove(squad); }
-
-    public GameObject GetMainBaseCell() { return mainBase; }
-    public int GetDifficulty() { return difficulty; }
-
-    public void AddToCapturedCell(GameObject cell) { _capturedCells.Add(cell, true); }
-    public void AddToCapturedCell_Safety(GameObject cell) { if (_capturedCells.Keys.Contains(cell)) _capturedCells[cell] = true;
-        else _capturedCells.Add(cell, true);
-    }
-
-    public GameObject GetRandomCapturedCell()
-    {
-        if(_capturedCells.Count == 0) return null;
-        List<GameObject> listOfCells = _capturedCells.Keys.ToList();
-        
-        var selectedCell = listOfCells[Random.Range(0, listOfCells.Count - 1)];
-
-        if (!_capturedCells[selectedCell]) { return GetRandomCapturedCell(); }
-        else { return selectedCell; }
-    }
 }
 
-public class DecisionTreeController
+/// <summary>
+/// //////////////////////////////////////////////////////////////
+/// </summary>
+public class DecisionTree
 {
-    private List<GameObject> lostedCells = new List<GameObject>();
+    private NodeFactory nodeFactory;
 
-    private Dictionary<DecisionAction,bool> actions = new Dictionary<DecisionAction,bool>();
+    private ActionConstructor _actionConstructor = new();
 
-    private List<DecisionAction> actionsToAdd = new List<DecisionAction>();
+    private uint economyPointsModify = 50;
+    public uint DangerPoints { get; set; } = 0;
+    protected float _economyPoints = 500;
 
-    public readonly EnemysController enemysControllerScript;
-
-    protected int _Economy_Score = 1000;
-
-    protected float _difficulty = 1;
-
-    public DecisionTreeController(EnemysController enemysControllerScript)
+    public DecisionTree() { nodeFactory = new(this); }
+    public float EconomyPoints
     {
-        this.enemysControllerScript = enemysControllerScript;
+        get {  return _economyPoints; }
+        set { _economyPoints += value * (1 + DangerPoints * 10f); }
     }
 
     public void OneStep()
     {
-        if(lostedCells.Count > 0)
-        {
-            Debug.Log($"Я хочу захватить обратно {lostedCells[0]}|| Кол-во утраченых клеток:{lostedCells.Count}");
+        EconomyPoints += economyPointsModify;
 
-            DecisionAction_ReturnTerritory action_ReturnTerritory = new DecisionAction_ReturnTerritory(enemysControllerScript, lostedCells[0], _Economy_Score);
+        var commands = nodeFactory.CreateCommands(_actionConstructor.Construct_Economy(DangerPoints, EconomyPoints), _actionConstructor.Construct_Attack(DangerPoints, EconomyPoints));
 
-            action_ReturnTerritory.actionIsOver += (bool success, DecisionAction action, GameObject cell) => 
-            {
-                ActionIsOver(success,action,cell);
-            };
-
-            actions.Add(action_ReturnTerritory,false);
-
-            lostedCells.RemoveAt(0);
-        }
-
-        EconomyStep();
-
-        if(actions.Count > 0)
-        {
-            var actionsList = actions.Keys.ToList();
-
-            for(int i  = 0; i < actionsList.Count; i++)
-            {
-                actionsList[i].Execute();
-            }
-        }
-
-        AddToActionList();
+        foreach (var command in commands) { ServiceRegistry.WorkWithService<CommandBus>().Enqueue(command, CommandPriority.High); }
     }
 
-    public void EconomyStep()
+    private class ActionConstructor
     {
-        _Economy_Score += (int)(1 * _difficulty);if(_Economy_Score <= 200) { return; }
-
-        List<EconomyStepEnum> economySteps = new List<EconomyStepEnum>();
-
-        foreach (var economyStep in EconomyStepPrice)
+        protected Dictionary<int, List<ActionType_Economy>> _necessarilyActions = new()
         {
-            if (economyStep.Value <= _Economy_Score)
-            {
-                economySteps.Add(economyStep.Key);
-            }
-        }
+            {7, new List<ActionType_Economy>(){ ActionType_Economy.Economy_Squad_Train} },
+            {8,new List<ActionType_Economy>(){ ActionType_Economy.Economy_Build_Economy,ActionType_Economy.Economy_Squad_Train} },
+            {9,new List<ActionType_Economy>(){ ActionType_Economy.Economy_Squad_Train} },
+            {10,new List<ActionType_Economy>(){ ActionType_Economy.Economy_Build_Economy,ActionType_Economy.Economy_Squad_Train} }
 
-        if (economySteps != null && economySteps.Count != 0)
+        };
+
+        protected Dictionary<int, List<ActionType_Economy>> _dangerPointToAction_Economy = new()
         {
-            switch (economySteps[Random.Range(0, economySteps.Count)])
-            {
-                case EconomyStepEnum.Buildings:
-
-                    var selectedCell = enemysControllerScript.GetRandomCapturedCell();
-                    if (selectedCell != null)
-                    {
-                        _Economy_Score -= EconomyStepPrice[EconomyStepEnum.Buildings];
-
-                        var action = new DecisionAction_StreigtheningTerritory(selectedCell);
-
-                        action.actionIsOver += (bool success, DecisionAction action, GameObject cell) =>
-                        {
-                            ActionIsOver(success, action, cell);
-                        };
-                        AddActionToListLater(action);
-                    }
-                    break;
-
-            }
-        }
-    }
-    private void ActionIsOver(bool success, DecisionAction decisionAction, GameObject cell)
-    {
-        if(success) { actions.Remove(decisionAction); Debug.Log($"Удаляю ивент {decisionAction}"); }
-        else
+            {0,new List<ActionType_Economy>(){ActionType_Economy.Economy_Build_Economy} },
+            {1,new List<ActionType_Economy>(){ActionType_Economy.Economy_Build_Economy,ActionType_Economy.Economy_Squad_Train} },
+            {2,new List<ActionType_Economy>(){ActionType_Economy.Economy_Build_Economy,ActionType_Economy.Economy_Squad_Train} },
+            {3,new List<ActionType_Economy>(){ActionType_Economy.Economy_Build_Economy,ActionType_Economy.Economy_Squad_Train} },
+            {4,new List<ActionType_Economy>(){ActionType_Economy.Economy_Build_Economy,ActionType_Economy.Economy_Build_Protection} },
+            {5,new List<ActionType_Economy>(){ActionType_Economy.Economy_Squad_Train,ActionType_Economy.Economy_Build_Protection} },
+            {6,new List<ActionType_Economy>(){ActionType_Economy.Economy_Build_Economy,ActionType_Economy.Economy_Build_Protection} },
+            {7,new List<ActionType_Economy>() },
+            {8,new List<ActionType_Economy>(){ActionType_Economy.Economy_Build_Protection} },
+            {9,new List<ActionType_Economy>() },
+            {10,new List<ActionType_Economy>()}
+        };
+        protected Dictionary<int, List<ActionType_Attack>> _dangerPointToAction_Attack = new()
         {
-            if(decisionAction is IDecisionAction_CanRestart restart)
-            {
-                if (restart.Restart() == null) { actions.Remove(decisionAction); }
-            }
-        }
-    }
+            {0,new List<ActionType_Attack>() },
+            {1,new List<ActionType_Attack>() },
+            {2,new List<ActionType_Attack>(){ActionType_Attack.Attack_Exploration} },
+            {3,new List<ActionType_Attack>(){ActionType_Attack.Attack_Exploration, ActionType_Attack.Attack_LowPower} },
+            {4,new List<ActionType_Attack>()},
+            {5,new List<ActionType_Attack>(){ ActionType_Attack.Attack_Exploration, ActionType_Attack.Attack_LowPower,ActionType_Attack.Attack_MediumPower} },
+            {6,new List<ActionType_Attack>(){ActionType_Attack.Attack_Exploration} },
+            {7,new List<ActionType_Attack>(){ ActionType_Attack.Attack_Exploration, ActionType_Attack.Attack_MediumPower, ActionType_Attack.Attack_HighPower} },
+            {8,new List<ActionType_Attack>(){ ActionType_Attack.Attack_Exploration,ActionType_Attack.Attack_MediumPower, ActionType_Attack.Attack_HighPower} },
+            {9,new List<ActionType_Attack>(){ ActionType_Attack.Attack_Exploration} },
+            {10,new List<ActionType_Attack>(){ ActionType_Attack.Attack_Exploration, ActionType_Attack.Attack_MediumPower, ActionType_Attack.Attack_HighPower} }
+        };
 
-    public void AddLostedCells(GameObject cell) { lostedCells.Add(cell); }
-
-    private void AddToActionList()
-    {
-        while(actionsToAdd.Count > 0)
+        public List<ActionType_Economy> Construct_Economy(uint dangerPoints,float economyPoints)
         {
-            actions.Add(actionsToAdd[0], false);
-            actionsToAdd.RemoveAt(0);
+            List<ActionType_Economy> listOfActionsType = new();
+
+            listOfActionsType.Add(_dangerPointToAction_Economy[(int)dangerPoints][UnityEngine.Random.Range(0, _dangerPointToAction_Economy[(int)dangerPoints].Count)]);
+
+            if (_necessarilyActions.ContainsKey((int)dangerPoints)) { listOfActionsType.AddRange(_necessarilyActions[(int)dangerPoints]);}
+
+            return listOfActionsType;
+        }
+        public List<ActionType_Attack> Construct_Attack(uint dangerPoints, float economyPoints)
+        {
+            List<ActionType_Attack> listOfActionsType = new();
+
+            //listOfActionsType.Add(_dangerPointToAction_Attack[(int)dangerPoints][UnityEngine.Random.Range(0, _dangerPointToAction_Attack[(int)dangerPoints].Count-1)]);
+
+            //if (_necessarilyActions.ContainsKey((int)dangerPoints)) { listOfActionsType.AddRange(_necessarilyActions[(int)dangerPoints]); }
+
+            return listOfActionsType;
         }
     }
-    public void AddActionToListLater(DecisionAction action)
-    {
-        actionsToAdd.Add(action);
-    }
-
-    private enum EconomyStepEnum
-    {
-        None,
-        Buildings,
-
-    }
-    private Dictionary<EconomyStepEnum, int> EconomyStepPrice = new Dictionary<EconomyStepEnum, int>
-    {
-        { EconomyStepEnum.Buildings,1000}
-    };
+}
+public enum ActionType_Economy
+{
+    Economy_Build_Economy,
+    Economy_Build_Protection,
+    Economy_Squad_Train,
+}
+public enum ActionType_Attack
+{
+    Attack_Exploration,
+    Attack_LowPower,
+    Attack_MediumPower,
+    Attack_HighPower
 }
 
-public abstract class DecisionAction
+/// <summary>
+/// //////////////////////////////////////////////////////////////
+/// </summary>
+public class NodeFactory
 {
-    public delegate void ActionIsOver(bool success, DecisionAction decisionAction, GameObject cell);
-    public event ActionIsOver actionIsOver;
+    private EconomyNode economyNode;
 
-    public void TriggerEvent(bool success, DecisionAction decisionAction, GameObject cell)
+    public NodeFactory(DecisionTree actionTree) { economyNode = new(actionTree); }
+    public List<ICommand> CreateCommands(List<ActionType_Economy> actionsType_Economy, List<ActionType_Attack> actionsType_Attack)
     {
-        actionIsOver.Invoke(success, decisionAction, cell);
-    }
+        Debug.LogError($"{actionsType_Economy.Count}");
+        List<ICommand> createdCommands = new();
 
-    public abstract void Execute();
-}
-public class DecisionAction_ReturnTerritory:DecisionAction,IDecisionAction_WorkWithSquads,IDecisionAction_CanRestart, ICoroutineWorker
-{
-    protected EnemysController enemysControllerScript;
-    protected GameObject cellNeedToCapture;
-
-    protected List<AbstractSquad> _squadInThisAction = new List<AbstractSquad>();
-    protected List<AbstractSquad> _spawnedSquads = new List<AbstractSquad>();
-
-    protected int _countOfReachedSquads = 0;
-
-    protected readonly float _freeRatio = 0.5f;
-    protected bool inAction = false;
-
-    protected int economyScore;
-
-    public void AddSquadToActionList(AbstractSquad squad) { _squadInThisAction.Add(squad); }
-    public void RemoveSquadToActionList(AbstractSquad squad) { _squadInThisAction.Remove(squad); }
-
-    public DecisionAction_ReturnTerritory(
-        EnemysController enemysControllerScript, GameObject cellWhatLost,
-        int economyScore) : base()
-    {
-        this.enemysControllerScript = enemysControllerScript;
-        cellNeedToCapture = cellWhatLost;
-
-        this.economyScore = economyScore;
-    }
-    public DecisionAction Restart()
-    {
-        bool hasNeighbore = false;
-
-        foreach(var cell in ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cellNeedToCapture).GetParameter<CellArea>().GetNeighbores())
+        if(actionsType_Economy.Count != 0)
         {
-            if(!ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).GetParameter<CellArea>().IsAllies())hasNeighbore = true;
-        }
-
-        if (hasNeighbore) { return this; }
-        else { return null; }
-    }
-    public override void Execute()
-    {
-        if (inAction) return;
-
-        List<AbstractSquad> currentNoneActionSquads = new List<AbstractSquad>();
-
-        foreach (var cell in ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cellNeedToCapture).GetParameter<CellArea>().GetNeighbores()) 
-        {
-            if (!ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).GetParameter<CellArea>().IsAllies())
+            foreach (var action in actionsType_Economy)
             {
-                currentNoneActionSquads.AddRange(ServiceRegistry.WorkWithController<GameController>().GetAllEnemysOnCell(cell));
+                EconomyNode newCreatedCommand_Economy = (EconomyNode)economyNode.Clone();
+
+                newCreatedCommand_Economy.ActionType_Economy = action;
+
+                createdCommands.Add(newCreatedCommand_Economy);
             }
         }
 
-        _squadInThisAction = currentNoneActionSquads.ToList();
+        return createdCommands;
+    }
+}
 
-        if (_squadInThisAction.Count > 5)
+public class EconomyNode : INode,IClone,ICommand
+{
+    public ActionType_Economy ActionType_Economy { private get; set; }
+
+    private DecisionTree actionTree;
+
+    public Guid Id { get; set; }
+
+    public CommandState State { get; private set; } = CommandState.Created;
+
+    public EconomyNode(DecisionTree actionTree){this.actionTree = actionTree;}
+
+    public object Clone(){ return new EconomyNode(actionTree); }
+
+
+    public void Execute()
+    {
+        switch (ActionType_Economy)
         {
-            StartAttack();
-
-            _squadInThisAction.RemoveRange(0,6);
+            case ActionType_Economy.Economy_Build_Economy:Economy_Build(Build_Type.Camp);break;
+            case ActionType_Economy.Economy_Build_Protection:Economy_Build(Build_Type.Fort);break;
         }
-        else
+    }
+    private void Economy_Build(Build_Type build_Type)
+    {
+        string build_id = "";
+        switch (build_Type) 
         {
-            if (economyScore >= 200 && _spawnedSquads.Count == 0)
-            {
-                economyScore -= 200;
-                _spawnedSquads = SpawnSquadsToAction(enemysControllerScript.GetDifficulty()).ToList();
+            case Build_Type.Camp:build_id = "CampBuild";break;
+            case Build_Type.Academy:build_id = "AcademyBuild";break;
+            case Build_Type.Fort:build_id = "FortBuild";break;
+        }
 
-                foreach (var squad in _spawnedSquads)
+        List<GameObject> headquartersCells = ServiceRegistry.WorkWithController<EnemysController>().CellWithHeadquarters_Bot.Keys.ToList();
+
+        foreach (var cell in headquartersCells)
+        {
+            if (!ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).GetParameter<CellBuildings>().CheckBuildIsBuilt(build_id) &&
+                ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).GetParameter<CellBuildings>().buildInBuilding != build_id)
+            {
+                IEnumerator coroutine = ServiceRegistry.WorkWithController<BuilderController>().StartBuildProccess_Bot(cell, build_id, 1);
+                if (coroutine == null)
                 {
-                    ServiceRegistry.WorkWithService<MovementController>().AddMovementForSquad(enemysControllerScript.GetMainBaseCell(), cellNeedToCapture, squad);
+                    Debug.LogError("Проблемы с постройкой");
 
-                    ServiceRegistry.WorkWithService<MovementController>().AddEvent(squad, SquadHasReached);
+                    HeadquartersChooser headquartersChooser = new(cell, true);
+                    headquartersChooser.NearestHeadquartersFinder += (headquarters) =>
+                    {
+                        if (headquarters == null) { ServiceRegistry.WorkWithService<CommandBus>().Cancel(Id); }
+
+                        else
+                        {
+                            PullUpSquads pullUpSquads = new(headquarters.CellWithThisBuild.gameObject, cell, 2, UnityEngine.Random.Range(3, 6));
+
+                            pullUpSquads.CommandResult += (result) =>
+                            {
+                                Debug.LogError(result);
+                                if (result)
+                                {
+                                    actionTree.EconomyPoints -= 500;
+
+                                    ServiceRegistry.WorkWithService<MonobehaviourMaster>().CoroutineStarter(ServiceRegistry.WorkWithController<BuilderController>().StartBuildProccess_Bot(cell, "CampBuild", 1));
+                                    ServiceRegistry.WorkWithService<CommandBus>().DeleteCommand(Id);
+                                }
+                                else { ServiceRegistry.WorkWithService<CommandBus>().DeleteCommand(Id); }
+                            };
+
+                            ServiceRegistry.WorkWithService<CommandBus>().Enqueue(pullUpSquads);
+                        }
+                    };
+
+                    ServiceRegistry.WorkWithService<CommandBus>().Enqueue(headquartersChooser);
+
+                    break;
+                }
+                else
+                {
+                    Debug.LogError("Без проблем строю");
+
+                    actionTree.EconomyPoints -= 500;
+
+                    ServiceRegistry.WorkWithService<MonobehaviourMaster>().CoroutineStarter(coroutine);
+                    ServiceRegistry.WorkWithService<CommandBus>().DeleteCommand(Id);
+
+                    break;
                 }
             }
         }
     }
 
-    private void SquadHasReached(AbstractSquad squad, GameObject stopCell)
+    public bool CanExecute()
     {
-        if (_spawnedSquads.Contains(squad)) 
-        {
-            _squadInThisAction.Add(squad);
-            _spawnedSquads.Remove(squad);
-        }
+        return true;
     }
 
-    private void StartAttack()
+    public void Prepare()
     {
-        ServiceRegistry.WorkWithController<BattleController>().TryStartBattle_Simple(cellNeedToCapture, _squadInThisAction.GetRange(0, 6));
-
-        ServiceRegistry.WorkWithController<BattleController>().BattleOnCellIsOver += OnBattleIsOver;
-
-        ServiceRegistry.WorkWithController<BattleController>().SideOnCellWasChanged += OnSideChanged;
-
-        inAction = true;
+        State = CommandState.Prepared;
     }
 
-    public void CoroutineWorker()
+    public void Cancel()
     {
-        ServiceRegistry.WorkWithController<MonobehaviourMaster>().CoroutineStarter(Cooldown(30 - enemysControllerScript.GetDifficulty()));
-    }
-    private IEnumerator Cooldown(int count)
-    {
-        WaitForSeconds timer = new WaitForSeconds(count/1);
-
-        yield return timer;
-
-        inAction = false;
+        throw new NotImplementedException();
     }
 
-    private List<AbstractSquad> SpawnSquadsToAction(int count)
+    private enum Build_Type
     {
-        List<AbstractSquad> result = new List<AbstractSquad>();
-
-        //for(int i =0; i< count; i++)
-        //{
-        //    InfantrySquad squad = new InfantrySquad(3, Random.Range(10, 25), RandomTransport(), RandomWeapon());
-        //    squad.Side = SideEnum.Enemys;
-
-        //    ServiceRegistry.WorkWithController<GameController>().AddSquadInDictionary_Safety(squad, enemysControllerScript.GetMainBaseCell());
-
-        //    result.Add(squad);
-        //}
-
-        return result;
-    }
-
-    private SquadTransport RandomTransport()
-    {
-        switch (Random.Range(0, 3))
-        {
-            case 0: return SquadTransport.ByFoot;
-            case 1: return SquadTransport.Horses;
-            case 2: return SquadTransport.Cars;
-        }
-        return SquadTransport.None;
-    }
-    private SquadWeapon RandomWeapon()
-    {
-        switch (Random.Range(0, 3))
-        {
-            case 0: return SquadWeapon.MachineHun;
-            case 1: return SquadWeapon.Rifle;
-            case 2: return SquadWeapon.SniperRifle;
-        }
-        return SquadWeapon.None;
-    }
-
-    private void OnSideChanged(GameObject cell)
-    {
-        if (cell == cellNeedToCapture) { TriggerEvent(true, this, cellNeedToCapture); Debug.Log($"Удачный захват {cellNeedToCapture}");
-
-            ServiceRegistry.WorkWithController<BattleController>().BattleOnCellIsOver -= OnBattleIsOver;
-
-            ServiceRegistry.WorkWithController<BattleController>().SideOnCellWasChanged -= OnSideChanged;
-        }
-    }
-    private void OnBattleIsOver(GameObject cell)
-    {
-        if (cell == cellNeedToCapture) { TriggerEvent(false, this, cellNeedToCapture); Debug.Log($"Неудачный захват {cellNeedToCapture}");
-
-            ServiceRegistry.WorkWithController<BattleController>().BattleOnCellIsOver -= OnBattleIsOver;
-
-            ServiceRegistry.WorkWithController<BattleController>().SideOnCellWasChanged -= OnSideChanged;
-
-            CoroutineWorker();
-        }
+        Camp,
+        Academy,
+        Fort,
     }
 }
-public class DecisionAction_StreigtheningTerritory:DecisionAction
+
+/// <summary>
+/// //////////////////////////////////////////////////////////////
+/// </summary>
+
+public class PullUpSquads : ICommand
 {
-    private GameObject selectedCell;
-    public DecisionAction_StreigtheningTerritory(GameObject cellNeedToStreigthening):base() 
+    protected List<ICommand> _currentCommands;
+
+    private List<AbstractSquad> squadInCommand = new();
+    private GameObject cellFrom, cellTo;
+
+    private int searchDepth, neededCountOfSquads;
+
+    public Action<bool> CommandResult;
+
+
+    public Guid Id { get; private set; }
+
+    public CommandState State { get; private set; } = CommandState.Created;
+
+    public PullUpSquads(GameObject cellFrom, GameObject cellTo, int searchDepth, int neededCountOfSquads)
     {
-        Debug.Log($"Укрепля точку:{cellNeedToStreigthening}");
-        selectedCell = cellNeedToStreigthening;
+        this.cellFrom = cellFrom;
+        this.cellTo = cellTo;
+
+        this.searchDepth = searchDepth;
+        this.neededCountOfSquads = neededCountOfSquads;
     }
 
-    public override void Execute()
+    public void Prepare()
     {
-        BuildStreigthening(selectedCell);
+        List<AbstractSquad> squadList = new();
+
+        foreach (var cell in ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cellFrom).GetParameter<CellArea>().NeighboresSearcher(searchDepth))
+        {
+            squadList.AddRange(ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).GetParameter<CellSquadsOnArea>().squadsOnCell);
+        }
+
+        //Реализация через рандом
+
+        for(int i = 0; i < neededCountOfSquads; i++)
+        {
+            var squad = squadList[UnityEngine.Random.Range(0,squadList.Count-1)];
+
+            squadInCommand.Add(squad);
+            squadList.Remove(squad);
+        }
+
+        State = CommandState.Prepared;
+    }
+    public void Cancel()
+    {
+        CommandResult.Invoke(false);
     }
 
-    private void BuildStreigthening(GameObject cell)
+    public bool CanExecute()
     {
-        CellBuildings cellBuildings = ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).GetParameter<CellBuildings>();
-
-        cellBuildings.DebugFunction_NameAllBuildings();
-
-        Debug.Log($"Список для:{cell}");
-
-        if (!cellBuildings.CheckBuildIsBuilt("FoxholeBuild"))
-        {
-            foreach(var squad in ServiceRegistry.WorkWithController<GameController>().GetAllEnemysOnCell(cell))
-            {
-                if (squad is EngineerSquad) { cellBuildings.AddToBuildList_Safely(new FoxholeBuild(), "FoxholeBuild"); TriggerEvent(true,this,cell); Debug.Log("Вырыл окоп"); break; }
-            }
-        }
-        if (!cellBuildings.CheckBuildIsBuilt("FortBuild"))
-        {
-            if(ServiceRegistry.WorkWithController<GameController>().GetAllEnemysOnCell(cell).Count != 0)
-            {
-                cellBuildings.AddToBuildList_Safely(new FortBuild(), "FortBuild");
-
-                TriggerEvent(true, this, cell);
-
-                Debug.Log("Построил форт");
-            }
-        }
-
-        TriggerEvent(false, this, cell);
+        if(squadInCommand.Count > 0) { return true; }
+        return false;
     }
-    public void ChangeCell(GameObject cell) { selectedCell = cell; }
-}
-public class DecisionAction_CatchTerritory:DecisionAction,IDecisionAction_WorkWithSquads
-{
-    private string[] squadsId = new string[] { "InfantrySquad", "Engineers" };
 
-    private List<AbstractSquad> squadsInAction = new List<AbstractSquad>();
-    private WayCellsToCatch _cellToCatchController;
-
-    private GameObject mainBase;
-
-    protected bool _inAction = false;
-
-    protected int _freeSquads = 0;
-
-    private float maxFinderDistance;
-
-    public DecisionAction_CatchTerritory(GameObject mainBase,float maxFinderDistance)
+    public void Execute()
     {
+        _currentCommands = new();
 
-        this.mainBase = mainBase;
-        _cellToCatchController = new WayCellsToCatch();
-
-        this.maxFinderDistance = maxFinderDistance;
-
-        for (int i = 0; i < 5; i++)
+        foreach(var squad in squadInCommand)
         {
-            ServiceRegistry.WorkWithController<UnitsSpawner>().SpawnSquadOnCell(squadsId[Random.Range(0, squadsId.Length)],SideEnum.Enemys, mainBase);
+            _currentCommands.Add(ServiceRegistry.WorkWithController<MovementController>().AddMovementForSquad(cellFrom,cellTo,squad));
         }
 
-        ServiceRegistry.WorkWithService<EventBus>().Subscribe<GameController, int, AbstractSquad>((sender, var, squad) =>
+        ServiceRegistry.WorkWithService<EventBus>().Subscribe<ICommand, SquadMovement, AbstractSquad, GameObject>((command,sender,squad,cell) =>
         {
-            if (var == 2)
+            Debug.LogError(squadInCommand.Count);
+            if (_currentCommands.Contains(command))
             {
-                if (squadsInAction.Contains(squad)) { squadsInAction.Remove(squad); }
+                squadInCommand.Remove(squad);
+                Debug.LogError(squadInCommand.Count);
+                if(squadInCommand.Count == 0)
+                {
+                    if(cell == cellTo) { CommandResult.Invoke(true); }
+                    else { CommandResult.Invoke(false); }
+                }
+
+                _currentCommands.Remove(command);
             }
         });
+    }
+}
 
+public class HeadquartersChooser : ICommand
+{
+    protected HeadquartersBuild _headquartersBuild;
+    private HeadquartersBuild nearestHeadquarters = null;
 
+    private GameObject startCell;
+    private bool economyStep;
+
+    public Action<HeadquartersBuild> NearestHeadquartersFinder;
+
+    public Guid Id { get; set; }
+
+    public CommandState State { get; private set; } = CommandState.Created;
+
+    public HeadquartersChooser(GameObject startCell, bool economyStep) { this.startCell = startCell;this.economyStep = economyStep; }
+
+    public void Cancel()
+    {
+        
     }
 
-    public override void Execute()
+    public bool CanExecute()
     {
-        if (_inAction) { return; }
-        if (!_cellToCatchController.HasWay()) 
+        return true;
+    }
+
+    public void Execute()
+    {
+        NearestHeadquartersFinder?.Invoke(nearestHeadquarters);
+
+        State = CommandState.Completed;
+    }
+    private HeadquartersBuild FindNearestHeadquarters(List<HeadquartersBuild> headquartersBuilds)
+    {
+        float distance = float.MaxValue;
+        HeadquartersBuild nearestHeadquarters = null;
+
+        foreach (var headquarters in headquartersBuilds) 
         {
-            if (!_cellToCatchController.CreateWay(mainBase, maxFinderDistance)) { return; }
+            float? resultCost = ServiceRegistry.WorkWithController<AAlgorithm>().CalculateWayCost(startCell, headquarters.CellWithThisBuild.gameObject, SideEnum.Enemys);
+
+            if (resultCost == null) continue;
+            if (resultCost < distance){ distance = (float)resultCost;nearestHeadquarters = headquarters; }
         }
 
-        var cellsToMove_OneStep = _cellToCatchController.GetOneStep();
+        return nearestHeadquarters;
+    }
 
-        foreach(var squad in squadsInAction)
+
+    public void Prepare()
+    {
+        if (economyStep)
         {
-            ServiceRegistry.WorkWithService<MovementController>().AddMovementForSquad(cellsToMove_OneStep.Item1, cellsToMove_OneStep.Item2, squad);
+            _headquartersBuild = (HeadquartersBuild)ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(startCell)
+                .GetParameter<CellBuildings>().builds["HeadquartersBuild"];
 
-            ServiceRegistry.WorkWithService<MovementController>().AddEvent(squad, (AbstractSquad squad, GameObject cell) =>
+            int currentDangerPoint = ServiceRegistry.WorkWithController<EnemysController>().HeadquartersDangerPoints[_headquartersBuild];
+
+            List<HeadquartersBuild> headquartersListCommon = new();
+
+            foreach (var headquartersDanger in ServiceRegistry.WorkWithController<EnemysController>().HeadquartersDangerPoints)
             {
-                if (squadsInAction.Contains(squad))
-                {
-                    if (squad.SquadAction == SquadActions.None) { _freeSquads++; }
+                if (headquartersDanger.Key == _headquartersBuild) { continue; }
 
-                    if (_freeSquads == squadsInAction.Count)
-                    {
-                        _inAction = false;
-                    }
-                }
-            });
+                if (headquartersDanger.Value < currentDangerPoint) { headquartersListCommon.Add(headquartersDanger.Key); }
+            }
+
+            if (headquartersListCommon.Count() != 0) { nearestHeadquarters = FindNearestHeadquarters(headquartersListCommon); }
+            else {
+                headquartersListCommon = ServiceRegistry.WorkWithController<EnemysController>().HeadquartersDangerPoints.Keys.ToList();
+                headquartersListCommon.Remove(_headquartersBuild);
+                nearestHeadquarters = FindNearestHeadquarters(headquartersListCommon); }
+        }
+        else
+        {
+            var headquartersListCommon = ServiceRegistry.WorkWithController<EnemysController>().HeadquartersDangerPoints.Keys.ToList();
+            headquartersListCommon.Remove(_headquartersBuild);
+            nearestHeadquarters = FindNearestHeadquarters(headquartersListCommon);
         }
 
-
-    }
-    public void RemoveSquadToActionList(AbstractSquad squad)
-    {
-        squadsInAction.Remove(squad);
-    }
-    public void AddSquadToActionList(AbstractSquad squad)
-    {
-        squadsInAction.Add(squad);
-    }
-    public void CoroutineWorker()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    private class WayCellsToCatch
-    {
-        private List<GameObject> cellsWay;
-
-        private GameObject currentCell, nextCell;
-
-        public bool CreateWay(GameObject mainBase, float maxDistance)
-        {
-            GameObject cellToCapture = ServiceRegistry.WorkWithController<AAlgorithm>().GetRandomCell();
-            if (Vector3.Distance(cellToCapture.transform.position, mainBase.transform.position) > maxDistance) return false;
-
-
-            //cellsWay = ServiceRegistry.WorkWithController<AAlgorithm>().GetAttackWay(mainBase, cellToCapture, SideEnum.Enemys).ToList();
-
-            currentCell = cellsWay[0];
-            nextCell = cellsWay[1];
-
-            return true;
-        }
-
-        public (GameObject,GameObject) GetOneStep()
-        {
-            var result = (currentCell, nextCell);
-
-            cellsWay.RemoveAt(0);
-
-            currentCell = cellsWay[0];
-            nextCell = cellsWay[1];
-
-            return result;
-        } 
-
-        public bool HasWay() { return cellsWay.Count > 0; }
+        State = CommandState.Prepared;
     }
 }
 
-public interface IDecisionAction_WorkWithSquads
+
+public interface INode
 {
-    public void AddSquadToActionList(AbstractSquad squad);
-    public void RemoveSquadToActionList(AbstractSquad squad);
+    public void Execute();
 }
-public interface ICoroutineWorker
+
+enum DangerPoints_Detection
 {
-    public void CoroutineWorker();
+    DetectionSquadsNear,
+    NewHeadquartersBuilt
 }
-public interface IDecisionAction_CanRestart
+enum EconomyPoints_Actions
 {
-    public DecisionAction Restart();
-}
-public interface IDecisionAction_SwitchMode
-{
-    
+    HeadquartersBuilt,
+    CampBuilt,
+    AcademyBuild
 }

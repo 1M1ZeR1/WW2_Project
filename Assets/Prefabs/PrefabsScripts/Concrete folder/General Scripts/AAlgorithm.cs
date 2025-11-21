@@ -22,10 +22,9 @@ public class AAlgorithm
         }
     }
     public void SetDictionary(Dictionary<GameObject, CellArea> cells) { _cellToAreaController=cells;}
-    public List<GameObject> CreateWay(GameObject startCell, GameObject endCell)
+    public List<GameObject> CreateWay(GameObject startCell, GameObject endCell, SideEnum side)
     {
-        // Проверка на доступность конечной клетки
-        if (!ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(endCell).GetParameter<CellArea>().IsAllies())
+        if (ServiceRegistry.WorkWithController<CellController>().FastDrop_CellSide(endCell) != side)
         {
             return null;
         }
@@ -59,8 +58,7 @@ public class AAlgorithm
 
             foreach (GameObject neighbor in _cellToAreaController[currentCell].GetNeighbores())
             {
-                // Пропускаем недоступные клетки или клетки врага
-                if (!ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(neighbor).GetParameter<CellArea>().IsAllies() || closedSet.Contains(neighbor))
+                if (ServiceRegistry.WorkWithController<CellController>().FastDrop_CellSide(endCell) != side || closedSet.Contains(neighbor))
                 {
                     continue;
                 }
@@ -82,13 +80,11 @@ public class AAlgorithm
             }
         }
 
-        // Если путь не найден
         return null;
     }
-    public List<GameObject> CreateWay_Enemy(GameObject startCell, GameObject endCell)
+    public float? CalculateWayCost(GameObject startCell, GameObject endCell, SideEnum side)
     {
-        // Проверка на доступность конечной клетки
-        if (!ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(endCell).GetParameter<CellArea>().IsAllies())
+        if (ServiceRegistry.WorkWithController<CellController>().FastDrop_CellSide(endCell) != side)
         {
             return null;
         }
@@ -114,7 +110,7 @@ public class AAlgorithm
 
             if (currentCell == endCell)
             {
-                return ReconstructWay(cameFrom, currentCell);
+                return cellToCost[endCell];
             }
 
             openSet.Remove(currentCell);
@@ -122,13 +118,16 @@ public class AAlgorithm
 
             foreach (GameObject neighbor in _cellToAreaController[currentCell].GetNeighbores())
             {
-                // Пропускаем недоступные клетки или клетки врага
-                if (closedSet.Contains(neighbor))
+                if (ServiceRegistry.WorkWithController<CellController>().FastDrop_CellSide(endCell) != side || closedSet.Contains(neighbor))
                 {
                     continue;
                 }
 
-                float tentativeCost = cellToCost[currentCell] + ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(neighbor).GetParameter<CellMovementParameters>().GetCost();
+                float tentativeCost = cellToCost[currentCell] +
+                    ServiceRegistry.WorkWithController<CellController>()
+                    .WorkWithCell<CellParametersHandler>(neighbor)
+                    .GetParameter<CellMovementParameters>()
+                    .GetCost();
 
                 if (!openSet.Contains(neighbor))
                 {
@@ -145,44 +144,10 @@ public class AAlgorithm
             }
         }
 
-        // Если путь не найден
         return null;
     }
 
-    private IEnumerator FindGoodCellHelper(GameObject startCell, float maxDistance, SideEnum sideEnum)
-    {
-        while (true) 
-        {
-            var cellToAttack = _cells[UnityEngine.Random.Range(0, _cells.Count)];
 
-            if (Vector3.Distance(cellToAttack.transform.position, startCell.transform.position) > maxDistance) continue;
-
-
-        }
-    }
-    private List<GameObject> GetAttackWay(GameObject startCell,GameObject endCell,SideEnum sideEnum)
-    {
-        Dictionary<GameObject,GameObject> wayList = new Dictionary<GameObject, GameObject> {};
-
-        GameObject currentCell = startCell;
-
-        while (true) 
-        {
-            var nextCell = FindCellWithLowestDistance(currentCell);
-
-            wayList.Add(nextCell, currentCell);
-
-            currentCell = nextCell;
-
-            if(currentCell == endCell)
-            {
-                return ReconstructWay(wayList, endCell);
-            }
-        }
-
-        // Если путь не найден
-        return null;
-    }
     private float GetCostDistance(GameObject startCell, GameObject endCell)
     {
         return Vector3.Distance(startCell.transform.position,endCell.transform.position) * penalty;

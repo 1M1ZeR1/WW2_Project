@@ -61,9 +61,12 @@ public class UnitsSpawner
         var squad = SpawnSquadByType(id,side);
 
         ServiceRegistry.WorkWithController<GameController>().AddSquadInDictionary(squad, cell);
-        ServiceRegistry.WorkWithController<GameController>().OnlyCaptureCell(side, cell);
+        if(side == SideEnum.Enemys)ServiceRegistry.WorkWithController<EnemysController>().SquadOnCell.Add(squad,cell);
+
+        //ServiceRegistry.WorkWithController<GameController>().OnlyCaptureCell(side, cell);
 
         ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).GetParameter<CellSquadsOnArea>().squadsOnCell.Add(squad);
+        ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).GetParameter<CellSquadsOnArea>().AddCountOfSquad();
 
         return squad;
     }

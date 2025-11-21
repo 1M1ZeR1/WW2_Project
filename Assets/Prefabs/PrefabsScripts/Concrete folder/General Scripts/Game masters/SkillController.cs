@@ -6,11 +6,6 @@ using UnityEngine;
 
 public class SkillController : MonoBehaviour
 {
-
-    private delegate void OneSkillSeconsPassed();
-    private event OneSkillSeconsPassed timer;
-
-
     public void FixSkill(AbstractSquad squad)
     {
         if(squad.SkillWithChoise)ServiceRegistry.WorkWithService<MonobehaviourMaster>().CoroutineStarter(SkillWithChoise(squad));

@@ -94,6 +94,14 @@ public class HeadquartersPanel : MonoBehaviour
             if(build.GetType() == typeof(HeadquartersBuild)) CreateCellPanels((HeadquartersBuild)build);
         });
 
+        ServiceRegistry.WorkWithService<EventBus>().Subscribe<CellBuildings, GameObject, AbstractBuildings>((sender, cell, build) =>
+        {
+            if (build.GetType() == typeof(HeadquartersBuild)) 
+            {
+                TryAddHeadquartersToDictionary((HeadquartersBuild)build);
+            } 
+        });
+
 
         EventTrigger.Entry entry = new EventTrigger.Entry
         {
@@ -209,10 +217,15 @@ public class HeadquartersPanel : MonoBehaviour
         }       
     }
 
+    private bool TryAddHeadquartersToDictionary(HeadquartersBuild headquarters)
+    {
+        if (!headquartersToHardCellsPanel.ContainsKey(headquarters)) { headquartersToHardCellsPanel.Add(headquarters, new()); return true; }
+
+        return false;
+    }
+
     private void CreateHardCellPanel(GameObject cellToHard)
     {
-        if (!headquartersToHardCellsPanel.ContainsKey(_currentWorkingHeadquarters)) headquartersToHardCellsPanel[_currentWorkingHeadquarters] = new();
-
         GameObject newPanel = Instantiate(cellToCellPanel[cellToHard], contentTaker_HardCellPanel);
 
         EventTrigger triggersPanel = newPanel.GetComponent<EventTrigger>();
@@ -236,6 +249,8 @@ public class HeadquartersPanel : MonoBehaviour
                 if (TryRemoveFromHardCell(cellToHard))
                 {
                     UpdateText();
+
+                    headquartersToHardCellsPanel[_currentWorkingHeadquarters].Remove(newPanel);
                     Destroy(newPanel);
                 }
 
@@ -249,7 +264,6 @@ public class HeadquartersPanel : MonoBehaviour
     }
     private bool TryAddToHardCell(GameObject cellToHard)
     {
-
         if (_currentWorkingHeadquarters.TryAddToHardCells(cellToHard))
         {
             UpdateText();
@@ -261,9 +275,7 @@ public class HeadquartersPanel : MonoBehaviour
     }
     private bool TryRemoveFromHardCell(GameObject cellToRemove)
     {
-        if(_currentWorkingHeadquarters.TryRemoveFromHardCells(cellToRemove))return true;
-
-        return false;
+        return _currentWorkingHeadquarters.TryRemoveFromHardCells(cellToRemove);
     }
     private void UpdateText()
     {

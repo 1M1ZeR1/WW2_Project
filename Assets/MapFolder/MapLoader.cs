@@ -101,11 +101,23 @@ public class BuildLoader
 
             ConfigureCell(cell, parameter);
         }
+        foreach(var cell in allCells)
+        {
+            var parameter = parametersHolder.GetPresetByGameObject(cell);
+            CreateBuildings(cell, parameter);
+        }
+        foreach(var cell in allCells)
+        {
+            var parameter = parametersHolder.GetPresetByGameObject(cell);
+            CreateSquads(cell, parameter);
+        }
 
         AAlgorithm.SetAllCells(allCells.ToList());
 
         PauseScript.SetGameState(GameState.Play);
         Debug.Log("«¿√–”« ¿ œ–≈—≈“¿ «¿ ŒÕ◊≈ÕÕ¿.");
+
+        ServiceRegistry.WorkWithService<EventBus>().Publish<MapLoader>(null);
     }
     static void ConfigureCell(GameObject cell, Parameters parameters)
     {
@@ -120,6 +132,8 @@ public class BuildLoader
                 buildings = new List<BuildData>()
             };
         }
+
+        ServiceRegistry.WorkWithService<NavigationMesh>().AddCellToNavigationSystem(cell);
 
         if (parameters.height == 0 || parameters.height == null)
         {
@@ -140,10 +154,10 @@ public class BuildLoader
             {
                 case ControlSide.enemys:
                     ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).
-                GetParameter<CellArea>().Side = SideEnum.Allies; ServiceRegistry.WorkWithController<CellInteraction>().SetMaterialBySide_Basic(SideEnum.Allies, cell, false); break;
+                GetParameter<CellArea>().SetSide_Simple(SideEnum.Allies); ServiceRegistry.WorkWithController<CellInteraction>().SetMaterialBySide_Basic(SideEnum.Allies, cell, false); break;
                 case ControlSide.allies:
                     ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).
-                GetParameter<CellArea>().Side = SideEnum.Enemys; ServiceRegistry.WorkWithController<CellInteraction>().SetMaterialBySide_Basic(SideEnum.Enemys, cell, false); break;
+                GetParameter<CellArea>().SetSide_Simple(SideEnum.Enemys); ServiceRegistry.WorkWithController<CellInteraction>().SetMaterialBySide_Basic(SideEnum.Enemys, cell, false); break;
             }
 
         }
@@ -167,9 +181,12 @@ public class BuildLoader
             ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).
                 GetParameter<CellDiscription>().SetCellName(parameters.cellNameWhatPlayerSee);
         }
-        ;
+    }
+    static void CreateBuildings(GameObject cell, Parameters parameters)
+    {
+        if(parameters == null) return;
 
-        if (parameters.isBase) 
+        if (parameters.isBase)
         {
             ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).
                GetParameter<CellBuildings>().IsCellBase();
@@ -184,21 +201,28 @@ public class BuildLoader
                 );
         }
 
+        ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).
+                GetParameter<CellArea>().IsFrontCell = parameters.isFront;
+    }
+    static void CreateSquads(GameObject cell, Parameters parameters)
+    {
+        if (parameters == null) return;
 
         if (parameters.controlSide == ControlSide.enemys)
         {
 
             for (int i = 0; i < Random.Range(1, ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).GetParameter<CellSquadsOnArea>().GetCountCurrentMax().Item2); i++)
             {
-                ServiceRegistry.WorkWithController<UnitsSpawner>().SpawnSquadOnCell(squadsId[Random.Range(0, squadsId.Length)],SideEnum.Allies, cell);
+                ServiceRegistry.WorkWithController<UnitsSpawner>().SpawnSquadOnCell(squadsId[Random.Range(0, squadsId.Length)], SideEnum.Allies, cell);
             }
         }
         if (parameters.controlSide == ControlSide.allies)
         {
-            ServiceRegistry.WorkWithController<EnemysController>().AddToCapturedCell_Safety(cell);
-            for (int i = 0; i < Random.Range(1, ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).GetParameter<CellSquadsOnArea>().GetCountCurrentMax().Item2); i++)
+            if (parameters.buildings.Count != 0) { return; }
+                //ServiceRegistry.WorkWithController<EnemysController>().AddToCapturedCell_Safety(cell);
+                for (int i = 0; i < Random.Range(1, ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).GetParameter<CellSquadsOnArea>().GetCountCurrentMax().Item2); i++)
             {
-                ServiceRegistry.WorkWithController<UnitsSpawner>().SpawnSquadOnCell(squadsId[Random.Range(0, squadsId.Length)],SideEnum.Enemys, cell);
+                ServiceRegistry.WorkWithController<UnitsSpawner>().SpawnSquadOnCell(squadsId[Random.Range(0, squadsId.Length)], SideEnum.Enemys, cell);
             }
         }
     }

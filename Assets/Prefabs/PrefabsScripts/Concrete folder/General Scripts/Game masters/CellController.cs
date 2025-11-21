@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
@@ -34,6 +35,7 @@ public class CellController
 
     public List<GameObject> FastDrop_GetNeighbores(GameObject cell) { return WorkWithCell<CellParametersHandler>(cell).GetParameter<CellArea>().GetNeighbores(); }
     public bool FastDrop_IsAllies(GameObject cell) { return WorkWithCell<CellParametersHandler>(cell).GetParameter<CellArea>().IsAllies(); }
+    public SideEnum FastDrop_CellSide(GameObject cell) { return WorkWithCell<CellParametersHandler>(cell).GetParameter<CellArea>().Side; }
 }
 
 public class CellParametersHandler:ICellParser,IParametersHandlerParser
@@ -270,6 +272,33 @@ public class CellDiscription
 }
 public class CellArea:ISide
 {
+    private bool isFrontCell = false;
+    public bool IsFrontCell 
+    {
+        get 
+        {
+            return isFrontCell;
+        }
+        set 
+        {
+            if (value && !isFrontCell) {
+                ServiceRegistry.WorkWithController<CellController>()
+                                    .WorkWithCell<CellParametersHandler>(_cellParser.GetCellWorkWith())
+                                    .GetParameter<CellSquadsOnArea>().
+                                    bonusFront = 5;
+            }
+            else if(!value && isFrontCell)
+            {
+                ServiceRegistry.WorkWithController<CellController>()
+                                    .WorkWithCell<CellParametersHandler>(_cellParser.GetCellWorkWith())
+                                    .GetParameter<CellSquadsOnArea>().
+                                    bonusFront = 0;
+            }
+
+            isFrontCell = value;
+        } 
+    }    
+
     protected IParametersHandlerParser _parser;
 
     protected ICellParser _cellParser;
@@ -287,8 +316,10 @@ public class CellArea:ISide
     public SideEnum Side
     {
         get { return _side;}
-        set { _side = value; cellChangedSide?.Invoke(_cellParser.GetCellWorkWith()); }
+        set { _side = value; cellChangedSide?.Invoke(_cellParser.GetCellWorkWith()); FrontChecker(); }
     }
+    public void SetSide_Simple(SideEnum side) { _side = side; }
+
 
     private List<GameObject> cellNeighbores = new List<GameObject>();
 
@@ -311,6 +342,72 @@ public class CellArea:ISide
     }
     public List<GameObject> GetNeighbores() { return cellNeighbores; }
     public void SetNeighbores(List<GameObject> cells) { cellNeighbores = cells; }
+
+
+    public List<GameObject> NeighboresSearcher(int deepCount)
+    {
+        List<GameObject> result = cellNeighbores.ToList();
+        result.Add(_cellParser.GetCellWorkWith());
+        deepCount--;
+        if(deepCount == 0) return result;
+
+        foreach(var cell in cellNeighbores)
+        {
+            ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).GetParameter<CellArea>().NeibhoresSeracher_Node(result, deepCount);
+        }
+
+        result.Distinct().ToList();
+
+        return result;
+    }
+    private void NeibhoresSeracher_Node(List<GameObject>cellsInList, int deepCount)
+    {
+        deepCount--;
+
+        cellsInList.AddRange(cellNeighbores);
+
+        if(deepCount == 0) return;
+
+        foreach(GameObject cell in cellNeighbores)
+        {
+            ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).GetParameter<CellArea>().NeibhoresSeracher_Node(cellsInList,deepCount);
+        }
+    }
+
+    private void FrontChecker()
+    {
+        bool otherSideCellFinded = false;
+
+        foreach(var cell in cellNeighbores)
+        {
+            if(ServiceRegistry.WorkWithController<CellController>().FastDrop_CellSide(cell) != Side && ServiceRegistry.WorkWithController<CellController>().FastDrop_CellSide(cell)!=SideEnum.None)
+            {
+                otherSideCellFinded = true;
+                ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).GetParameter<CellArea>().IsFrontCell = true;
+            }
+            else { ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).GetParameter<CellArea>().IsFrontCell = false; }
+
+            ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).GetParameter<CellArea>().FronChecker_Single();
+        }
+
+        if (otherSideCellFinded) IsFrontCell = true;
+    }
+    public void FronChecker_Single()
+    {
+        bool otherSideCellFinded = false;
+
+        foreach (var cell in cellNeighbores)
+        {
+            if (ServiceRegistry.WorkWithController<CellController>().FastDrop_CellSide(cell) != Side && ServiceRegistry.WorkWithController<CellController>().FastDrop_CellSide(cell) != SideEnum.None)
+            {
+                otherSideCellFinded = true;
+                ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).GetParameter<CellArea>().IsFrontCell = true;
+            }
+            else { ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).GetParameter<CellArea>().IsFrontCell = false; }
+        }
+
+        if (otherSideCellFinded) IsFrontCell = true;
+    }
 }
 public class CellBuildings
 {
@@ -341,12 +438,30 @@ public class CellBuildings
         ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cellParser.GetCellWorkWith()).
                 GetParameter<CellBuffs>().AddBuffToCell(building.Buff);
 
+        if(building.GetType() == typeof(HeadquartersBuild)) 
+        { 
+            ((HeadquartersBuild)building).CellWithThisBuild = cellParser.GetCellWorkWith().transform;
+
+            HeadquartersAdder_EnemyController((HeadquartersBuild)building,cellParser.GetCellWorkWith());
+        }
+
+        building.ActivateBuild();
+
         ServiceRegistry.WorkWithService<EventBus>().Publish<CellBuildings, GameObject, AbstractBuildings>(this, cellParser.GetCellWorkWith(), building);
+
+        if(!ServiceRegistry.WorkWithController<CellController>().FastDrop_IsAllies(cellParser.GetCellWorkWith()) && building.GetType() == typeof(HeadquartersBuild))
+        {
+            ServiceRegistry.WorkWithController<EnemysController>().HeadquartersDangerPoints.Add((HeadquartersBuild)building, 0);
+        }
     }
-    //public void RemoveFromBuildsList(AbstractBuildings building, string buildType) { builds.Remove(buildType); ChangeDictionaryState(id); 
-    //    ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cellParser.GetCellWorkWith()).
-    //            GetParameter<CellBuffs>().RemoveBuffFromCell(building.Buff);
-    //}
+    private void HeadquartersAdder_EnemyController(HeadquartersBuild build, GameObject cell)
+    {
+        if (ServiceRegistry.WorkWithController<CellController>().FastDrop_IsAllies(cellParser.GetCellWorkWith())) {
+            ServiceRegistry.WorkWithController<EnemysController>().CellWithHeadquarters_Player.Add(cell, build);
+        }
+        else { ServiceRegistry.WorkWithController<EnemysController>().CellWithHeadquarters_Bot.Add(cell,build); }
+    }
+
 
     public void DebugFunction_NameAllBuildings()
     {
@@ -394,8 +509,12 @@ public class CellSquadsOnArea:ICellNeeder_Type
 {
     public List<AbstractSquad> squadsOnCell { get; private set; } = new();
 
+
+    private int currentCount = 0;
     public int maxCountOfSquads { get; private set; }
     public int bonusHarden { private get; set; } = 0;
+
+    public int bonusFront { private get;set; } = 0;
 
 
 
@@ -406,7 +525,7 @@ public class CellSquadsOnArea:ICellNeeder_Type
         {
             return _bonusHeadquarters; 
         }
-        set { _bonusHeadquarters = value; CheckCount(); }
+        set { _bonusHeadquarters = value; }
     }
 
     public void SetType(CellTypes_enum cellType)
@@ -428,27 +547,18 @@ public class CellSquadsOnArea:ICellNeeder_Type
         ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(toCell).GetParameter<CellSquadsOnArea>().squadsOnCell.Add(squad);
     }
 
-    private void CheckCount()
-    {
-        
-    }
-
-    private bool ReCheckSqaudsCount()
-    {
-        if(squadsOnCell.Count < maxCountOfSquads)
-        {
-            //алгоритм переселения
-
-            return false;
-        }
-
-        return true;
-    }
-
     public (int,int) GetCountCurrentMax()
     {
-        return (squadsOnCell.Count, maxCountOfSquads + BonusHeadquarters + bonusHarden);
+        return (currentCount, maxCountOfSquads + BonusHeadquarters + bonusHarden + bonusFront);
     }
+
+    public void SwitchCountSquad(AbstractSquad squad, GameObject toCell)
+    {
+        currentCount--;
+
+        ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(toCell).GetParameter<CellSquadsOnArea>().currentCount++;
+    }
+    public void AddCountOfSquad() { currentCount++; }
 }
 
 public interface ICellNeeder_Type

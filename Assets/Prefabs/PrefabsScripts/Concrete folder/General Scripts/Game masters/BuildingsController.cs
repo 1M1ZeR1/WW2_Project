@@ -9,6 +9,47 @@ public class BuilderController
 
     public Action<GameObject> RequestUIUpdate;
 
+
+    public IEnumerator StartBuildProccess_Bot(GameObject cell, string id, int buildLevel)
+    {
+        var parameters = TryStartBuilding_Bot(cell, id, buildLevel);
+
+        if (parameters != null)
+        {
+            AbstractBuildings newBuild = (AbstractBuildings)ServiceRegistry.WorkWithService<ObjectFactory_Builds>().CreateObject(id);
+
+            cellsToBuildingObjects.Add(cell, (newBuild, CreateBuildingModule(id, cell)));
+
+            if (buildLevel == 1) { parameters.Add(newBuild.TimeBuild); }
+            else { parameters.Add(newBuild.TimeUpgrade); }
+
+            return BuildingConstruction(parameters[0], parameters[1], newBuild, id, cell);
+        }
+
+        return null;
+    }
+    private List<float> TryStartBuilding_Bot(GameObject cell, string id, int buildLevel)
+    {
+
+        List<float> parameters = new() { 0};
+
+        Debug.LogError($"Count of squads on this cell:{ServiceRegistry.WorkWithController<GameController>().GetAllSquadsOnCell(cell).Count}||Bot_Side");
+
+        var squads = ServiceRegistry.WorkWithController<GameController>().GetAllSquadsOnCell(cell);
+        if(squads.Count == 0)return null;
+
+        foreach (AbstractSquad squad in squads)
+        {
+            Debug.LogError($"Squad name:{squad.Name}, Squad speed:{squad.Speed}, Squad build skill:{squad.BuildingSkill}");
+            if (squad.SquadAction != SquadActions.None) { continue; }
+            parameters[0] += squad.BuildingSkill;
+            squad.SquadAction = SquadActions.Building;
+        }
+
+        return parameters;
+    }
+
+
     public IEnumerator StartBuildProccess(GameObject cell, string id, int buildLevel)
     {
         var parameters = TryStartBuilding(cell, id, buildLevel);
@@ -91,8 +132,6 @@ public class BuilderController
     public void BuldingWasOver(AbstractBuildings build, GameObject cell, string id)
     {
         cellsToBuildingObjects[cell].Item2.InvokeDestroy();
-
-        build.ActivateBuild();
 
         ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).GetParameter<CellBuildings>().AddToBuildsList(build, id);
 

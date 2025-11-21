@@ -97,8 +97,9 @@ public class ResourcesUIScript : MonoBehaviour
 
             yield return null;
         }
+        rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, 65f);
 
-        foreach(var action in currentActionList) { action.Invoke();}
+        foreach (var action in currentActionList) { action.Invoke();}
 
         _inOneWave = false;
 

@@ -59,4 +59,6 @@ public class Parameters
     public ControlSide controlSide;
 
     public List<BuildData> buildings = new();
+
+    public bool isFront = false;
 }

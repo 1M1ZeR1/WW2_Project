@@ -29,8 +29,14 @@ public class TimeControllerScript : MonoBehaviour
         yearPanelObject.TryGetComponent( out yearPanelText);
         monthDayPanelObject.TryGetComponent( out monthDayPanelText);
         hourPanelObject.TryGetComponent( out hourPanelText);
+    }
 
-        ServiceRegistry.WorkWithController<GameController>().oneHourLeft += OtherTimeTaker;
+    public void StartTime()
+    {
+        ServiceRegistry.WorkWithService<EventBus>().Subscribe<GameController>((sender) =>
+        {
+            OtherTimeTaker();
+        });
     }
 
     private void OtherTimeTaker()

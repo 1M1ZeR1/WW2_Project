@@ -14,8 +14,6 @@ public class MovementController
 {
     private Action<GameObject> updateSquadsAction;
 
-    protected Dictionary<AbstractSquad, SquadMovement> _squadAndThierMovement = new();
-
     private Dictionary<AbstractSquad,Action<AbstractSquad,GameObject>> squadsNotification = new();
 
     public void Start()
@@ -23,42 +21,23 @@ public class MovementController
         updateSquadsAction = ServiceRegistry.WorkWithController<CellUIScript>().UpdatePanelInfo;
     }
 
-    public void AddMovementForSquad(GameObject startCell, GameObject finishCell, AbstractSquad squad)
+    public ICommand AddMovementForSquad(GameObject startCell, GameObject finishCell, AbstractSquad squad)
     {
-        if (squad.SquadAction != SquadActions.None) { return; }
-        squad.SquadAction = SquadActions.Moving;
+        if (squad.SquadAction != SquadActions.None) { return null; }
 
         ServiceRegistry.WorkWithController<GameController>().UpdateSquadInformation_SwipeState(squad);
         updateSquadsAction.Invoke(startCell);
 
-        if (squad.Side == SideEnum.Enemys) 
+        SquadMovement newMovement = new SquadMovement(ServiceRegistry.WorkWithController<AAlgorithm>().CreateWay(startCell, finishCell,squad.Side), squad);
+
+        newMovement.squadEndMovement += (AbstractSquad squad, GameObject cell) =>
         {
-            SquadMovement newMovement = new SquadMovement(ServiceRegistry.WorkWithController<AAlgorithm>().CreateWay_Enemy(startCell, finishCell),squad);
-            _squadAndThierMovement.Add(squad, newMovement);
+            if (squadsNotification.ContainsKey(squad)) { squadsNotification[squad].Invoke(squad, cell); squadsNotification.Remove(squad); }
+        };
 
-            newMovement.squadEndMovement += (AbstractSquad squad, GameObject cell) =>
-            {
-                _squadAndThierMovement.Remove(squad);
+        ServiceRegistry.WorkWithService<CommandBus>().Enqueue(newMovement);
 
-                if (squadsNotification.ContainsKey(squad)) { squadsNotification[squad].Invoke(squad, cell); squadsNotification.Remove(squad); }
-            };
-
-            ServiceRegistry.WorkWithController<MonobehaviourMaster>().CoroutineStarter(newMovement.Execute()); 
-        }
-        else 
-        {
-            SquadMovement newMovement = new SquadMovement(ServiceRegistry.WorkWithController<AAlgorithm>().CreateWay(startCell, finishCell), squad);
-            _squadAndThierMovement.Add(squad, newMovement);
-
-            newMovement.squadEndMovement += (AbstractSquad squad, GameObject cell) =>
-            {
-                _squadAndThierMovement.Remove(squad);
-
-                if (squadsNotification.ContainsKey(squad)) { squadsNotification[squad].Invoke(squad, cell); squadsNotification.Remove(squad); }
-            };
-
-            ServiceRegistry.WorkWithService<MonobehaviourMaster>().CoroutineStarter(newMovement.Execute());
-        }
+        return newMovement;
     }
 
     public void AddEvent(AbstractSquad squad, Action<AbstractSquad,GameObject> action)
@@ -66,8 +45,13 @@ public class MovementController
         squadsNotification.Add(squad,action);
     }
 }
-public class SquadMovement:ICoroutineAction
+public class SquadMovement:ICommand
 {
+    public Guid Id { get; }
+    public CommandState State { get; private set; }
+
+
+
     private List<GameObject> wayCells;
     private AbstractSquad squad;
 
@@ -75,52 +59,77 @@ public class SquadMovement:ICoroutineAction
 
     private ArrowCanvasWorker arrowCanvasWorker;
 
+
+    public void Prepare()
+    {
+        arrowCanvasWorker = new ArrowCanvasWorker(squad);
+
+        squad.SquadAction = SquadActions.Moving;
+
+        State = CommandState.Prepared;
+    }
+    public bool CanExecute()
+    {
+        if (wayCells == null || wayCells.Count == 0) { squadEndMovement?.Invoke(squad, wayCells[0]); return false; }
+
+        return true;
+    }
+    public void Execute()
+    {
+        ServiceRegistry.WorkWithService<MonobehaviourMaster>().CoroutineStarter(StartMovement());
+
+        State = CommandState.Executing;
+    }
+    public void Cancel()
+    {
+        State = CommandState.Cancelled;
+    }
+
     public SquadMovement(List<GameObject> wayCells, AbstractSquad squad)
     {
         this.wayCells = wayCells.ToList();
         this.squad = squad;
 
-        arrowCanvasWorker = new ArrowCanvasWorker(squad);
+        State = CommandState.Created;
     }
 
-    public IEnumerator Execute()
+    private IEnumerator StartMovement()
     {
-        if (wayCells == null || wayCells.Count == 0) { squadEndMovement?.Invoke(squad, wayCells[0]); }
-
         GameObject startWayCell = wayCells[0];
 
-        AbstractSquad currentSquad = squad;
         GameObject startCell = wayCells[0];
 
         ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(wayCells[0]).GetParameter<CellSquadsOnArea>().squadsOnCell.Remove(squad);
 
+        ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(wayCells[0]).GetParameter<CellSquadsOnArea>().SwitchCountSquad(squad, wayCells[wayCells.Count-1]);
+
         bool inMovement = false;
 
-        void OneStepIsOver(AbstractSquad squad)
+        void OneStepIsOver()
         {
-            if (squad == currentSquad)
+            ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(wayCells[0]).GetParameter<CellBuffs>().RemoveFromSquadBuffs(squad);
+            wayCells.Remove(startCell);
+            if (wayCells.Count == 1)
             {
-                ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(wayCells[0]).GetParameter<CellBuffs>().RemoveFromSquadBuffs(squad);
-                wayCells.Remove(startCell);
-                if (wayCells.Count == 1)
-                {
-                    //gameControllerScript.UpdateSquadInformation(squad, wayCells[0]);
-                    ServiceRegistry.WorkWithController<GameController>().OnlyCaptureCell(squad.Side, wayCells[0]);
-                    ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(wayCells[0]).GetParameter<CellBuffs>().SetToSquadBuffs(squad);
-
-                    inMovement = false;
-                    return;
-                }
-
+                //gameControllerScript.UpdateSquadInformation(squad, wayCells[0]);
                 ServiceRegistry.WorkWithController<GameController>().OnlyCaptureCell(squad.Side, wayCells[0]);
                 ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(wayCells[0]).GetParameter<CellBuffs>().SetToSquadBuffs(squad);
 
-                startCell = wayCells[0];
                 inMovement = false;
+                return;
             }
+
+            ServiceRegistry.WorkWithController<GameController>().OnlyCaptureCell(squad.Side, wayCells[0]);
+            ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(wayCells[0]).GetParameter<CellBuffs>().SetToSquadBuffs(squad);
+
+            startCell = wayCells[0];
+            inMovement = false;
         }
 
-        arrowCanvasWorker.SquadEndOneStep += OneStepIsOver;
+        ServiceRegistry.WorkWithService<EventBus>().Subscribe<ArrowCanvasWorker>((sender) =>
+        {
+            if(sender == arrowCanvasWorker) { OneStepIsOver(); }
+        });
 
         while (wayCells.Count > 0)
         {
@@ -141,8 +150,8 @@ public class SquadMovement:ICoroutineAction
             arrowCanvasWorker.CreateArrow(
                 startCell.transform.position,
                 wayCells[wayCells.IndexOf(startCell) + 1].transform.position,
-                currentSquad.GetAllSpeedOfMovement(),
-                currentSquad
+                squad.GetAllSpeedOfMovement(),
+                squad
             );
 
             inMovement = true;
@@ -157,12 +166,13 @@ public class SquadMovement:ICoroutineAction
         ServiceRegistry.WorkWithController<BattleController>().CheckDrawnIntoBattle(squad, wayCells[0]);
 
         ServiceRegistry.WorkWithController<GameController>().UpdateSquadInformation_ChangeCell(squad, startWayCell, wayCells[0]);
+
+        ServiceRegistry.WorkWithService<EventBus>().Publish<SquadMovement, AbstractSquad, SideEnum>(this, squad, squad.Side);
+        ServiceRegistry.WorkWithService<EventBus>().Publish<ICommand, SquadMovement, AbstractSquad, GameObject>(this, this, squad, wayCells[0]);
     }
 }
 public class ArrowCanvasWorker
 {
-    public event Action<AbstractSquad> SquadEndOneStep;
-
     private AbstractSquad squadFor;
 
     public ArrowCanvasWorker(AbstractSquad squad)
@@ -181,7 +191,7 @@ public class ArrowCanvasWorker
     {
         if(squad == squadFor)
         {
-            SquadEndOneStep?.Invoke(squad);
+            ServiceRegistry.WorkWithService<EventBus>().Publish<ArrowCanvasWorker>(this);
         }
     }
 }

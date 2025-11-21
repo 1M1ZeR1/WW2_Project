@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -354,6 +355,71 @@ public class MapConfigurator : MonoBehaviour
             else { currentDictionary[currentSelectedCell].controlSide = ControlSide.allies; }
 
             ShowAllConfiguredCells();
+        }
+    }
+}
+
+
+[CustomEditor(typeof(GameObject))]
+public class GameObjectParametersEditor : Editor
+{
+    private Parameters currentEntry;
+    private ParametersCellsDataHolder holder;
+
+    public override void OnInspectorGUI()
+    {
+        DrawDefaultInspector();
+
+        if (GUILayout.Button("Найти параметры"))
+        {
+            GameObject selected = (GameObject)target;
+            holder = Resources.Load<ParametersCellsDataHolder>("CellsParameters_V1");
+
+            if (holder != null)
+            {
+                var parametersList = holder.GetCellsParameters();
+                currentEntry = parametersList.FirstOrDefault(p => p.currentCellName == selected.name);
+            }
+        }
+
+        if (currentEntry != null)
+        {
+            EditorGUILayout.Space();
+            EditorGUILayout.LabelField("Редактирование параметров:", EditorStyles.boldLabel);
+
+            currentEntry.currentCellName = EditorGUILayout.TextField("Имя", currentEntry.currentCellName);
+            currentEntry.controlSide = (ControlSide)EditorGUILayout.EnumPopup("Сторона", currentEntry.controlSide);
+            currentEntry.cellType = (CellTypes_enum)EditorGUILayout.EnumPopup("Тип локации", currentEntry.cellType);
+            currentEntry.isFront = EditorGUILayout.Toggle("Фронт", currentEntry.isFront);
+
+            EditorGUILayout.Space();
+            EditorGUILayout.LabelField("Список построек:", EditorStyles.boldLabel);
+
+            for (int i = 0; i < currentEntry.buildings.Count; i++)
+            {
+                EditorGUILayout.BeginHorizontal();
+
+                currentEntry.buildings[i] = (BuildData)EditorGUILayout.ObjectField(
+                    $"Build {i + 1}", currentEntry.buildings[i], typeof(BuildData), false);
+
+                if (GUILayout.Button("Удалить", GUILayout.Width(60)))
+                {
+                    currentEntry.buildings.RemoveAt(i);
+                    break;
+                }
+
+                EditorGUILayout.EndHorizontal();
+            }
+
+            if (GUILayout.Button("Добавить постройку"))
+            {
+                currentEntry.buildings.Add(null);
+            }
+
+            if (GUI.changed && holder != null)
+            {
+                EditorUtility.SetDirty(holder);
+            }
         }
     }
 }
