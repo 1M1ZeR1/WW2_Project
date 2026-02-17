@@ -360,66 +360,73 @@ public class MapConfigurator : MonoBehaviour
 }
 
 
-[CustomEditor(typeof(GameObject))]
-public class GameObjectParametersEditor : Editor
-{
-    private Parameters currentEntry;
-    private ParametersCellsDataHolder holder;
+//[CustomEditor(typeof(GameObject))]
+//public class GameObjectParametersEditor : Editor
+//{
+//    private Parameters currentEntry;
+//    private ParametersCellsDataHolder holder;
 
-    public override void OnInspectorGUI()
-    {
-        DrawDefaultInspector();
+//    public override void OnInspectorGUI()
+//    {
+//        DrawDefaultInspector();
 
-        if (GUILayout.Button("Найти параметры"))
-        {
-            GameObject selected = (GameObject)target;
-            holder = Resources.Load<ParametersCellsDataHolder>("CellsParameters_V1");
+//        GameObject selected = (GameObject)target;
+//        bool newActive = EditorGUILayout.Toggle("Active", selected.activeSelf);
+//        if (newActive != selected.activeSelf)
+//        {
+//            selected.SetActive(newActive);
+//            EditorUtility.SetDirty(selected);
+//        }
 
-            if (holder != null)
-            {
-                var parametersList = holder.GetCellsParameters();
-                currentEntry = parametersList.FirstOrDefault(p => p.currentCellName == selected.name);
-            }
-        }
+//        if (GUILayout.Button("Найти параметры"))
+//        {
+//            holder = Resources.Load<ParametersCellsDataHolder>("CellsParameters_V1");
 
-        if (currentEntry != null)
-        {
-            EditorGUILayout.Space();
-            EditorGUILayout.LabelField("Редактирование параметров:", EditorStyles.boldLabel);
+//            if (holder != null)
+//            {
+//                var parametersList = holder.GetCellsParameters();
+//                currentEntry = parametersList.FirstOrDefault(p => p.currentCellName == selected.name);
+//            }
+//        }
 
-            currentEntry.currentCellName = EditorGUILayout.TextField("Имя", currentEntry.currentCellName);
-            currentEntry.controlSide = (ControlSide)EditorGUILayout.EnumPopup("Сторона", currentEntry.controlSide);
-            currentEntry.cellType = (CellTypes_enum)EditorGUILayout.EnumPopup("Тип локации", currentEntry.cellType);
-            currentEntry.isFront = EditorGUILayout.Toggle("Фронт", currentEntry.isFront);
+//        if (currentEntry != null)
+//        {
+//            EditorGUILayout.Space();
+//            EditorGUILayout.LabelField("Редактирование параметров:", EditorStyles.boldLabel);
 
-            EditorGUILayout.Space();
-            EditorGUILayout.LabelField("Список построек:", EditorStyles.boldLabel);
+//            currentEntry.currentCellName = EditorGUILayout.TextField("Имя", currentEntry.currentCellName);
+//            currentEntry.controlSide = (ControlSide)EditorGUILayout.EnumPopup("Сторона", currentEntry.controlSide);
+//            currentEntry.cellType = (CellTypes_enum)EditorGUILayout.EnumPopup("Тип локации", currentEntry.cellType);
+//            currentEntry.isFront = EditorGUILayout.Toggle("Фронт", currentEntry.isFront);
 
-            for (int i = 0; i < currentEntry.buildings.Count; i++)
-            {
-                EditorGUILayout.BeginHorizontal();
+//            EditorGUILayout.Space();
+//            EditorGUILayout.LabelField("Список построек:", EditorStyles.boldLabel);
 
-                currentEntry.buildings[i] = (BuildData)EditorGUILayout.ObjectField(
-                    $"Build {i + 1}", currentEntry.buildings[i], typeof(BuildData), false);
+//            for (int i = 0; i < currentEntry.buildings.Count; i++)
+//            {
+//                EditorGUILayout.BeginHorizontal();
 
-                if (GUILayout.Button("Удалить", GUILayout.Width(60)))
-                {
-                    currentEntry.buildings.RemoveAt(i);
-                    break;
-                }
+//                currentEntry.buildings[i] = (BuildData)EditorGUILayout.ObjectField(
+//                    $"Build {i + 1}", currentEntry.buildings[i], typeof(BuildData), false);
 
-                EditorGUILayout.EndHorizontal();
-            }
+//                if (GUILayout.Button("Удалить", GUILayout.Width(60)))
+//                {
+//                    currentEntry.buildings.RemoveAt(i);
+//                    break;
+//                }
 
-            if (GUILayout.Button("Добавить постройку"))
-            {
-                currentEntry.buildings.Add(null);
-            }
+//                EditorGUILayout.EndHorizontal();
+//            }
 
-            if (GUI.changed && holder != null)
-            {
-                EditorUtility.SetDirty(holder);
-            }
-        }
-    }
-}
+//            if (GUILayout.Button("Добавить постройку"))
+//            {
+//                currentEntry.buildings.Add(null);
+//            }
+
+//            if (GUI.changed && holder != null)
+//            {
+//                EditorUtility.SetDirty(holder);
+//            }
+//        }
+//    }
+//}

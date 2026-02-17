@@ -24,7 +24,7 @@ public class BuildItemPanel : MonoBehaviour
         {
             currentCell = cell;
         });
-        ServiceRegistry.WorkWithService<EventBus>().Subscribe<OpenBuildMenuScript>((sender) =>
+        ServiceRegistry.WorkWithService<EventBus>().Subscribe<ButtonInteraction,ButtonInteraction>((sender,key) =>
         {
             CheckBuildForButtonState();
         });

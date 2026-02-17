@@ -46,11 +46,11 @@ public class DecisionTree
 
     public void OneStep()
     {
-        EconomyPoints += economyPointsModify;
+        //EconomyPoints += economyPointsModify;
 
-        var commands = nodeFactory.CreateCommands(_actionConstructor.Construct_Economy(DangerPoints, EconomyPoints), _actionConstructor.Construct_Attack(DangerPoints, EconomyPoints));
+        //var commands = nodeFactory.CreateCommands(_actionConstructor.Construct_Economy(DangerPoints, EconomyPoints), _actionConstructor.Construct_Attack(DangerPoints, EconomyPoints));
 
-        foreach (var command in commands) { ServiceRegistry.WorkWithService<CommandBus>().Enqueue(command, CommandPriority.High); }
+        //foreach (var command in commands) { ServiceRegistry.WorkWithService<CommandBus>().Enqueue(command, CommandPriority.High); }
     }
 
     private class ActionConstructor
@@ -58,8 +58,8 @@ public class DecisionTree
         protected Dictionary<int, List<ActionType_Economy>> _necessarilyActions = new()
         {
             {7, new List<ActionType_Economy>(){ ActionType_Economy.Economy_Squad_Train} },
-            {8,new List<ActionType_Economy>(){ ActionType_Economy.Economy_Build_Economy,ActionType_Economy.Economy_Squad_Train} },
-            {9,new List<ActionType_Economy>(){ ActionType_Economy.Economy_Squad_Train} },
+            {8, new List<ActionType_Economy>(){ ActionType_Economy.Economy_Build_Economy,ActionType_Economy.Economy_Squad_Train} },
+            {9, new List<ActionType_Economy>(){ ActionType_Economy.Economy_Squad_Train} },
             {10,new List<ActionType_Economy>(){ ActionType_Economy.Economy_Build_Economy,ActionType_Economy.Economy_Squad_Train} }
 
         };
@@ -179,6 +179,7 @@ public class EconomyNode : INode,IClone,ICommand
         {
             case ActionType_Economy.Economy_Build_Economy:Economy_Build(Build_Type.Camp);break;
             case ActionType_Economy.Economy_Build_Protection:Economy_Build(Build_Type.Fort);break;
+            case ActionType_Economy.Economy_Squad_Train:Economy_Squad();break;
         }
     }
     private void Economy_Build(Build_Type build_Type)
@@ -201,10 +202,10 @@ public class EconomyNode : INode,IClone,ICommand
                 IEnumerator coroutine = ServiceRegistry.WorkWithController<BuilderController>().StartBuildProccess_Bot(cell, build_id, 1);
                 if (coroutine == null)
                 {
-                    Debug.LogError("Проблемы с постройкой");
+                    //Debug.LogError("Проблемы с постройкой");
 
                     HeadquartersChooser headquartersChooser = new(cell, true);
-                    headquartersChooser.NearestHeadquartersFinder += (headquarters) =>
+                    headquartersChooser.HeadquartersChoosed += (headquarters) =>
                     {
                         if (headquarters == null) { ServiceRegistry.WorkWithService<CommandBus>().Cancel(Id); }
 
@@ -235,7 +236,7 @@ public class EconomyNode : INode,IClone,ICommand
                 }
                 else
                 {
-                    Debug.LogError("Без проблем строю");
+                    //Debug.LogError("Без проблем строю");
 
                     actionTree.EconomyPoints -= 500;
 
@@ -245,6 +246,28 @@ public class EconomyNode : INode,IClone,ICommand
                     break;
                 }
             }
+        }
+    }
+    private void Economy_Squad()
+    {
+        List<GameObject> headquartersCells = ServiceRegistry.WorkWithController<EnemysController>().CellWithHeadquarters_Bot.Keys.ToList();
+
+        foreach (var cell in headquartersCells) 
+        {
+            HeadquartersChooser headquartersChooser = new(cell, true);
+            headquartersChooser.HeadquartersChoosed += (headquarters) =>
+            {
+                if (headquarters == null) { ServiceRegistry.WorkWithService<CommandBus>().Cancel(Id); }
+
+                else
+                {
+                   
+                }
+            };
+
+            ServiceRegistry.WorkWithService<CommandBus>().Enqueue(headquartersChooser);
+
+            break;
         }
     }
 
@@ -268,6 +291,49 @@ public class EconomyNode : INode,IClone,ICommand
         Camp,
         Academy,
         Fort,
+    }
+}
+
+public class AttackNode: INode, IClone, ICommand
+{
+    public ActionType_Attack ActionType_Attack { private get; set; }
+
+    private DecisionTree actionTree;
+
+    public Guid Id { get; set; }
+
+    public CommandState State { get; private set; } = CommandState.Created;
+
+    public AttackNode(DecisionTree actionTree) { this.actionTree = actionTree; }
+
+    public object Clone() { return new AttackNode(actionTree); }
+
+
+    public void Execute()
+    {
+        switch (ActionType_Attack)
+        {
+            case ActionType_Attack.Attack_Exploration:break;
+        }
+    }
+    private void Attack_Exploration()
+    {
+
+    }
+
+    public bool CanExecute()
+    {
+        return true;
+    }
+
+    public void Prepare()
+    {
+        State = CommandState.Prepared;
+    }
+
+    public void Cancel()
+    {
+        throw new NotImplementedException();
     }
 }
 
@@ -362,19 +428,26 @@ public class PullUpSquads : ICommand
 
 public class HeadquartersChooser : ICommand
 {
+    public enum FindFor
+    {
+         
+    }
+
+
     protected HeadquartersBuild _headquartersBuild;
     private HeadquartersBuild nearestHeadquarters = null;
 
     private GameObject startCell;
     private bool economyStep;
 
-    public Action<HeadquartersBuild> NearestHeadquartersFinder;
+    public Action<HeadquartersBuild> HeadquartersChoosed;
+
 
     public Guid Id { get; set; }
 
     public CommandState State { get; private set; } = CommandState.Created;
 
-    public HeadquartersChooser(GameObject startCell, bool economyStep) { this.startCell = startCell;this.economyStep = economyStep; }
+    public HeadquartersChooser(GameObject startCell = null, bool economyStep = false) { this.startCell = startCell;this.economyStep = economyStep; }
 
     public void Cancel()
     {
@@ -388,10 +461,13 @@ public class HeadquartersChooser : ICommand
 
     public void Execute()
     {
-        NearestHeadquartersFinder?.Invoke(nearestHeadquarters);
+        HeadquartersChoosed?.Invoke(nearestHeadquarters);
 
         State = CommandState.Completed;
     }
+
+
+
     private HeadquartersBuild FindNearestHeadquarters(List<HeadquartersBuild> headquartersBuilds)
     {
         float distance = float.MaxValue;

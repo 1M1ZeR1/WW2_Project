@@ -387,14 +387,14 @@ public class ScoutSquad : AbstractSquad
     {
         if (IsSkillInCooldown) { return null; }
 
-        if (!ServiceRegistry.WorkWithController<ExplorationController>().CheckCellInExplorationing(
-            _selectedCell) && !ServiceRegistry.WorkWithController<CellController>().FastDrop_IsAllies(_selectedCell))
+        if (!ServiceRegistry.WorkWithController<CellController>().FastDrop_IsAllies(_selectedCell))
         {
             IsSkillInCooldown = true;
 
             ServiceRegistry.WorkWithService<MonobehaviourMaster>().CoroutineStarter(base.SkillCooldownCoroutine());
 
-            return () => { base.UseSkill(0, SkillType.Action, () => ServiceRegistry.WorkWithController<ExplorationController>().RequestToStartExploration(_selectedCell, 20 * PeopleCount), null); };
+            return () => { base.UseSkill(0, SkillType.Action, () => ServiceRegistry.WorkWithController<ExplorationController>().StartExploration(
+                ServiceRegistry.WorkWithController<GameController>().GetCellWithThisSquad(this),_selectedCell, this), null); };
         }
         return null;
     }

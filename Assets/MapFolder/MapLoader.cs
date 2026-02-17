@@ -84,7 +84,7 @@ public class MapLoader : EditorWindow
 
 public class BuildLoader
 {
-    private static string[] squadsId = new string[] {"InfantrySquad","EngineersSquad" };
+    private static string[] squadsId = new string[] {"InfantrySquad","EngineersSquad","ScoutsSquad" };
     public static void LoadPreset()
     {
         ParametersCellsDataHolder parametersHolder = Resources.Load<ParametersCellsDataHolder>("CellsParameters_V1");
@@ -117,7 +117,7 @@ public class BuildLoader
         PauseScript.SetGameState(GameState.Play);
         Debug.Log("«¿√–”« ¿ œ–≈—≈“¿ «¿ ŒÕ◊≈ÕÕ¿.");
 
-        ServiceRegistry.WorkWithService<EventBus>().Publish<MapLoader>(null);
+        //ServiceRegistry.WorkWithService<EventBus>().Publish<MapLoader>(null);
     }
     static void ConfigureCell(GameObject cell, Parameters parameters)
     {

@@ -13,8 +13,9 @@ public class SelectedObjectScript : MonoBehaviour
     protected InteractableScript interactableScript;
 
     [Header("Обработка кликов на UI")]
-    [SerializeField] private GameObject PlayerCanvas;
-    private GraphicRaycaster graphicRaycaster;
+    [SerializeField] private GraphicRaycaster graphicRaycaster_PlayerCanvas;
+    [SerializeField] private GraphicRaycaster graphicRaycaster_ExplorationCanvas;
+
 
     [SerializeField] private GameObject ClickControll;
     private EventSystem eventSystem;
@@ -31,7 +32,6 @@ public class SelectedObjectScript : MonoBehaviour
         interactableScript = GetComponent<InteractableScript>();
 
         ClickControll.TryGetComponent(out eventSystem);
-        PlayerCanvas.TryGetComponent(out graphicRaycaster);
     }
     private void Update()
     {
@@ -47,7 +47,8 @@ public class SelectedObjectScript : MonoBehaviour
             };
 
             List<RaycastResult> resultsHitUI = new List<RaycastResult> ();
-            graphicRaycaster.Raycast(pointerEventData, resultsHitUI);
+            graphicRaycaster_PlayerCanvas.Raycast(pointerEventData, resultsHitUI);
+            graphicRaycaster_ExplorationCanvas.Raycast(pointerEventData, resultsHitUI);
 
             if (resultsHitUI.Count == 0)
             {

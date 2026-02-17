@@ -57,6 +57,8 @@ public class MessageScript : MonoBehaviour
     }
     public void SendMessage(int messageType)
     {
+        gameObject.SetActive(true);
+
         _timer = 0;
 
         _panelColor.a = 1;

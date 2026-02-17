@@ -153,6 +153,18 @@ public class GameController
     {
         return squadsDictionary.Where(p => p.Value == cell).Select(p => p.Key).ToList();
     }
+    public AbstractSquad GetRandomSquadOnCell(GameObject cell,List<AbstractSquad> squads = null)
+    {
+        if(squads != null)
+        {
+            foreach(var squad in GetAllSquadsOnCell(cell))
+            {
+                if (!squads.Contains(squad)) { return squad; }
+            }
+            return null;
+        }
+        return GetAllSquadsOnCell(cell)[Random.Range(0, squads.Count)];
+    }
     public GameObject GetCellWithThisSquad(AbstractSquad squad) { return squadsDictionary[squad]; }
 
     public AbstractSquad GetNewEnemySquad(List<AbstractSquad> squads, GameObject cell)

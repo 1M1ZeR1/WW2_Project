@@ -48,16 +48,13 @@ public class CellParametersHandler:ICellParser,IParametersHandlerParser
     {
         currentCell = cell;
 
-
+        savedParameters.Add(typeof(CellMovementParameters), new CellMovementParameters());
         savedParameters.Add(typeof(CellType), new CellType(this));
         savedParameters.Add(typeof(CellBuffs), new CellBuffs(this));
-        savedParameters.Add(typeof(CellMovementParameters), new CellMovementParameters());
         savedParameters.Add(typeof(CellDiscription), new CellDiscription(this));
         savedParameters.Add(typeof(CellBuildings), new CellBuildings(this));
         CellAreaRegistry();
         savedParameters.Add(typeof(CellSquadsOnArea), new CellSquadsOnArea());
-
-
     }
     protected void CellAreaRegistry()
     {
@@ -121,6 +118,10 @@ public class CellType:ICellNeeder_Type
         ServiceRegistry.WorkWithController<CellController>().
             WorkWithCell<CellParametersHandler>(cellParser.GetCellWorkWith()).GetParameter<CellBuffs>().
             SetStartBuff(cellClass.GetBuff());
+
+        ServiceRegistry.WorkWithController<CellController>().
+            WorkWithCell<CellParametersHandler>(cellParser.GetCellWorkWith()).GetParameter<CellMovementParameters>().
+            SetType(type);
     }
     public AbstractCell ConntectWithAbstractCell() { return cellClass; }
 
@@ -434,32 +435,33 @@ public class CellBuildings
     }
     public void AddToBuildsList(AbstractBuildings building, string id)
     {
-        builds.Add(id, building); 
+        builds.Add(id, building);
         ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cellParser.GetCellWorkWith()).
                 GetParameter<CellBuffs>().AddBuffToCell(building.Buff);
 
-        if(building.GetType() == typeof(HeadquartersBuild)) 
-        { 
+        if (building.GetType() == typeof(HeadquartersBuild))
+        {
             ((HeadquartersBuild)building).CellWithThisBuild = cellParser.GetCellWorkWith().transform;
 
-            HeadquartersAdder_EnemyController((HeadquartersBuild)building,cellParser.GetCellWorkWith());
+            HeadquartersAdder_EnemyController((HeadquartersBuild)building, cellParser.GetCellWorkWith());
         }
 
         building.ActivateBuild();
 
         ServiceRegistry.WorkWithService<EventBus>().Publish<CellBuildings, GameObject, AbstractBuildings>(this, cellParser.GetCellWorkWith(), building);
 
-        if(!ServiceRegistry.WorkWithController<CellController>().FastDrop_IsAllies(cellParser.GetCellWorkWith()) && building.GetType() == typeof(HeadquartersBuild))
+        if (!ServiceRegistry.WorkWithController<CellController>().FastDrop_IsAllies(cellParser.GetCellWorkWith()) && building.GetType() == typeof(HeadquartersBuild))
         {
             ServiceRegistry.WorkWithController<EnemysController>().HeadquartersDangerPoints.Add((HeadquartersBuild)building, 0);
         }
     }
     private void HeadquartersAdder_EnemyController(HeadquartersBuild build, GameObject cell)
     {
-        if (ServiceRegistry.WorkWithController<CellController>().FastDrop_IsAllies(cellParser.GetCellWorkWith())) {
+        if (ServiceRegistry.WorkWithController<CellController>().FastDrop_IsAllies(cellParser.GetCellWorkWith()))
+        {
             ServiceRegistry.WorkWithController<EnemysController>().CellWithHeadquarters_Player.Add(cell, build);
         }
-        else { ServiceRegistry.WorkWithController<EnemysController>().CellWithHeadquarters_Bot.Add(cell,build); }
+        else { ServiceRegistry.WorkWithController<EnemysController>().CellWithHeadquarters_Bot.Add(cell, build); }
     }
 
 
@@ -473,7 +475,8 @@ public class CellBuildings
     }
     public bool CheckBuildIsBuilt(string id)
     {
-        if (builds.ContainsKey(id)) {
+        if (builds.ContainsKey(id))
+        {
             if (builds[id] == null) { return false; }
             else { return true; }
         }
@@ -503,73 +506,85 @@ public class CellBuildings
     }
 
     private bool cellIsEnemyBase = false;
-    public void IsCellBase() {  cellIsEnemyBase = true; }
-}
-public class CellSquadsOnArea:ICellNeeder_Type
-{
-    public List<AbstractSquad> squadsOnCell { get; private set; } = new();
+    public void IsCellBase() { cellIsEnemyBase = true; }
 
-
-    private int currentCount = 0;
-    public int maxCountOfSquads { get; private set; }
-    public int bonusHarden { private get; set; } = 0;
-
-    public int bonusFront { private get;set; } = 0;
-
-
-
-    private int _bonusHeadquarters = 0;
-    public int BonusHeadquarters
+    public AbstractBuildings GetRandomBuild(List<System.Object> objects)
     {
-        private  get 
-        {
-            return _bonusHeadquarters; 
-        }
-        set { _bonusHeadquarters = value; }
-    }
+        if (builds.Count == 0) { return null; }
 
-    public void SetType(CellTypes_enum cellType)
-    {
-        switch (cellType) 
+        foreach (var build in builds.Values)
         {
-            case CellTypes_enum.Plain: maxCountOfSquads = 3;break;
-            case CellTypes_enum.Forest: maxCountOfSquads = 2;break;
-            case CellTypes_enum.City: maxCountOfSquads = 5;break;
-
-            default: maxCountOfSquads = 1;break;
+            if (!objects.Contains(build)) { return build; }
         }
 
+        return null;
     }
-    public void SwitchSquad(AbstractSquad squad,GameObject toCell)
+}
+    public class CellSquadsOnArea : ICellNeeder_Type
     {
-        squadsOnCell.Remove(squad);
+        public List<AbstractSquad> squadsOnCell { get; private set; } = new();
 
-        ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(toCell).GetParameter<CellSquadsOnArea>().squadsOnCell.Add(squad);
+
+        private int currentCount = 0;
+        public int maxCountOfSquads { get; private set; }
+        public int bonusHarden { private get; set; } = 0;
+
+        public int bonusFront { private get; set; } = 0;
+
+
+
+        private int _bonusHeadquarters = 0;
+        public int BonusHeadquarters
+        {
+            private get
+            {
+                return _bonusHeadquarters;
+            }
+            set { _bonusHeadquarters = value; }
+        }
+
+        public void SetType(CellTypes_enum cellType)
+        {
+            switch (cellType)
+            {
+                case CellTypes_enum.Plain: maxCountOfSquads = 3; break;
+                case CellTypes_enum.Forest: maxCountOfSquads = 2; break;
+                case CellTypes_enum.City: maxCountOfSquads = 5; break;
+
+                default: maxCountOfSquads = 1; break;
+            }
+
+        }
+        public void SwitchSquad(AbstractSquad squad, GameObject toCell)
+        {
+            squadsOnCell.Remove(squad);
+
+            ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(toCell).GetParameter<CellSquadsOnArea>().squadsOnCell.Add(squad);
+        }
+
+        public (int, int) GetCountCurrentMax()
+        {
+            return (currentCount, maxCountOfSquads + BonusHeadquarters + bonusHarden + bonusFront);
+        }
+
+        public void SwitchCountSquad(AbstractSquad squad, GameObject toCell)
+        {
+            currentCount--;
+
+            ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(toCell).GetParameter<CellSquadsOnArea>().currentCount++;
+        }
+        public void AddCountOfSquad() { currentCount++; }
     }
 
-    public (int,int) GetCountCurrentMax()
+    public interface ICellNeeder_Type
     {
-        return (currentCount, maxCountOfSquads + BonusHeadquarters + bonusHarden + bonusFront);
+        public void SetType(CellTypes_enum type);
     }
-
-    public void SwitchCountSquad(AbstractSquad squad, GameObject toCell)
+    public interface ICellParser
     {
-        currentCount--;
-
-        ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(toCell).GetParameter<CellSquadsOnArea>().currentCount++;
+        public GameObject GetCellWorkWith();
     }
-    public void AddCountOfSquad() { currentCount++; }
-}
-
-public interface ICellNeeder_Type
-{
-    public void SetType(CellTypes_enum type);
-}
-public interface ICellParser
-{
-    public GameObject GetCellWorkWith();
-}
-public interface IParametersHandlerParser
-{
-    public CellParametersHandler GetCellParametersHandler();
-}
+    public interface IParametersHandlerParser
+    {
+        public CellParametersHandler GetCellParametersHandler();
+    }

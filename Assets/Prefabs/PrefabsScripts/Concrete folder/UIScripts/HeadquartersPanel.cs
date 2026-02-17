@@ -11,8 +11,6 @@ public class HeadquartersPanel : MonoBehaviour
 {
     [SerializeField]private UIDragLine dragLine;
 
-    [SerializeField] private Button buttonOpenPanel;
-
     [SerializeField] private Transform buttonShowCellsInArea;
 
     [SerializeField] private Transform contentTaker_Categories;
@@ -80,13 +78,9 @@ public class HeadquartersPanel : MonoBehaviour
                 }
                 _currentWorkingHeadquarters = null;
             }
-
-            if (ServiceRegistry.WorkWithController<CellController>().FastDrop_IsAllies(_currentWorkingCell))
-            {
-                buttonOpenPanel.interactable = ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(_currentWorkingCell).GetParameter<CellBuildings>().CheckBuildIsBuilt("HeadquartersBuild");
-            }
-            else { buttonOpenPanel.interactable = false; }
         });
+
+        ServiceRegistry.WorkWithService<EventBus>().Subscribe<ButtonInteraction, HeadquartersPanel>((sender, key) => OpenWindow());
 
         ServiceRegistry.WorkWithService<EventBus>().Subscribe<CellBuildings, GameObject, AbstractBuildings>((sender, cell, build) =>
         {
@@ -125,11 +119,7 @@ public class HeadquartersPanel : MonoBehaviour
         categoriesButtons[1].GetComponent<Button>().onClick.AddListener(() => { Button_Bind(Categories.Builds); });
         categoriesButtons[2].GetComponent<Button>().onClick.AddListener(() => { Button_Bind(Categories.Headquarters); });
 
-        buttonOpenPanel.onClick.AddListener(() =>
-        {
-            if (buildPanels.Count == 0) { foreach (Transform panel in contentTaker_BuildPanel) { buildPanels.Add(panel.gameObject.GetComponent<BuildItemPanel>()); } }
-            OpenWindow();
-        });
+        foreach (Transform panel in contentTaker_BuildPanel) { buildPanels.Add(panel.gameObject.GetComponent<BuildItemPanel>()); }
     }
 
 
@@ -140,8 +130,6 @@ public class HeadquartersPanel : MonoBehaviour
     }
     public void OpenWindow()
     {
-        if (!Switcher()) return;
-
         ServiceRegistry.WorkWithController<CellUIScript>().HideInformationPanel();
 
         DisableContentTakers();
@@ -150,13 +138,6 @@ public class HeadquartersPanel : MonoBehaviour
         ShowCellPanels();
     }
 
-    private bool Switcher()
-    {
-        if (headquartersPanel.activeSelf) { headquartersPanel.SetActive(false); CameraMovementScript.UnBlockMovement(); }
-        else { headquartersPanel.SetActive(true); CameraMovementScript.BlockMovement(); }
-
-        return headquartersPanel.activeSelf;
-    }
     private void DisableContentTakers()
     {
         contentTaker_CellPanel.gameObject.SetActive(true);

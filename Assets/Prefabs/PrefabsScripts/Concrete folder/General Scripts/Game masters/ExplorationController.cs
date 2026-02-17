@@ -1,183 +1,155 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ExplorationController : MonoBehaviour
 {
-    protected enum TypeOfExploration
+    private Dictionary<AbstractSquad, ExplorationModule> explorationModules = new();
+
+    public void StartExploration(GameObject startCell, GameObject finishCell, AbstractSquad squad)
     {
-        None,
-        Squads,
-        Buildings
+        explorationModules[squad] = new ExplorationModule(startCell, finishCell, squad);
+
+        ServiceRegistry.WorkWithService<CommandBus>().Enqueue(explorationModules[squad]);
+    }
+}
+public class ExplorationModule:ICommand
+{
+    private Action currentAction;
+
+    private AbstractSquad scoutSquad;
+    private GameObject exploratedCell;
+
+    private int timeToReachLocation = 0;
+    private bool isReached = false;
+
+    public int SearchDepth { private get; set; } = 1;
+    private float chanceToBeGrabbed = 0f;
+
+    private List<GameObject> cellsNeedToExplore;
+    private Dictionary<GameObject, List<System.Object>> informationByCell = new();
+    private Dictionary<GameObject, int> chanceToExploreByCell = new();
+
+    public ExplorationModule(GameObject startCell, GameObject finishCell, AbstractSquad squad)
+    {
+        //Debug.LogWarning($"Пытаюсь подсчиать цену пути для {startCell},{finishCell}");
+        int wayCost = (int)ServiceRegistry.WorkWithController<AAlgorithm>().CalculateWayCost(startCell, finishCell, SideEnum.None);
+        //Debug.LogWarning($"Подсчитана цена пути {wayCost}");
+
+        timeToReachLocation =  wayCost * 1;//10
+
+        scoutSquad = squad;
+        exploratedCell = finishCell;
+
+        ServiceRegistry.WorkWithService<EventBus>().Publish<AbstractSquad, Sprite>(squad, null);
+        Debug.LogError("Запушил отряд");
     }
 
-    [Header("Всплывающее уведомление")]
-    [SerializeField] private GameObject messageTaker;
-    private MessageScript messageScript;
-
-    [Header("Панель выбора разведки")]
-    [SerializeField] private GameObject explorationTypePanelObject;
-    private ExplorationTypePanelScript explorationTypePanelScript;
-
-    private Dictionary<GameObject, bool> cellInExplorationing = new Dictionary<GameObject, bool>();
-    private Dictionary<GameObject, bool> cellHasExploration = new Dictionary<GameObject, bool>();
-
-    private Dictionary<GameObject, List<AbstractSquad>> exploretedSquadsOnCell = new Dictionary<GameObject, List<AbstractSquad>>();
-    private Dictionary<GameObject, List<AbstractBuildings>> exploretedBuildingsOnCell = new Dictionary<GameObject, List<AbstractBuildings>>();
-
-    protected Dictionary<TypeOfExploration, int> _costOfExploration = new Dictionary<TypeOfExploration, int>() 
+    private void SquadReachLocation()
     {
-        {TypeOfExploration.Squads, 20 },
-        {TypeOfExploration.Buildings, 40 }
-    };
+        timeToReachLocation--;
 
-    protected GameObject _currentWorkingCell;
-    protected int _currentWorkingPoints;
-
-    private void Start()
-    {
-        messageTaker.TryGetComponent(out messageScript);
-
-        explorationTypePanelObject.TryGetComponent(out explorationTypePanelScript);
-    }
-
-    public void RequestToStartExploration(GameObject cell, int explorationPoints)
-    {
-        if (!CheckCellInExplorationing(cell))
+        chanceToBeGrabbed += 0.01f;
+        if(timeToReachLocation == 0)
         {
-            if(!cellInExplorationing.ContainsKey(cell))cellInExplorationing.Add(cell, true);
+            isReached = true;
 
-            if (!cellHasExploration.ContainsKey(cell) || !cellHasExploration[cell]) 
+            currentAction = SquadExploration;
+        }
+    }
+    private void SquadExploration()
+    {
+        GameObject choosedCell = cellsNeedToExplore[UnityEngine.Random.Range(0,cellsNeedToExplore.Count)];
+
+        if(UnityEngine.Random.Range(0, 100) < chanceToExploreByCell[choosedCell])
+        {
+            chanceToExploreByCell[choosedCell] = 1;
+
+            System.Object exploratedObject = (System.Object)ServiceRegistry.WorkWithController<CellController>().
+            WorkWithCell<CellParametersHandler>(choosedCell).GetParameter<CellBuildings>().GetRandomBuild(informationByCell[choosedCell]);
+
+            if (exploratedObject != null && !informationByCell[choosedCell].Contains(exploratedObject)) 
             {
-                explorationTypePanelScript.OpenExplorationTypePanel(false);
+                //Логика упоминания в логах
+                Debug.Log($"Для отряда {scoutSquad} добавлен объект {exploratedObject}");
+                ServiceRegistry.WorkWithService<EventBus>().Publish<ExplorationModule, AbstractSquad, object>(this, scoutSquad, exploratedObject);
+
+                informationByCell[choosedCell].Add(exploratedObject);
+
+                chanceToBeGrabbed += 0.05f;
             }
             else
             {
-                explorationTypePanelScript.OpenExplorationTypePanel(true);
+                List<AbstractSquad> allExploratedSquads = informationByCell[choosedCell].OfType<AbstractSquad>().ToList();
+                exploratedObject = ServiceRegistry.WorkWithController<GameController>().GetRandomSquadOnCell(choosedCell, allExploratedSquads);
+
+
+                //Логика упоминания в логах
+                Debug.Log($"Для отряда {scoutSquad} добавлен объект {exploratedObject}");
+                ServiceRegistry.WorkWithService<EventBus>().Publish<ExplorationModule, AbstractSquad, object>(this, scoutSquad, exploratedObject);
+
+                informationByCell[choosedCell].Add(exploratedObject);
+
+                chanceToBeGrabbed += 0.05f;
+            }
+        }
+        else { chanceToExploreByCell[choosedCell] += 5;
+            //Debug.LogError($"{chanceToExploreByCell[choosedCell]} for {choosedCell}");
+            ServiceRegistry.WorkWithService<EventBus>().Publish<ExplorationModule, AbstractSquad, object>(this, scoutSquad, null);
             }
 
-            explorationTypePanelScript.playerChosed += ExplorationTypePanelScript_playerChosed;
-
-            _currentWorkingCell = cell;
-            _currentWorkingPoints = explorationPoints;
+            if (UnityEngine.Random.Range(0, 100) < chanceToBeGrabbed)
+        {
+            Debug.LogError($"Отряд {scoutSquad} был схвачен");
         }
     }
 
-    private void ExplorationTypePanelScript_playerChosed(int playerChosed)
+
+    //Command logic
+    public Guid Id { get; set; }
+
+    public CommandState State { get; private set; } = CommandState.Created;
+
+    public void Cancel()
     {
-        if(playerChosed == 1)
-        {
-            ExplorationIsOvered(_currentWorkingCell, _currentWorkingPoints);
-        }
-        if(playerChosed == 2)
-        {
-            exploretedSquadsOnCell[_currentWorkingCell] = new List<AbstractSquad>();
-            exploretedBuildingsOnCell[_currentWorkingCell] = new List<AbstractBuildings>();
-
-            ExplorationIsOvered(_currentWorkingCell, _currentWorkingPoints);
-        }
-
-        _currentWorkingCell = null;
-        _currentWorkingPoints = 0;
-
-        explorationTypePanelScript.playerChosed -= ExplorationTypePanelScript_playerChosed;
+        throw new NotImplementedException();
     }
 
-    public bool CheckCellInExplorationing(GameObject cell) {
-        if (!cellInExplorationing.ContainsKey(cell))return false;
-        return cellInExplorationing[cell]; }
-    public bool CheckHasExploration(GameObject cell)
+    public void Prepare()
     {
-        return cellHasExploration.ContainsKey(cell);
+        currentAction = SquadReachLocation;
+
+        cellsNeedToExplore = ServiceRegistry.WorkWithController<CellController>().
+            WorkWithCell<CellParametersHandler>(exploratedCell).GetParameter<CellArea>().NeighboresSearcher(SearchDepth);
+
+        foreach (var cell in cellsNeedToExplore) 
+        {
+            informationByCell.Add(cell, new());
+            chanceToExploreByCell.Add(cell, 1);
+        }
+
+        State = CommandState.Prepared;
     }
-    public void ExplorationIsOvered(GameObject cell, int exporationPoints)
+
+    public bool CanExecute()
     {
-        int countOfBuildingExploration = UnityEngine.Random.Range(1, exporationPoints / _costOfExploration[TypeOfExploration.Buildings]+1);
-
-        exporationPoints = countOfBuildingExploration * _costOfExploration[TypeOfExploration.Buildings];
-
-        if (!exploretedBuildingsOnCell.ContainsKey(cell)){ exploretedBuildingsOnCell.Add(cell, new List<AbstractBuildings>()); }
-
-        for(int i = 0; i < countOfBuildingExploration; i++)
-        {
-            var newExploratedBuild = cell.GetComponent<CellBuildings>().GetNewBuilding(exploretedBuildingsOnCell[cell]);
-
-            if(newExploratedBuild == null)
-            {
-                exporationPoints += _costOfExploration[TypeOfExploration.Buildings];
-            }
-            else
-            {
-                exploretedBuildingsOnCell[cell].Add(newExploratedBuild);
-            }
-        }
-
-        int countOfSquadsExploration = UnityEngine.Random.Range(1, exporationPoints / _costOfExploration[TypeOfExploration.Squads] + 1);
-
-        if (!exploretedSquadsOnCell.ContainsKey(cell)) { exploretedSquadsOnCell.Add(cell, new List<AbstractSquad>()); }
-
-        for(int i = 0; i < countOfSquadsExploration; i++)
-        {
-            var newExploratedSquad = ServiceRegistry.WorkWithController<GameController>().GetNewEnemySquad(exploretedSquadsOnCell[cell],cell);
-
-            if(newExploratedSquad != null) { exploretedSquadsOnCell[cell].Add(newExploratedSquad); }
-        }
-
-        if(!cellHasExploration.ContainsKey(cell))cellHasExploration.Add(cell, true);
-
-        cellInExplorationing[cell] = false;
+       return scoutSquad != null && timeToReachLocation != 0;
     }
-    public List<string[]> GetExplorationSummary(GameObject cell)
+
+    public void Execute()
     {
-        List<string[]> result = new List<string[]>
-        {
-            new string[]
-            {
-                TimeControllerScript.GetCurrentTime(),
-                cell.GetComponent<CellTypeScript>().GetCellName(),
-                "Гаврилов У.Е."
-            }
-        };
+        ServiceRegistry.WorkWithService<EventBus>().Subscribe<GameController>((sender) => { currentAction.Invoke();});
+    }
 
-        if(!exploretedBuildingsOnCell.ContainsKey(cell) || exploretedBuildingsOnCell[cell] == null) 
+    private class ExploratedInformationUnit
+    {
+        public System.Object Object { get; private set; }
+
+        public ExploratedInformationUnit(System.Object Object)
         {
-            result.Add(null);
+            this.Object = Object;
         }
-        else
-        {
-            List<string> infoBuildings = new List<string>
-            {
-                exploretedBuildingsOnCell[cell].Count.ToString()
-            };
-
-            foreach(var build in exploretedBuildingsOnCell[cell ])
-            {
-                infoBuildings.Add(build.Name);
-            }
-
-            result.Add(infoBuildings.ToArray());
-        }
-
-        if (!exploretedSquadsOnCell.ContainsKey(cell) || exploretedSquadsOnCell[cell] == null)
-        {
-            result.Add(null);
-        }
-        else
-        {
-            List<string> infoSquad = new List<string>
-            {
-                exploretedSquadsOnCell[cell].Count.ToString()
-            };
-
-            foreach (var squad in exploretedSquadsOnCell[cell])
-            {
-                infoSquad.Add(squad.Name);
-            }
-
-            result.Add(infoSquad.ToArray());
-        }
-
-        return result;
     }
 }
