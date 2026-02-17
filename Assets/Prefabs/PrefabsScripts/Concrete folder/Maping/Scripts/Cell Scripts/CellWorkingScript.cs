@@ -8,20 +8,20 @@ public class CellWorkingScript : MonoBehaviour
     {
         //Debug.Log($"Cell:{gameObject}||Side:{ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(gameObject).GetParameter<CellArea>().GetSide()}");
 
-        ServiceRegistry.WorkWithController<CellInteraction>().SetMaterialBySide_Basic
-            (
-            ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(gameObject).GetParameter<CellArea>().Side,
-            gameObject,
-            true
-            );
+        //ServiceRegistry.WorkWithController<CellInteraction>().SetMaterialBySide_Basic
+        //    (
+        //    ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(gameObject).GetParameter<CellArea>().Side,
+        //    gameObject,
+        //    true
+        //    );
     }
     private void OnMouseExit() 
     {
-        ServiceRegistry.WorkWithController<CellInteraction>().SetMaterialBySide_Basic
-            (
-            ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(gameObject).GetParameter<CellArea>().Side,
-            gameObject,
-            false
-            );
+        //ServiceRegistry.WorkWithController<CellInteraction>().SetMaterialBySide_Basic
+        //    (
+        //    ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(gameObject).GetParameter<CellArea>().Side,
+        //    gameObject,
+        //    false
+        //    );
     }
 }

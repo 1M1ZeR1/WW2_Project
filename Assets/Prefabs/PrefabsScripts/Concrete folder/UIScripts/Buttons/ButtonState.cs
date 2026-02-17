@@ -57,7 +57,5 @@ public class ButtonState : MonoBehaviour
             else { button.color = new Color(button.color.r, button.color.g, button.color.b, .6f); }
             enabled = beEnabled;
         }
-
-        Debug.LogError(button.color.a);
     }
 }

@@ -70,7 +70,9 @@ public class SelectedObjectScript : MonoBehaviour
                         {
                             _selectedGameObject = hit.collider.gameObject;
                             interactableScript.InteractWithGameObject(_selectedGameObject);
+                            return;
                         }
+                        if( hit.collider.CompareTag("Interactable UI")) { return; }
                     }
                 }
             }
