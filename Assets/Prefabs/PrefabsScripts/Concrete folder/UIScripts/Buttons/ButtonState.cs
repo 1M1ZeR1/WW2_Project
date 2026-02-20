@@ -53,8 +53,8 @@ public class ButtonState : MonoBehaviour
     {
         if (beEnabled != enabled) 
         {
-            if (beEnabled) { button.color = new Color(button.color.r,button.color.g,button.color.b,1f);}
-            else { button.color = new Color(button.color.r, button.color.g, button.color.b, .6f); }
+            if (beEnabled) { button.color = new Color(button.color.r,button.color.g,button.color.b,1f); eventTrigger.enabled = true; }
+            else { button.color = new Color(button.color.r, button.color.g, button.color.b, .6f); eventTrigger.enabled = false; }
             enabled = beEnabled;
         }
     }

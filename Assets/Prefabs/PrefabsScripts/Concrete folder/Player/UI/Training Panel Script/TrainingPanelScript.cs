@@ -9,27 +9,22 @@ public class TrainingPanelScript : MonoBehaviour
     [Header("Панель отряда в тренировке")]
     [SerializeField] private GameObject trainingSquadPanel;
 
-    [Header("Панель создания")]
-    [SerializeField] private GameObject creatingPanel;
-    private CreatingPanelScript creatingPanelScript;
+    [SerializeField] private CreatingPanelScript creatingPanelScript;
 
     protected GameObject _interactableCell;
 
-    protected Dictionary<AbstractSquad, GameObject> _squadToCell = new Dictionary<AbstractSquad, GameObject>();
+    protected Dictionary<AbstractSquad, GameObject> _squadToCell = new ();
 
     private void Start()
     {
-        creatingPanelScript = creatingPanel.GetComponent<CreatingPanelScript>();
+        ServiceRegistry.WorkWithService<EventBus>().Subscribe<ButtonInteraction, TrainingPanelScript, GameObject>((sender, key, cell) =>
+        {
+            SetCurrentCell(cell);
+        });
+
+        gameObject.SetActive(false);
     }
 
-    private void OnEnable()
-    {
-        PauseScript.SetGameState(GameState.Pause);
-    }
-    private void OnDisable()
-    {
-        PauseScript.SetGameState(GameState.Play);
-    }
     public void GetAllTrainingSquads(GameObject cell)
     {
         _interactableCell = cell;
@@ -69,19 +64,21 @@ public class TrainingPanelScript : MonoBehaviour
         GetAllTrainingSquads(_interactableCell);
     }
 
-    public void OpenTrainingPanel(GameObject cell)
+    public void OpenWindowsWitchCell(GameObject cell)
     {
-        gameObject.SetActive(true);
         _interactableCell = cell;
+        gameObject.SetActive(true);
     }
-    public void CloseTrainingPanel()
+
+    private void SetCurrentCell(GameObject cell)
     {
-        gameObject.SetActive(false);
+        _interactableCell = cell;
     }
     public void ShowCreatePanel()
     {
         creatingPanelScript.SetCurrentWorkingCell(_interactableCell);
-        creatingPanel.SetActive(true);
+
+        ServiceRegistry.WorkWithService<EventBus>().Publish<TrainingPanelScript, CreatingPanelScript, bool>(this, null, true);
     }
     private void CreateTrainingSquad(AbstractSquad squad)
     {

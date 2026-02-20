@@ -40,9 +40,11 @@ public class ButtonInteraction : MonoBehaviour
         {
             ServiceRegistry.WorkWithService<EventBus>().Publish<ButtonInteraction,BuildItemPanel>(this,null);
 
-            windowsOpener.WindowStateSwitch();
+            ServiceRegistry.WorkWithService<EventBus>().Publish<OpenBuildMenuScript>(null);
 
             windowsOpener.freeClickBlocked = false;
+
+            windowsOpener.WindowStateSwitch();
         }
         else
         {
@@ -55,9 +57,21 @@ public class ButtonInteraction : MonoBehaviour
         {
             ServiceRegistry.WorkWithService<EventBus>().Publish<ButtonInteraction,HeadquartersPanel>(this,null);
 
+            windowsOpener.freeClickBlocked = false;
+
             windowsOpener.WindowStateSwitch();
+        }
+    }
+
+    public void ButtonInteraction_Training()
+    {
+        if (ServiceRegistry.WorkWithController<CellController>().FastDrop_IsAllies(currentInteractedCell))
+        {
+            ServiceRegistry.WorkWithService<EventBus>().Publish<ButtonInteraction, TrainingPanelScript, GameObject>(this, null, currentInteractedCell);
 
             windowsOpener.freeClickBlocked = false;
+
+            windowsOpener.WindowStateSwitch();
         }
     }
 }

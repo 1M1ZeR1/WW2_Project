@@ -26,10 +26,6 @@ public class InteractableScript : MonoBehaviour
     private bool NextClickIsChoice = false;
 
 
-    [Header("Кнопка спавна отряда")]
-    [SerializeField] private GameObject debugButton;//Debug Field
-    private DebugButton debugButtonScript;
-
 
     /// <summary>
     /// 
@@ -42,7 +38,6 @@ public class InteractableScript : MonoBehaviour
 
     private void Start()
     {
-        debugButton.TryGetComponent(out debugButtonScript);
         messagePanel.TryGetComponent(out messageScript);
 
         choosingScript = GetComponent<ChoosingScript>();
@@ -64,8 +59,6 @@ public class InteractableScript : MonoBehaviour
 
             return;
         }
-        debugButtonScript.SetSelectedCell(interacableGameObject);
-
         ServiceRegistry.WorkWithService<EventBus>().Publish<InteractableScript, GameObject>(this, interacableGameObject);
 
         currentInteractableCell = interacableGameObject;

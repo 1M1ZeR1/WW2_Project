@@ -56,6 +56,8 @@ public class CreatingPanelScript : MonoBehaviour
     private void Start()
     {
         _resourcesController = ServiceRegistry.WorkWithController<ResourcesController>();
+
+
     }
 
     public void SetCurrentWorkingCell(GameObject currentWorkingCell) { _currentWorkingCell = currentWorkingCell; }

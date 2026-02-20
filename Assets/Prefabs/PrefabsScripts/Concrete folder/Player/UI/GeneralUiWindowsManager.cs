@@ -29,7 +29,7 @@ public class GeneralUiWindowsManager : MonoBehaviour
         {
             switch (id)
             {
-                case "CampBuild":trainingPanelScript.OpenTrainingPanel(cell); break;
+                case "CampBuild":trainingPanelScript.OpenWindowsWitchCell(cell); break;
             }
         });
     }

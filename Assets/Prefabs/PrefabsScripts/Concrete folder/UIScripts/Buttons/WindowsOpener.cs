@@ -12,6 +12,9 @@ public class WindowsOpener : MonoBehaviour
 
     public void WindowStateSwitch()
     {
-        if(!freeClickBlocked)windowToOpen.SetActive(!windowToOpen.activeSelf);
+        if (!freeClickBlocked)
+        {
+            windowToOpen.SetActive(!windowToOpen.activeSelf);
+        }
     }
 }
