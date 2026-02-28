@@ -25,15 +25,19 @@ public class CellInteraction
     [SerializeField] private Material selectedStageMaterial_MouseOnObject_Enemys;
     [SerializeField] private Material selectedStageMaterial_MouseOffObject_Enemys;
 
+    [Header("Scouts")]
+    [SerializeField] private Material explorationArea;
+
     protected GameObject _cellInterectWith;
     protected GameObject _lastRenderer;
-
 
     protected CellTypeScript cellTypeScript;
     
     public CellInteraction()
     {
-        ServiceRegistry.WorkWithService<EventBus>().Subscribe<InteractableScript, GameObject>((sender, cell) =>
+
+
+        ServiceRegistry.WorkWithService<EventBus>().Subscribe<InteractableScript, GameObject, bool>((sender, cell, UI_resolution) =>
         {
             PlayerInteractWithGameObject(cell);
         });
@@ -57,6 +61,8 @@ public class CellInteraction
 
         selectedStageMaterial_MouseOnObject_Enemys = Resources.Load<Material>("MapMaterials/Enemys materials/Enter Selected");
         selectedStageMaterial_MouseOffObject_Enemys = Resources.Load<Material>("MapMaterials/Enemys materials/Exit selected");
+
+        explorationArea = Resources.Load<Material>("MapMaterials/Squads skills/Exploration area");
     }
 
     private void PlayerInteractWithGameObject(GameObject interableGameObject)
@@ -142,5 +148,35 @@ public class CellInteraction
                 case SideEnum.Enemys: meshRenderer.material = selectedStageMaterial_MouseOffObject_Enemys; break;
             }
         }
+    }
+
+    public void SetMaterialBySide_Basic_Force(SideEnum side, GameObject cell, bool stage)
+    {
+        MeshRenderer meshRenderer = cell.GetComponent<MeshRenderer>();
+
+        if (stage)
+        {
+            switch (side)
+            {
+                case SideEnum.None: meshRenderer.material = onEnterMaterial; break;
+                case SideEnum.Allies: meshRenderer.material = onEnterMaterial_Allies; break;
+                case SideEnum.Enemys: meshRenderer.material = onEnterMaterial_Enemys; break;
+            }
+        }
+        else
+        {
+            switch (side)
+            {
+                case SideEnum.None: meshRenderer.material = onExitMaterial; break;
+                case SideEnum.Allies: meshRenderer.material = onExitMaterial_Allies; break;
+                case SideEnum.Enemys: meshRenderer.material = onExitMaterial_Enemys; break;
+            }
+        }
+    }
+
+
+    public void SetMaterial_Exploration(GameObject cell)
+    {
+        cell.GetComponent<MeshRenderer>().material = explorationArea;
     }
 }

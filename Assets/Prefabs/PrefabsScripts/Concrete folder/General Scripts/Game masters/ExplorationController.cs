@@ -28,6 +28,8 @@ public class ExplorationModule:ICommand
     public int SearchDepth { private get; set; } = 1;
     private float chanceToBeGrabbed = 0f;
 
+    private int explorationPoints = 0;
+
     private List<GameObject> cellsNeedToExplore;
     private Dictionary<GameObject, List<System.Object>> informationByCell = new();
     private Dictionary<GameObject, int> chanceToExploreByCell = new();
@@ -61,11 +63,17 @@ public class ExplorationModule:ICommand
     }
     private void SquadExploration()
     {
+        explorationPoints++;
+
+        if(explorationPoints < 12)return;
+
+        explorationPoints = 0;
+
         GameObject choosedCell = cellsNeedToExplore[UnityEngine.Random.Range(0,cellsNeedToExplore.Count)];
 
         if(UnityEngine.Random.Range(0, 100) < chanceToExploreByCell[choosedCell])
         {
-            chanceToExploreByCell[choosedCell] = 1;
+            chanceToExploreByCell[choosedCell] = 20;
 
             System.Object exploratedObject = (System.Object)ServiceRegistry.WorkWithController<CellController>().
             WorkWithCell<CellParametersHandler>(choosedCell).GetParameter<CellBuildings>().GetRandomBuild(informationByCell[choosedCell]);
@@ -95,12 +103,12 @@ public class ExplorationModule:ICommand
                 chanceToBeGrabbed += 0.05f;
             }
         }
-        else { chanceToExploreByCell[choosedCell] += 5;
+        else { chanceToExploreByCell[choosedCell] += 20;
             //Debug.LogError($"{chanceToExploreByCell[choosedCell]} for {choosedCell}");
             ServiceRegistry.WorkWithService<EventBus>().Publish<ExplorationModule, AbstractSquad, object>(this, scoutSquad, null);
-            }
+        }
 
-            if (UnityEngine.Random.Range(0, 100) < chanceToBeGrabbed)
+        if (UnityEngine.Random.Range(0, 100) < chanceToBeGrabbed)
         {
             Debug.LogError($"Отряд {scoutSquad} был схвачен");
         }
@@ -127,7 +135,7 @@ public class ExplorationModule:ICommand
         foreach (var cell in cellsNeedToExplore) 
         {
             informationByCell.Add(cell, new());
-            chanceToExploreByCell.Add(cell, 1);
+            chanceToExploreByCell.Add(cell, 20);
         }
 
         State = CommandState.Prepared;

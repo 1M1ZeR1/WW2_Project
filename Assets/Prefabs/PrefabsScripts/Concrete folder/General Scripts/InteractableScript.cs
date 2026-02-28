@@ -25,6 +25,7 @@ public class InteractableScript : MonoBehaviour
 
     private bool NextClickIsChoice = false;
 
+    private bool inChoosingMode = false;
 
 
     /// <summary>
@@ -42,9 +43,23 @@ public class InteractableScript : MonoBehaviour
 
         choosingScript = GetComponent<ChoosingScript>();
         smartSelectionSquadsScript = GetComponent<SmartSelectionSquadsScript>();
+
+        ServiceRegistry.WorkWithService<EventBus>().Subscribe<InteractableScript, ChoosingScript>((key1, key2) => {
+            Debug.LogError(inChoosingMode);
+            inChoosingMode = !inChoosingMode;
+            Debug.LogError(inChoosingMode);
+        });
     }
     public void InteractWithGameObject(GameObject interacableGameObject)
     {
+        if (inChoosingMode) {
+            ServiceRegistry.WorkWithService<EventBus>().Publish<InteractableScript, GameObject, bool>(this, interacableGameObject, false);
+
+            currentInteractableCell = interacableGameObject;
+
+            return;
+        }
+
         if (NextClickIsChoice)
         {
             if (ServiceRegistry.WorkWithController<CellController>().FastDrop_IsAllies(interacableGameObject)) 
@@ -59,7 +74,7 @@ public class InteractableScript : MonoBehaviour
 
             return;
         }
-        ServiceRegistry.WorkWithService<EventBus>().Publish<InteractableScript, GameObject>(this, interacableGameObject);
+        ServiceRegistry.WorkWithService<EventBus>().Publish<InteractableScript, GameObject,bool>(this, interacableGameObject,true);
 
         currentInteractableCell = interacableGameObject;
 
@@ -74,7 +89,7 @@ public class InteractableScript : MonoBehaviour
     {
         NextClickIsChoice = true;
 
-        choosingScript.CreateChoiseState();
+        choosingScript.CreateChoiseState(ChoosingScript.ChoosingMode.Action);
     }
     private void SendInformation(GameObject finishCell)
     {

@@ -26,7 +26,7 @@ public class ButtonInteraction : MonoBehaviour
     {
         windowsOpener = GetComponent<WindowsOpener>();
 
-        ServiceRegistry.WorkWithService<EventBus>().Subscribe<InteractableScript, GameObject>((sender, cell) =>
+        ServiceRegistry.WorkWithService<EventBus>().Subscribe<InteractableScript, GameObject, bool>((sender, cell, UI_resolution) =>
         {
             currentInteractedCell = cell;
 

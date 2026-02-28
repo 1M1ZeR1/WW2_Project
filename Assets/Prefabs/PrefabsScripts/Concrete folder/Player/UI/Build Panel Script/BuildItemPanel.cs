@@ -20,7 +20,7 @@ public class BuildItemPanel : MonoBehaviour
         buildButtonObject = buildButton.gameObject;
         upgradeButtonObject = upgradeButton.gameObject;
 
-        ServiceRegistry.WorkWithService<EventBus>().Subscribe<InteractableScript, GameObject>((sender, cell) =>
+        ServiceRegistry.WorkWithService<EventBus>().Subscribe<InteractableScript, GameObject, bool>((sender, cell, UI_resolution) =>
         {
             currentCell = cell;
         });

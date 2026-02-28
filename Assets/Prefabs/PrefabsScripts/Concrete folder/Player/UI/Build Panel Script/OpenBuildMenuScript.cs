@@ -20,8 +20,9 @@ public class OpenBuildMenuScript : MonoBehaviour
 
         //ServiceRegistry.WorkWithController<BuilderController>().RequestUIUpdate += UpdateInfo;
 
-        ServiceRegistry.WorkWithService<EventBus>().Subscribe<InteractableScript, GameObject>((sender, cell) =>
+        ServiceRegistry.WorkWithService<EventBus>().Subscribe<InteractableScript, GameObject, bool>((sender, cell, UI_resolution) =>
         {
+            if (!UI_resolution) return;
             buildMenuPanel.SetActive(false);
             currentCell = cell;
         });

@@ -3,27 +3,42 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
+using static ChoosingScript;
 
 public class ChoosingScript : MonoBehaviour
 {
+    public enum ChoosingMode
+    {
+        None,
+        Action,
+        Exploration
+    }
+
     [SerializeField] private GameObject[] panelsToControll;
 
     private bool[] elementToRecover;
 
     [Header("Панель выделения")]
-    [SerializeField] private GameObject choosingWindow;
+    [SerializeField] private GameObject choosingWindow_Action;
+    [SerializeField] private GameObject choosingWindow_Exploration;
+
+    [SerializeField] private ExplorationChoosingMode explorationChoosingMode;
 
 
     protected InteractableScript interactableScript;
     protected Vector3 _cameraStartPosition;
+
+    protected GameObject currentWorkingWindow;
+
+    private ChoosingMode currentChoosingMode;
 
     private void Start()
     {
         elementToRecover = Enumerable.Range(0, panelsToControll.Length).Select(el => false).ToArray();
         interactableScript = GetComponent<InteractableScript>();
     }
-
-    public void CreateChoiseState()
+    public void CreateChoiseState(ChoosingMode choosingMode)
     {
         for(int i =0; i < panelsToControll.Length; i++)
         {
@@ -36,7 +51,16 @@ public class ChoosingScript : MonoBehaviour
 
         CameraMovementScript.UnBlockMovement();
 
-        choosingWindow.SetActive(true);
+        switch (choosingMode)
+        {
+            case ChoosingMode.Action: choosingWindow_Action.SetActive(true); currentWorkingWindow = choosingWindow_Action;
+                currentChoosingMode = ChoosingMode.Action;
+                break;
+            case ChoosingMode.Exploration: choosingWindow_Exploration.SetActive(true); currentWorkingWindow = choosingWindow_Exploration;
+                currentChoosingMode = ChoosingMode.Exploration;
+                explorationChoosingMode.EnableChoosingMode();
+                break;
+        }
 
         _cameraStartPosition = transform.position;
     }
@@ -54,7 +78,24 @@ public class ChoosingScript : MonoBehaviour
 
         CameraMovementScript.BlockMovement();
 
-        choosingWindow.SetActive(false);
+        if (currentWorkingWindow != null) 
+        { 
+            currentWorkingWindow.SetActive(false); 
+            currentWorkingWindow = null; }
+
+        if(currentChoosingMode != ChoosingMode.None && currentChoosingMode != ChoosingMode.Action)
+        {
+            ServiceRegistry.WorkWithService<EventBus>().Publish<ChoosingScript, SkillController>(this, null);
+        }
+
+        switch (currentChoosingMode)
+        {
+            case ChoosingMode.Exploration:
+                explorationChoosingMode.DisableChoosingMode();
+                break;
+        }
+
+        currentChoosingMode = ChoosingMode.None;
 
         transform.position = _cameraStartPosition;
     }
@@ -62,15 +103,21 @@ public class ChoosingScript : MonoBehaviour
     {
         if (context.performed)
         {
+            if (currentChoosingMode == ChoosingMode.None) return;
+
+            switch (currentChoosingMode)
+            {
+                case ChoosingMode.Exploration:
+                    if (explorationChoosingMode.stateArea)
+                    {
+                        explorationChoosingMode.DisableStateAreaMode();return;
+                    }
+                    break;
+            }
+
             interactableScript.ChoosingCanceled();
 
             ExitChoiseState();
         }
     }
-
-    private static bool inChoosing = false;
-    public static void ChangeChooseState() { if (inChoosing) inChoosing = false;
-        else inChoosing = true;
-    }
-    public static bool CheckInChoosing() { return  inChoosing; }
 }

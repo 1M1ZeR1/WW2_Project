@@ -6,9 +6,13 @@ using UnityEngine.EventSystems;
 public class HoverHandler : MonoBehaviour
 {
     private GameObject currentHoveredCell;
+
+    public bool enableMaterials { private get; set; } = true;
     
     private void Update()
     {
+        if (!enableMaterials) return;
+
         if (IsPointerOverUI_ByTag("Interactable UI")) 
         {
             if (currentHoveredCell != null) 

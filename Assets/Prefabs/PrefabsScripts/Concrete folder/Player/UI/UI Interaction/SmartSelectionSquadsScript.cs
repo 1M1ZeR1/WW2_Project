@@ -9,7 +9,7 @@ public class SmartSelectionSquadsScript : MonoBehaviour
 
     private void Start()
     {
-        ServiceRegistry.WorkWithService<EventBus>().Subscribe<InteractableScript, GameObject>((sender, cell) => { CellInteractionListener(cell); });
+        ServiceRegistry.WorkWithService<EventBus>().Subscribe<InteractableScript, GameObject, bool>((sender, cell, UI_resolution) => { CellInteractionListener(cell); });
     }
 
     private void CellInteractionListener(GameObject cell) { _currentInteractableCell = cell; selectedSquadsToAction.Clear(); }

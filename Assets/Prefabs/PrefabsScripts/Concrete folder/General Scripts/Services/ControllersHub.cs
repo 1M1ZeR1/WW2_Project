@@ -105,6 +105,7 @@ public class ControllersHub
 
         Register_Controller(GameObject.FindAnyObjectByType<FocusOnCellScript>());
 
+        Register_Controller(GameObject.FindAnyObjectByType<ChoosingScript>());
 
         Register_Controller(new AlliesSpawner());
 

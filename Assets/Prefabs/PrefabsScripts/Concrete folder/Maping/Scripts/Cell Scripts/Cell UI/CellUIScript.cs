@@ -46,8 +46,9 @@ public class CellUIScript : MonoBehaviour
             
         }
 
-        ServiceRegistry.WorkWithService<EventBus>().Subscribe<InteractableScript, GameObject>((sender, cell) =>
+        ServiceRegistry.WorkWithService<EventBus>().Subscribe<InteractableScript, GameObject, bool>((sender, cell, UI_resolution) =>
         {
+            if (!UI_resolution) return;
             ShowInformation(cell);
         });
 

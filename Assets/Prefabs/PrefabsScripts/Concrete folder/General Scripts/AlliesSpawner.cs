@@ -13,7 +13,7 @@ public class AlliesSpawner
     {
         this.trainingPanel = trainingPanel;
 
-        ServiceRegistry.WorkWithService<EventBus>().Subscribe<InteractableScript, GameObject>((sender, cell) =>
+        ServiceRegistry.WorkWithService<EventBus>().Subscribe<InteractableScript, GameObject, bool>((sender, cell, UI_resolution) =>
         {
             currentWorkingCell = cell;
         });
