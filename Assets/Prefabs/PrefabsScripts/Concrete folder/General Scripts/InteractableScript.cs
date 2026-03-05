@@ -26,6 +26,7 @@ public class InteractableScript : MonoBehaviour
     private bool NextClickIsChoice = false;
 
     private bool inChoosingMode = false;
+    private bool blocked = false;
 
 
     /// <summary>
@@ -45,13 +46,18 @@ public class InteractableScript : MonoBehaviour
         smartSelectionSquadsScript = GetComponent<SmartSelectionSquadsScript>();
 
         ServiceRegistry.WorkWithService<EventBus>().Subscribe<InteractableScript, ChoosingScript>((key1, key2) => {
-            Debug.LogError(inChoosingMode);
             inChoosingMode = !inChoosingMode;
-            Debug.LogError(inChoosingMode);
+        });
+        ServiceRegistry.WorkWithService<EventBus>().Subscribe<InteractableScript, SelectedObjectScript>((key1, key2) => {
+            blocked = !blocked;
         });
     }
     public void InteractWithGameObject(GameObject interacableGameObject)
     {
+        //Debug.LogError($"{inChoosingMode},{blocked}");
+
+        if (blocked) return;
+
         if (inChoosingMode) {
             ServiceRegistry.WorkWithService<EventBus>().Publish<InteractableScript, GameObject, bool>(this, interacableGameObject, false);
 

@@ -2,6 +2,7 @@ using NUnit.Framework;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -345,17 +346,20 @@ public class EngineerSquad : AbstractSquad
 [Squad("ScoutsSquad")]
 public class ScoutSquad : AbstractSquad
 {
-    protected GameObject _selectedCell;
+    protected List<GameObject> selectedCells;
+
+    public ScoutSquad()
+    {
+        ServiceRegistry.WorkWithService<EventBus>().Subscribe<SkillController, AbstractSquad, List<GameObject>>((sender, squad, selectedCells) =>
+        {
+            if (squad == this) { this.selectedCells = selectedCells.ToList(); }
+        });
+    }
     public override object Clone() {
 
         ScoutSquad newSquad = new ScoutSquad();
 
         newSquad.SkillWithChoise = true;
-
-        ServiceRegistry.WorkWithService<EventBus>().Subscribe<SkillController, AbstractSquad, GameObject>((sender, squad, selectedCell) =>
-        {
-            if (squad == newSquad) { newSquad._selectedCell = selectedCell; }
-        });
 
         return newSquad; }
     public override void Initialize(float speedOfMovement, int countOfPeople, SquadTransport typeTransport, SquadWeapon typeWeapon)
@@ -385,17 +389,22 @@ public class ScoutSquad : AbstractSquad
     }
     public override Action UseClassSkill()
     {
-        if (IsSkillInCooldown) { return null; }
+        if (IsSkillInCooldown) { Debug.LogError($"{this.Name}:позволил юзнуть скилл который в кд."); return null; }
 
-        if (!ServiceRegistry.WorkWithController<CellController>().FastDrop_IsAllies(_selectedCell))
+        Debug.LogError($"Im here and {selectedCells.Count}");
+
+        if (selectedCells.Count >= 1)
         {
             IsSkillInCooldown = true;
 
             ServiceRegistry.WorkWithService<MonobehaviourMaster>().CoroutineStarter(base.SkillCooldownCoroutine());
 
+            ServiceRegistry.WorkWithService<EventBus>().Publish<GameController, int, AbstractSquad>(null, 3, this);
+
             return () => { base.UseSkill(0, SkillType.Action, () => ServiceRegistry.WorkWithController<ExplorationController>().StartExploration(
-                ServiceRegistry.WorkWithController<GameController>().GetCellWithThisSquad(this),_selectedCell, this), null); };
+                ServiceRegistry.WorkWithController<GameController>().GetCellWithThisSquad(this), selectedCells[0],selectedCells, this), null); };
         }
+        Debug.LogError($"{this.Name}:количество клеток не >=1.");
         return null;
     }
 }

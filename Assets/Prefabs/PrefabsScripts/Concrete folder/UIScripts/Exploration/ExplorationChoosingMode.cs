@@ -19,23 +19,57 @@ public class ExplorationChoosingMode : MonoBehaviour
 
     private List<GameObject> cellToExplorate = new();
 
+    [SerializeField] private GameObject buttonConfirm;
+    [SerializeField] private GameObject areaTips;
+
+    [SerializeField] private GameObject exitSkillTip;
+
     private void Start()
     {
         ServiceRegistry.WorkWithService<EventBus>().Subscribe<InteractableScript, GameObject, bool>((sender, cell, UI_resolution) =>
         {
-            if (inChoosingMode)
+            if (inChoosingMode && !stateArea)
             {
-                stateArea = true;
-
-                cellSelected = cell;
-
-                CameraMovementScript.BlockMovement();
-
-                hoverHandler.enableMaterials = false;
-
-                ServiceRegistry.WorkWithController<CellInteraction>().SetMaterial_Exploration(cell);
+                EnableStateAreaMode(cell);
             }
         });
+    }
+
+    public void SendSquad()
+    {
+        if(cellToExplorate.Count == 0) { cellToExplorate.Add(cellSelected); }
+
+        ServiceRegistry.WorkWithService<EventBus>().Publish<ExplorationChoosingMode, SkillController, List<GameObject>>(this,null,cellToExplorate.ToList());
+
+        UnColorCells();
+        cellToExplorate.Clear();
+
+        DisableStateAreaMode();
+
+        ServiceRegistry.WorkWithService<EventBus>().Publish<SkillController, bool>(null, true);
+    }
+
+    private void UISwitcher(bool state)
+    {
+        buttonConfirm.SetActive(state);
+        areaTips.SetActive(state);
+        exitSkillTip.SetActive(!state);
+    }
+
+    private void EnableStateAreaMode(GameObject cell)
+    {
+        stateArea = true;
+
+        cellSelected = cell;
+
+        CameraMovementScript.BlockMovement();
+
+        hoverHandler.enableMaterials = false;
+
+        ServiceRegistry.WorkWithController<CellInteraction>().SetMaterial_Exploration(cell);
+        ServiceRegistry.WorkWithService<EventBus>().Publish<InteractableScript, SelectedObjectScript>(null, null);
+
+        UISwitcher(true);
     }
 
     public void DisableStateAreaMode()
@@ -58,6 +92,13 @@ public class ExplorationChoosingMode : MonoBehaviour
         cellToExplorate.Clear();
 
         CameraMovementScript.UnBlockMovement();
+        ServiceRegistry.WorkWithService<EventBus>().Publish<InteractableScript, SelectedObjectScript>(null, null);
+
+        UISwitcher(false);
+
+        hoverHandler.enableMaterials = true;
+
+        searchDepth = 0;
     }
 
     public void EnableChoosingMode() { inChoosingMode = true; ServiceRegistry.WorkWithService<EventBus>().Publish<InteractableScript, ChoosingScript>(null, null); }

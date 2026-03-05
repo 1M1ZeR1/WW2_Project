@@ -99,6 +99,42 @@ public class ChoosingScript : MonoBehaviour
 
         transform.position = _cameraStartPosition;
     }
+    public void ExitChoiseState_RevokeSquad()
+    {
+        for (int i = 0; i < panelsToControll.Length; i++)
+        {
+            if (elementToRecover[i])
+            {
+                elementToRecover[i] = false;
+                panelsToControll[i].SetActive(true);
+            }
+        }
+
+        CameraMovementScript.BlockMovement();
+
+        if (currentWorkingWindow != null)
+        {
+            currentWorkingWindow.SetActive(false);
+            currentWorkingWindow = null;
+        }
+
+        if (currentChoosingMode != ChoosingMode.None && currentChoosingMode != ChoosingMode.Action)
+        {
+            ServiceRegistry.WorkWithService<EventBus>().Publish<ChoosingScript, SkillController>(this, null);
+        }
+
+        switch (currentChoosingMode)
+        {
+            case ChoosingMode.Exploration:
+                explorationChoosingMode.DisableChoosingMode();
+                break;
+        }
+
+        currentChoosingMode = ChoosingMode.None;
+
+        transform.position = _cameraStartPosition;
+    }
+
     public void GetOutEarly(InputAction.CallbackContext context)
     {
         if (context.performed)

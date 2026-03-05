@@ -567,6 +567,18 @@ public class CellBuildings
             return (currentCount, maxCountOfSquads + BonusHeadquarters + bonusHarden + bonusFront);
         }
 
+        public bool TryRemoveSquad(AbstractSquad squad)
+        {
+            if (squadsOnCell.Contains(squad))
+            {
+                currentCount--;
+                squadsOnCell.Remove(squad);
+
+                return true;
+            }
+            return false;
+        }
+
         public void SwitchCountSquad(AbstractSquad squad, GameObject toCell)
         {
             currentCount--;

@@ -8,15 +8,23 @@ public class ExplorationController : MonoBehaviour
 {
     private Dictionary<AbstractSquad, ExplorationModule> explorationModules = new();
 
-    public void StartExploration(GameObject startCell, GameObject finishCell, AbstractSquad squad)
+    private void Start()
+    {
+        ServiceRegistry.WorkWithService<EventBus>().Subscribe<ExplorationController, ExplorationSquadList, AbstractSquad>((Key1, key2, scoutSquad)=>{ explorationModules.Remove(scoutSquad); });
+    }
+
+    public void StartExploration(GameObject startCell, GameObject finishCell, List<GameObject> cellsToExplore, AbstractSquad squad)
     {
         explorationModules[squad] = new ExplorationModule(startCell, finishCell, squad);
+        explorationModules[squad].cellsNeedToExplore = cellsToExplore.ToList();
 
         ServiceRegistry.WorkWithService<CommandBus>().Enqueue(explorationModules[squad]);
     }
 }
 public class ExplorationModule:ICommand
 {
+    private bool inAction = false;
+
     private Action currentAction;
 
     private AbstractSquad scoutSquad;
@@ -25,12 +33,11 @@ public class ExplorationModule:ICommand
     private int timeToReachLocation = 0;
     private bool isReached = false;
 
-    public int SearchDepth { private get; set; } = 1;
     private float chanceToBeGrabbed = 0f;
 
     private int explorationPoints = 0;
 
-    private List<GameObject> cellsNeedToExplore;
+    public List<GameObject> cellsNeedToExplore {private get; set; }
     private Dictionary<GameObject, List<System.Object>> informationByCell = new();
     private Dictionary<GameObject, int> chanceToExploreByCell = new();
 
@@ -45,7 +52,8 @@ public class ExplorationModule:ICommand
         scoutSquad = squad;
         exploratedCell = finishCell;
 
-        ServiceRegistry.WorkWithService<EventBus>().Publish<AbstractSquad, Sprite>(squad, null);
+        ServiceRegistry.WorkWithService<EventBus>().Publish<ScoutSquad, Sprite>((ScoutSquad)squad, null);
+        
         Debug.LogError("Запушил отряд");
     }
 
@@ -86,7 +94,8 @@ public class ExplorationModule:ICommand
 
                 informationByCell[choosedCell].Add(exploratedObject);
 
-                chanceToBeGrabbed += 0.05f;
+                //chanceToBeGrabbed += 0.05f;
+                chanceToBeGrabbed += 10;
             }
             else
             {
@@ -100,7 +109,8 @@ public class ExplorationModule:ICommand
 
                 informationByCell[choosedCell].Add(exploratedObject);
 
-                chanceToBeGrabbed += 0.05f;
+                //chanceToBeGrabbed += 0.05f;
+                chanceToBeGrabbed += 10;
             }
         }
         else { chanceToExploreByCell[choosedCell] += 20;
@@ -110,8 +120,15 @@ public class ExplorationModule:ICommand
 
         if (UnityEngine.Random.Range(0, 100) < chanceToBeGrabbed)
         {
-            Debug.LogError($"Отряд {scoutSquad} был схвачен");
+            SquadWasGrabbed();
         }
+    }
+
+    private void SquadWasGrabbed()
+    {
+        inAction = false;
+
+        ServiceRegistry.WorkWithService<EventBus>().Publish<ExplorationController, ExplorationSquadList, AbstractSquad>(null,null,scoutSquad);
     }
 
 
@@ -129,16 +146,16 @@ public class ExplorationModule:ICommand
     {
         currentAction = SquadReachLocation;
 
-        cellsNeedToExplore = ServiceRegistry.WorkWithController<CellController>().
-            WorkWithCell<CellParametersHandler>(exploratedCell).GetParameter<CellArea>().NeighboresSearcher(SearchDepth);
-
         foreach (var cell in cellsNeedToExplore) 
         {
+            if (informationByCell.ContainsKey(cell)) continue;
             informationByCell.Add(cell, new());
             chanceToExploreByCell.Add(cell, 20);
         }
 
         State = CommandState.Prepared;
+
+        ServiceRegistry.WorkWithService<EventBus>().Subscribe<GameController>((sender) => {if(inAction)currentAction.Invoke(); });
     }
 
     public bool CanExecute()
@@ -148,7 +165,7 @@ public class ExplorationModule:ICommand
 
     public void Execute()
     {
-        ServiceRegistry.WorkWithService<EventBus>().Subscribe<GameController>((sender) => { currentAction.Invoke();});
+        inAction = true;
     }
 
     private class ExploratedInformationUnit

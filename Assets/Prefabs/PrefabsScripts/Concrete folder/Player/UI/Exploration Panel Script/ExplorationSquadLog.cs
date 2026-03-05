@@ -135,7 +135,10 @@ public class ExplorationSquadLog : MonoBehaviour
             int autoscrollingSpeed = 400, bool autoScroll_enable = true) 
             : base(panels, contentRect, viewPortSize, offset, startPanelHeights, listTakerMonobehaviour, autoscrollingSpeed, autoScroll_enable)
         {
-
+            ServiceRegistry.WorkWithService<EventBus>().Subscribe<ExplorationSquadList, VirtualList, AbstractSquad>((sender, key, squad) =>
+            {
+                if(currentSquad == squad) { base.DisableAllPanels(); }
+            });
         }
 
         public void SetCurrentSquad(AbstractSquad squad)

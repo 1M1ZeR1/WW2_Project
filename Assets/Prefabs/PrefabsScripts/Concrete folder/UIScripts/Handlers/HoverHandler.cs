@@ -15,6 +15,7 @@ public class HoverHandler : MonoBehaviour
 
         if (IsPointerOverUI_ByTag("Interactable UI")) 
         {
+
             if (currentHoveredCell != null) 
             {
                 ServiceRegistry.WorkWithController<CellInteraction>().SetMaterialBySide_Basic

@@ -284,6 +284,7 @@ public class CellPanel
         {
             if (var == 1) { SwipeStateSquad(squad); }
             if (var == 2) { RemoveSquadFromListCell(squad); }
+            if (var == 3) { RemoveSquadWithSave(squad); }
         });
 
         createSquadPanelFromController = cellUIScript.CreateSquadPanel;
@@ -307,6 +308,16 @@ public class CellPanel
         {
             squadsObjectsStateUse.Remove(squadsObjects[squad]);
             squadsObjects.Remove(squad);
+        }
+    }
+
+    protected void RemoveSquadWithSave(AbstractSquad squad)
+    {
+        if (squadsObjects.ContainsKey(squad))
+        {
+            SwipeStateSquad(squad);
+
+            ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(_currentCell).GetParameter<CellSquadsOnArea>().TryRemoveSquad(squad);
         }
     }
 

@@ -403,7 +403,6 @@ public class VirtualList
 
         if (!beOnTop) { StartConstructor(panelHeights.ToArray()); return; }
 
-        Debug.LogError(panelHeights);
         if(panelHeights.Count >= 10) { ReConstructAbove(panelHeights.ToArray()); }
         else { StartConstructor(panelHeights.ToArray()); }
     }
@@ -456,6 +455,13 @@ public class VirtualList
             informationIndex--;
 
             if (currentPanelIndex < 0) { return; }
+        }
+    }
+
+    public void DisableAllPanels() {
+        foreach (var item in panels)
+        {
+            item.SetActive(false);
         }
     }
 
