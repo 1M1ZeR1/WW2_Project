@@ -55,7 +55,11 @@ public class ExplorationSquadList : MonoBehaviour
         });
         fastSearchButtons[squad].Item1.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() =>
         {
-            
+            ServiceRegistry.WorkWithController<ExplorationController>().SquadGoingRevoke = squad;
+
+            ServiceRegistry.WorkWithController<InteractableScript>().RevokeSquad(squad,
+                ServiceRegistry.WorkWithController<ExplorationController>().FinishExploration);
+
         });
     }
 

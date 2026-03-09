@@ -8,25 +8,15 @@ using UnityEngine.UI;
 
 public class InteractableScript : MonoBehaviour
 {
-    protected enum ChoiseHelper
-    {
-        None,
-        Attack,
-        Movement
-    }
-    protected ChoiseHelper _choiseHelper = ChoiseHelper.None;
+    private InteractionCellState interactionCellState = InteractionCellState.None;
 
     private ChoosingScript choosingScript;
     private SmartSelectionSquadsScript smartSelectionSquadsScript;
 
+    private List<Action<GameObject>> singleSubscribers = new();
 
     public GameObject currentInteractableCell { get; private set; }
     protected List<AbstractSquad> squadsWhatStartChoise = new List<AbstractSquad>();
-
-    private bool NextClickIsChoice = false;
-
-    private bool inChoosingMode = false;
-    private bool blocked = false;
 
 
     /// <summary>
@@ -46,27 +36,26 @@ public class InteractableScript : MonoBehaviour
         smartSelectionSquadsScript = GetComponent<SmartSelectionSquadsScript>();
 
         ServiceRegistry.WorkWithService<EventBus>().Subscribe<InteractableScript, ChoosingScript>((key1, key2) => {
-            inChoosingMode = !inChoosingMode;
+            if (interactionCellState == InteractionCellState.Choosing) interactionCellState = InteractionCellState.None;
+            else { interactionCellState = InteractionCellState.Choosing; }
         });
         ServiceRegistry.WorkWithService<EventBus>().Subscribe<InteractableScript, SelectedObjectScript>((key1, key2) => {
-            blocked = !blocked;
+
+            if (interactionCellState == InteractionCellState.Blocked) interactionCellState = InteractionCellState.None;
+            else { interactionCellState = InteractionCellState.Blocked; }
         });
     }
     public void InteractWithGameObject(GameObject interacableGameObject)
     {
-        //Debug.LogError($"{inChoosingMode},{blocked}");
+        if (interactionCellState == InteractionCellState.Blocked) return;
 
-        if (blocked) return;
-
-        if (inChoosingMode) {
+        if (interactionCellState == InteractionCellState.Choosing) {
             ServiceRegistry.WorkWithService<EventBus>().Publish<InteractableScript, GameObject, bool>(this, interacableGameObject, false);
 
             currentInteractableCell = interacableGameObject;
-
-            return;
         }
 
-        if (NextClickIsChoice)
+        if (interactionCellState == InteractionCellState.Choise)
         {
             if (ServiceRegistry.WorkWithController<CellController>().FastDrop_IsAllies(interacableGameObject)) 
             { 
@@ -74,18 +63,23 @@ public class InteractableScript : MonoBehaviour
             }
             else { StartBattle(interacableGameObject); }
 
-            NextClickIsChoice = false;
-
             choosingScript.ExitChoiseState();
-
-            return;
         }
-        ServiceRegistry.WorkWithService<EventBus>().Publish<InteractableScript, GameObject,bool>(this, interacableGameObject,true);
 
-        currentInteractableCell = interacableGameObject;
+        if (interactionCellState == InteractionCellState.None) 
+        {
+            ServiceRegistry.WorkWithService<EventBus>().Publish<InteractableScript, GameObject, bool>(this, interacableGameObject, true);
 
-        ResetSelectedSquads();
+            currentInteractableCell = interacableGameObject;
+
+            ResetSelectedSquads();
+        }
+
+        interactionCellState = InteractionCellState.None;
+
+        if(singleSubscribers.Count > 0) { singleSubscribers.ForEach(action => action.Invoke(interacableGameObject)); singleSubscribers.Clear(); }
     }
+
     private void ResetSelectedSquads() { squadsWhatStartChoise.Clear(); }
     public void AddToSelectedSquads(AbstractSquad squad) { if (squadsWhatStartChoise.Contains(squad)) squadsWhatStartChoise.Remove(squad);
         else squadsWhatStartChoise.Add(squad);
@@ -93,9 +87,18 @@ public class InteractableScript : MonoBehaviour
 
     public void WantToChooseCell()
     {
-        NextClickIsChoice = true;
+        interactionCellState = InteractionCellState.Choise;
 
         choosingScript.CreateChoiseState(ChoosingScript.ChoosingMode.Action);
+    }
+
+    public void RevokeSquad(AbstractSquad squadToRevoke,Action<GameObject> subToNextCell = null)
+    {
+        interactionCellState = InteractionCellState.Choosing;
+
+        choosingScript.CreateChoiseState(ChoosingScript.ChoosingMode.Revoke);
+
+        if (subToNextCell != null) { singleSubscribers.Add(subToNextCell); }
     }
     private void SendInformation(GameObject finishCell)
     {
@@ -127,8 +130,6 @@ public class InteractableScript : MonoBehaviour
 
             foreach(var squad in squadsToDelete) { squadsWhatStartChoise.Remove(squad); }
         }); 
-
-        _choiseHelper = ChoiseHelper.None;
     }
     private void StartBattle(GameObject cell)
     {
@@ -148,10 +149,22 @@ public class InteractableScript : MonoBehaviour
                 ServiceRegistry.WorkWithController<BattleController>().TryStartBattle(cell, currentInteractableCell, squadsWhatStartChoise);
                 foreach (var squad in squadsToDelete) { squadsWhatStartChoise.Remove(squad); }
             });
-
-        
-        _choiseHelper = ChoiseHelper.None;
     }
     public void SetStartingChoisingParameters(GameObject cell, AbstractSquad squad) { currentInteractableCell = cell; if (!squadsWhatStartChoise.Contains(squad)) squadsWhatStartChoise.Add(squad); }
-    public void ChoosingCanceled() { NextClickIsChoice = false; }
+    public void ChoosingCanceled() { interactionCellState = InteractionCellState.None; }
+
+    public void AddSingleSubscriber(Action<GameObject> action)
+    {
+        singleSubscribers.Add(action);
+    }
+}
+
+public enum InteractionCellState
+{
+    None,
+    Blocked,
+    UI,
+    Choosing,
+    Choise,
+    Exploration
 }

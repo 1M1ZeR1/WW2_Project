@@ -8,6 +8,8 @@ public class ExplorationController : MonoBehaviour
 {
     private Dictionary<AbstractSquad, ExplorationModule> explorationModules = new();
 
+    public AbstractSquad SquadGoingRevoke { private get; set; }
+
     private void Start()
     {
         ServiceRegistry.WorkWithService<EventBus>().Subscribe<ExplorationController, ExplorationSquadList, AbstractSquad>((Key1, key2, scoutSquad)=>{ explorationModules.Remove(scoutSquad); });
@@ -20,15 +22,23 @@ public class ExplorationController : MonoBehaviour
 
         ServiceRegistry.WorkWithService<CommandBus>().Enqueue(explorationModules[squad]);
     }
+
+    public void FinishExploration(GameObject cellToRevoke)
+    {
+        explorationModules[SquadGoingRevoke].RevokeSquad(cellToRevoke);
+        SquadGoingRevoke = null;
+    }
 }
 public class ExplorationModule:ICommand
 {
+    private bool inRevokeAction = false;
     private bool inAction = false;
 
     private Action currentAction;
 
     private AbstractSquad scoutSquad;
     private GameObject exploratedCell;
+    private GameObject revokeCell;
 
     private int timeToReachLocation = 0;
     private bool isReached = false;
@@ -36,6 +46,8 @@ public class ExplorationModule:ICommand
     private float chanceToBeGrabbed = 0f;
 
     private int explorationPoints = 0;
+
+    private GameObject startCell;
 
     public List<GameObject> cellsNeedToExplore {private get; set; }
     private Dictionary<GameObject, List<System.Object>> informationByCell = new();
@@ -49,6 +61,8 @@ public class ExplorationModule:ICommand
 
         timeToReachLocation =  wayCost * 1;//10
 
+        this.startCell = startCell;
+
         scoutSquad = squad;
         exploratedCell = finishCell;
 
@@ -57,17 +71,42 @@ public class ExplorationModule:ICommand
         Debug.LogError("Запушил отряд");
     }
 
+    public void RevokeSquad(GameObject toCell)
+    {
+        revokeCell = toCell;
+
+        int wayCost = (int)ServiceRegistry.WorkWithController<AAlgorithm>().CalculateWayCost(cellsNeedToExplore[0], toCell, SideEnum.None);
+
+        timeToReachLocation = wayCost * 1;
+
+        currentAction = SquadReachLocation;
+
+        inRevokeAction = true;
+
+        ServiceRegistry.WorkWithService<EventBus>().Publish<ExplorationController, ExplorationSquadList, AbstractSquad>(null, null, scoutSquad);
+    }
+
     private void SquadReachLocation()
     {
         timeToReachLocation--;
 
-        chanceToBeGrabbed += 0.01f;
-        if(timeToReachLocation == 0)
+        if(timeToReachLocation <= 0)
         {
+            if (inRevokeAction)
+            {
+                inAction = false;
+
+                ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(revokeCell).GetParameter<CellSquadsOnArea>().TryAddSquad(scoutSquad);
+
+                ServiceRegistry.WorkWithController<CellUIScript>().HelpToSwipeSquadPanel_Outside(scoutSquad, startCell, revokeCell);
+
+                return;
+            }
             isReached = true;
 
             currentAction = SquadExploration;
         }
+        chanceToBeGrabbed += 0.01f;
     }
     private void SquadExploration()
     {

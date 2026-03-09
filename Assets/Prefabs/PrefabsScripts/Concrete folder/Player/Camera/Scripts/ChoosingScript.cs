@@ -12,7 +12,8 @@ public class ChoosingScript : MonoBehaviour
     {
         None,
         Action,
-        Exploration
+        Exploration,
+        Revoke
     }
 
     [SerializeField] private GameObject[] panelsToControll;
@@ -118,10 +119,6 @@ public class ChoosingScript : MonoBehaviour
             currentWorkingWindow = null;
         }
 
-        if (currentChoosingMode != ChoosingMode.None && currentChoosingMode != ChoosingMode.Action)
-        {
-            ServiceRegistry.WorkWithService<EventBus>().Publish<ChoosingScript, SkillController>(this, null);
-        }
 
         switch (currentChoosingMode)
         {
@@ -144,7 +141,7 @@ public class ChoosingScript : MonoBehaviour
             switch (currentChoosingMode)
             {
                 case ChoosingMode.Exploration:
-                    if (explorationChoosingMode.stateArea)
+                    if (explorationChoosingMode.inChoosingMode)
                     {
                         explorationChoosingMode.DisableStateAreaMode();return;
                     }
@@ -152,6 +149,7 @@ public class ChoosingScript : MonoBehaviour
             }
 
             interactableScript.ChoosingCanceled();
+
 
             ExitChoiseState();
         }

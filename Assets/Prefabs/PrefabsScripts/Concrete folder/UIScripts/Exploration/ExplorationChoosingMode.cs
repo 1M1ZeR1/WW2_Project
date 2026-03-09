@@ -10,11 +10,10 @@ public class ExplorationChoosingMode : MonoBehaviour
 {
     [SerializeField] private HoverHandler hoverHandler;
 
-    public bool inChoosingMode { private get; set; } = false;
+    public bool inChoosingMode { get;private set; } = false;
 
     private int searchDepth = 0;
 
-    public bool stateArea {  get;private set; } = false;
     private GameObject cellSelected;
 
     private List<GameObject> cellToExplorate = new();
@@ -23,17 +22,6 @@ public class ExplorationChoosingMode : MonoBehaviour
     [SerializeField] private GameObject areaTips;
 
     [SerializeField] private GameObject exitSkillTip;
-
-    private void Start()
-    {
-        ServiceRegistry.WorkWithService<EventBus>().Subscribe<InteractableScript, GameObject, bool>((sender, cell, UI_resolution) =>
-        {
-            if (inChoosingMode && !stateArea)
-            {
-                EnableStateAreaMode(cell);
-            }
-        });
-    }
 
     public void SendSquad()
     {
@@ -44,9 +32,11 @@ public class ExplorationChoosingMode : MonoBehaviour
         UnColorCells();
         cellToExplorate.Clear();
 
-        DisableStateAreaMode();
+        DisableStateAreaMode(true);
 
         ServiceRegistry.WorkWithService<EventBus>().Publish<SkillController, bool>(null, true);
+
+        cellSelected = null;
     }
 
     private void UISwitcher(bool state)
@@ -58,8 +48,6 @@ public class ExplorationChoosingMode : MonoBehaviour
 
     private void EnableStateAreaMode(GameObject cell)
     {
-        stateArea = true;
-
         cellSelected = cell;
 
         CameraMovementScript.BlockMovement();
@@ -72,9 +60,9 @@ public class ExplorationChoosingMode : MonoBehaviour
         UISwitcher(true);
     }
 
-    public void DisableStateAreaMode()
+    public void DisableStateAreaMode(bool endAction = false)
     {
-        stateArea = false;
+        if(!endAction)ServiceRegistry.WorkWithController<InteractableScript>().AddSingleSubscriber(EnableStateAreaMode);
 
         if (cellSelected != null)
         {
@@ -83,9 +71,9 @@ public class ExplorationChoosingMode : MonoBehaviour
                     cellSelected,
                     false
                     );
-        }
 
-        cellSelected = null;
+            cellSelected = null;
+        }
 
         UnColorCells();
 
@@ -101,7 +89,10 @@ public class ExplorationChoosingMode : MonoBehaviour
         searchDepth = 0;
     }
 
-    public void EnableChoosingMode() { inChoosingMode = true; ServiceRegistry.WorkWithService<EventBus>().Publish<InteractableScript, ChoosingScript>(null, null); }
+    public void EnableChoosingMode() { inChoosingMode = true; 
+        ServiceRegistry.WorkWithService<EventBus>().Publish<InteractableScript, ChoosingScript>(null, null);
+        ServiceRegistry.WorkWithController<InteractableScript>().AddSingleSubscriber(EnableStateAreaMode);
+    }
     public void DisableChoosingMode() { inChoosingMode = false; if (cellSelected != null) 
         {
             ServiceRegistry.WorkWithController<CellInteraction>().SetMaterialBySide_Basic(
@@ -109,6 +100,7 @@ public class ExplorationChoosingMode : MonoBehaviour
                     cellSelected,
                     false
                     );
+            cellSelected = null;
         }
 
         ServiceRegistry.WorkWithService<EventBus>().Publish<InteractableScript, ChoosingScript>(null, null);
@@ -119,7 +111,7 @@ public class ExplorationChoosingMode : MonoBehaviour
     {
         if (context.performed)
         {
-            if (!inChoosingMode || !stateArea) return;
+            if (!inChoosingMode || cellSelected == null) return;
 
             if (searchDepth >= 3) return;
 
@@ -135,7 +127,7 @@ public class ExplorationChoosingMode : MonoBehaviour
     {
         if (context.performed)
         {
-            if (!inChoosingMode || !stateArea) return;
+            if (!inChoosingMode || cellSelected == null) return;
 
             if (searchDepth <= 0) return;
 

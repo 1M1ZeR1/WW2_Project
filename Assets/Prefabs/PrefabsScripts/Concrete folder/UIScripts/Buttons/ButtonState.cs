@@ -22,6 +22,7 @@ public class ButtonState : MonoBehaviour
 
         ServiceRegistry.WorkWithService<EventBus>().Subscribe<InteractableScript, GameObject, bool>((sender, cell, UI_resolution) =>
         {
+            if (!UI_resolution) return;
             switch (buttonType) 
             {
                 case ButtonInteraction.ButtonType.Build:

@@ -567,6 +567,18 @@ public class CellBuildings
             return (currentCount, maxCountOfSquads + BonusHeadquarters + bonusHarden + bonusFront);
         }
 
+        public bool TryAddSquad(AbstractSquad squad)
+        {
+            if (!squadsOnCell.Contains(squad))
+            {
+                currentCount++;
+                squadsOnCell.Add(squad);
+
+                return true;
+            }
+            return false;
+        }
+
         public bool TryRemoveSquad(AbstractSquad squad)
         {
             if (squadsOnCell.Contains(squad))

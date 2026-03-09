@@ -224,6 +224,11 @@ public class CellUIScript : MonoBehaviour
         cellsAndTheirPanels[toCell].SwipeSquadPanel(squadPanel);
     }
 
+    public void HelpToSwipeSquadPanel_Outside(AbstractSquad squad,GameObject fromCell,GameObject toCell)
+    {
+        cellsAndTheirPanels[fromCell].SwipeSquad_Outside(squad, cellsAndTheirPanels[toCell]);
+    }
+
     public void UpdatePanelInfo(GameObject cell)
     {
         cellsAndTheirPanels[cell].ShowInformation();
@@ -383,6 +388,13 @@ public class CellPanel
         {
             squad.Value.SwipeParent(transform);
         }
+    }
+
+    public void SwipeSquad_Outside(AbstractSquad squad, CellPanel toCellPanel)
+    {
+        toCellPanel.SwipeSquadPanel(squadsObjects[squad]);
+
+        RemoveSquadFromListCell(squad);
     }
 }
 public class SquadPanel : IUIConstructor
