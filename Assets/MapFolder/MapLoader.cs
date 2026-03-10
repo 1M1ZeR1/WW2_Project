@@ -117,6 +117,8 @@ public class BuildLoader
         PauseScript.SetGameState(GameState.Play);
         Debug.Log("«¿√–”« ¿ œ–≈—≈“¿ «¿ ŒÕ◊≈ÕÕ¿.");
 
+        ServiceRegistry.WorkWithController<HoverHandler>().enabled = true;
+
         //ServiceRegistry.WorkWithService<EventBus>().Publish<MapLoader>(null);
     }
     static void ConfigureCell(GameObject cell, Parameters parameters)

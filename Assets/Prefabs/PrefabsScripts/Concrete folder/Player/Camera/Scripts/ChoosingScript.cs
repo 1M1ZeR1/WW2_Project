@@ -61,6 +61,10 @@ public class ChoosingScript : MonoBehaviour
                 currentChoosingMode = ChoosingMode.Exploration;
                 explorationChoosingMode.EnableChoosingMode();
                 break;
+            case ChoosingMode.Revoke: choosingWindow_Action.SetActive(true); currentWorkingWindow = choosingWindow_Action;
+                currentChoosingMode = ChoosingMode.Revoke;
+                ServiceRegistry.WorkWithController<HoverHandler>().SeeTextTips = true;
+                break;
         }
 
         _cameraStartPosition = transform.position;
@@ -84,7 +88,7 @@ public class ChoosingScript : MonoBehaviour
             currentWorkingWindow.SetActive(false); 
             currentWorkingWindow = null; }
 
-        if(currentChoosingMode != ChoosingMode.None && currentChoosingMode != ChoosingMode.Action)
+        if(currentChoosingMode == ChoosingMode.Exploration)
         {
             ServiceRegistry.WorkWithService<EventBus>().Publish<ChoosingScript, SkillController>(this, null);
         }
@@ -93,6 +97,9 @@ public class ChoosingScript : MonoBehaviour
         {
             case ChoosingMode.Exploration:
                 explorationChoosingMode.DisableChoosingMode();
+                break;
+            case ChoosingMode.Revoke:
+                ServiceRegistry.WorkWithController<HoverHandler>().SeeTextTips = false;
                 break;
         }
 

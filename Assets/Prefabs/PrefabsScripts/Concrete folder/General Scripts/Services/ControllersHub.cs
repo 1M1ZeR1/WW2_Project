@@ -140,6 +140,9 @@ public class ControllersHub
         Register_Controller(new BuffsController());
 
         Register_Controller(GameObject.FindAnyObjectByType<ExplorationController>());
+
+        Register_Controller(GameObject.FindAnyObjectByType<HoverHandler>());
+
     }
 
     //private IEnumerator ServicesLoader()
