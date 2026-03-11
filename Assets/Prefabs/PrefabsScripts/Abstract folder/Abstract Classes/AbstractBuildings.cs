@@ -92,7 +92,7 @@ public class HeadquartersBuild : AbstractBuildings
     {
         if (hardCells.Contains(cell)) return false;
 
-        if (!ServiceRegistry.WorkWithController<CellController>().FastDrop_IsAllies(cell)) return false;
+        if (!ServiceRegistry.WorkWithService<CellAccessibilityValidator>().InteractWithAlliesCell(cell)) return false;
 
         if(hardCells.Count == MaxCountOfHardCells)return false;
         hardCells.Add(cell);
@@ -132,7 +132,7 @@ public class HeadquartersBuild : AbstractBuildings
     }
     private void CellInListChangedSide(GameObject cell)
     {
-        if (!ServiceRegistry.WorkWithController<CellController>().FastDrop_IsAllies(cell))
+        if (!ServiceRegistry.WorkWithService<CellAccessibilityValidator>().InteractWithAlliesCell(cell))
         {
             hardCells.Remove(cell);
         }

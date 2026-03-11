@@ -62,7 +62,7 @@ public class ExplorationChoosingMode : MonoBehaviour
 
     public void DisableStateAreaMode(bool endAction = false)
     {
-        if(!endAction)ServiceRegistry.WorkWithController<InteractableScript>().AddSingleSubscriber(EnableStateAreaMode);
+        if(!endAction)ServiceRegistry.WorkWithController<InteractableScript>().singleSubscribers.Add(EnableStateAreaMode);
 
         if (cellSelected != null)
         {
@@ -91,7 +91,7 @@ public class ExplorationChoosingMode : MonoBehaviour
 
     public void EnableChoosingMode() { inChoosingMode = true; 
         ServiceRegistry.WorkWithService<EventBus>().Publish<InteractableScript, ChoosingScript>(null, null);
-        ServiceRegistry.WorkWithController<InteractableScript>().AddSingleSubscriber(EnableStateAreaMode);
+        ServiceRegistry.WorkWithController<InteractableScript>().singleSubscribers.Add(EnableStateAreaMode);
     }
     public void DisableChoosingMode() { inChoosingMode = false; if (cellSelected != null) 
         {

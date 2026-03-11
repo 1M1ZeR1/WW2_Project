@@ -326,7 +326,7 @@ public class HeadquartersPanel : MonoBehaviour
 
         foreach (var cell in _currentWorkingHeadquarters.CellsInArea)
         {
-            if (!ServiceRegistry.WorkWithController<CellController>().FastDrop_IsAllies(cell)) continue;
+            if (!ServiceRegistry.WorkWithService<CellAccessibilityValidator>().InteractWithAlliesCell(cell)) continue;
             cellToCellPanel[cell].SetActive(true);
         }
     }

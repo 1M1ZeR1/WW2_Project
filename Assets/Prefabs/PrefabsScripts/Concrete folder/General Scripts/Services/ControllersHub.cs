@@ -94,6 +94,10 @@ public class ControllersHub
 
         Register_Service(new PanelFactory_BuildPanel());
 
+        Register_Service(new SelectedSquadsBuffer());
+        Register_Service(new CellAccessibilityValidator());
+        Register_Service(new ActionPerformance());
+
         _servicesLoaded = true;
 
         GameObject.FindAnyObjectByType<TimeControllerScript>().StartTime();

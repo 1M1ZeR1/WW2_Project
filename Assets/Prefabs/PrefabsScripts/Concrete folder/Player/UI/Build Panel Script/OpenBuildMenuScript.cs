@@ -31,7 +31,7 @@ public class OpenBuildMenuScript : MonoBehaviour
     }
     public void OpenMenu()
     {
-        if (ServiceRegistry.WorkWithController<CellController>().FastDrop_IsAllies(currentCell))
+        if (ServiceRegistry.WorkWithService<CellAccessibilityValidator>().InteractWithAlliesCell(currentCell))
         {
             ServiceRegistry.WorkWithService<EventBus>().Publish<OpenBuildMenuScript>(this);
 

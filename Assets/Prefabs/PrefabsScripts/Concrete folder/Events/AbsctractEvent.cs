@@ -288,7 +288,7 @@ public class EventCreater
     {
         while (true)
         {
-            if (!ServiceRegistry.WorkWithController<CellController>().FastDrop_IsAllies(workingCells[UnityEngine.Random.Range(0, workingCells.Length)]))
+            if (!ServiceRegistry.WorkWithService<CellAccessibilityValidator>().InteractWithAlliesCell(workingCells[UnityEngine.Random.Range(0, workingCells.Length)]))
             {
                 
             }

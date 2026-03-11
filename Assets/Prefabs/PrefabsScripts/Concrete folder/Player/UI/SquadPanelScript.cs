@@ -12,7 +12,9 @@ public class SquadPanelScript : MonoBehaviour
 
     public void BindButton_Interaction(GameObject cell, AbstractSquad squad)
     {
-        interactableScript.SetStartingChoisingParameters(cell,squad); 
+        ServiceRegistry.WorkWithService<SelectedSquadsBuffer>().AddToSelectedSquads_Guaranteed(squad);
+
+        ServiceRegistry.WorkWithController<InteractableScript>().WantToChooseCell();
     }
 
     public void BindButton_ShowInformation(AbstractSquad squad)
@@ -27,6 +29,6 @@ public class SquadPanelScript : MonoBehaviour
 
     public void BindImageEvent_AddToSelectedList(AbstractSquad squad)
     {
-        interactableScript.AddToSelectedSquads(squad);
+        ServiceRegistry.WorkWithService<SelectedSquadsBuffer>().AddToSelectedSquads(squad);
     }
 }

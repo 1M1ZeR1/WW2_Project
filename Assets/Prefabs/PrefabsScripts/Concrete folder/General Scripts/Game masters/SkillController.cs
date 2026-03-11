@@ -35,8 +35,6 @@ public class SkillController : MonoBehaviour
         ServiceRegistry.WorkWithService<EventBus>().Subscribe<SkillController, bool>((key1, key2) =>
         {
             confirmation = true;
-            Debug.LogError(confirmation);
-            Debug.LogError($"{selectedObjects.Count},{inChoosingMode},{confirmation}");
         });
 
         ServiceRegistry.WorkWithService<EventBus>().Subscribe<ExplorationChoosingMode, SkillController, List<GameObject>>((sender, key, cells) =>

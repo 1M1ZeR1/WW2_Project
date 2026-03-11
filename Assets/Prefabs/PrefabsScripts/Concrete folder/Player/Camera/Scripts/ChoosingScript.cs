@@ -72,6 +72,8 @@ public class ChoosingScript : MonoBehaviour
 
     public void ExitChoiseState()
     {
+        if (currentChoosingMode == ChoosingMode.None) return;
+
         for (int i = 0; i < panelsToControll.Length; i++)
         {
             if (elementToRecover[i])
@@ -153,6 +155,7 @@ public class ChoosingScript : MonoBehaviour
                         explorationChoosingMode.DisableStateAreaMode();return;
                     }
                     break;
+                case ChoosingMode.Revoke:return;
             }
 
             interactableScript.ChoosingCanceled();

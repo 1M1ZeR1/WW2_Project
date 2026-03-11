@@ -34,7 +34,6 @@ public class CellController
     }
 
     public List<GameObject> FastDrop_GetNeighbores(GameObject cell) { return WorkWithCell<CellParametersHandler>(cell).GetParameter<CellArea>().GetNeighbores(); }
-    public bool FastDrop_IsAllies(GameObject cell) { return WorkWithCell<CellParametersHandler>(cell).GetParameter<CellArea>().IsAllies(); }
     public SideEnum FastDrop_CellSide(GameObject cell) { return WorkWithCell<CellParametersHandler>(cell).GetParameter<CellArea>().Side; }
 }
 
@@ -450,14 +449,14 @@ public class CellBuildings
 
         ServiceRegistry.WorkWithService<EventBus>().Publish<CellBuildings, GameObject, AbstractBuildings>(this, cellParser.GetCellWorkWith(), building);
 
-        if (!ServiceRegistry.WorkWithController<CellController>().FastDrop_IsAllies(cellParser.GetCellWorkWith()) && building.GetType() == typeof(HeadquartersBuild))
+        if (!ServiceRegistry.WorkWithService<CellAccessibilityValidator>().InteractWithAlliesCell(cellParser.GetCellWorkWith()) && building.GetType() == typeof(HeadquartersBuild))
         {
             ServiceRegistry.WorkWithController<EnemysController>().HeadquartersDangerPoints.Add((HeadquartersBuild)building, 0);
         }
     }
     private void HeadquartersAdder_EnemyController(HeadquartersBuild build, GameObject cell)
     {
-        if (ServiceRegistry.WorkWithController<CellController>().FastDrop_IsAllies(cellParser.GetCellWorkWith()))
+        if (ServiceRegistry.WorkWithService<CellAccessibilityValidator>().InteractWithAlliesCell(cellParser.GetCellWorkWith()))
         {
             ServiceRegistry.WorkWithController<EnemysController>().CellWithHeadquarters_Player.Add(cell, build);
         }

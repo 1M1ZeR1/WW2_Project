@@ -143,9 +143,9 @@ public class SquadMovement:ICommand
 
             if (squad.Side == SideEnum.Allies)//Можно упростить
             {
-                if (!ServiceRegistry.WorkWithController<CellController>().FastDrop_IsAllies(wayCells[wayCells.IndexOf(startCell) + 1])){ break; }
+                if (!ServiceRegistry.WorkWithService<CellAccessibilityValidator>().InteractWithAlliesCell(wayCells[wayCells.IndexOf(startCell) + 1])){ break; }
             }
-            else { if (ServiceRegistry.WorkWithController<CellController>().FastDrop_IsAllies(wayCells[wayCells.IndexOf(startCell) + 1])) { break; } }
+            else { if (ServiceRegistry.WorkWithService<CellAccessibilityValidator>().InteractWithAlliesCell(wayCells[wayCells.IndexOf(startCell) + 1])) { break; } }
 
             arrowCanvasWorker.CreateArrow(
                 startCell.transform.position,

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -10,8 +11,24 @@ public class HoverHandler : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI textTip;
 
+    public Action<GameObject> SendCurrentHoveredCell;
+
     public bool enableMaterials { private get; set; } = true;
-    public bool SeeTextTips { private get; set; } = false;
+
+    private bool seeTextTips = false;
+    public bool SeeTextTips { 
+        get { return seeTextTips; } 
+        
+        set { 
+            seeTextTips = value; 
+            if (!seeTextTips)
+            {
+                textTip.text = "";
+            }
+        }
+    }
+
+    public bool SeeHoveredCell { private get; set; } = false;
     
     private void Update()
     {
@@ -65,6 +82,10 @@ public class HoverHandler : MonoBehaviour
                         currentHoveredCell,
                         true
                         );
+                }
+                if (SeeHoveredCell)
+                {
+                    SendCurrentHoveredCell?.Invoke(hit.collider.gameObject);
                 }
             }
         }

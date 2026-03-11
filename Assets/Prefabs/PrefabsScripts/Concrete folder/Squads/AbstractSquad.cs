@@ -389,9 +389,8 @@ public class ScoutSquad : AbstractSquad
     }
     public override Action UseClassSkill()
     {
-        if (IsSkillInCooldown) { Debug.LogError($"{this.Name}:позволил юзнуть скилл который в кд."); return null; }
+        if (IsSkillInCooldown) { return null; }
 
-        Debug.LogError($"Im here and {selectedCells.Count}");
 
         if (selectedCells.Count >= 1)
         {

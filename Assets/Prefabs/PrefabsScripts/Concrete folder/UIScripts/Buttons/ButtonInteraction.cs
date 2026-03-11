@@ -36,7 +36,7 @@ public class ButtonInteraction : MonoBehaviour
 
     public void ButtonInteraction_Build()
     {
-        if (ServiceRegistry.WorkWithController<CellController>().FastDrop_IsAllies(currentInteractedCell))
+        if (ServiceRegistry.WorkWithService<CellAccessibilityValidator>().InteractWithAlliesCell(currentInteractedCell))
         {
             ServiceRegistry.WorkWithService<EventBus>().Publish<ButtonInteraction,BuildItemPanel>(this,null);
 
@@ -53,7 +53,7 @@ public class ButtonInteraction : MonoBehaviour
     }
     public void ButtonInteraction_Headquarters()
     {
-        if (ServiceRegistry.WorkWithController<CellController>().FastDrop_IsAllies(currentInteractedCell))
+        if (ServiceRegistry.WorkWithService<CellAccessibilityValidator>().InteractWithAlliesCell(currentInteractedCell))
         {
             ServiceRegistry.WorkWithService<EventBus>().Publish<ButtonInteraction,HeadquartersPanel>(this,null);
 
@@ -65,7 +65,7 @@ public class ButtonInteraction : MonoBehaviour
 
     public void ButtonInteraction_Training()
     {
-        if (ServiceRegistry.WorkWithController<CellController>().FastDrop_IsAllies(currentInteractedCell))
+        if (ServiceRegistry.WorkWithService<CellAccessibilityValidator>().InteractWithAlliesCell(currentInteractedCell))
         {
             ServiceRegistry.WorkWithService<EventBus>().Publish<ButtonInteraction, TrainingPanelScript, GameObject>(this, null, currentInteractedCell);
 

@@ -98,7 +98,11 @@ public class ExplorationModule:ICommand
 
                 ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(revokeCell).GetParameter<CellSquadsOnArea>().TryAddSquad(scoutSquad);
 
-                ServiceRegistry.WorkWithController<CellUIScript>().HelpToSwipeSquadPanel_Outside(scoutSquad, startCell, revokeCell);
+                if(startCell == revokeCell)
+                {
+                    ServiceRegistry.WorkWithService<EventBus>().Publish<GameController, int, AbstractSquad>(null,1, scoutSquad);
+                }
+                else ServiceRegistry.WorkWithController<CellUIScript>().HelpToSwipeSquadPanel_Outside(scoutSquad, startCell, revokeCell);
 
                 return;
             }

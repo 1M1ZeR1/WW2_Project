@@ -57,8 +57,9 @@ public class ExplorationSquadList : MonoBehaviour
         {
             ServiceRegistry.WorkWithController<ExplorationController>().SquadGoingRevoke = squad;
 
-            ServiceRegistry.WorkWithController<InteractableScript>().RevokeSquad(squad,
-                ServiceRegistry.WorkWithController<ExplorationController>().FinishExploration);
+            ServiceRegistry.WorkWithService<ActionPerformance>().interceptorAction = ServiceRegistry.WorkWithController<ExplorationController>().FinishExploration;
+
+            ServiceRegistry.WorkWithController<InteractableScript>().RevokeSquad();
 
         });
     }

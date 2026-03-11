@@ -71,7 +71,7 @@ public class CellUIScript : MonoBehaviour
     {
         HideTrainingPanel();
 
-        if (!ServiceRegistry.WorkWithController<CellController>().FastDrop_IsAllies(cell)) 
+        if (!ServiceRegistry.WorkWithService<CellAccessibilityValidator>().InteractWithAlliesCell(cell)) 
         {
             if (informationPanel.activeSelf) { informationPanel.SetActive(false); CameraMovementScript.UnBlockMovement(); }
 
@@ -91,7 +91,7 @@ public class CellUIScript : MonoBehaviour
 
         ClearList(scrollViewerSquads.transform);
 
-        if (ServiceRegistry.WorkWithController<CellController>().FastDrop_IsAllies(cell))
+        if (ServiceRegistry.WorkWithService<CellAccessibilityValidator>().InteractWithAlliesCell(cell))
         {
             scrollViewerSquads.SetActive(true);
 
@@ -115,7 +115,7 @@ public class CellUIScript : MonoBehaviour
 
         ClearList(scrollViewerSquads.transform);
 
-        if (ServiceRegistry.WorkWithController<CellController>().FastDrop_IsAllies(_currentInteractionCell))
+        if (ServiceRegistry.WorkWithService<CellAccessibilityValidator>().InteractWithAlliesCell(_currentInteractionCell))
         {
             if (scrollViewerSquads.activeSelf == false)//Возможна ошибка
             {
