@@ -38,6 +38,9 @@ public class HeadquartersBuild : AbstractBuildings
     public int MaxCountOfHardCells { get; private set; } = 2;
 
     private List<GameObject> cellsInArea;
+
+    public SideEnum Side { private get; set; }
+
     public List<GameObject> CellsInArea 
     {
         get { 
@@ -74,6 +77,9 @@ public class HeadquartersBuild : AbstractBuildings
     }
     public override void ActivateBuild()
     {
+        Side = ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(CellWithThisBuild.gameObject).
+            GetParameter<CellArea>().Side;
+
         SearchingCells();
     }
     public override void UpgradeBuild()
@@ -132,9 +138,16 @@ public class HeadquartersBuild : AbstractBuildings
     }
     private void CellInListChangedSide(GameObject cell)
     {
-        if (!ServiceRegistry.WorkWithService<CellAccessibilityValidator>().InteractWithAlliesCell(cell))
+        if (ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).
+            GetParameter<CellArea>().Side == Side)
         {
-            hardCells.Remove(cell);
+            ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).GetParameter<CellSquadsOnArea>()
+                .BonusHeadquarters = headquartersBonus;
+        }
+        else
+        {
+            ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).GetParameter<CellSquadsOnArea>()
+                .BonusHeadquarters -= headquartersBonus;
         }
     }
 
@@ -160,17 +173,13 @@ public class HeadquartersBuild : AbstractBuildings
         var cellSquadOnAreaScript = ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).GetParameter<CellSquadsOnArea>();
         if (cellSquadOnAreaScript != null)
         {
-            if (CheckSideProperties(cell))
+            if(ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).
+            GetParameter<CellArea>().Side == Side)
             {
                 cellSquadOnAreaScript.BonusHeadquarters = headquartersBonus;
             }
         }
-        else { Debug.Log($"{cell.name} не настроенна"); }
-    }
-    private bool CheckSideProperties(GameObject cell)
-    {
-        return ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).GetParameter<CellArea>().Side ==
-                    ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(CellWithThisBuild.gameObject).GetParameter<CellArea>().Side;
+        else { Debug.LogError($"{cell.name} не настроенна"); }
     }
 }
 

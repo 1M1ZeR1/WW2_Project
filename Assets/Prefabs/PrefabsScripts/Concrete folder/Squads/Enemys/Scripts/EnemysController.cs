@@ -15,11 +15,24 @@ public class EnemysController
     public Dictionary<GameObject, HeadquartersBuild> CellWithHeadquarters_Bot { get; private set; } = new();
     public Dictionary<GameObject, HeadquartersBuild> CellWithHeadquarters_Player { get; private set; } = new();
 
+
+
+    public List<HeadquartersBuild> Headquarters { get; private set; } = new();
+
+    public Dictionary<HeadquartersBuild,HeadquartersAreaCasing> HeadquartersCasing { get; private set; } = new();
+
+
+
+    public GameObject mainEnemysCell { get; private set; }
+    public GameObject mainAlliesCell{ get; private set; }
+
     protected int timer = 5;
 
 
     public void Start()=> ServiceRegistry.WorkWithController<GameController>().oneSecondPassed += AddToTimer;
     private void AddToTimer() { timer++;if(timer == 10) { DecisionTree.OneStep(); } }
+
+
 
 
 }
@@ -46,11 +59,11 @@ public class DecisionTree
 
     public void OneStep()
     {
-        //EconomyPoints += economyPointsModify;
+        EconomyPoints += economyPointsModify;
 
-        //var commands = nodeFactory.CreateCommands(_actionConstructor.Construct_Economy(DangerPoints, EconomyPoints), _actionConstructor.Construct_Attack(DangerPoints, EconomyPoints));
+        var commands = nodeFactory.CreateCommands(_actionConstructor.Construct_Economy(DangerPoints, EconomyPoints), _actionConstructor.Construct_Attack(DangerPoints, EconomyPoints));
 
-        //foreach (var command in commands) { ServiceRegistry.WorkWithService<CommandBus>().Enqueue(command, CommandPriority.High); }
+        foreach (var command in commands) { ServiceRegistry.WorkWithService<CommandBus>().Enqueue(command, CommandPriority.High); }
     }
 
     private class ActionConstructor
@@ -254,6 +267,7 @@ public class EconomyNode : INode,IClone,ICommand
 
         foreach (var cell in headquartersCells) 
         {
+
             HeadquartersChooser headquartersChooser = new(cell, true);
             headquartersChooser.HeadquartersChoosed += (headquarters) =>
             {
@@ -340,185 +354,6 @@ public class AttackNode: INode, IClone, ICommand
 /// <summary>
 /// //////////////////////////////////////////////////////////////
 /// </summary>
-
-public class PullUpSquads : ICommand
-{
-    protected List<ICommand> _currentCommands;
-
-    private List<AbstractSquad> squadInCommand = new();
-    private GameObject cellFrom, cellTo;
-
-    private int searchDepth, neededCountOfSquads;
-
-    public Action<bool> CommandResult;
-
-
-    public Guid Id { get; private set; }
-
-    public CommandState State { get; private set; } = CommandState.Created;
-
-    public PullUpSquads(GameObject cellFrom, GameObject cellTo, int searchDepth, int neededCountOfSquads)
-    {
-        this.cellFrom = cellFrom;
-        this.cellTo = cellTo;
-
-        this.searchDepth = searchDepth;
-        this.neededCountOfSquads = neededCountOfSquads;
-    }
-
-    public void Prepare()
-    {
-        List<AbstractSquad> squadList = new();
-
-        foreach (var cell in ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cellFrom).GetParameter<CellArea>().NeighboresSearcher(searchDepth))
-        {
-            squadList.AddRange(ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).GetParameter<CellSquadsOnArea>().squadsOnCell);
-        }
-
-        //Реализация через рандом
-
-        for(int i = 0; i < neededCountOfSquads; i++)
-        {
-            var squad = squadList[UnityEngine.Random.Range(0,squadList.Count-1)];
-
-            squadInCommand.Add(squad);
-            squadList.Remove(squad);
-        }
-
-        State = CommandState.Prepared;
-    }
-    public void Cancel()
-    {
-        CommandResult.Invoke(false);
-    }
-
-    public bool CanExecute()
-    {
-        if(squadInCommand.Count > 0) { return true; }
-        return false;
-    }
-
-    public void Execute()
-    {
-        _currentCommands = new();
-
-        foreach(var squad in squadInCommand)
-        {
-            _currentCommands.Add(ServiceRegistry.WorkWithController<MovementController>().AddMovementForSquad(cellFrom,cellTo,squad));
-        }
-
-        ServiceRegistry.WorkWithService<EventBus>().Subscribe<ICommand, SquadMovement, AbstractSquad, GameObject>((command,sender,squad,cell) =>
-        {
-            Debug.LogError(squadInCommand.Count);
-            if (_currentCommands.Contains(command))
-            {
-                squadInCommand.Remove(squad);
-                Debug.LogError(squadInCommand.Count);
-                if(squadInCommand.Count == 0)
-                {
-                    if(cell == cellTo) { CommandResult.Invoke(true); }
-                    else { CommandResult.Invoke(false); }
-                }
-
-                _currentCommands.Remove(command);
-            }
-        });
-    }
-}
-
-public class HeadquartersChooser : ICommand
-{
-    public enum FindFor
-    {
-         
-    }
-
-
-    protected HeadquartersBuild _headquartersBuild;
-    private HeadquartersBuild nearestHeadquarters = null;
-
-    private GameObject startCell;
-    private bool economyStep;
-
-    public Action<HeadquartersBuild> HeadquartersChoosed;
-
-
-    public Guid Id { get; set; }
-
-    public CommandState State { get; private set; } = CommandState.Created;
-
-    public HeadquartersChooser(GameObject startCell = null, bool economyStep = false) { this.startCell = startCell;this.economyStep = economyStep; }
-
-    public void Cancel()
-    {
-        
-    }
-
-    public bool CanExecute()
-    {
-        return true;
-    }
-
-    public void Execute()
-    {
-        HeadquartersChoosed?.Invoke(nearestHeadquarters);
-
-        State = CommandState.Completed;
-    }
-
-
-
-    private HeadquartersBuild FindNearestHeadquarters(List<HeadquartersBuild> headquartersBuilds)
-    {
-        float distance = float.MaxValue;
-        HeadquartersBuild nearestHeadquarters = null;
-
-        foreach (var headquarters in headquartersBuilds) 
-        {
-            float? resultCost = ServiceRegistry.WorkWithController<AAlgorithm>().CalculateWayCost(startCell, headquarters.CellWithThisBuild.gameObject, SideEnum.Enemys);
-
-            if (resultCost == null) continue;
-            if (resultCost < distance){ distance = (float)resultCost;nearestHeadquarters = headquarters; }
-        }
-
-        return nearestHeadquarters;
-    }
-
-
-    public void Prepare()
-    {
-        if (economyStep)
-        {
-            _headquartersBuild = (HeadquartersBuild)ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(startCell)
-                .GetParameter<CellBuildings>().builds["HeadquartersBuild"];
-
-            int currentDangerPoint = ServiceRegistry.WorkWithController<EnemysController>().HeadquartersDangerPoints[_headquartersBuild];
-
-            List<HeadquartersBuild> headquartersListCommon = new();
-
-            foreach (var headquartersDanger in ServiceRegistry.WorkWithController<EnemysController>().HeadquartersDangerPoints)
-            {
-                if (headquartersDanger.Key == _headquartersBuild) { continue; }
-
-                if (headquartersDanger.Value < currentDangerPoint) { headquartersListCommon.Add(headquartersDanger.Key); }
-            }
-
-            if (headquartersListCommon.Count() != 0) { nearestHeadquarters = FindNearestHeadquarters(headquartersListCommon); }
-            else {
-                headquartersListCommon = ServiceRegistry.WorkWithController<EnemysController>().HeadquartersDangerPoints.Keys.ToList();
-                headquartersListCommon.Remove(_headquartersBuild);
-                nearestHeadquarters = FindNearestHeadquarters(headquartersListCommon); }
-        }
-        else
-        {
-            var headquartersListCommon = ServiceRegistry.WorkWithController<EnemysController>().HeadquartersDangerPoints.Keys.ToList();
-            headquartersListCommon.Remove(_headquartersBuild);
-            nearestHeadquarters = FindNearestHeadquarters(headquartersListCommon);
-        }
-
-        State = CommandState.Prepared;
-    }
-}
 
 
 public interface INode

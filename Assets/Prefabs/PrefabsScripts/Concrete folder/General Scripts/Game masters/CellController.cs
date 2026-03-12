@@ -337,8 +337,7 @@ public class CellArea:ISide
     public int GetCountOfNeighbores() { return cellNeighbores.Count; }
     public bool IsCellNeighbor(GameObject cell)
     {
-        if (cellNeighbores.Contains(cell)) return true;
-        return false;
+        return cellNeighbores.Contains(cell);
     }
     public List<GameObject> GetNeighbores() { return cellNeighbores; }
     public void SetNeighbores(List<GameObject> cells) { cellNeighbores = cells; }
@@ -535,7 +534,7 @@ public class CellBuildings
         private int _bonusHeadquarters = 0;
         public int BonusHeadquarters
         {
-            private get
+            get
             {
                 return _bonusHeadquarters;
             }
