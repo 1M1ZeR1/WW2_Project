@@ -9,6 +9,7 @@ public class HeadquartersAreaCasing
 {
     private float dangerDistance;
     protected int _localDangerParameter = 100;
+    protected int _localScattering = 20;
 
     private Dictionary<GameObject, int> localCellDangerPoints = new();
     private bool headquartersInDanger = false;
@@ -16,12 +17,16 @@ public class HeadquartersAreaCasing
     private HeadquartersBuild headquartersBuild;
     private GameObject cellWithThisHeadquarters;
 
+    private HeadquartersSquadsManager squadsManager;
+
     public HeadquartersAreaCasing(HeadquartersBuild headquartersBuild, float dangeDistanceParameter)
     {
         this.headquartersBuild = headquartersBuild;
         dangerDistance = dangeDistanceParameter;
 
         headquartersBuild.CellsInArea.ForEach(cell => { RecalculateLocalDanger();});
+
+        squadsManager = new HeadquartersSquadsManager(headquartersBuild.CellsInArea);
     }
 
     public void RecalculateAllDangers(GameObject cell)
@@ -37,11 +42,7 @@ public class HeadquartersAreaCasing
         {
             foreach(var cellInArea in headquartersBuild.CellsInArea)
             {
-                CellParametersHandler cellParametersHandler = ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cellInArea);
-
-                var currentMaxCount = cellParametersHandler.GetParameter<CellSquadsOnArea>().GetCountCurrentMax();
-
-                localCellDangerPoints[cellInArea] = (int)(_localDangerParameter * currentMaxCount.Item1 / (float)currentMaxCount.Item2);
+                localCellDangerPoints[cellInArea] = CalculateLocalDanger(cellInArea);
             }
         }
         else
@@ -56,11 +57,7 @@ public class HeadquartersAreaCasing
 
                     if (currentDistance <= dangerDistance)
                     {
-                        CellParametersHandler cellParametersHandler = ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cellInArea);
-
-                        var currentMaxCount = cellParametersHandler.GetParameter<CellSquadsOnArea>().GetCountCurrentMax();
-
-                        localCellDangerPoints[cellInArea] = (int)(_localDangerParameter * (currentMaxCount.Item1 / (float)currentMaxCount.Item2) * (currentDistance / dangerDistance));
+                        localCellDangerPoints[cellInArea] = CalculateLocalDanger(cellInArea);
                     }
                 }
             }
@@ -84,24 +81,28 @@ public class HeadquartersAreaCasing
 
                             if (cellInAreaParametersHandler.GetParameter<CellArea>().IsCellNeighbor(cell)) { localCellDangerPoints[cellInArea] = 0; continue; }
 
-                            var currentMaxCount = cellParametersHandler.GetParameter<CellSquadsOnArea>().GetCountCurrentMax();
-
-                            localCellDangerPoints[cellInArea] = (int)(_localDangerParameter * currentMaxCount.Item1 / (float)currentMaxCount.Item2);
+                            localCellDangerPoints[cellInArea] = CalculateLocalDanger(cellInArea,cellInAreaParametersHandler);
                         }
                         break;
                     case SideEnum.Enemys:
                         foreach (var cellInArea in headquartersBuild.CellsInArea)
                         {
-                            CellParametersHandler cellInAreaParametersHandler = ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cellInArea);
-
-                            var currentMaxCount = cellParametersHandler.GetParameter<CellSquadsOnArea>().GetCountCurrentMax();
-
-                            localCellDangerPoints[cellInArea] = (int)(_localDangerParameter * currentMaxCount.Item1 / (float)currentMaxCount.Item2);
+                            localCellDangerPoints[cellInArea] = CalculateLocalDanger(cellInArea);
                         }
                         break;
                 }
             }
         }
+    }
+
+    private int CalculateLocalDanger(GameObject cell, CellParametersHandler cellParametersHandler = null)
+    {
+
+        if (cellParametersHandler == null) { cellParametersHandler = ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell); }
+
+        var currentMaxCount = cellParametersHandler.GetParameter<CellSquadsOnArea>().GetCountCurrentMax();
+
+        return (int)(_localDangerParameter * currentMaxCount.Item1 / (float)currentMaxCount.Item2);
     }
 
     private void RecalculateGeneralDanger()
@@ -117,5 +118,97 @@ public class HeadquartersAreaCasing
 
         ServiceRegistry.WorkWithController<EnemysController>().HeadquartersDangerPoints[headquartersBuild]
             = (int)(generalSafety/(float)localCellDangerPoints.Values.Count);
+    }
+
+    //Возможно перенос на Coroutine
+    private void DangerSituation(List<GameObject> forCells, bool cellWithHeadquarters = false)
+    {
+        //Нужно будет сделать более умное решение для просчёта локальной угрозы. Так как заранее бот не будет подвигать войска.
+
+        int dangerLimit = 90;
+        bool reinforced = false;
+
+        Dictionary<GameObject, int> needSquads = new();
+
+        forCells.ForEach(cell =>
+        {
+            (int,int) countSquadsOnCell = ServiceRegistry.WorkWithController<CellController>()
+                        .WorkWithCell<CellParametersHandler>(cell).GetParameter<CellSquadsOnArea>().GetCountCurrentMax();
+
+            needSquads[cell] = countSquadsOnCell.Item2 - countSquadsOnCell.Item1;
+        });
+
+        if (cellWithHeadquarters)
+        {
+            CellParametersHandler cellWithHeadquartersParameters = ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cellWithThisHeadquarters);
+
+            List<GameObject> cellsDonors = cellWithHeadquartersParameters.GetParameter<CellArea>().
+                GetNeighbores().Where(cell => localCellDangerPoints.ContainsKey(cell)).ToList();
+
+            while (needSquads[cellWithThisHeadquarters] != 0)
+            {
+                int randomIndex = UnityEngine.Random.Range(0, cellsDonors.Count);
+
+                CellParametersHandler cellParametersHandler = ServiceRegistry.WorkWithController<CellController>()
+                        .WorkWithCell<CellParametersHandler>(cellsDonors[randomIndex]);
+
+                CellSquadsOnArea cellSquadsOnArea = cellParametersHandler.GetParameter<CellSquadsOnArea>();
+
+                if (cellSquadsOnArea.GetCountCurrentMax().Item1 <= 1)
+                {
+                    cellsDonors.RemoveAt(randomIndex);
+
+                    if (cellsDonors.Count == 0) break;
+
+                    continue;
+                }
+
+                //Логика перемещения отряда
+
+                needSquads[cellWithThisHeadquarters] -= 1;
+            }
+        }
+
+        while (dangerLimit > 10)
+        {
+            List<GameObject> cellsWithLowestDanger = localCellDangerPoints.Keys.Where(cell => localCellDangerPoints[cell] <=  dangerLimit 
+            && !forCells.Contains(cell)).ToList();
+
+            if(cellsWithLowestDanger.Count > 0)
+            {
+                while(forCells.Count > 0)
+                {
+                    int randomIndex = UnityEngine.Random.Range(0, cellsWithLowestDanger.Count);
+
+                    CellParametersHandler cellParametersHandler = ServiceRegistry.WorkWithController<CellController>()
+                        .WorkWithCell<CellParametersHandler>(cellsWithLowestDanger[randomIndex]);
+
+                    CellSquadsOnArea cellSquadsOnArea = cellParametersHandler.GetParameter<CellSquadsOnArea>();
+
+                    if (cellSquadsOnArea.GetCountCurrentMax().Item1 <= 1)
+                    {
+                        cellsWithLowestDanger.RemoveAt(randomIndex);
+
+                        continue;
+                    }
+
+                    int randomIndex_ForCells = UnityEngine.Random.Range(0, forCells.Count);
+
+                    //Логика перемещения отряда
+
+                    needSquads[forCells[randomIndex_ForCells]] -= 1;
+
+                    if(needSquads[forCells[randomIndex_ForCells]] == 0) { needSquads.Remove(forCells[randomIndex_ForCells]); 
+                        forCells.RemoveAt(randomIndex_ForCells);
+
+                        if (forCells.Count == 0) { reinforced = true; break; }
+                    } 
+                }
+            }
+
+            if (reinforced) { break; }
+
+            dangerLimit -= 20;
+        }
     }
 }

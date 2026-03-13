@@ -24,7 +24,7 @@ public class AlliesCellsAnalyzer
         {
             cellOnAlliesControl.Remove(cell);
 
-            //Возможна логика в другом месте
+            HeadquartersAwakener(cell);
         }
     }
 
