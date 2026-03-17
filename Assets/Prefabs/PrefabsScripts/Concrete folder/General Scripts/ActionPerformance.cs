@@ -27,7 +27,6 @@ public class ActionPerformance
 
         var countSquadsOnCell = ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(finishCell).GetParameter<CellSquadsOnArea>().GetCountCurrentMax();
 
-        Debug.LogError($"{finishCell},{countSquadsOnCell.Item1},{ServiceRegistry.WorkWithService<SelectedSquadsBuffer>().GetCount()}");
         if (countSquadsOnCell.Item1 +
             ServiceRegistry.WorkWithService<SelectedSquadsBuffer>().GetCount() > countSquadsOnCell.Item2)
         {
@@ -35,7 +34,6 @@ public class ActionPerformance
 
             return;
         }
-
         GameController.AddActionToQueue(() =>
         {
             ServiceRegistry.WorkWithService<SelectedSquadsBuffer>().GetCopyOfList().ForEach(squad => {

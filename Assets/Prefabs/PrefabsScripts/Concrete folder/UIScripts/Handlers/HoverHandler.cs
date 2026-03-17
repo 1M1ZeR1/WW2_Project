@@ -15,18 +15,20 @@ public class HoverHandler : MonoBehaviour
 
     public bool enableMaterials { private get; set; } = true;
 
-    private bool seeTextTips = false;
-    public bool SeeTextTips { 
-        get { return seeTextTips; } 
+    private bool seeTextTips_AreasInfo = false;
+    public bool SeeTextTips_AreasInfo { 
+        get { return seeTextTips_AreasInfo; } 
         
         set { 
-            seeTextTips = value; 
-            if (!seeTextTips)
+            seeTextTips_AreasInfo = value; 
+            if (!seeTextTips_AreasInfo)
             {
                 textTip.text = "";
             }
         }
     }
+
+    private GameObject actionStartedCell;
 
     public bool SeeHoveredCell { private get; set; } = false;
     
@@ -59,10 +61,15 @@ public class HoverHandler : MonoBehaviour
             if (hit.collider == null) return;
             if(hit.collider.CompareTag("Interactable Cell"))
             {
-                if (SeeTextTips)
+                if (SeeTextTips_AreasInfo)
                 {
-                    SetTextTip(hit.collider.gameObject);
+                    SetTextTip_CellsInfo(hit.collider.gameObject);
                 }
+                if (actionStartedCell)
+                {
+                    SetTextTip_Action(hit.collider.gameObject);
+                }
+
                 if (enableMaterials)
                 {
                     if (currentHoveredCell != null)
@@ -106,7 +113,7 @@ public class HoverHandler : MonoBehaviour
         return false;
     }
 
-    private void SetTextTip(GameObject hoveredCell)
+    private void SetTextTip_CellsInfo(GameObject hoveredCell)
     {
         if (hoveredCell == null && textTip.text != "") { textTip.text = ""; return; }
 
@@ -116,5 +123,35 @@ public class HoverHandler : MonoBehaviour
             case SideEnum.Enemys: textTip.text = "ѕод контролем противника"; break;
             case SideEnum.None: textTip.text = ""; break;
         }
+    }
+    private void SetTextTip_Action(GameObject hoveredCell)
+    {
+        if (hoveredCell == null && textTip.text != "") { textTip.text = ""; return; }
+
+        switch (ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(hoveredCell).GetParameter<CellArea>().Side)
+        {
+            case SideEnum.Enemys: 
+                {
+                    if (ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(hoveredCell).GetParameter<CellArea>().IsCellNeighbor(actionStartedCell))
+                    {
+                        textTip.text = "¬ы можете начать боевые действи€.";
+                    }
+                    else { textTip.text = " летка слишком далеко, чтобы начать боевые действи€."; }
+                    break; 
+                }
+            default:
+                {
+                    var count = ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(hoveredCell).GetParameter<CellSquadsOnArea>().GetCountCurrentMax();
+                    textTip.text = $"{count.Item1}/{count.Item2}";
+
+                    break;
+                }
+        }
+    }
+
+    public void ActionTipMode(GameObject actionStartedCell = null)
+    {
+        this.actionStartedCell = actionStartedCell;
+        if (actionStartedCell == null) { textTip.text = ""; }
     }
 }

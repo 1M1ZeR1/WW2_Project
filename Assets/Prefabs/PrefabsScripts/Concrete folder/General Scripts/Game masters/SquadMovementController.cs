@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.PlayerLoop.PreUpdate;
 
 public interface ICoroutineAction
 {
@@ -21,14 +22,39 @@ public class MovementController
         updateSquadsAction = ServiceRegistry.WorkWithController<CellUIScript>().UpdatePanelInfo;
     }
 
-    public ICommand AddMovementForSquad(GameObject startCell, GameObject finishCell, AbstractSquad squad)
+    public ICommand AddMovementForSquad(GameObject startCell, GameObject finishCell, AbstractSquad squad, bool UI_update = true)
     {
         if (squad.SquadAction != SquadActions.None) { return null; }
 
-        ServiceRegistry.WorkWithController<GameController>().UpdateSquadInformation_SwipeState(squad);
-        updateSquadsAction.Invoke(startCell);
+        if (UI_update)
+        {
+            ServiceRegistry.WorkWithController<GameController>().UpdateSquadInformation_SwipeState(squad);
+            updateSquadsAction.Invoke(startCell);
+        }
 
         SquadMovement newMovement = new SquadMovement(ServiceRegistry.WorkWithController<AAlgorithm>().CreateWay(startCell, finishCell,squad.Side), squad);
+
+        newMovement.squadEndMovement += (AbstractSquad squad, GameObject cell) =>
+        {
+            if (squadsNotification.ContainsKey(squad)) { squadsNotification[squad].Invoke(squad, cell); squadsNotification.Remove(squad); }
+        };
+
+        ServiceRegistry.WorkWithService<CommandBus>().Enqueue(newMovement);
+
+        return newMovement;
+    }
+
+    public ICommand AddMovementWithWay(List<GameObject> way, AbstractSquad squad, bool UI_update = true)
+    {
+        if (squad.SquadAction != SquadActions.None) { return null; }
+
+        if (UI_update)
+        {
+            ServiceRegistry.WorkWithController<GameController>().UpdateSquadInformation_SwipeState(squad);
+            updateSquadsAction.Invoke(way[0]);
+        }
+
+        SquadMovement newMovement = new SquadMovement(way, squad);
 
         newMovement.squadEndMovement += (AbstractSquad squad, GameObject cell) =>
         {
@@ -102,6 +128,7 @@ public class SquadMovement:ICommand
         ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(wayCells[0]).GetParameter<CellSquadsOnArea>().squadsOnCell.Remove(squad);
 
         ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(wayCells[0]).GetParameter<CellSquadsOnArea>().SwitchCountSquad(squad, wayCells[wayCells.Count-1]);
+        ServiceRegistry.WorkWithController<CellUIScript>().UpdateByMovementController(startCell);
 
         bool inMovement = false;
 
@@ -166,6 +193,7 @@ public class SquadMovement:ICommand
         ServiceRegistry.WorkWithController<BattleController>().CheckDrawnIntoBattle(squad, wayCells[0]);
 
         ServiceRegistry.WorkWithController<GameController>().UpdateSquadInformation_ChangeCell(squad, startWayCell, wayCells[0]);
+        ServiceRegistry.WorkWithController<CellUIScript>().UpdateByMovementController(wayCells[0]);
 
         ServiceRegistry.WorkWithService<EventBus>().Publish<SquadMovement, AbstractSquad, SideEnum>(this, squad, squad.Side);
         ServiceRegistry.WorkWithService<EventBus>().Publish<ICommand, SquadMovement, AbstractSquad, GameObject>(this, this, squad, wayCells[0]);

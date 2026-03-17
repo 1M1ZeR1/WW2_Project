@@ -63,7 +63,7 @@ public class ChoosingScript : MonoBehaviour
                 break;
             case ChoosingMode.Revoke: choosingWindow_Action.SetActive(true); currentWorkingWindow = choosingWindow_Action;
                 currentChoosingMode = ChoosingMode.Revoke;
-                ServiceRegistry.WorkWithController<HoverHandler>().SeeTextTips = true;
+                ServiceRegistry.WorkWithController<HoverHandler>().SeeTextTips_AreasInfo = true;
                 break;
         }
 
@@ -97,11 +97,15 @@ public class ChoosingScript : MonoBehaviour
 
         switch (currentChoosingMode)
         {
+            case ChoosingMode.Action:
+                ServiceRegistry.WorkWithController<HoverHandler>().ActionTipMode();
+                break;
+
             case ChoosingMode.Exploration:
                 explorationChoosingMode.DisableChoosingMode();
                 break;
             case ChoosingMode.Revoke:
-                ServiceRegistry.WorkWithController<HoverHandler>().SeeTextTips = false;
+                ServiceRegistry.WorkWithController<HoverHandler>().SeeTextTips_AreasInfo = false;
                 break;
         }
 
@@ -149,6 +153,11 @@ public class ChoosingScript : MonoBehaviour
 
             switch (currentChoosingMode)
             {
+                case ChoosingMode.Action:
+                    ServiceRegistry.WorkWithController<HoverHandler>().ActionTipMode();
+                    ServiceRegistry.WorkWithController<CellUIScript>().PanelSelection.ClearSelections();
+                    ServiceRegistry.WorkWithService<SelectedSquadsBuffer>().Clear();
+                    break;
                 case ChoosingMode.Exploration:
                     if (explorationChoosingMode.inChoosingMode)
                     {

@@ -38,7 +38,7 @@ public class CommandBus : ICommandBus
                     {
                         case CommandState.Created:
                             cmd.Prepare();
-                            if (cmd.CanExecute()) cmd.Execute();
+                            //if (cmd.CanExecute()) cmd.Execute();
                             break;
 
                         case CommandState.Prepared:
@@ -60,15 +60,16 @@ public class CommandBus : ICommandBus
             }
             List<Guid> commandsToDelete = new();
 
-            foreach(var item in _commandsLiveTime)
+            foreach(var item in _commandsLiveTime.Keys.ToList())
             {
-                _commandsLiveTime[item.Key]--;
-                if (_commands[item.Key].CanExecute()) {_commands[item.Key].Execute(); commandsToDelete.Add(item.Key);}
+                _commandsLiveTime[item]--;
+                if (_commands[item].CanExecute() && _commands[item].State == CommandState.Prepared) {_commands[item].Execute(); commandsToDelete.Add(item);}
 
-                if (_commandsLiveTime[item.Key] == 0) { commandsToDelete.Add(item.Key); }
+                if (_commandsLiveTime[item] == 0) { commandsToDelete.Add(item); }
             }
 
             commandsToDelete.ForEach(item => { _commandsLiveTime.Remove(item); });
+
         });
     }
 
@@ -79,6 +80,15 @@ public class CommandBus : ICommandBus
         _queue[priority].Enqueue(cmd);
 
         _commandsConWithCell.Add(id, commandConnectedWith);
+
+        switch (priority)
+        {
+            case CommandPriority.Low: _commandsLiveTime[id] = 1; break;
+            case CommandPriority.Normal: _commandsLiveTime[id] = 5; break;
+            case CommandPriority.High: _commandsLiveTime[id] = 15; break;
+            case CommandPriority.Critical: _commandsLiveTime[id] = 30; break;
+        }
+
         return id;
     }
 

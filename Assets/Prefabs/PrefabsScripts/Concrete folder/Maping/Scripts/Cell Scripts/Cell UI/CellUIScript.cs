@@ -36,8 +36,12 @@ public class CellUIScript : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI countCurrentMaxSquads;
 
+    public PanelSelection PanelSelection { get; private set; }
+
     void Start()
     {
+        PanelSelection = new PanelSelection(PanelSelection.SelectionMode.Sizing);
+
         foreach(var cell in ServiceRegistry.WorkWithController<GameController>().GetGlobalList())
         {
             var newCellPanelObject = new CellPanel(cell, this);
@@ -83,6 +87,8 @@ public class CellUIScript : MonoBehaviour
 
         if(_currentInteractionCell == cell) { informationPanel.SetActive(false); CameraMovementScript.UnBlockMovement(); nameCell.text = "";_currentInteractionCell = null; return; }
 
+        PanelSelection.ClearSelections();
+
         SetParent(panelSquad.transform.parent, cell);
 
         PrintInformation(nameCell, $"{ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).GetParameter<CellDiscription>().GetCellName()}");
@@ -109,6 +115,16 @@ public class CellUIScript : MonoBehaviour
 
         _currentInteractionCell = cell;
     }
+    public void UpdateByMovementController(GameObject cell)
+    {
+        if(cell == _currentInteractionCell) 
+        {
+            UpdateCountCurrentMaxSquads(_currentInteractionCell);
+
+            ShowSquadPanels(_currentInteractionCell);
+        }
+    }
+
     public void UpdateByBuildingsController(GameObject cell)
     {
         if (cell != _currentInteractionCell) return;

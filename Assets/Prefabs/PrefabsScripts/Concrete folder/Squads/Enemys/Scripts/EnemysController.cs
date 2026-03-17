@@ -59,11 +59,11 @@ public class DecisionTree
 
     public void OneStep()
     {
-        EconomyPoints += economyPointsModify;
+        //EconomyPoints += economyPointsModify;
 
-        var commands = nodeFactory.CreateCommands(_actionConstructor.Construct_Economy(DangerPoints, EconomyPoints), _actionConstructor.Construct_Attack(DangerPoints, EconomyPoints));
+        //var commands = nodeFactory.CreateCommands(_actionConstructor.Construct_Economy(DangerPoints, EconomyPoints), _actionConstructor.Construct_Attack(DangerPoints, EconomyPoints));
 
-        foreach (var command in commands) { ServiceRegistry.WorkWithService<CommandBus>().Enqueue(command, CommandPriority.High); }
+        //foreach (var command in commands) { ServiceRegistry.WorkWithService<CommandBus>().Enqueue(command, CommandPriority.High); }
     }
 
     private class ActionConstructor

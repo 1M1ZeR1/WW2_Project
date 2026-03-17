@@ -31,15 +31,64 @@ public class HeadquartersSquadsManager
     }
 }
 
-public class EnemysSquadsMovement : ICommand
+public class EnemysPlatoonMovemnt : ICommand
 {
+
+
+
     public Guid Id { get; private set; }
 
     public CommandState State { get; private set; } = CommandState.Created;
 
+    public void Cancel()
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool CanExecute()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Execute()
+    {
+        throw new NotImplementedException();
+    }
+
     public void Prepare()
     {
-        
+        throw new NotImplementedException();
+    }
+}
+
+public class EnemysSquadsMovement : ICommand
+{
+    private AbstractSquad squadInMovement;
+    private Action<AbstractSquad, bool> notifyAction;
+
+    private GameObject startCell;
+    private GameObject endCell;
+
+    private List<GameObject> cellWay;
+
+    public EnemysSquadsMovement(AbstractSquad squadInMovement, (GameObject,GameObject) startEndCell,Action<AbstractSquad,bool> notifyAction = null)
+    {
+        this.squadInMovement = squadInMovement;
+        this.notifyAction = notifyAction;
+
+        startCell = startEndCell.Item1;
+        endCell = startEndCell.Item2;
+    }
+
+
+    public Guid Id { get; private set; }
+
+    public CommandState State { get; private set; } = CommandState.Created;
+
+
+    public void Prepare()
+    {
+        cellWay = ServiceRegistry.WorkWithController<AAlgorithm>().CreateWay(startCell, endCell, SideEnum.Enemys).ToList();
 
         State = CommandState.Prepared;
     }
@@ -50,12 +99,16 @@ public class EnemysSquadsMovement : ICommand
 
     public bool CanExecute()
     {
-        
-        return false;
+        return cellWay.Count != 0;
     }
 
     public void Execute()
     {
-        
+        ServiceRegistry.WorkWithController<MovementController>().AddMovementWithWay(cellWay, squadInMovement, false);
+
+        ServiceRegistry.WorkWithController<MovementController>().AddEvent(squadInMovement, new Action<AbstractSquad, GameObject>((squad, cell) =>
+        {
+            notifyAction?.Invoke(squad,cell == endCell);
+        }));
     }
 }

@@ -15,6 +15,8 @@ public class SquadPanelScript : MonoBehaviour
         ServiceRegistry.WorkWithService<SelectedSquadsBuffer>().AddToSelectedSquads_Guaranteed(squad);
 
         ServiceRegistry.WorkWithController<InteractableScript>().WantToChooseCell();
+
+        ServiceRegistry.WorkWithController<HoverHandler>().ActionTipMode(cell);
     }
 
     public void BindButton_ShowInformation(AbstractSquad squad)
@@ -29,6 +31,9 @@ public class SquadPanelScript : MonoBehaviour
 
     public void BindImageEvent_AddToSelectedList(AbstractSquad squad)
     {
-        ServiceRegistry.WorkWithService<SelectedSquadsBuffer>().AddToSelectedSquads(squad);
+        var resultOfSelection = ServiceRegistry.WorkWithService<SelectedSquadsBuffer>().AddToSelectedSquads(squad);
+
+        if (resultOfSelection) ServiceRegistry.WorkWithController<CellUIScript>().PanelSelection.SelectPanel(gameObject);
+        else { ServiceRegistry.WorkWithController<CellUIScript>().PanelSelection.RemoveSelection(gameObject); }
     }
 }
