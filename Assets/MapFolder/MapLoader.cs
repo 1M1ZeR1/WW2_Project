@@ -230,6 +230,7 @@ public class BuildLoader
     }
 }
 
+[DefaultExecutionOrder(-100)]
 public static class ServiceRegistry
 {
     private static ControllersHub ControllersHub { get; set; }

@@ -22,12 +22,20 @@ public class EnemysController
     public Dictionary<HeadquartersBuild,HeadquartersAreaCasing> HeadquartersCasing { get; private set; } = new();
 
 
+    public AlliesCellsAnalyzer AlliesCellsAnalyzer { get; private set; } = new();
+
+
 
     public GameObject mainEnemysCell { get; private set; }
     public GameObject mainAlliesCell{ get; private set; }
 
     protected int timer = 5;
 
+
+    public EnemysController()
+    {
+        foreach(var headquarter in HeadquartersCasing.Keys) { HeadquartersCasing[headquarter] = new HeadquartersAreaCasing(headquarter, 1000); }
+    }
 
     public void Start()=> ServiceRegistry.WorkWithController<GameController>().oneSecondPassed += AddToTimer;
     private void AddToTimer() { timer++;if(timer == 10) { DecisionTree.OneStep(); } }

@@ -36,6 +36,13 @@ public class BuildItemPanel : MonoBehaviour
                 CheckBuildForButtonState(cell);
             }
         });
+        ServiceRegistry.WorkWithService<EventBus>().Subscribe<InteractableScript, GameObject, bool>((sender, cell, UI_resolution) =>
+        {
+            if (UI_resolution)
+            {
+                CheckBuildForButtonState(cell);
+            }
+        });
 
 
         buildButton.onClick.AddListener(() =>

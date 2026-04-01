@@ -36,12 +36,11 @@ public class BattleModuleUIScript : MonoBehaviour
         allFunctions.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"Ѕитва за {ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).GetParameter<CellDiscription>().GetCellName()}";
         allFunctions.transform.GetChild(1).gameObject.GetComponent<Button>().onClick.AddListener(() =>
         {
-
+            ServiceRegistry.WorkWithController<FocusOnCellScript>().FocusToCell(cell);
         });
         allFunctions.transform.GetChild(2).gameObject.GetComponent<Button>().onClick.AddListener(() => 
         {
-            if (_cellToAllInfoPanel[cell].activeSelf) { _cellToAllInfoPanel[cell].SetActive(false); }
-            else { _cellToAllInfoPanel[cell].SetActive(true); LayoutRebuilder.ForceRebuildLayoutImmediate(contentRectTransform); }
+            _cellToAllInfoPanel[cell].SetActive(!_cellToAllInfoPanel[cell].activeSelf); LayoutRebuilder.ForceRebuildLayoutImmediate(contentRectTransform); 
         });
 
         battlePanel.SetActive(true);

@@ -125,9 +125,11 @@ public class SquadMovement:ICommand
 
         GameObject startCell = wayCells[0];
 
-        ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(wayCells[0]).GetParameter<CellSquadsOnArea>().squadsOnCell.Remove(squad);
+        bool outOfTime = false;
 
-        ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(wayCells[0]).GetParameter<CellSquadsOnArea>().SwitchCountSquad(squad, wayCells[wayCells.Count-1]);
+        ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(startWayCell).GetParameter<CellSquadsOnArea>().TryRemoveSquad(squad);
+
+        ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(wayCells[wayCells.Count - 1]).GetParameter<CellSquadsOnArea>().ChangePhantomCount(true);
         ServiceRegistry.WorkWithController<CellUIScript>().UpdateByMovementController(startCell);
 
         bool inMovement = false;
@@ -170,9 +172,9 @@ public class SquadMovement:ICommand
 
             if (squad.Side == SideEnum.Allies)//Можно упростить
             {
-                if (!ServiceRegistry.WorkWithService<CellAccessibilityValidator>().InteractWithAlliesCell(wayCells[wayCells.IndexOf(startCell) + 1])){ break; }
+                if (!ServiceRegistry.WorkWithService<CellAccessibilityValidator>().InteractWithAlliesCell(wayCells[wayCells.IndexOf(startCell) + 1])){ outOfTime = true; break; }
             }
-            else { if (ServiceRegistry.WorkWithService<CellAccessibilityValidator>().InteractWithAlliesCell(wayCells[wayCells.IndexOf(startCell) + 1])) { break; } }
+            else { if (ServiceRegistry.WorkWithService<CellAccessibilityValidator>().InteractWithAlliesCell(wayCells[wayCells.IndexOf(startCell) + 1])) { outOfTime = true; break; } }
 
             arrowCanvasWorker.CreateArrow(
                 startCell.transform.position,
@@ -191,6 +193,8 @@ public class SquadMovement:ICommand
         LogsController.AddLogElement($"Отряд {squad.Name} прибыл на клетку {wayCells[0]}", squad.Side);
 
         ServiceRegistry.WorkWithController<BattleController>().CheckDrawnIntoBattle(squad, wayCells[0]);
+
+        ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(wayCells[wayCells.Count - 1]).GetParameter<CellSquadsOnArea>().ChangePhantomCount(false);
 
         ServiceRegistry.WorkWithController<GameController>().UpdateSquadInformation_ChangeCell(squad, startWayCell, wayCells[0]);
         ServiceRegistry.WorkWithController<CellUIScript>().UpdateByMovementController(wayCells[0]);

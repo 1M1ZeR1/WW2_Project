@@ -24,8 +24,9 @@ public class AAlgorithm
     public void SetDictionary(Dictionary<GameObject, CellArea> cells) { _cellToAreaController=cells;}
     public List<GameObject> CreateWay(GameObject startCell, GameObject endCell, SideEnum side)
     {
-        if (ServiceRegistry.WorkWithController<CellController>().FastDrop_CellSide(endCell) != side)
+        if (!PermittedSide(side, ServiceRegistry.WorkWithController<CellController>().FastDrop_CellSide(endCell)))
         {
+
             return null;
         }
 
@@ -58,7 +59,7 @@ public class AAlgorithm
 
             foreach (GameObject neighbor in _cellToAreaController[currentCell].GetNeighbores())
             {
-                if (ServiceRegistry.WorkWithController<CellController>().FastDrop_CellSide(endCell) != side || closedSet.Contains(neighbor))
+                if (!PermittedSide(side, ServiceRegistry.WorkWithController<CellController>().FastDrop_CellSide(endCell)) || closedSet.Contains(neighbor))
                 {
                     continue;
                 }
@@ -79,8 +80,17 @@ public class AAlgorithm
                 heuristics[neighbor] = cellToCost[neighbor] + GetCostDistance(neighbor, endCell);
             }
         }
-
         return null;
+    }
+    private bool PermittedSide(SideEnum squadSide, SideEnum cellSide)
+    {
+        switch (squadSide) 
+        {
+            case SideEnum.Allies: return cellSide != SideEnum.Enemys;
+            case SideEnum.Enemys: return cellSide != SideEnum.Allies;
+        }
+
+        return false;
     }
     public float? CalculateWayCost(GameObject startCell, GameObject endCell, SideEnum side)
     {

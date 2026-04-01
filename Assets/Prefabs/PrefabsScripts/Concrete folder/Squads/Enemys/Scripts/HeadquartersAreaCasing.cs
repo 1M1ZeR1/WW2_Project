@@ -26,7 +26,7 @@ public class HeadquartersAreaCasing
 
         headquartersBuild.CellsInArea.ForEach(cell => { RecalculateLocalDanger();});
 
-        squadsManager = new HeadquartersSquadsManager(headquartersBuild.CellsInArea);
+        squadsManager = new HeadquartersSquadsManager(headquartersBuild.CellsInArea,this);
     }
 
     public void RecalculateAllDangers(GameObject cell)
@@ -58,16 +58,25 @@ public class HeadquartersAreaCasing
                     if (currentDistance <= dangerDistance)
                     {
                         localCellDangerPoints[cellInArea] = CalculateLocalDanger(cellInArea);
+
+                        if (localCellDangerPoints[cellInArea]-_localScattering < 20) { cellsInDangerZone.Add(cellInArea); }
                     }
                 }
+
+                if (cellsInDangerZone.Count > 0) { DangerSituation(cellsInDangerZone); }
             }
             else
             {
                 CellParametersHandler cellParametersHandler = ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell);
                 CellArea cellArea = cellParametersHandler.GetParameter<CellArea>();
 
+                List<GameObject> cellsInDangerZone = new();
 
-                headquartersInDanger = cellArea.IsCellNeighbor(cellWithThisHeadquarters) && cellArea.Side == SideEnum.Allies;
+                if(cellArea.IsCellNeighbor(cellWithThisHeadquarters) && cellArea.Side == SideEnum.Allies)
+                {
+                    headquartersInDanger = true;
+                    cellsInDangerZone.Add(cellWithThisHeadquarters);
+                }
 
 
                 switch (cellArea.Side)
@@ -79,7 +88,10 @@ public class HeadquartersAreaCasing
 
                             CellParametersHandler cellInAreaParametersHandler = ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cellInArea);
 
-                            if (cellInAreaParametersHandler.GetParameter<CellArea>().IsCellNeighbor(cell)) { localCellDangerPoints[cellInArea] = 0; continue; }
+                            if (cellInAreaParametersHandler.GetParameter<CellArea>().IsCellNeighbor(cell)) {
+                                localCellDangerPoints[cellInArea] = 0;
+                                cellsInDangerZone.Add(cellInArea);
+                                continue; }
 
                             localCellDangerPoints[cellInArea] = CalculateLocalDanger(cellInArea,cellInAreaParametersHandler);
                         }
@@ -91,8 +103,17 @@ public class HeadquartersAreaCasing
                         }
                         break;
                 }
+
+                if (cellsInDangerZone.Count > 0) { DangerSituation(cellsInDangerZone, headquartersInDanger); }
             }
         }
+    }
+
+    public void CalculateDanger_ByCellInArea(GameObject cell)
+    {
+        localCellDangerPoints[cell] = CalculateLocalDanger(cell);
+
+        if (!headquartersInDanger) { RecalculateGeneralDanger(); }
     }
 
     private int CalculateLocalDanger(GameObject cell, CellParametersHandler cellParametersHandler = null)
@@ -163,7 +184,7 @@ public class HeadquartersAreaCasing
                     continue;
                 }
 
-                //Логика перемещения отряда
+                squadsManager.ComandToMove(cellsDonors[randomIndex], cellWithThisHeadquarters, true);
 
                 needSquads[cellWithThisHeadquarters] -= 1;
             }
@@ -194,7 +215,7 @@ public class HeadquartersAreaCasing
 
                     int randomIndex_ForCells = UnityEngine.Random.Range(0, forCells.Count);
 
-                    //Логика перемещения отряда
+                    squadsManager.ComandToMove(cellsWithLowestDanger[randomIndex], forCells[randomIndex_ForCells], true);
 
                     needSquads[forCells[randomIndex_ForCells]] -= 1;
 

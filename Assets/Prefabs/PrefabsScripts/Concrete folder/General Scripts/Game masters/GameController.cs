@@ -113,10 +113,6 @@ public class GameController
             dictionaryUpdatedEvent.Invoke(squad, cellFrom,cellTo);
             ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cellFrom).GetParameter<CellSquadsOnArea>().SwitchSquad(squad,cellTo);
 
-            if (squad.Side == SideEnum.Enemys)
-            {
-                //ServiceRegistry.WorkWithController<EnemysController>().SetCell(squad, cellTo);
-            }
         }
     }
     public void UpdateSquadInformation_SwipeState(AbstractSquad squad)
@@ -188,7 +184,7 @@ public class GameController
 
     public void SingleThrasher_Squad(AbstractSquad squad)
     {
-        ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(squadsDictionary[squad]).GetParameter<CellSquadsOnArea>().squadsOnCell.Remove(squad);
+        ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(squadsDictionary[squad]).GetParameter<CellSquadsOnArea>().TryRemoveSquad(squad);
         if (squadsDictionary.ContainsKey(squad))squadsDictionary.Remove(squad);
 
         ServiceRegistry.WorkWithService<EventBus>().Publish<GameController,int,AbstractSquad>(this,2,squad);

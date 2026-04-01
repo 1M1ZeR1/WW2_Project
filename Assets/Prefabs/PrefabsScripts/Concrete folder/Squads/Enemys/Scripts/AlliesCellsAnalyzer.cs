@@ -13,6 +13,8 @@ public class AlliesCellsAnalyzer
     {
         if (!cellOnAlliesControl.Contains(cell))
         {
+            Debug.LogWarning($"Player capture cell - {cell.name}");
+
             cellOnAlliesControl.Add(cell);
 
             HeadquartersAwakener(cell);
@@ -22,6 +24,8 @@ public class AlliesCellsAnalyzer
     {
         if (!cellOnAlliesControl.Contains(cell))
         {
+            Debug.LogWarning($"Player lost control of cell - {cell.name}");
+
             cellOnAlliesControl.Remove(cell);
 
             HeadquartersAwakener(cell);
