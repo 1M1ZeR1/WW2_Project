@@ -356,6 +356,54 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "DevelopMode",
+            "id": "2369019f-4cc8-4849-b3d1-b738200b5b76",
+            "actions": [
+                {
+                    "name": "CaptureCell_ByEnemys",
+                    "type": "Button",
+                    "id": "39b64525-e663-467b-ba9e-475c87be04ce",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "CaptureCell_ByAllies",
+                    "type": "Button",
+                    "id": "9f127b7c-2eb7-4eea-b66d-96fdf3da3e89",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "02b6cf93-ac51-4797-9ab3-5ac2f6687087",
+                    "path": "<Keyboard>/comma",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CaptureCell_ByEnemys",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b00e1348-b1b8-424e-b365-18e1a469c56f",
+                    "path": "<Keyboard>/period",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CaptureCell_ByAllies",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

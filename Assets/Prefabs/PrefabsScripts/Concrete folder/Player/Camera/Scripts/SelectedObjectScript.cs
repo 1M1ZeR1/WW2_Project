@@ -63,12 +63,16 @@ public class SelectedObjectScript : MonoBehaviour
                         if (hit.collider.CompareTag("Interactable Cell"))
                         {
                             _selectedGameObject = hit.collider.gameObject;
-                            if(interactableScript != null && !_inConfigureMode) { interactableScript.InteractWithGameObject(_selectedGameObject); return; }
+                            if(interactableScript != null && !_inConfigureMode) {
+                                if (DevelopMode.DevelopModeSwitcher) ServiceRegistry.WorkWithService<EventBus>().Publish<DevelopMode, GameObject>(null,_selectedGameObject);
+
+                                interactableScript.InteractWithGameObject(_selectedGameObject); return; }
                             if (selectingCellsForConfigure != null) { selectingCellsForConfigure.Invoke(_selectedGameObject); }
                         }
                         if (hit.collider.CompareTag("Interactable"))
                         {
                             _selectedGameObject = hit.collider.gameObject;
+                            if (DevelopMode.DevelopModeSwitcher) ServiceRegistry.WorkWithService<EventBus>().Publish<DevelopMode, GameObject>(null, _selectedGameObject);
                             interactableScript.InteractWithGameObject(_selectedGameObject);
                             return;
                         }

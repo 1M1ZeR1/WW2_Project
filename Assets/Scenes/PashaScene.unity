@@ -53858,7 +53858,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.0010657192, y: 0.0030098625}
+  m_AnchoredPosition: {x: 0.0010657192, y: 0.0015825793}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &490206286
@@ -67155,6 +67155,195 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &636428568
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 636428569}
+  - component: {fileID: 636428572}
+  - component: {fileID: 636428571}
+  - component: {fileID: 636428570}
+  m_Layer: 0
+  m_Name: DevelopEntity
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &636428569
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 636428568}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1921674379}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &636428570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 636428568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: cf161d1acaa6f7a4f9ef27b9850bb1cd, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 65d37153-203e-4b50-a910-ee7642439c7b
+    m_ActionName: 'Player/Interact[/Mouse/leftButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 1e4aff3e-1917-40da-8014-7d96c7a4c95b
+    m_ActionName: 'Player/Pause/Unpause[/Keyboard/space]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0ccfe84a-68ca-429f-b632-1859fb6ecb9a
+    m_ActionName: 'Player/CloseUI[/Keyboard/escape]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c20d41af-da83-4ad3-a0b1-42fe9e5ad8ba
+    m_ActionName: 'Player/CameraDistance[/Mouse/scroll]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 32927fcb-cf3d-484c-80b0-c5efef2e5c99
+    m_ActionName: 'Player/ViewMode[/Keyboard/z]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5c89e33d-a299-4758-bc84-22a837e637d0
+    m_ActionName: 'ConfiguratorMap/Interact[/Mouse/leftButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7ff61a82-a362-4378-9b2c-68e82fb5c76e
+    m_ActionName: 'ConfiguratorMap/Configurator_Neighbores[/Keyboard/n]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 40bd5696-778b-483a-b3fb-cd600e5d5fcf
+    m_ActionName: 'ConfiguratorMap/Configurator_SaveCHanges[/Keyboard/o]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9e4d6cdd-8675-44d6-a305-bb311745db2f
+    m_ActionName: 'ConfiguratorMap/Configurator_CellType[/Keyboard/t]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7daa7395-ae26-4916-97f3-f1150531d757
+    m_ActionName: 'ConfiguratorMap/Configurator_SetBase[/Keyboard/b]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 19d865f0-11ec-4493-9dc7-064d33f68106
+    m_ActionName: 'ConfiguratorMap/Configurator_SetBuild_Foxhole[/Keyboard/1]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 223b4673-237a-42e4-866f-362fdf6f3f95
+    m_ActionName: 'ConfiguratorMap/Configurator_SetBuild_Camp[/Keyboard/2]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 60312e2f-e929-487c-aff3-7bacdc2cf9fa
+    m_ActionName: 'ConfiguratorMap/Configurator_SetBuild_Fort[/Keyboard/3]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 60d27330-b985-4873-9a32-169564b9413b
+    m_ActionName: 'ConfiguratorMap/Configurator_SetControll_Enemy[/Keyboard/e]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a0ec4b05-481a-446a-8076-4cbc42cf6077
+    m_ActionName: 'ConfiguratorMap/Configurator_SetControl_Allies[/Keyboard/a]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 783e8207-aeac-4e93-b092-7b40c051081d
+    m_ActionName: 'Player/AreaSizer_Add[/Keyboard/q]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f363971a-2e96-4452-abdf-74da0f77d046
+    m_ActionName: 'Player/AreaSizer_Remove[/Keyboard/e]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 636428571}
+        m_TargetAssemblyTypeName: CaptureCell_Develop, Assembly-CSharp
+        m_MethodName: CaptureCell_ByEnemys
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 39b64525-e663-467b-ba9e-475c87be04ce
+    m_ActionName: 'DevelopMode/CaptureCell[/Keyboard/c]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 636428571}
+        m_TargetAssemblyTypeName: CaptureCell_Develop, Assembly-CSharp
+        m_MethodName: CaptureCell_ByAllies
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 9f127b7c-2eb7-4eea-b66d-96fdf3da3e89
+    m_ActionName: 'DevelopMode/CaptureCell_ByAllies[/Keyboard/period]'
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
+--- !u!114 &636428571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 636428568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d614477bed963642a9c0dc75fb5b75e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &636428572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 636428568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55b976b911315b340b1b102938f8bc9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DevelopModeSwitcher_Inspector: 1
 --- !u!1 &636906518
 GameObject:
   m_ObjectHideFlags: 0
@@ -162898,7 +163087,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 911179389}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.99997747
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -172869,7 +173058,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.0004622566, y: -0.0032892537}
+  m_AnchoredPosition: {x: -0.0009892569, y: -0.0032892537}
   m_SizeDelta: {x: -0.012822282, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1616701515
@@ -193043,7 +193232,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.0014789829, y: -0.0013531387}
+  m_AnchoredPosition: {x: 0.0014789829, y: -0.00020871947}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1813302272
@@ -203468,6 +203657,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1514018495}
+  - {fileID: 636428569}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!114 &1921674380
