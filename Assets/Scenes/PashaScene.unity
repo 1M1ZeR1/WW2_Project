@@ -8399,7 +8399,7 @@ MonoBehaviour:
   m_text: "\u0422\u0418\u041F: "
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a32294c5a89a51e4ab2cde25e3346f1e, type: 2}
-  m_sharedMaterial: {fileID: 6741274786139581222, guid: 62054ecafcccd8043b8bf732dbc5d828, type: 2}
+  m_sharedMaterial: {fileID: -7510583077314383698, guid: a32294c5a89a51e4ab2cde25e3346f1e, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -53858,7 +53858,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.0010657192, y: 0.0015825793}
+  m_AnchoredPosition: {x: 0.0010657192, y: 2.6143858}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &490206286
@@ -67166,6 +67166,7 @@ GameObject:
   - component: {fileID: 636428569}
   - component: {fileID: 636428572}
   - component: {fileID: 636428571}
+  - component: {fileID: 636428573}
   - component: {fileID: 636428570}
   m_Layer: 0
   m_Name: DevelopEntity
@@ -67314,9 +67315,25 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 9f127b7c-2eb7-4eea-b66d-96fdf3da3e89
     m_ActionName: 'DevelopMode/CaptureCell_ByAllies[/Keyboard/period]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 636428573}
+        m_TargetAssemblyTypeName: CellInfo, Assembly-CSharp
+        m_MethodName: GetInfoBuilding
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: d9c9b510-faf2-445d-8b21-2c0027d1cf4c
+    m_ActionName: 'DevelopMode/GetInfoOfCell[/Keyboard/i,/Keyboard/b]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: Player
+  m_DefaultActionMap: DevelopMode
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!114 &636428571
@@ -67344,6 +67361,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DevelopModeSwitcher_Inspector: 1
+  currentInteractedCell: {fileID: 0}
+--- !u!114 &636428573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 636428568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 735889cd688214647a2d57375a25b6d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &636906518
 GameObject:
   m_ObjectHideFlags: 0
@@ -108428,7 +108458,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 386257653}
   m_HandleRect: {fileID: 386257652}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 0.9999894
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -163087,7 +163117,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 911179389}
   m_Direction: 2
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.9682544
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -173058,7 +173088,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.0009892569, y: -0.0032892537}
+  m_AnchoredPosition: {x: -0.0005209439, y: -0.0032892537}
   m_SizeDelta: {x: -0.012822282, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1616701515
@@ -193232,7 +193262,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.0014789829, y: -0.00020871947}
+  m_AnchoredPosition: {x: 0.0014789829, y: 0.00062269636}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1813302272
@@ -203972,6 +204002,18 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: f363971a-2e96-4452-abdf-74da0f77d046
     m_ActionName: 'Player/AreaSizer_Remove[/Keyboard/e]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 39b64525-e663-467b-ba9e-475c87be04ce
+    m_ActionName: 'DevelopMode/CaptureCell_ByEnemys[/Keyboard/comma]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9f127b7c-2eb7-4eea-b66d-96fdf3da3e89
+    m_ActionName: 'DevelopMode/CaptureCell_ByAllies[/Keyboard/period]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d9c9b510-faf2-445d-8b21-2c0027d1cf4c
+    m_ActionName: 'DevelopMode/GetInfoOfCell[/Keyboard/i,/Keyboard/b]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

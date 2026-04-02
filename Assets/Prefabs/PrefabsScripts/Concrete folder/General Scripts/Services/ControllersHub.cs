@@ -61,7 +61,6 @@ public class ControllersHub
     {
         Get<ResourcesController>().Start();
         Get<GameController>().Start();
-        Get<EnemysController>().Start();
         Get<MovementController>().Start();
     }
 

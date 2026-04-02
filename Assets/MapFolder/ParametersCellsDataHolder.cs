@@ -54,11 +54,7 @@ public class Parameters
     public float height;
     public CellTypes_enum cellType;
 
-    public bool isBase;
-
     public ControlSide controlSide;
-
-    public List<BuildData> buildings = new();
 
     public bool isFront = false;
 }

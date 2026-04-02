@@ -13,7 +13,7 @@ public class AlliesCellsAnalyzer
     {
         if (!cellOnAlliesControl.Contains(cell))
         {
-            Debug.LogWarning($"Player capture cell - {cell.name}");
+            CustomLog.YellowText($"Player capture cell - {cell.name}");
 
             cellOnAlliesControl.Add(cell);
 
@@ -24,7 +24,7 @@ public class AlliesCellsAnalyzer
     {
         if (!cellOnAlliesControl.Contains(cell))
         {
-            Debug.LogWarning($"Player lost control of cell - {cell.name}");
+            CustomLog.YellowText($"Player lost control of cell - {cell.name}");
 
             cellOnAlliesControl.Remove(cell);
 
@@ -42,6 +42,6 @@ public class AlliesCellsAnalyzer
             if (Vector3.Distance(headquarters.Key.transform.position,cell.transform.position) < minDistance) { choosedHeadquarters = headquarters.Value; }
         }
 
-        if(choosedHeadquarters != null)ServiceRegistry.WorkWithController<EnemysController>().HeadquartersCasing[choosedHeadquarters].RecalculateAllDangers(cell);
+        if (choosedHeadquarters != null)ServiceRegistry.WorkWithController<EnemysController>().HeadquartersCasing[choosedHeadquarters].RecalculateAllDangers(cell);
     }
 }

@@ -378,6 +378,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "GetInfoOfCell",
+                    "type": "Button",
+                    "id": "d9c9b510-faf2-445d-8b21-2c0027d1cf4c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -402,6 +411,39 @@
                     "action": "CaptureCell_ByAllies",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "Buildings",
+                    "id": "83e312a1-33e4-4169-8e09-9280ff29ba8e",
+                    "path": "OneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "GetInfoOfCell",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "94654d43-4c81-4f9c-b358-e13fb9aa552e",
+                    "path": "<Keyboard>/i",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "GetInfoOfCell",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "binding",
+                    "id": "0484795a-7964-4418-8718-f90c340bf39d",
+                    "path": "<Keyboard>/b",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "GetInfoOfCell",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }

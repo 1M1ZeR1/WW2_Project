@@ -123,14 +123,6 @@ public class MapConfigurator : MonoBehaviour
             if(workWith == TypeOfConfiguration.Type) {
                 if (currentDictionary[cell].cellType != CellTypes_enum.None)cell.GetComponent<MeshRenderer>().material = cellsWithType; 
             }
-            if(workWith == TypeOfConfiguration.Bases)
-            {
-                if (currentDictionary[cell].isBase) { cell.GetComponent<MeshRenderer>().material = cellIsBase; }
-            }
-            if(workWith == TypeOfConfiguration.Builds)
-            {
-                if (currentDictionary[cell].buildings != null && currentDictionary[cell].buildings.Count != 0) { cell.GetComponent<MeshRenderer>().material = cellsWithType; }
-            }
             if(workWith == TypeOfConfiguration.Enemys || workWith == TypeOfConfiguration.Allies)
             {
                 if (currentDictionary[cell].controlSide == ControlSide.enemys) { cell.GetComponent<MeshRenderer>().material = areaEnemy; }
@@ -212,8 +204,7 @@ public class MapConfigurator : MonoBehaviour
     {
         if (context.performed)
         {
-            if (currentDictionary[currentSelectedCell].isBase) { currentDictionary[currentSelectedCell].isBase = false; }
-            else { currentDictionary[currentSelectedCell].isBase = true; }
+            
         }
     }
     private void GetSelectedCell(GameObject cell) { currentSelectedCell = cell; _clicksToSelectType = 0; typeText.text = ""; 

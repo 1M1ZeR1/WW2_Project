@@ -8,4 +8,5 @@ public static class CustomLog
     public static void GreenText(string text) => Debug.Log($"<color=#228B22>{text}</color>");
     public static void YellowText(string text) => Debug.Log($"<color=yellow>{text}</color>");
 
+    public static void TextWithWordHighlight(string text, string word) => Debug.Log($"{text}:<color=yellow>{word}</color>");
 }

@@ -32,12 +32,11 @@ public class EnemysController
     protected int timer = 5;
 
 
-    public EnemysController()
+    public void Start() 
     {
-        foreach(var headquarter in HeadquartersCasing.Keys) { HeadquartersCasing[headquarter] = new HeadquartersAreaCasing(headquarter, 1000); }
+        foreach (var headquarter in HeadquartersCasing.Keys.ToList()) { HeadquartersCasing[headquarter] = new HeadquartersAreaCasing(headquarter, 1000); }
+        ServiceRegistry.WorkWithController<GameController>().oneSecondPassed += AddToTimer; 
     }
-
-    public void Start()=> ServiceRegistry.WorkWithController<GameController>().oneSecondPassed += AddToTimer;
     private void AddToTimer() { timer++;if(timer == 10) { DecisionTree.OneStep(); } }
 
 

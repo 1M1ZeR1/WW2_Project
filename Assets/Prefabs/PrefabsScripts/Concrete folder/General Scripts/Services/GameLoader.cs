@@ -16,6 +16,7 @@ public class GameLoader : MonoBehaviour
     }
     private void Start()
     {
+        CustomLog.RedText("Starting components");
         ServiceRegistry.Start();
     }
 }

@@ -5,6 +5,8 @@ using System.Linq;
 using System.Security.Cryptography;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 
 
@@ -90,8 +92,13 @@ public class BuildLoader
         ParametersCellsDataHolder parametersHolder = Resources.Load<ParametersCellsDataHolder>("CellsParameters_V1");
         if (parametersHolder == null) { Debug.Log("‘‡ÈÎ ÔÛÒÚ"); return; }
 
-        var allCells = GameObject.FindGameObjectsWithTag("Interactable Cell");
+        Dictionary<string, bool> stateOfLoading = new() 
+        {
+            {"ParametersCellsDataHolder",false},
+            {"BuildsOnCellsDataHolder",false }
+        };
 
+        var allCells = GameObject.FindGameObjectsWithTag("Interactable Cell");
 
         foreach (var cell in allCells)
         {
@@ -101,25 +108,58 @@ public class BuildLoader
 
             ConfigureCell(cell, parameter);
         }
-        foreach(var cell in allCells)
+
+        AsyncOperationHandle<ScriptableObject> loadHandle = Addressables.LoadAssetAsync<ScriptableObject>("Assets/Resources_moved/Scriptable Data Holders/BuildsOnCells_V1.asset");
+        loadHandle.Completed += (handle) =>
         {
-            var parameter = parametersHolder.GetPresetByGameObject(cell);
-            CreateBuildings(cell, parameter);
-        }
-        foreach(var cell in allCells)
-        {
-            var parameter = parametersHolder.GetPresetByGameObject(cell);
-            CreateSquads(cell, parameter);
-        }
+            BuildsOnCellsDataHolder buildsOnCellsDataHolder = null;
+
+            if (handle.Result is BuildsOnCellsDataHolder)
+            {
+                if(handle.Result == null) { CustomLog.RedText("Œ·˙ÂÍÚ Á‰‡ÌËÈ ÌÂ Ì‡È‰ÂÌ"); }
+
+                buildsOnCellsDataHolder = handle.Result as BuildsOnCellsDataHolder;
+
+                foreach (var cell in allCells)
+                {
+                    var parameter = parametersHolder.GetPresetByGameObject(cell);
+                    CreateBuildings(cell, parameter, buildsOnCellsDataHolder.GetPresetByGameObject(cell));
+                }
+                foreach (var cell in allCells)
+                {
+                    var parameter = parametersHolder.GetPresetByGameObject(cell);
+                    CreateSquads(cell, parameter);
+                }
+
+                stateOfLoading["BuildsOnCellsDataHolder"] = true;
+                CheckAllIsLoaded(stateOfLoading);
+            }
+        };
 
         AAlgorithm.SetAllCells(allCells.ToList());
 
-        PauseScript.SetGameState(GameState.Play);
-        Debug.Log("«¿√–”« ¿ œ–≈—≈“¿ «¿ ŒÕ◊≈ÕÕ¿.");
+        stateOfLoading["ParametersCellsDataHolder"] = true;
+        CheckAllIsLoaded(stateOfLoading);
 
-        ServiceRegistry.WorkWithController<HoverHandler>().enabled = true;
 
         //ServiceRegistry.WorkWithService<EventBus>().Publish<MapLoader>(null);
+    }
+    static void CheckAllIsLoaded(Dictionary<string,bool> states)
+    {
+        int countOfObjects = states.Count;
+        int countOfLoaded = 0;
+
+        states.Values.ToList().ForEach(state => { if (state) countOfLoaded++;});
+
+        if(countOfObjects == countOfLoaded)
+        {
+            PauseScript.SetGameState(GameState.Play);
+            CustomLog.GreenText("«¿√–”« ¿ œ–≈—≈“¿ «¿ ŒÕ◊≈ÕÕ¿.");
+
+            ServiceRegistry.WorkWithController<HoverHandler>().enabled = true;
+
+            ServiceRegistry.WorkWithController<EnemysController>().Start();
+        }
     }
     static void ConfigureCell(GameObject cell, Parameters parameters)
     {
@@ -130,8 +170,7 @@ public class BuildLoader
                 controlSide = ControlSide.none,
                 neighboresCells = new List<GameObject>(),
                 height = 8,
-                cellType = CellTypes_enum.Plain,
-                buildings = new List<BuildData>()
+                cellType = CellTypes_enum.Plain
             };
         }
 
@@ -184,27 +223,30 @@ public class BuildLoader
                 GetParameter<CellDiscription>().SetCellName(parameters.cellNameWhatPlayerSee);
         }
     }
-    static void CreateBuildings(GameObject cell, Parameters parameters)
+    static void CreateBuildings(GameObject cell, Parameters parameters, BuildsOnCells buildsOnCells)
     {
-        if(parameters == null) return;
-
-        if (parameters.isBase)
-        {
+        if(parameters != null){
             ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).
-               GetParameter<CellBuildings>().IsCellBase();
-        }
-
-        for (int i = 0; i < parameters.buildings.Count; i++)
-        {
-            ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).
-                GetParameter<CellBuildings>().AddToBuildsList(
-                (AbstractBuildings)ServiceRegistry.WorkWithService<ObjectFactory_Builds>().CreateObject(parameters.buildings[i].Id),
-                parameters.buildings[i].Id
-                );
-        }
-
-        ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).
                 GetParameter<CellArea>().IsFrontCell = parameters.isFront;
+        }
+
+
+        if (buildsOnCells != null)
+        {
+            if (buildsOnCells.buildingsId.Count != 0)
+            {
+                CustomLog.YellowText($"{cell.name}, {buildsOnCells.buildingsId.Count}");
+                for (int i = 0; i < buildsOnCells.buildingsId.Count; i++)
+                {
+                    CustomLog.RedText($"{buildsOnCells.buildingsId[i]}");
+                    ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).
+                        GetParameter<CellBuildings>().AddToBuildsList(
+                        (AbstractBuildings)ServiceRegistry.WorkWithService<ObjectFactory_Builds>().CreateObject(buildsOnCells.buildingsId[i]),
+                        buildsOnCells.buildingsId[i]
+                        );
+                }
+            }
+        }
     }
     static void CreateSquads(GameObject cell, Parameters parameters)
     {
@@ -220,9 +262,7 @@ public class BuildLoader
         }
         if (parameters.controlSide == ControlSide.allies)
         {
-            if (parameters.buildings.Count != 0) { return; }
-                //ServiceRegistry.WorkWithController<EnemysController>().AddToCapturedCell_Safety(cell);
-                for (int i = 0; i < Random.Range(1, ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).GetParameter<CellSquadsOnArea>().GetCountCurrentMax().Item2); i++)
+            for (int i = 0; i < Random.Range(1, ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).GetParameter<CellSquadsOnArea>().GetCountCurrentMax().Item2); i++)
             {
                 ServiceRegistry.WorkWithController<UnitsSpawner>().SpawnSquadOnCell(squadsId[Random.Range(0, squadsId.Length)], SideEnum.Enemys, cell);
             }

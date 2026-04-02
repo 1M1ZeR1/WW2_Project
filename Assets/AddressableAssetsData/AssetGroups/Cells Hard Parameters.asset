@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Cells Hard Parameters
+  m_EditorClassIdentifier: 
+  m_GroupName: Cells Hard Parameters
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 8c60011cdc85a204aa60c7f9deea4a11
+  m_SerializeEntries:
+  - m_GUID: 53ad0e2aaa45105419f49134486a64c3
+    m_Address: Assets/Resources_moved/Scriptable Data Holders/BuildsOnCells_V1.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 849e3fbc5fd8aab409b557c22e536b7c, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 5e57725fb250a6745a1450b1e4c38758, type: 2}
+    - {fileID: 11400000, guid: 8999d8ac77df51b40955b8186f83ff83, type: 2}

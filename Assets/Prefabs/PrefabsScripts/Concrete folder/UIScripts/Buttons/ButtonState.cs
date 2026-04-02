@@ -26,12 +26,15 @@ public class ButtonState : MonoBehaviour
             switch (buttonType) 
             {
                 case ButtonInteraction.ButtonType.Build:
+                    if (ServiceRegistry.WorkWithController<CellController>().FastDrop_CellSide(cell) == SideEnum.Enemys) { StateSwitcher(false); return; }
                     StateSwitcher(ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).GetParameter<CellBuildings>().CheckBuildIsBuilt("HeadquartersBuild"));
                     break;
                 case ButtonInteraction.ButtonType.Headquarters:
+                    if (ServiceRegistry.WorkWithController<CellController>().FastDrop_CellSide(cell) == SideEnum.Enemys) { StateSwitcher(false); return; }
                     StateSwitcher(ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).GetParameter<CellBuildings>().CheckBuildIsBuilt("HeadquartersBuild"));
                     break;
                 case ButtonInteraction.ButtonType.Training:
+                    if (ServiceRegistry.WorkWithController<CellController>().FastDrop_CellSide(cell) == SideEnum.Enemys) { StateSwitcher(false); return; }
                     StateSwitcher(ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).GetParameter<CellBuildings>().CheckBuildIsBuilt("CampBuild"));
                     break;
             }
