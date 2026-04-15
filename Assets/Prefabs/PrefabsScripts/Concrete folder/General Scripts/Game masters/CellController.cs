@@ -53,7 +53,7 @@ public class CellParametersHandler:ICellParser,IParametersHandlerParser
         savedParameters.Add(typeof(CellDiscription), new CellDiscription(this));
         savedParameters.Add(typeof(CellBuildings), new CellBuildings(this));
         CellAreaRegistry();
-        savedParameters.Add(typeof(CellSquadsOnArea), new CellSquadsOnArea());
+        savedParameters.Add(typeof(CellSquadsOnArea), new CellSquadsOnArea(this));
     }
     protected void CellAreaRegistry()
     {
@@ -343,17 +343,13 @@ public class CellArea:ISide
     }
     public void RequestToControlCell(SideEnum whatSide)
     {
+        if (whatSide == Side) return;
+
+        if(_parser.GetCellParametersHandler().GetParameter<CellSquadsOnArea>().GetCountCurrentMax().Item1 != 0) { return; }
+
         Side = whatSide;
 
-        switch (whatSide)
-        {
-            case SideEnum.Allies:
-                ServiceRegistry.WorkWithController<EnemysController>().AlliesCellsAnalyzer.AlliesCapturedCell(_cellParser.GetCellWorkWith());
-                break;
-            default:
-                ServiceRegistry.WorkWithController<EnemysController>().AlliesCellsAnalyzer.AlliesLoseCell(_cellParser.GetCellWorkWith());
-                break;
-        }
+        ServiceRegistry.WorkWithService<EventBus>().Publish<GameObject, SideEnum, CellController>(_cellParser.GetCellWorkWith(), whatSide, null);
     }
 
     public GameObject GetNeighbor(int index) { return cellNeighbores[index]; }
@@ -558,7 +554,13 @@ public class CellBuildings
 }
 public class CellSquadsOnArea : ICellNeeder_Type
 {
+    private ICellParser cellParser;
+
+    public CellSquadsOnArea(ICellParser cellParser) { this.cellParser = cellParser; }
+
     public List<AbstractSquad> squadsOnCell { get; private set; } = new();
+
+    public Action<GameObject, AbstractSquad, bool> SquadState; 
 
 
     private int currentCount = 0;
@@ -611,6 +613,8 @@ public class CellSquadsOnArea : ICellNeeder_Type
             squadsOnCell.Add(squad);
             currentCount = squadsOnCell.Count;
 
+            SquadState?.Invoke(cellParser.GetCellWorkWith(), squad, true);
+
             return true;
         }
         return false;
@@ -622,6 +626,8 @@ public class CellSquadsOnArea : ICellNeeder_Type
         {
             squadsOnCell.Remove(squad);
             currentCount = squadsOnCell.Count;
+
+            SquadState?.Invoke(cellParser.GetCellWorkWith(), squad, false);
 
             return true;
         }

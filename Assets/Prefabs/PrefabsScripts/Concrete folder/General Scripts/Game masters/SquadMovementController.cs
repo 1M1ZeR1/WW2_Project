@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.PlayerLoop.PreUpdate;
@@ -46,8 +47,6 @@ public class MovementController
 
     public ICommand AddMovementWithWay(List<GameObject> way, AbstractSquad squad, bool UI_update = true)
     {
-        if (squad.SquadAction != SquadActions.None) { return null; }
-
         if (UI_update)
         {
             ServiceRegistry.WorkWithController<GameController>().UpdateSquadInformation_SwipeState(squad);
@@ -61,20 +60,22 @@ public class MovementController
             if (squadsNotification.ContainsKey(squad)) { squadsNotification[squad].Invoke(squad, cell); squadsNotification.Remove(squad); }
         };
 
-        ServiceRegistry.WorkWithService<CommandBus>().Enqueue(newMovement);
+        ServiceRegistry.WorkWithService<CommandBus>().Enqueue(newMovement, CommandPriority.High);
+        CustomLog.PurpleText($"Pushing movement command {squad.Name}");
 
         return newMovement;
     }
 
     public void AddEvent(AbstractSquad squad, Action<AbstractSquad,GameObject> action)
     {
-        squadsNotification.Add(squad,action);
+        CustomLog.RedText_Warning($"Error for {squad.Name} || {squad.Attack} {squad.Protection} {squad.Speed}");
+        squadsNotification.Add(squad, action);
     }
 }
 public class SquadMovement:ICommand
 {
     public Guid Id { get; }
-    public CommandState State { get; private set; }
+    public CommandState State { get; private set; } = CommandState.Created;
 
 
 
@@ -93,15 +94,51 @@ public class SquadMovement:ICommand
         squad.SquadAction = SquadActions.Moving;
 
         State = CommandState.Prepared;
+
+        CustomLog.GreenText_Warning($"{squad.Name} prepared move");
     }
     public bool CanExecute()
     {
         if (wayCells == null || wayCells.Count == 0) { squadEndMovement?.Invoke(squad, wayCells[0]); return false; }
 
+        ServiceRegistry.WorkWithService<EventBus>().Subscribe<GameObject, SideEnum, CellController>((cell, side, sender) =>
+        {
+            CustomLog.RedText(cell.name);
+            wayCells.ForEach(cell => { CustomLog.PurpleText(cell.name); });
+
+
+            if (wayCells.Contains(cell) && side != squad.Side)
+            {
+                int index = wayCells.IndexOf(cell);
+
+                if (index != -1) 
+                {
+                    GameObject previous = index > 0 ? wayCells[index - 1] : null;
+                    GameObject next = index < wayCells.Count - 1 ? wayCells[index + 1] : null;
+
+                    if(previous != null && next != null)
+                    {
+                        List<GameObject> pieceOfWay = ServiceRegistry.WorkWithController<AAlgorithm>().CreateWay(previous,next,squad.Side);
+
+                        if (pieceOfWay == null || pieceOfWay.Count == 0) { return; }
+
+                        pieceOfWay.Remove(previous);pieceOfWay.Remove(next);
+
+
+                        wayCells.RemoveAt(index);
+                        wayCells.InsertRange(index, pieceOfWay);
+
+                    }
+                }
+            }
+        });
+
         return true;
     }
     public void Execute()
     {
+        if (State != CommandState.Prepared) return;
+
         ServiceRegistry.WorkWithService<MonobehaviourMaster>().CoroutineStarter(StartMovement());
 
         State = CommandState.Executing;
@@ -162,6 +199,8 @@ public class SquadMovement:ICommand
 
         while (wayCells.Count > 0)
         {
+            foreach (var cell in wayCells) { CustomLog.PurpleText($"{cell.name}"); }
+
             if (PauseScript.CurrentGameState != GameState.Play || inMovement)
             {
                 yield return null;
@@ -172,7 +211,11 @@ public class SquadMovement:ICommand
 
             if (squad.Side == SideEnum.Allies)//Можно упростить
             {
-                if (!ServiceRegistry.WorkWithService<CellAccessibilityValidator>().InteractWithAlliesCell(wayCells[wayCells.IndexOf(startCell) + 1])){ outOfTime = true; break; }
+                if (!ServiceRegistry.WorkWithService<CellAccessibilityValidator>().InteractWithAlliesCell(wayCells[wayCells.IndexOf(startCell) + 1])){ 
+                    outOfTime = true;
+                    break; 
+
+                }
             }
             else { if (ServiceRegistry.WorkWithService<CellAccessibilityValidator>().InteractWithAlliesCell(wayCells[wayCells.IndexOf(startCell) + 1])) { outOfTime = true; break; } }
 
@@ -187,6 +230,7 @@ public class SquadMovement:ICommand
 
             yield return new WaitUntil(() => !inMovement);
         }
+
 
         squadEndMovement?.Invoke(squad, wayCells[0]);
         squad.SquadAction = SquadActions.None;

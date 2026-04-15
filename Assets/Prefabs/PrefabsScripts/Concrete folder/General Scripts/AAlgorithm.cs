@@ -26,7 +26,6 @@ public class AAlgorithm
     {
         if (!PermittedSide(side, ServiceRegistry.WorkWithController<CellController>().FastDrop_CellSide(endCell)))
         {
-
             return null;
         }
 
@@ -59,7 +58,7 @@ public class AAlgorithm
 
             foreach (GameObject neighbor in _cellToAreaController[currentCell].GetNeighbores())
             {
-                if (!PermittedSide(side, ServiceRegistry.WorkWithController<CellController>().FastDrop_CellSide(endCell)) || closedSet.Contains(neighbor))
+                if (!PermittedSide(side, ServiceRegistry.WorkWithController<CellController>().FastDrop_CellSide(neighbor)) || closedSet.Contains(neighbor))
                 {
                     continue;
                 }

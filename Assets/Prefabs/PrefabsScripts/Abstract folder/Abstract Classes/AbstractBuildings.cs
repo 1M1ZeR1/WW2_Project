@@ -39,6 +39,8 @@ public class HeadquartersBuild : AbstractBuildings
 
     private List<GameObject> cellsInArea;
 
+    private List<GameObject> enemysCellsInArea = new(), alliesCellsInArea = new();
+
     public SideEnum Side { private get; set; }
 
     public List<GameObject> CellsInArea 
@@ -116,12 +118,24 @@ public class HeadquartersBuild : AbstractBuildings
         return true;
     }
 
+    public List<GameObject> GetCellsInArea_BySide(SideEnum side)
+    {
+        switch (side) 
+        {
+            case SideEnum.Allies: return alliesCellsInArea;
+            case SideEnum.Enemys: return enemysCellsInArea;
+            default: return null;
+        }
+    }
+
     private void SearchingCells()
     {
         var findedCells = Physics.OverlapSphere(CellWithThisBuild.position, _searchingRadius).Select(colider => colider.gameObject).Where(cell => cell.CompareTag("Interactable Cell")).ToList();
 
         if(CellsInArea.Count == 0) { CellsInArea = findedCells.ToList();
             foreach (var cell in CellsInArea) { AddBonusToCell(cell); }
+
+            CheckSideCells(CellsInArea);
             return; 
         }
 
@@ -135,11 +149,42 @@ public class HeadquartersBuild : AbstractBuildings
 
             AddBonusToCell(cell);
         }
+
+        CheckSideCells(CellsInArea);
+    }
+    private void ChechSideCell(GameObject cell, SideEnum sideCell)
+    {
+        switch (sideCell)
+        {
+            case SideEnum.Allies:
+                if(!alliesCellsInArea.Contains(cell)) alliesCellsInArea.Add(cell); 
+                if(enemysCellsInArea.Contains(cell)) enemysCellsInArea.Remove(cell);
+                break;
+            case SideEnum.Enemys:
+                if (!enemysCellsInArea.Contains(cell)) enemysCellsInArea.Add(cell);
+                if (alliesCellsInArea.Contains(cell)) alliesCellsInArea.Remove(cell);
+                break;
+        }
+    }
+    private void CheckSideCells(List<GameObject> foundedCells)
+    {
+        foreach(var cell in foundedCells)
+        {
+            if(enemysCellsInArea.Contains(cell) || alliesCellsInArea.Contains(cell)) continue;
+
+            switch (ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).GetParameter<CellArea>().Side)
+            {
+                case SideEnum.Enemys:enemysCellsInArea.Add(cell);break;
+                case SideEnum.Allies:alliesCellsInArea.Add(cell);break;
+            }
+        }
     }
     private void CellInListChangedSide(GameObject cell)
     {
-        if (ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).
-            GetParameter<CellArea>().Side == Side)
+        SideEnum cellSide = ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).
+            GetParameter<CellArea>().Side;
+
+        if (cellSide == Side)
         {
             ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).GetParameter<CellSquadsOnArea>()
                 .BonusHeadquarters = headquartersBonus;
@@ -149,6 +194,8 @@ public class HeadquartersBuild : AbstractBuildings
             ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).GetParameter<CellSquadsOnArea>()
                 .BonusHeadquarters -= headquartersBonus;
         }
+
+        ChechSideCell(cell, cellSide);
     }
 
     //Transfer code

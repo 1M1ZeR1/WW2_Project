@@ -24,14 +24,14 @@ public class HeadquartersAreaCasing
         this.headquartersBuild = headquartersBuild;
         dangerDistance = dangeDistanceParameter;
 
-        headquartersBuild.CellsInArea.ForEach(cell => { RecalculateLocalDanger();});
+        headquartersBuild.GetCellsInArea_BySide(SideEnum.Enemys).ForEach(cell => { RecalculateLocalDanger();});
 
-        squadsManager = new HeadquartersSquadsManager(headquartersBuild.CellsInArea,this);
+        squadsManager = new HeadquartersSquadsManager(headquartersBuild.GetCellsInArea_BySide(SideEnum.Enemys),this);
     }
 
     public void RecalculateAllDangers(GameObject cell)
     {
-        RecalculateLocalDanger(cell,headquartersBuild.CellsInArea.Contains(cell));
+        RecalculateLocalDanger(cell,headquartersBuild.GetCellsInArea_BySide(SideEnum.Enemys).Contains(cell));
 
         RecalculateGeneralDanger();
     }
@@ -40,7 +40,7 @@ public class HeadquartersAreaCasing
     {
         if (cell == null)
         {
-            foreach(var cellInArea in headquartersBuild.CellsInArea)
+            foreach(var cellInArea in headquartersBuild.GetCellsInArea_BySide(SideEnum.Enemys))
             {
                 localCellDangerPoints[cellInArea] = CalculateLocalDanger(cellInArea);
             }
@@ -49,17 +49,25 @@ public class HeadquartersAreaCasing
         {
             if (!recalculationByCellInArea)
             {
+                CustomLog.PurpleText($"Recalculation by {cell.name}.");
+
                 List<GameObject> cellsInDangerZone = new();
 
-                foreach (var cellInArea in headquartersBuild.CellsInArea)
+                foreach (var cellInArea in headquartersBuild.GetCellsInArea_BySide(SideEnum.Enemys))
                 {
                     float currentDistance = Vector3.Distance(cellInArea.transform.position, cell.transform.position);
 
                     if (currentDistance <= dangerDistance)
                     {
+                        CustomLog.YellowText($"{cellInArea.name} in danger distance of {cell.name} | {currentDistance}<={dangerDistance}");
+
                         localCellDangerPoints[cellInArea] = CalculateLocalDanger(cellInArea);
 
-                        if (localCellDangerPoints[cellInArea]-_localScattering < 20) { cellsInDangerZone.Add(cellInArea); }
+                        if (localCellDangerPoints[cellInArea]-_localScattering < 20) {
+                            cellsInDangerZone.Add(cellInArea);
+
+                            CustomLog.RedText($"Add {cellInArea.name} to cells in danger");
+                        }
                     }
                 }
 
@@ -67,6 +75,8 @@ public class HeadquartersAreaCasing
             }
             else
             {
+                CustomLog.PurpleText($"Recalculation by {cell.name} what in area.");
+
                 CellParametersHandler cellParametersHandler = ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell);
                 CellArea cellArea = cellParametersHandler.GetParameter<CellArea>();
 
@@ -82,7 +92,7 @@ public class HeadquartersAreaCasing
                 switch (cellArea.Side)
                 {
                     case SideEnum.Allies:
-                        foreach (var cellInArea in headquartersBuild.CellsInArea)
+                        foreach (var cellInArea in headquartersBuild.GetCellsInArea_BySide(SideEnum.Enemys))
                         {
                             if (cellInArea == cell) { localCellDangerPoints[cell] = -1; continue; }
 
@@ -97,7 +107,7 @@ public class HeadquartersAreaCasing
                         }
                         break;
                     case SideEnum.Enemys:
-                        foreach (var cellInArea in headquartersBuild.CellsInArea)
+                        foreach (var cellInArea in headquartersBuild.GetCellsInArea_BySide(SideEnum.Enemys))
                         {
                             localCellDangerPoints[cellInArea] = CalculateLocalDanger(cellInArea);
                         }
@@ -118,7 +128,6 @@ public class HeadquartersAreaCasing
 
     private int CalculateLocalDanger(GameObject cell, CellParametersHandler cellParametersHandler = null)
     {
-
         if (cellParametersHandler == null) { cellParametersHandler = ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell); }
 
         var currentMaxCount = cellParametersHandler.GetParameter<CellSquadsOnArea>().GetCountCurrentMax();
@@ -128,17 +137,29 @@ public class HeadquartersAreaCasing
 
     private void RecalculateGeneralDanger()
     {
-        if (headquartersInDanger) { ServiceRegistry.WorkWithController<EnemysController>().HeadquartersDangerPoints[headquartersBuild] = -1; return; }
+        if (headquartersInDanger) {
+            CustomLog.RedText($"Enemys headquarters in danger:{headquartersBuild.CellWithThisBuild}");
+            ServiceRegistry.WorkWithController<EnemysController>().HeadquartersDangerPoints[headquartersBuild] = -1; return; }
 
         int generalSafety = 0;
 
-        foreach(var localPoints in localCellDangerPoints)
+        foreach (var localPoints in localCellDangerPoints)
         {
+            if(localPoints.Value == 0 ||  localPoints.Value == -1)
+            {
+                CustomLog.TextWithWordHighlight($"Headqurters on cell {localPoints.Key.name} get 0 danger by cell", $"{localPoints.Key.name}");
+                ServiceRegistry.WorkWithController<EnemysController>().HeadquartersDangerPoints[headquartersBuild] = 0;
+                return;
+            }
+
+            CustomLog.TextWithWordHighlight($"Local danger for {localPoints.Key.name} in area of {headquartersBuild.CellWithThisBuild.name}",$"{localPoints.Value}");
             generalSafety += localPoints.Value;
         }
 
         ServiceRegistry.WorkWithController<EnemysController>().HeadquartersDangerPoints[headquartersBuild]
             = (int)(generalSafety/(float)localCellDangerPoints.Values.Count);
+
+        CustomLog.YellowText($"Headquarters danger:{ServiceRegistry.WorkWithController<EnemysController>().HeadquartersDangerPoints[headquartersBuild]}");
     }
 
     //Возможно перенос на Coroutine
@@ -153,6 +174,8 @@ public class HeadquartersAreaCasing
 
         forCells.ForEach(cell =>
         {
+            CustomLog.GreenText($"Trying help {cell.name}");
+
             (int,int) countSquadsOnCell = ServiceRegistry.WorkWithController<CellController>()
                         .WorkWithCell<CellParametersHandler>(cell).GetParameter<CellSquadsOnArea>().GetCountCurrentMax();
 
@@ -192,10 +215,12 @@ public class HeadquartersAreaCasing
 
         while (dangerLimit > 10)
         {
-            List<GameObject> cellsWithLowestDanger = localCellDangerPoints.Keys.Where(cell => localCellDangerPoints[cell] <=  dangerLimit 
+            List<GameObject> cellsWithLowestDanger = localCellDangerPoints.Keys.Where(cell => localCellDangerPoints[cell] >=  dangerLimit 
             && !forCells.Contains(cell)).ToList();
 
-            if(cellsWithLowestDanger.Count > 0)
+            CustomLog.GreenText($"Found {cellsWithLowestDanger.Count} donors with danger lowest then {dangerLimit}");
+
+            if (cellsWithLowestDanger.Count > 0)
             {
                 while(forCells.Count > 0)
                 {
@@ -215,11 +240,13 @@ public class HeadquartersAreaCasing
 
                     int randomIndex_ForCells = UnityEngine.Random.Range(0, forCells.Count);
 
+                    CustomLog.GreenText($"Send squad from {cellsWithLowestDanger[randomIndex]} to {forCells[randomIndex_ForCells]}");
                     squadsManager.ComandToMove(cellsWithLowestDanger[randomIndex], forCells[randomIndex_ForCells], true);
 
                     needSquads[forCells[randomIndex_ForCells]] -= 1;
+                    CustomLog.GreenText($"Need squads - {needSquads[forCells[randomIndex_ForCells]]} for cell {forCells[randomIndex_ForCells]}");
 
-                    if(needSquads[forCells[randomIndex_ForCells]] == 0) { needSquads.Remove(forCells[randomIndex_ForCells]); 
+                    if (needSquads[forCells[randomIndex_ForCells]] == 0) { needSquads.Remove(forCells[randomIndex_ForCells]); 
                         forCells.RemoveAt(randomIndex_ForCells);
 
                         if (forCells.Count == 0) { reinforced = true; break; }
@@ -231,5 +258,32 @@ public class HeadquartersAreaCasing
 
             dangerLimit -= 20;
         }
+    }
+
+    public List<GameObject> GetCellsWhatNeedHelp(int reliabilityLimit = 0)
+    {
+        List<GameObject> dangerCells = localCellDangerPoints.Where(x => x.Value == 0).Select(x => x.Key).ToList();
+
+        if (dangerCells.Count > 0) { return dangerCells; }
+
+        if (reliabilityLimit != 0)
+        {
+            dangerCells = localCellDangerPoints.Where(x => x.Value < reliabilityLimit).Select(x => x.Key).ToList();
+        }
+        else { dangerCells = localCellDangerPoints.Where(x => x.Value < 25).Select(x => x.Key).ToList(); }
+
+        return dangerCells;
+    }
+
+    public GameObject GetCellWithHighReliability(int reliabilityLimit = 0)
+    {
+        if(reliabilityLimit != 0)
+        {
+            var foundedCells = localCellDangerPoints.Where(x => x.Value >= reliabilityLimit).ToList();
+
+            return foundedCells.Count > 0 ? foundedCells[UnityEngine.Random.Range(0, foundedCells.Count)].Key : null;
+        }
+
+        return localCellDangerPoints.OrderByDescending(x => x.Value).First().Key;
     }
 }

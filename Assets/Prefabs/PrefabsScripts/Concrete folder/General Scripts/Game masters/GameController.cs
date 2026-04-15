@@ -13,9 +13,6 @@ public class GameController
 
     protected float _timerTime;
 
-    public delegate void CellCaptured(GameObject cell);
-    public event CellCaptured SideOnCellWasChanged;
-
     private Dictionary<AbstractSquad,GameObject> squadsDictionary = new Dictionary<AbstractSquad,GameObject>();
 
     private Dictionary<GameObject,List<AbstractSquad>> campsAndThereTrainingSquads = new Dictionary<GameObject, List<AbstractSquad>>();
@@ -126,8 +123,6 @@ public class GameController
     public void OnlyCaptureCell(SideEnum side, GameObject cell)
     {
         ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).GetParameter<CellArea>().RequestToControlCell(side);
-
-        if (SideOnCellWasChanged != null) { SideOnCellWasChanged.Invoke(cell); }
     }
     public void ActionIsOver(AbstractSquad? squad,GameObject? cell)
     {

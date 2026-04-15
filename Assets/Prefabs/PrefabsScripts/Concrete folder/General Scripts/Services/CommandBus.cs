@@ -42,7 +42,7 @@ public class CommandBus : ICommandBus
                             break;
 
                         case CommandState.Prepared:
-                            if (cmd.CanExecute()) cmd.Execute();
+                            if (cmd.CanExecute()) { cmd.Execute(); _commandsLiveTime.Remove(cmd.Id); }
                             else cmd.Cancel();
                             break;
 
@@ -68,7 +68,8 @@ public class CommandBus : ICommandBus
                 if (_commandsLiveTime[item] == 0) { commandsToDelete.Add(item); }
             }
 
-            commandsToDelete.ForEach(item => { _commandsLiveTime.Remove(item); });
+            foreach(var item in commandsToDelete) { DeleteCommand(item);}
+            commandsToDelete.Clear();
 
         });
     }

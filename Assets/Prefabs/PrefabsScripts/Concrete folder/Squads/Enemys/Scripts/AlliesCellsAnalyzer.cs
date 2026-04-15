@@ -8,6 +8,24 @@ using UnityEngine;
 public class AlliesCellsAnalyzer
 {
     private List<GameObject> cellOnAlliesControl = new();
+    
+    public AlliesCellsAnalyzer()
+    {
+        ServiceRegistry.WorkWithService<EventBus>().Subscribe<GameObject, SideEnum, CellController>((cell, side, key) =>
+        {
+            return;
+            switch (side)
+            {
+                case SideEnum.Allies:
+                    AlliesCapturedCell(cell);
+                    break;
+                default:
+                    AlliesLoseCell(cell);
+                    break;
+            }
+        });
+
+    }
 
     public void AlliesCapturedCell(GameObject cell)
     {
@@ -39,7 +57,8 @@ public class AlliesCellsAnalyzer
 
         foreach (var headquarters in ServiceRegistry.WorkWithController<EnemysController>().CellWithHeadquarters_Bot)
         {
-            if (Vector3.Distance(headquarters.Key.transform.position,cell.transform.position) < minDistance) { choosedHeadquarters = headquarters.Value; }
+            var distance = Vector3.Distance(headquarters.Key.transform.position, cell.transform.position);
+            if (distance < minDistance) { choosedHeadquarters = headquarters.Value; minDistance = distance; }
         }
 
         if (choosedHeadquarters != null)ServiceRegistry.WorkWithController<EnemysController>().HeadquartersCasing[choosedHeadquarters].RecalculateAllDangers(cell);

@@ -55,7 +55,6 @@ public class QuestController : MonoBehaviour
             if (_globalQuests[0].GetType() == typeof(CaptureCellQuest)) 
             {
                 ServiceRegistry.WorkWithController<BattleController>().SideOnCellWasChanged += ChechCapturedCellInQuest;
-                ServiceRegistry.WorkWithController<GameController>().SideOnCellWasChanged += ChechCapturedCellInQuest;
             }
             InvokeQuest(_globalQuests[0]);
         }

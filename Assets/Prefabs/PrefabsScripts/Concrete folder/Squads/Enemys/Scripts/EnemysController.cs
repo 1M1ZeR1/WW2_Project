@@ -8,7 +8,8 @@ using UnityEngine;
 public class EnemysController
 {
     public DecisionTree DecisionTree { get; private set; } = new();
-    public Dictionary<HeadquartersBuild, int> HeadquartersDangerPoints { get; set; } = new();
+
+    public Dictionary<HeadquartersBuild, int> HeadquartersDangerPoints { get; private set; } = new();
 
     public Dictionary<AbstractSquad, GameObject> SquadOnCell { get; private set; } = new();
 
@@ -34,7 +35,7 @@ public class EnemysController
 
     public void Start() 
     {
-        foreach (var headquarter in HeadquartersCasing.Keys.ToList()) { HeadquartersCasing[headquarter] = new HeadquartersAreaCasing(headquarter, 1000); }
+        foreach (var headquarter in HeadquartersCasing.Keys.ToList()) { HeadquartersCasing[headquarter] = new HeadquartersAreaCasing(headquarter, 350); }
         ServiceRegistry.WorkWithController<GameController>().oneSecondPassed += AddToTimer; 
     }
     private void AddToTimer() { timer++;if(timer == 10) { DecisionTree.OneStep(); } }
@@ -66,11 +67,11 @@ public class DecisionTree
 
     public void OneStep()
     {
-        //EconomyPoints += economyPointsModify;
+        EconomyPoints += economyPointsModify;
 
-        //var commands = nodeFactory.CreateCommands(_actionConstructor.Construct_Economy(DangerPoints, EconomyPoints), _actionConstructor.Construct_Attack(DangerPoints, EconomyPoints));
+        var commands = nodeFactory.CreateCommands(_actionConstructor.Construct_Economy(DangerPoints, EconomyPoints), _actionConstructor.Construct_Attack(DangerPoints, EconomyPoints));
 
-        //foreach (var command in commands) { ServiceRegistry.WorkWithService<CommandBus>().Enqueue(command, CommandPriority.High); }
+        foreach (var command in commands) { ServiceRegistry.WorkWithService<CommandBus>().Enqueue(command, CommandPriority.High); }
     }
 
     private class ActionConstructor
@@ -222,7 +223,7 @@ public class EconomyNode : INode,IClone,ICommand
                 IEnumerator coroutine = ServiceRegistry.WorkWithController<BuilderController>().StartBuildProccess_Bot(cell, build_id, 1);
                 if (coroutine == null)
                 {
-                    //Debug.LogError("Проблемы с постройкой");
+                    CustomLog.RedText($"Bot try build {build_id}");
 
                     HeadquartersChooser headquartersChooser = new(cell, true);
                     headquartersChooser.HeadquartersChoosed += (headquarters) =>
