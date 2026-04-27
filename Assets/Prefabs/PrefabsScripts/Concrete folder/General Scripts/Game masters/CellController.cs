@@ -410,6 +410,7 @@ public class CellArea:ISide
             {
                 otherSideCellFinded = true;
                 ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).GetParameter<CellArea>().IsFrontCell = true;
+                continue;
             }
             else { ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).GetParameter<CellArea>().IsFrontCell = false; }
 
@@ -429,12 +430,9 @@ public class CellArea:ISide
             if (ServiceRegistry.WorkWithController<CellController>().FastDrop_CellSide(cell) != Side && ServiceRegistry.WorkWithController<CellController>().FastDrop_CellSide(cell) != SideEnum.None)
             {
                 otherSideCellFinded = true;
-                ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).GetParameter<CellArea>().IsFrontCell = true;
             }
-            else { ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).GetParameter<CellArea>().IsFrontCell = false; }
         }
-
-        if (otherSideCellFinded) IsFrontCell = true;
+        IsFrontCell = otherSideCellFinded;
     }
 
     private bool PermittedSide(SideEnum cellSide, SideEnum cellNeighboreSide)

@@ -137,8 +137,6 @@ public sealed class Battle
     }
     private void BattleisOver(bool success) 
     {
-        CustomLog.RedText($"{ success}");
-
         if (success) 
         {
             squadsManager.DeleteAllDefenceSquads();
