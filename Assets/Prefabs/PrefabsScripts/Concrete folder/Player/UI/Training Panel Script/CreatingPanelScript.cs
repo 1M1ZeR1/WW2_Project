@@ -57,7 +57,12 @@ public class CreatingPanelScript : MonoBehaviour
     {
         _resourcesController = ServiceRegistry.WorkWithController<ResourcesController>();
 
+        ServiceRegistry.WorkWithService<EventBus>().Subscribe<TrainingPanelScript, CreatingPanelScript, bool>((sender, key, state) =>
+        {
+            gameObject.SetActive(state);
+        });
 
+        gameObject.SetActive(false);
     }
 
     public void SetCurrentWorkingCell(GameObject currentWorkingCell) { _currentWorkingCell = currentWorkingCell; }
@@ -174,6 +179,8 @@ public class CreatingPanelScript : MonoBehaviour
                 {ResourcesEnum.Weapon, TypesConverter.WeaponCost[currentWeapon] * currentPeopleCount },
                 {ResourcesEnum.Transport, TypesConverter.TransportCost[currentTransport] * currentPeopleCount }
             });
+
+        newSquad.Side = ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(_currentWorkingCell).GetParameter<CellArea>().Side;
 
         presetsScript.AddToPresets_Latest(newSquad,squadPresetObject);
 

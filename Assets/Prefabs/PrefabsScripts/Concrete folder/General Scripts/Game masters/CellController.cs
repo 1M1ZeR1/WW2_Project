@@ -351,6 +351,14 @@ public class CellArea:ISide
 
         ServiceRegistry.WorkWithService<EventBus>().Publish<GameObject, SideEnum, CellController>(_cellParser.GetCellWorkWith(), whatSide, null);
     }
+    public void RequestToControlCell_Hard(SideEnum whatSide)
+    {
+        if (whatSide == Side) return;
+
+        Side = whatSide;
+
+        ServiceRegistry.WorkWithService<EventBus>().Publish<GameObject, SideEnum, CellController>(_cellParser.GetCellWorkWith(), whatSide, null);
+    }
 
     public GameObject GetNeighbor(int index) { return cellNeighbores[index]; }
     public int GetCountOfNeighbores() { return cellNeighbores.Count; }

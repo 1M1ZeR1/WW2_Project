@@ -77,8 +77,6 @@ public class GameController
     {
         squadsDictionary.Add(squad,cell);
         dictionaryIncreased.Invoke(squad,cell);
-
-        if(squad.Side == SideEnum.Enemys) { /*ServiceRegistry.WorkWithController<EnemysController>().AddBot(squad,cell);*/ }
     }
     public void AddSquadInDictionary_Safety(AbstractSquad squad, GameObject cell)
     {
@@ -209,6 +207,9 @@ public class GameController
         GameObject cell = campsAndThereTrainingSquads.FirstOrDefault(k => k.Value.Contains(squad)).Key;
 
         campsAndThereTrainingSquads[cell].Remove(squad);
+
+        ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).GetParameter<CellSquadsOnArea>().squadsOnCell.Add(squad);
+        ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).GetParameter<CellSquadsOnArea>().AddCountOfSquad();
 
         AddSquadInDictionary(squad, cell);
     }

@@ -13,7 +13,6 @@ public class AlliesCellsAnalyzer
     {
         ServiceRegistry.WorkWithService<EventBus>().Subscribe<GameObject, SideEnum, CellController>((cell, side, key) =>
         {
-            return;
             switch (side)
             {
                 case SideEnum.Allies:

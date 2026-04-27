@@ -40,6 +40,7 @@ public class AlliesSpawner
 
         ServiceRegistry.WorkWithController<GameController>().TrainingIsOver(trainingSquad);
         GameObject.Destroy(progressBar.transform.parent.transform.parent.gameObject);
+
     }
     public void CreateCoroutine(int timeToTrain, AbstractSquad trainingSquad, Image progressBar)
     {

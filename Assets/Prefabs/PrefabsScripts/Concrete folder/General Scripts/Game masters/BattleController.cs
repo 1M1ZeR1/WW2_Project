@@ -137,15 +137,18 @@ public sealed class Battle
     }
     private void BattleisOver(bool success) 
     {
+        CustomLog.RedText($"{ success}");
+
         if (success) 
         {
-            ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(currentBattleCell).GetParameter<CellArea>().RequestToControlCell(squadsManager.GetListOfSquadsAttack_ByCell(listOfAttackCells[0])[0].Side);
             squadsManager.DeleteAllDefenceSquads();
 
             foreach (var attackCell in listOfAttackCells)
             {
                 squadsManager.ResultBattleForAttackers(attackCell,currentBattleCell);
             }
+
+            ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(currentBattleCell).GetParameter<CellArea>().RequestToControlCell_Hard (squadsManager.GetListOfSquadsAttack_ByCell(listOfAttackCells[0])[0].Side);
         }
         else
         {
