@@ -234,7 +234,7 @@ public class SquadMovement:ICommand
 
         squadEndMovement?.Invoke(squad, wayCells[0]);
         squad.SquadAction = SquadActions.None;
-        LogsController.AddLogElement($"Отряд {squad.Name} прибыл на клетку {wayCells[0]}", squad.Side);
+        //LogsController.AddLogElement($"Отряд {squad.Name} прибыл на клетку {wayCells[0]}", squad.Side);
 
         ServiceRegistry.WorkWithController<BattleController>().CheckDrawnIntoBattle(squad, wayCells[0]);
 

@@ -40,8 +40,6 @@ public class SkillController : MonoBehaviour
         ServiceRegistry.WorkWithService<EventBus>().Subscribe<ExplorationChoosingMode, SkillController, List<GameObject>>((sender, key, cells) =>
         {
             selectedObjects = cells;
-            //Debug.LogError(selectedObjects.Count);
-            //Debug.LogError($"{selectedObjects.Count},{inChoosingMode},{confirmation}");
         });
     }
     public void FixSkill(AbstractSquad squad)

@@ -97,6 +97,9 @@ public class ControllersHub
         Register_Service(new CellAccessibilityValidator());
         Register_Service(new ActionPerformance());
 
+        Register_Service(new CellsInCameraAreaScript());
+        GetService<CellsInCameraAreaScript>().Start();
+
         _servicesLoaded = true;
 
         GameObject.FindAnyObjectByType<TimeControllerScript>().StartTime();

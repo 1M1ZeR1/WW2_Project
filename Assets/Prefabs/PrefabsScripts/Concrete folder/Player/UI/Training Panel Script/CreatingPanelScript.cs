@@ -104,7 +104,8 @@ public class CreatingPanelScript : MonoBehaviour
 
         if (currentSquadData.needAcademy)
         {
-            if (!ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(_currentWorkingCell).GetParameter<CellBuildings>().CheckBuildIsBuilt("AcademyBuild"))
+            if (!ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(_currentWorkingCell).GetParameter<CellBuildings>()
+                .CheckBuildIsBuilt("AcademyBuild"))
             {
                 blockPanel.SetActive(true);
             }

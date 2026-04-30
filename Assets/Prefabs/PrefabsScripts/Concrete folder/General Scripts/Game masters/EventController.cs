@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class EventController : MonoBehaviour
 {
@@ -14,9 +15,6 @@ public class EventController : MonoBehaviour
 
     [Header("Время поставок")]
     [SerializeField] private int timerToSupplies;
-
-    //MVP project
-    [SerializeField] private GameObject[] workingCells;
 
     protected float _timerForSupplies;
     protected float _timer = 0;
@@ -51,10 +49,18 @@ public class EventController : MonoBehaviour
             GetSuppliesEvent();
         }
     }
+
+    public void ForceStartEvent(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            StartEvent();
+        }
+    }
     private void StartEvent()
     {
         RandomEvent currentEvent = (RandomEvent)eventCreater.CreateEvent(CreateRandomTagsForEvent());
-        eventCreater.CreateActionsForEvent(currentEvent,ServiceRegistry.WorkWithController<GameController>().GetAllSquadsInGame().ToArray(), workingCells);
+        eventCreater.CreateActionsForEvent(currentEvent,ServiceRegistry.WorkWithController<GameController>().GetAllSquadsInGame().ToArray());
 
         PauseScript.SetGameState(GameState.Pause);
 
@@ -98,10 +104,5 @@ public class EventController : MonoBehaviour
         ServiceRegistry.WorkWithController<ResourcesController>().AddSomeResourcesByType(ResourcesEnum.Weapon, 50 + (int)(100 * ration));
         ServiceRegistry.WorkWithController<ResourcesController>().AddSomeResourcesByType(ResourcesEnum.People, 30 + (int)(100 * ration));
         ServiceRegistry.WorkWithController<ResourcesController>().AddSomeResourcesByType(ResourcesEnum.Transport, 50 + (int)(100 * ration));
-    }
-
-    public void SetWorkingArray(GameObject[] cells)
-    {
-        workingCells = cells;
     }
 }

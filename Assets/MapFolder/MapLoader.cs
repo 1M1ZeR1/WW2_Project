@@ -72,12 +72,6 @@ public class MapLoader : EditorWindow
     {
         BuildLoader.LoadPreset();
     }
-   
-    [MenuItem("Tools/Save working cells")]
-    static void AddCellsToArray()
-    {
-        GameObject.Find("Random Event Master").GetComponent<EventController>().SetWorkingArray(Selection.gameObjects.ToArray());
-    }
     /// <summary>
     /// 
     /// </summary>
@@ -140,9 +134,6 @@ public class BuildLoader
 
         stateOfLoading["ParametersCellsDataHolder"] = true;
         CheckAllIsLoaded(stateOfLoading);
-
-
-        //ServiceRegistry.WorkWithService<EventBus>().Publish<MapLoader>(null);
     }
     static void CheckAllIsLoaded(Dictionary<string,bool> states)
     {

@@ -10,46 +10,31 @@ using UnityEngine;
 public abstract class AbsctractEvent
 {
     private EventType eventType;
-    private EventBuffsType buffType;
-    private EventInfluenceType influenceType; 
+    public EventBuffsType BuffType { get;private set; }
+    public EventInfluenceType InfluenceType { get; private set; }
 
-    private string eventHeading;
-    private string eventDiscription;
+    public string EventHeading { get; set; }
+    public string EventDiscription { get; set; }
 
-    private string[] eventActionsDicriptions;
+    public string[] EventActionsDicriptions { get; set; }
 
-    private string[] eventActionsString;
-    private Action[] eventActions;
+    public string[] EventActionsString { get; set; }
+    public Action[] EventActions { get; set; }
 
-    private int time;
+    public int time { get; set; }
 
-    public virtual void SetActions(Action[] actions) { eventActions = actions; }
-
-    public EventBuffsType GetEventBuffsType() { return buffType; }
-    public EventInfluenceType GetInfluenceType() { return influenceType; }
-
-    public void SetEventHeading(string heading) { eventHeading = heading; }
-    public string GetEventHeading() {  return eventHeading; }
-    public void SetEventDiscription(string discription) {  eventDiscription = discription; }
-    public string GetEventDiscription() {  return eventDiscription; }
-    public void SetEventActionsDiscriptions(string[] discriptions) { eventActionsDicriptions = discriptions; }
-    public string[] GetEventActionsDiscriptions() { return eventActionsDicriptions; }
-    public void SetEventActionsString(string[] actionsString) {  eventActionsString = actionsString; }
-    public string[] GetEventActionsString() {  return eventActionsString; }
-    public void SetEventActions(Action[] actions) { eventActions = actions; }
-    public Action[] GetEventActions() {  return eventActions; }
-
-    public void SetTime(int time) { this.time = time; }
-    public int GetTime() { return time; }
+    public List<GlobalLogElement> GlobalLogElement { get; set; } = new();
 }
 public class RandomEvent : AbsctractEvent
 {
     public RandomEvent(string eventHeading, string eventDiscription, string[] eventActionsDicriptions, string[] eventActionsFromTable)
     {
-        SetEventHeading(eventHeading);
-        SetEventDiscription(eventDiscription);
-        SetEventActionsDiscriptions(eventActionsDicriptions);
-        SetEventActionsString(eventActionsFromTable);
+        EventHeading = eventHeading;
+        EventDiscription = eventDiscription;
+        EventActionsDicriptions = eventActionsDicriptions;
+
+        foreach(var text in EventActionsDicriptions) { Debug.LogError(text); }
+        EventActionsString = eventActionsFromTable;
     }
 }
 public class EventParser
@@ -59,7 +44,7 @@ public class EventParser
     public AbsctractEvent CreateEventFromTable(string[] keys)
     {
 #if UNITY_EDITOR
-        TextAsset csvText = AssetDatabase.LoadAssetAtPath<TextAsset>("Assets/Prefabs/Events/EventsTable/RandomEventTable.csv");
+        TextAsset csvText = AssetDatabase.LoadAssetAtPath<TextAsset>("Assets/Resources/EventTable/RandomEventTable.csv");
 #else
         TextAsset csvText = Resources.Load<TextAsset>("EventTable/RandomEventTable");
 #endif
@@ -124,11 +109,11 @@ public class EventCreater
     {
         AbsctractEvent newEvent = eventParser.CreateEventFromTable(keys);
 
-        currentActionsStrings = newEvent.GetEventActionsString().ToList();
+        currentActionsStrings = newEvent.EventActionsString.ToList();
 
         return newEvent;
     }
-    public void CreateActionsForEvent(AbsctractEvent currentEvent, AbstractSquad[] allSquads,GameObject[] cells)
+    public void CreateActionsForEvent(AbsctractEvent currentEvent, AbstractSquad[] allSquads)
     {
         List<Action> resultActions = new List<Action>();
 
@@ -142,54 +127,44 @@ public class EventCreater
             {
                 if (stringToType.ContainsKey(action[i]))
                 {
-                    resultActions.Add(ActionCreater(stringToType[action[i]], action[i + 1], action[i +2],allSquads, cells, action[i+3]));
+                    var newAction = ActionCreater(stringToType[action[i]], action[i + 1], action[i + 2], allSquads, action[i + 3],currentEvent);
+                    resultActions.Add(newAction);
 
                     i += 4;
                 }
             }
         }
 
-        currentEvent.SetEventActions(resultActions.ToArray());
+        if (currentEvent.GlobalLogElement.Count != 0) { foreach (var logElement in currentEvent.GlobalLogElement) 
+            {
+                logElement.TextTitle = $"{currentEvent.EventHeading}";
+                logElement.TextContent = $"{currentEvent.EventDiscription}";
+            } 
+        }
+
+        resultActions[0] += () => { currentEvent.GlobalLogElement.ForEach(log => { LogsController.AddLogElement(log,SideEnum.None); }); };
+        if(resultActions.Count > 1) resultActions[1] += () => { currentEvent.GlobalLogElement.ForEach(log => { LogsController.AddLogElement(log, SideEnum.None); }); };
+
+        currentEvent.EventActions = resultActions.ToArray();
     }
-    private Action ActionCreater(EventInfluenceType eventInfluenceType,string plusOrMinus, string count, AbstractSquad[] allSquads,  GameObject[] cells, string timeForBuff)
+    private Action ActionCreater(EventInfluenceType eventInfluenceType,string plusOrMinus, string count, AbstractSquad[] allSquads, string timeForBuff,
+        AbsctractEvent currentEvent)
     {
         int cellsCount = 0;
         int squadsCount = 0;
-        Action newAction = null;
 
         switch (eventInfluenceType)
         {
             case EventInfluenceType.CSpeed:
-                cellsCount = UnityEngine.Random.Range(2, 10);
-                for (int i = 0; i < cellsCount; i++)
-                {
-                    newAction += CellBuffCreater(GetCellWithoutEvent(cells), eventInfluenceType, plusOrMinus, count, timeForBuff);
-                }
-                newAction += ()=>PauseScript.SetGameState(GameState.Play);
-                newAction += ()=> CameraMovementScript.UnBlockMovement();
-                return newAction;
+                return ApplyEfectOnCell(UnityEngine.Random.Range(2, 4), eventInfluenceType, plusOrMinus, count, timeForBuff, currentEvent);
             case EventInfluenceType.SSpeed: break;
             case EventInfluenceType.GSpeed: break;
             case EventInfluenceType.CAttack:
-                cellsCount = UnityEngine.Random.Range(2, 10);
-                for (int i = 0; i < cellsCount; i++)
-                {
-                    newAction += CellBuffCreater(GetCellWithoutEvent(cells), eventInfluenceType, plusOrMinus, count, timeForBuff);
-                }
-                newAction += () => PauseScript.SetGameState(GameState.Play);
-                newAction += () => CameraMovementScript.UnBlockMovement();
-                return newAction;
+                return ApplyEfectOnCell(UnityEngine.Random.Range(2, 4), eventInfluenceType, plusOrMinus, count, timeForBuff, currentEvent);
             case EventInfluenceType.SAttack: break;
             case EventInfluenceType.GAttack: break;
             case EventInfluenceType.CProtection:
-                cellsCount = UnityEngine.Random.Range(2, 10);
-                for (int i = 0; i < cellsCount; i++)
-                {
-                    newAction += CellBuffCreater(GetCellWithoutEvent(cells), eventInfluenceType, plusOrMinus, count, timeForBuff);
-                }
-                newAction += () => PauseScript.SetGameState(GameState.Play);
-                newAction += () => CameraMovementScript.UnBlockMovement();
-                return newAction;
+                return ApplyEfectOnCell(UnityEngine.Random.Range(2, 4), eventInfluenceType, plusOrMinus, count, timeForBuff, currentEvent);
             case EventInfluenceType.SProtection: break;
             case EventInfluenceType.GProtection: break;
             case EventInfluenceType.CStealth: break;
@@ -204,24 +179,42 @@ public class EventCreater
             case EventInfluenceType.SResource: break;
             case EventInfluenceType.GResource: break;
             case EventInfluenceType.CHeight:
-                newAction += CellBuffCreater(GetCellWithoutEvent(cells), eventInfluenceType, plusOrMinus, count, timeForBuff);
-                newAction += () => PauseScript.SetGameState(GameState.Play);
-                newAction += () => CameraMovementScript.UnBlockMovement();
-                return newAction;
+                return ApplyEfectOnCell(UnityEngine.Random.Range(2, 4), eventInfluenceType, plusOrMinus, count, timeForBuff, currentEvent);
         }
         return null;
     }
+
+    private Action ApplyEfectOnCell(int count,
+        EventInfluenceType eventInfluenceType, string plusOrMinus, string strength, string timeForBuff,
+        AbsctractEvent currentEvent)
+    {
+        Action eventAction = null;
+
+        for (int i = 0; i < count; i++)
+        {
+            var selectedCell = GetRandomCellWithoutEvent(ServiceRegistry.WorkWithService<CellsInCameraAreaScript>().visiableCells);
+            if (selectedCell != null) { 
+                eventAction += CellBuffCreater(selectedCell, eventInfluenceType, plusOrMinus, strength, timeForBuff);
+
+                currentEvent.GlobalLogElement.Add(new GlobalLogElement(selectedCell));
+            }
+        }
+        eventAction += () => PauseScript.SetGameState(GameState.Play);
+        eventAction += () => CameraMovementScript.UnBlockMovement();
+
+        return eventAction;
+    }
+
     private Action CellBuffCreater(GameObject cell, EventInfluenceType eventInfluenceType, string plusOrMinus, string count, string timeForBuff)
     {
-        CellTypeScript cellTypeScript = cell.GetComponent<CellTypeScript>();
-
-        BuffsController buffsController = GameObject.Find("Buffs Master").GetComponent<BuffsController>();
+        BuffsController buffsController = ServiceRegistry.WorkWithController<BuffsController>();
 
         int buffScale = 0;
         if(plusOrMinus == "-") { buffScale = -(int.Parse(count)); }
         else { buffScale = int.Parse(count); }
 
-        cellTypeScript.SetWithEventBuff(true);
+        ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).
+            GetParameter<CellType>().SetWithEventBuff(true);
 
         if(eventInfluenceType == EventInfluenceType.CSpeed)
         {
@@ -229,7 +222,8 @@ public class EventCreater
             {
                 RandomEventBuff newRandomEventBuff = new RandomEventBuff(new float[] { buffScale, 0, 0 }, TimeControllerScript.GetCurrentDateTime(), int.Parse(timeForBuff));
 
-                cellTypeScript.AddBuffWithTimer(newRandomEventBuff);
+                ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).
+                GetParameter<CellBuffs>().AddBuffWithTimer(newRandomEventBuff);
 
                 buffsController.AddBuffToList(newRandomEventBuff);
             });
@@ -240,7 +234,8 @@ public class EventCreater
             {
                 RandomEventBuff newRandomEventBuff = new RandomEventBuff(new float[] { 0, buffScale, 0 }, TimeControllerScript.GetCurrentDateTime(), int.Parse(timeForBuff));
 
-                cellTypeScript.AddBuffWithTimer(newRandomEventBuff);
+                ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).
+                GetParameter<CellBuffs>().AddBuffWithTimer(newRandomEventBuff);
 
                 buffsController.AddBuffToList(newRandomEventBuff);
             });
@@ -251,7 +246,8 @@ public class EventCreater
             {
                 RandomEventBuff newRandomEventBuff = new RandomEventBuff(new float[] { 0, 0, buffScale }, TimeControllerScript.GetCurrentDateTime(), int.Parse(timeForBuff));
 
-                cellTypeScript.AddBuffWithTimer(newRandomEventBuff);
+                ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).
+                GetParameter<CellBuffs>().AddBuffWithTimer(newRandomEventBuff);
 
                 buffsController.AddBuffToList(newRandomEventBuff);
             });
@@ -262,7 +258,8 @@ public class EventCreater
             {
                 UnReachableBuff newRandomEventBuff = new UnReachableBuff(TimeControllerScript.GetCurrentDateTime(), int.Parse(timeForBuff), UnReachableBuffType.Fire,cell);
 
-                cellTypeScript.AddBuffWithTimer(newRandomEventBuff);
+                ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).
+                GetParameter<CellBuffs>().AddBuffWithTimer(newRandomEventBuff);
 
                 buffsController.AddBuffToList(newRandomEventBuff);
             });
@@ -338,13 +335,20 @@ public class EventCreater
 
         return null;
     }
-    private GameObject GetCellWithoutEvent(GameObject[] cells)
+    private GameObject GetRandomCellWithoutEvent(List<GameObject> cells)
     {
-        foreach (GameObject cell in cells)
-        {
-            if (!cell.GetComponent<CellTypeScript>().IsWithEventBuff())return cell;
-        }
+        int attempts = 5;
 
+        while (attempts > 0)
+        {
+            var randomCell = cells[UnityEngine.Random.Range(0,cells.Count - 1)];
+
+            if (!ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(randomCell).GetParameter<CellType>().IsWithEventBuff())
+            {
+                return randomCell;
+            }
+            attempts--;
+        }
         return null;
     }
     private enum EventInfluenceType
