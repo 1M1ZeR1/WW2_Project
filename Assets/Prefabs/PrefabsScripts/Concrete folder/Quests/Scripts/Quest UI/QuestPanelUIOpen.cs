@@ -8,7 +8,7 @@ public class QuestPanelUIOpen : MonoBehaviour
 
     public void OpenClose()
     {
-        if (questPanelUI.activeSelf) { questPanelUI.SetActive(false); CameraMovementScript.UnBlockMovement(); }
-        else { questPanelUI.SetActive(true); CameraMovementScript.BlockMovement(); }
+        if (questPanelUI.activeSelf) { questPanelUI.SetActive(false); }
+        else { questPanelUI.SetActive(true); }
     }
 }

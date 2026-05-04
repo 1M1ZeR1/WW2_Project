@@ -53,7 +53,7 @@ public class LandscapeCreater : MonoBehaviour
 
         while (true)
         {
-            _cellToType[currentCell].SetTypeCell(CellTypes_enum.River);
+            _cellToType[currentCell].SetTypeCell(CellTypes_Enum.River);
             currentCell.GetComponent<MeshRenderer>().material = testWater;
 
             float currentCellHeight = _cellToType[currentCell].GetHeight();
@@ -96,7 +96,7 @@ public class LandscapeCreater : MonoBehaviour
                 if (_cellToType[beaches].IsRiver()) { continue; }
                 else
                 {
-                    _cellToType[beaches].SetTypeCell(CellTypes_enum.Beach);
+                    _cellToType[beaches].SetTypeCell(CellTypes_Enum.Beach);
                     beaches.GetComponent<MeshRenderer>().material = testSand;
 
                     _cellWeCantUse.Add(beaches);
@@ -159,7 +159,7 @@ public class LandscapeCreater : MonoBehaviour
         _cellWeCantUse.Add(lakeCell);
         foreach(var cell in candidates)
         {
-            _cellToType[cell].SetTypeCell(CellTypes_enum.Beach);
+            _cellToType[cell].SetTypeCell(CellTypes_Enum.Beach);
             _cellWeCantUse.Add(cell);
             cell.GetComponent<MeshRenderer>().material = testSand;
         }

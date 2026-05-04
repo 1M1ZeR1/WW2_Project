@@ -66,7 +66,6 @@ public class EventController : MonoBehaviour
 
         eventPanelController.ShowEvent(currentEvent);
         eventPanelObject.SetActive(true);
-        CameraMovementScript.BlockMovement();
     }
     private string[] CreateRandomTagsForEvent()
     {

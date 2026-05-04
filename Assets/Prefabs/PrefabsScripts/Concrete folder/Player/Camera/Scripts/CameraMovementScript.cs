@@ -50,16 +50,22 @@ public class CameraMovementScript : MonoBehaviour
         pointsPlayArea.Add(new Vector2(endPointX, endPointY));
     }
 
-    public static bool blocked = false;
-    public static void BlockMovement() { blocked = true; }
-    public static void UnBlockMovement() { blocked = false; }
+
+    private bool inMovementMode = false;
 
     private void Update()
     {
-        if (!CheckArea(Input.mousePosition) && !blocked)
+        if (!CheckArea(Input.mousePosition) && inMovementMode)
         {
             MoveCamera();
         }
+    }
+
+    [SerializeField] private GameObject movementArea;
+    public void EnableMovementMode(InputAction.CallbackContext context)
+    {
+        if (context.performed){ inMovementMode = true; movementArea.SetActive(true); }
+        if (context.canceled) { inMovementMode = false; movementArea.SetActive(false); }
     }
     private bool CheckArea(Vector2 mousePosition)
     {

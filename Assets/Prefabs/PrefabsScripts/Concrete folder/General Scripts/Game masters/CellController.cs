@@ -73,7 +73,7 @@ public class CellParametersHandler:ICellParser,IParametersHandlerParser
     }
 
 
-    public void ConfigurateCell_Type(CellTypes_enum type)
+    public void ConfigurateCell_Type(CellTypes_Enum type)
     {
         foreach(var obj in savedParameters.Values)
         {
@@ -102,15 +102,15 @@ public class CellType:ICellNeeder_Type
     public CellType(ICellParser cellParser) { this.cellParser = cellParser; }
 
 
-    public void SetType(CellTypes_enum type)
+    public void SetType(CellTypes_Enum type)
     {
         cellClass = type switch
         {
-            CellTypes_enum.Plain => new PlainCell(20),
-            CellTypes_enum.Forest => new ForestCell(30),
-            CellTypes_enum.City => new CityCell(10),
-            CellTypes_enum.River => new RiverCell(),
-            CellTypes_enum.Beach => new BeachCell(),
+            CellTypes_Enum.Plain => new PlainCell(20),
+            CellTypes_Enum.Forest => new ForestCell(30),
+            CellTypes_Enum.City => new CityCell(10),
+            CellTypes_Enum.River => new RiverCell(),
+            CellTypes_Enum.Beach => new BeachCell(),
             _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
         };
 
@@ -121,7 +121,11 @@ public class CellType:ICellNeeder_Type
         ServiceRegistry.WorkWithController<CellController>().
             WorkWithCell<CellParametersHandler>(cellParser.GetCellWorkWith()).GetParameter<CellMovementParameters>().
             SetType(type);
+
+        CellTypeObject = type;
     }
+
+    public CellTypes_Enum CellTypeObject { private set; get; }
     public AbstractCell ConntectWithAbstractCell() { return cellClass; }
 
     public bool IsWithEventBuff() { return _hasEventBuff; }
@@ -216,15 +220,15 @@ public class CellMovementParameters
     private float height;
     private float costToMove;
 
-    public void SetType(CellTypes_enum type)
+    public void SetType(CellTypes_Enum type)
     {
         costToMove = type switch
         {
-            CellTypes_enum.Plain => 0.5f,
-            CellTypes_enum.Forest => 1f,
-            CellTypes_enum.City => 10f,
-            CellTypes_enum.River => 5f,
-            CellTypes_enum.Beach => 10f,
+            CellTypes_Enum.Plain => 0.5f,
+            CellTypes_Enum.Forest => 1f,
+            CellTypes_Enum.City => 10f,
+            CellTypes_Enum.River => 5f,
+            CellTypes_Enum.Beach => 10f,
             _ => 0f
         };
     }
@@ -588,13 +592,13 @@ public class CellSquadsOnArea : ICellNeeder_Type
         set { _bonusHeadquarters = value; }
     }
 
-    public void SetType(CellTypes_enum cellType)
+    public void SetType(CellTypes_Enum cellType)
     {
         switch (cellType)
         {
-            case CellTypes_enum.Plain: maxCountOfSquads = 3; break;
-            case CellTypes_enum.Forest: maxCountOfSquads = 2; break;
-            case CellTypes_enum.City: maxCountOfSquads = 5; break;
+            case CellTypes_Enum.Plain: maxCountOfSquads = 3; break;
+            case CellTypes_Enum.Forest: maxCountOfSquads = 2; break;
+            case CellTypes_Enum.City: maxCountOfSquads = 5; break;
 
             default: maxCountOfSquads = 1; break;
         }
@@ -658,7 +662,7 @@ public class CellSquadsOnArea : ICellNeeder_Type
 
 public interface ICellNeeder_Type
     {
-        public void SetType(CellTypes_enum type);
+        public void SetType(CellTypes_Enum type);
     }
     public interface ICellParser
     {

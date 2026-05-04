@@ -52,7 +52,7 @@ public class Parameters
     public List<GameObject> neighboresCells = new List<GameObject>();
 
     public float height;
-    public CellTypes_enum cellType;
+    public CellTypes_Enum cellType;
 
     public ControlSide controlSide;
 

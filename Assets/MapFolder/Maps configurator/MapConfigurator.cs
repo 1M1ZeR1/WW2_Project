@@ -121,7 +121,7 @@ public class MapConfigurator : MonoBehaviour
         {
             if(workWith == TypeOfConfiguration.Neighbores) { cell.GetComponent<MeshRenderer>().material = cellsWithNeighbores; }
             if(workWith == TypeOfConfiguration.Type) {
-                if (currentDictionary[cell].cellType != CellTypes_enum.None)cell.GetComponent<MeshRenderer>().material = cellsWithType; 
+                if (currentDictionary[cell].cellType != CellTypes_Enum.None)cell.GetComponent<MeshRenderer>().material = cellsWithType; 
             }
             if(workWith == TypeOfConfiguration.Enemys || workWith == TypeOfConfiguration.Allies)
             {
@@ -186,16 +186,16 @@ public class MapConfigurator : MonoBehaviour
 
             if(_clicksToSelectType > 3) { _clicksToSelectType = 0; }
 
-            if(_clicksToSelectType == 0) { typeText.text = "Тип:равнина"; currentDictionary[currentSelectedCell].cellType = CellTypes_enum.Plain;
+            if(_clicksToSelectType == 0) { typeText.text = "Тип:равнина"; currentDictionary[currentSelectedCell].cellType = CellTypes_Enum.Plain;
                 currentDictionary[currentSelectedCell].height = Random.Range(10f,20f);
                 _clicksToSelectType++; return; }
-            if (_clicksToSelectType == 1) { typeText.text = "Тип:лес"; currentDictionary[currentSelectedCell].cellType = CellTypes_enum.Forest;
+            if (_clicksToSelectType == 1) { typeText.text = "Тип:лес"; currentDictionary[currentSelectedCell].cellType = CellTypes_Enum.Forest;
                 currentDictionary[currentSelectedCell].height = Random.Range(20f, 30f);
                 _clicksToSelectType++; return; }
-            if (_clicksToSelectType == 2) { typeText.text = "Тип:река"; currentDictionary[currentSelectedCell].cellType = CellTypes_enum.River;
+            if (_clicksToSelectType == 2) { typeText.text = "Тип:река"; currentDictionary[currentSelectedCell].cellType = CellTypes_Enum.River;
                 currentDictionary[currentSelectedCell].height = Random.Range(40f, 50f);
                 _clicksToSelectType++; return; }
-            if (_clicksToSelectType == 3) { typeText.text = "Тип:берег"; currentDictionary[currentSelectedCell].cellType = CellTypes_enum.Beach;
+            if (_clicksToSelectType == 3) { typeText.text = "Тип:берег"; currentDictionary[currentSelectedCell].cellType = CellTypes_Enum.Beach;
                 currentDictionary[currentSelectedCell].height = Random.Range(30f, 40f);
                 _clicksToSelectType++; return; }
         }
@@ -208,7 +208,6 @@ public class MapConfigurator : MonoBehaviour
         }
     }
     private void GetSelectedCell(GameObject cell) { currentSelectedCell = cell; _clicksToSelectType = 0; typeText.text = ""; 
-    if(workWith == TypeOfConfiguration.Builds) { CameraMovementScript.BlockMovement(); }
     }
 
     private void ShowArea(GameObject cell)
@@ -287,7 +286,6 @@ public class MapConfigurator : MonoBehaviour
             //    Debug.Log($"Добавляю:Foxhole на клетку:{currentSelectedCell}");
             //    currentDictionary[currentSelectedCell].buildings.Add(BuildsEnum.Foxhole);
             //}
-            CameraMovementScript.UnBlockMovement();
             ShowAllConfiguredCells();
         }
     }
@@ -305,7 +303,6 @@ public class MapConfigurator : MonoBehaviour
             //    Debug.Log($"Добавляю:CampBuild на клетку:{currentSelectedCell}");
             //    currentDictionary[currentSelectedCell].buildings.Add(BuildsEnum.Camp);
             //}
-            CameraMovementScript.UnBlockMovement();
             ShowAllConfiguredCells();
         }
     }
@@ -323,7 +320,6 @@ public class MapConfigurator : MonoBehaviour
             //    Debug.Log($"Добавляю:FortBuild на клетку:{currentSelectedCell}");
             //    currentDictionary[currentSelectedCell].buildings.Add(BuildsEnum.Fort);
             //}
-            CameraMovementScript.UnBlockMovement();
             ShowAllConfiguredCells();
         }
     }

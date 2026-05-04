@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum CellTypes_enum
+public enum CellTypes_Enum
 {
     None,
     Plain,

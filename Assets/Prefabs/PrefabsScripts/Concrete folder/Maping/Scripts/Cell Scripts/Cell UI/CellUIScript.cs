@@ -34,6 +34,9 @@ public class CellUIScript : MonoBehaviour
     [Header("Типовые баффы")]
     [SerializeField] private GameObject[] buffsCirclesObjects;
 
+    [Header("Изображение типов")]
+    [SerializeField] private GameObject[] typeImages;
+
     [SerializeField] private TextMeshProUGUI countCurrentMaxSquads;
 
     public PanelSelection PanelSelection { get; private set; }
@@ -77,15 +80,15 @@ public class CellUIScript : MonoBehaviour
 
         if (!ServiceRegistry.WorkWithService<CellAccessibilityValidator>().InteractWithAlliesCell(cell)) 
         {
-            if (informationPanel.activeSelf) { informationPanel.SetActive(false); CameraMovementScript.UnBlockMovement(); }
+            if (informationPanel.activeSelf) { informationPanel.SetActive(false);  }
 
             return; 
         }
 
-        if (!informationPanel.activeSelf){informationPanel.SetActive(true); CameraMovementScript.BlockMovement(); }
+        if (!informationPanel.activeSelf){informationPanel.SetActive(true);  }
         if (nameCell == null || typeCell == null){ GetInformationComponents();}
 
-        if(_currentInteractionCell == cell) { informationPanel.SetActive(false); CameraMovementScript.UnBlockMovement(); nameCell.text = "";_currentInteractionCell = null; return; }
+        if(_currentInteractionCell == cell) { informationPanel.SetActive(false);  nameCell.text = "";_currentInteractionCell = null; return; }
 
         PanelSelection.ClearSelections();
 
@@ -93,6 +96,8 @@ public class CellUIScript : MonoBehaviour
 
         PrintInformation(nameCell, $"{ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).GetParameter<CellDiscription>().GetCellName()}");
         PrintInformation(typeCell, $"Тип: {ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).GetParameter<CellDiscription>().GetCellType()}");
+        SetTypeImage(ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).GetParameter<CellType>().CellTypeObject);
+
         GetBuffsCell(cell);
 
         ClearList(scrollViewerSquads.transform);
@@ -157,6 +162,18 @@ public class CellUIScript : MonoBehaviour
     private void PrintInformation(TextMeshProUGUI textMesh, string information)
     {
         textMesh.text = information;
+    }
+    private void SetTypeImage(CellTypes_Enum type)
+    {
+        foreach (var item in typeImages){item.SetActive(false);}
+
+        switch (type)
+        {
+            case CellTypes_Enum.Plain:
+                typeImages[0].SetActive(true); break;
+            case CellTypes_Enum.Forest:
+                typeImages[1].SetActive(true); break;
+        }
     }
 
 

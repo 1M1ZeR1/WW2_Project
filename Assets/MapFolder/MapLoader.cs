@@ -161,7 +161,7 @@ public class BuildLoader
                 controlSide = ControlSide.none,
                 neighboresCells = new List<GameObject>(),
                 height = 8,
-                cellType = CellTypes_enum.Plain
+                cellType = CellTypes_Enum.Plain
             };
         }
 
@@ -194,14 +194,14 @@ public class BuildLoader
 
         }
 
-        if (parameters.cellType != CellTypes_enum.None) {
+        if (parameters.cellType != CellTypes_Enum.None) {
             ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).
                 ConfigurateCell_Type(parameters.cellType);
         }
         else
         {
             ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).
-                ConfigurateCell_Type(CellTypes_enum.Plain);
+                ConfigurateCell_Type(CellTypes_Enum.Plain);
         }
 
         if (parameters.cellNameWhatPlayerSee == null || parameters.cellNameWhatPlayerSee == "")

@@ -200,7 +200,6 @@ public class EventCreater
             }
         }
         eventAction += () => PauseScript.SetGameState(GameState.Play);
-        eventAction += () => CameraMovementScript.UnBlockMovement();
 
         return eventAction;
     }
@@ -215,6 +214,8 @@ public class EventCreater
 
         ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).
             GetParameter<CellType>().SetWithEventBuff(true);
+
+        CustomLog.RedText($"{cell.name}");
 
         if(eventInfluenceType == EventInfluenceType.CSpeed)
         {
@@ -236,6 +237,7 @@ public class EventCreater
 
                 ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).
                 GetParameter<CellBuffs>().AddBuffWithTimer(newRandomEventBuff);
+
 
                 buffsController.AddBuffToList(newRandomEventBuff);
             });

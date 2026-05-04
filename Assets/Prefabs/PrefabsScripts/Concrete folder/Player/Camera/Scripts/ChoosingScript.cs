@@ -50,8 +50,6 @@ public class ChoosingScript : MonoBehaviour
             }
         }
 
-        CameraMovementScript.UnBlockMovement();
-
         switch (choosingMode)
         {
             case ChoosingMode.Action: choosingWindow_Action.SetActive(true); currentWorkingWindow = choosingWindow_Action;
@@ -82,8 +80,6 @@ public class ChoosingScript : MonoBehaviour
                 panelsToControll[i].SetActive(true);
             }
         }
-
-        CameraMovementScript.BlockMovement();
 
         if (currentWorkingWindow != null) 
         { 
@@ -123,8 +119,6 @@ public class ChoosingScript : MonoBehaviour
                 panelsToControll[i].SetActive(true);
             }
         }
-
-        CameraMovementScript.BlockMovement();
 
         if (currentWorkingWindow != null)
         {

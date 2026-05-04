@@ -27,32 +27,32 @@ public class CellTypeScript : MonoBehaviour
         gameControllerObject.TryGetComponent(out gameControllerScript);
     }
 
-    public void SetTypeCell(CellTypes_enum cellType)
+    public void SetTypeCell(CellTypes_Enum cellType)
     {
-        if (cellType == CellTypes_enum.Plain)
+        if (cellType == CellTypes_Enum.Plain)
         {
             this.cellType = new PlainCell(20);
             cost = 0.5f;
             _buffs.Add(this.cellType.GetBuff());
         }
-        if(cellType == CellTypes_enum.Forest)
+        if(cellType == CellTypes_Enum.Forest)
         {
             this.cellType = new ForestCell(30);
             cost = 1f;
             _buffs.Add(this.cellType.GetBuff());
         }
-        if(cellType == CellTypes_enum.City)
+        if(cellType == CellTypes_Enum.City)
         {
             this.cellType = new CityCell(10);
             cost = 10f;
             _buffs.Add(this.cellType.GetBuff());
         }
-        if(cellType == CellTypes_enum.River)
+        if(cellType == CellTypes_Enum.River)
         {
             this.cellType = new RiverCell();
             cost = 5f;
         }
-        if (cellType == CellTypes_enum.Beach)
+        if (cellType == CellTypes_Enum.Beach)
         {
             this.cellType = new BeachCell();
             cost = 10f;

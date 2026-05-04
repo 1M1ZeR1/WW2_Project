@@ -50,8 +50,6 @@ public class ExplorationChoosingMode : MonoBehaviour
     {
         cellSelected = cell;
 
-        CameraMovementScript.BlockMovement();
-
         hoverHandler.enableMaterials = false;
 
         ServiceRegistry.WorkWithController<CellInteraction>().SetMaterial_Exploration(cell);
@@ -78,8 +76,6 @@ public class ExplorationChoosingMode : MonoBehaviour
         UnColorCells();
 
         cellToExplorate.Clear();
-
-        CameraMovementScript.UnBlockMovement();
         ServiceRegistry.WorkWithService<EventBus>().Publish<InteractableScript, SelectedObjectScript>(null, null);
 
         UISwitcher(false);

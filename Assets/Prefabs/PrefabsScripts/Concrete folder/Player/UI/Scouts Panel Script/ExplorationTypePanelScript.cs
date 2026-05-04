@@ -22,7 +22,6 @@ public class ExplorationTypePanelScript : MonoBehaviour
 
     public void OpenExplorationTypePanel(bool canUpdate)
     {
-        CameraMovementScript.BlockMovement();
         PauseScript.SetGameState(GameState.Pause);
 
         gameObject.SetActive(true);
@@ -33,7 +32,6 @@ public class ExplorationTypePanelScript : MonoBehaviour
 
     public void PlayerChoise(int playerChosed)
     {
-        CameraMovementScript.UnBlockMovement();
         PauseScript.SetGameState(GameState.Play);
 
         this.playerChosed.Invoke(playerChosed);
