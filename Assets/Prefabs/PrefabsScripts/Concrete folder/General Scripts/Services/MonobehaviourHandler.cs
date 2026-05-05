@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -17,6 +18,10 @@ public class MonobehaviourHandler : MonoBehaviour
 
     [SerializeField] private GameObject trainingPanel;
 
+    [SerializeField] private SpriteDatabase spriteDatabase_Squads;
+
+    private Dictionary<string,SpriteDatabase> spriteDatabaseDictionary = new();
+
     private void Start()
     {
         ServiceRegistry.WorkWithService<PanelFactory_BuildPanel>().SetObjects(buildPrototype,targetPrototype,targetPanelType);
@@ -26,5 +31,13 @@ public class MonobehaviourHandler : MonoBehaviour
         ServiceRegistry.WorkWithService<PanelFactory_SquadPanel>().StartFactory();
 
         ServiceRegistry.WorkWithController<AlliesSpawner>().Initialize(trainingPanel);
+
+        spriteDatabaseDictionary.Add("squads", spriteDatabase_Squads);
+        spriteDatabase_Squads.StartWork();
+    }
+
+    public SpriteDatabase WorkWithSpriteDatabase(string id)
+    {
+        return spriteDatabaseDictionary[id];
     }
 }

@@ -460,6 +460,8 @@ public class SquadPanel : IUIConstructor
         informationButton = squadPanel.transform.Find("ShowMore").GetComponent<UnityEngine.UI.Button>();
 
         var eventTrigger_Sprite = squadPanel.transform.Find("Sprite").GetComponent<EventTrigger>();
+        squadPanel.transform.Find("Sprite").GetComponent<UnityEngine.UI.Image>().sprite = ServiceRegistry.WorkWithService<MonobehaviourHandler>().
+            WorkWithSpriteDatabase("squads").GetSprite(SquadOfThisPanel.Name);
 
 
         skillButton.onClick.AddListener(() => { squadPanelScript.BintButton_UseSkill(SquadOfThisPanel); });

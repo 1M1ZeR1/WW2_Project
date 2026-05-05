@@ -81,6 +81,7 @@ public class ControllersHub
 
         Register_Service(new DataHolder());
         Register_Service(GameObject.FindAnyObjectByType<MonobehaviourMaster>());
+        Register_Service(GameObject.FindAnyObjectByType<MonobehaviourHandler>());
         Register_Service(new ObjectsFactory());
 
         Register_Service(new ObjectFactory_Builds());

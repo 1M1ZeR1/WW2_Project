@@ -143,6 +143,8 @@ public class CellBuffs
 
     public void AddBuffWithTimer(AbstractBuffs buff)
     {
+        CustomLog.RedText($"Added new buff to {cellParser.GetCellWorkWith().name}");
+
         buffsOnCell.Add(buff);
         UpdateBuffsForSquad();
 
