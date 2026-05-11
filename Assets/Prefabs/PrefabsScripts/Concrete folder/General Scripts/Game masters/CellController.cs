@@ -273,7 +273,7 @@ public class CellDiscription
     {
         var information = ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cellParser.GetCellWorkWith()).GetParameter<CellSquadsOnArea>().GetCountCurrentMax();
 
-        return $"{information.Item1}/{information.Item2}";
+        return $"{information.Item1} из {information.Item2}";
     }
 }
 public class CellArea:ISide

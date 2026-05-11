@@ -40,7 +40,6 @@ public class BuilderController
 
         foreach (AbstractSquad squad in squads)
         {
-            Debug.LogError($"Squad name:{squad.Name}, Squad speed:{squad.Speed}, Squad build skill:{squad.BuildingSkill}");
             if (squad.SquadAction != SquadActions.None) { continue; }
             parameters[0] += squad.BuildingSkill;
             squad.SquadAction = SquadActions.Building;
