@@ -36,13 +36,78 @@ public class EnemysController
     public void Start() 
     {
         foreach (var headquarter in HeadquartersCasing.Keys.ToList()) { HeadquartersCasing[headquarter] = new HeadquartersAreaCasing(headquarter, 350); }
-        ServiceRegistry.WorkWithController<GameController>().oneSecondPassed += AddToTimer; 
+        ServiceRegistry.WorkWithController<GameController>().oneSecondPassed += AddToTimer;
+
+        ServiceRegistry.WorkWithService<EventBus>().Subscribe<HeadquartersAreaCasing, HeadquartersBuild, List<GameObject>>((sender, headquartersBuild, needHelp) =>
+        {
+            HeadquartersAreaCasing foundedHeadquarterToHelp = GetHeadquartersToSupport(headquartersBuild,3);
+
+            foundedHeadquarterToHelp.SupportAction(needHelp);
+        });
     }
     private void AddToTimer() { timer++;if(timer == 10) { DecisionTree.OneStep(); } }
 
 
+    public HeadquartersBuild FindNearestHeadquarters(GameObject cellNeedFor)
+    {
+        float minDistance = float.MaxValue;
+        HeadquartersBuild choosedHeadquarters = null;
 
+        foreach (var headquarters in ServiceRegistry.WorkWithController<EnemysController>().CellWithHeadquarters_Bot)
+        {
+            var distance = Vector3.Distance(headquarters.Key.transform.position, cellNeedFor.transform.position);
+            if (distance < minDistance) { choosedHeadquarters = headquarters.Value; minDistance = distance; }
+        }
 
+        return choosedHeadquarters;
+    }
+
+    private HeadquartersAreaCasing GetHeadquartersToSupport(HeadquartersBuild needHelpHeadquarters, int distanceLimitCount = 1)
+    {
+        var bufferedList = HeadquartersDangerPoints.Keys.ToList();
+        bufferedList.Remove(needHelpHeadquarters);
+
+        Vector3 needHelpHeadquartersPosition = needHelpHeadquarters.CellWithThisBuild.transform.position;
+
+        Dictionary<HeadquartersBuild, float> headquartersDistanceToHelp = new();
+
+        float MinDistance = float.MaxValue;
+
+        foreach(var headquarter in bufferedList)
+        {
+            var distanceBetween = Vector3.Distance(headquarter.CellWithThisBuild.transform.position, needHelpHeadquartersPosition);
+
+            if (distanceBetween < MinDistance)
+            {
+                if(headquartersDistanceToHelp.Keys.Count == distanceLimitCount)
+                {
+                    HeadquartersBuild headquartersToDelete = null;
+
+                    foreach(var choosedHeadquarters in headquartersDistanceToHelp.Keys)
+                    {
+                        if (headquartersDistanceToHelp[choosedHeadquarters] > distanceBetween) { headquartersToDelete = choosedHeadquarters;break; }
+                    }
+
+                    headquartersDistanceToHelp.Remove(headquartersToDelete);
+                }
+
+                headquartersDistanceToHelp.Add(headquarter,distanceBetween);
+
+                MinDistance = headquartersDistanceToHelp.Aggregate((x,y)=> x.Value > y.Value ? x : y).Value;
+            }
+        }
+
+        if (headquartersDistanceToHelp.Count == 0) return null;
+
+        Dictionary<HeadquartersBuild, float> helpfulnessOfHeadquarter = new();
+
+        foreach(var headquarterItem in headquartersDistanceToHelp)
+        {
+            helpfulnessOfHeadquarter[headquarterItem.Key] = (float)(headquarterItem.Value * 0.4 + HeadquartersDangerPoints[headquarterItem.Key] * 0.6f);
+        }
+
+        return HeadquartersCasing[helpfulnessOfHeadquarter.Aggregate((x, y) => x.Value > y.Value ? x : y).Key];
+    }
 }
 
 /// <summary>

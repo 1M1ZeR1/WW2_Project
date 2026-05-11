@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class HeadquartersSquadsManager
@@ -16,6 +17,8 @@ public class HeadquartersSquadsManager
     {
         ServiceRegistry.WorkWithService<EventBus>().Subscribe<MovementController, HeadquartersSquadsManager, AbstractSquad, GameObject>((sender, key, squad, cell) =>
         {
+            if (squad.Side != SideEnum.Enemys) return;
+
             if (cellToSquads.ContainsKey(cell))
             {
                 if (!squadsInControlledArea.Contains(squad) && !cellToSquads[cell].Contains(squad))
@@ -24,7 +27,9 @@ public class HeadquartersSquadsManager
                     cellToSquads[cell].Add(squad);
                 }
 
+                headquartersAreaCasing.RecalculateAllDangers(cell);
 
+                return;
             }
         });
 
@@ -43,7 +48,7 @@ public class HeadquartersSquadsManager
         }
     }
 
-    public bool ComandToMove(GameObject fromCell, GameObject toCell, bool randomChoise = true)
+    public bool ComandToMove(GameObject fromCell, GameObject toCell, bool randomChoise = true, bool transferMove = false)
     {
         if (randomChoise)
         {
@@ -56,10 +61,21 @@ public class HeadquartersSquadsManager
             }
             if(freeSquads.Count <= 0)return false;
 
-            EnemysSquadsMovement enemySquadMovement = new(freeSquads[UnityEngine.Random.Range(0,freeSquads.Count)],
+            AbstractSquad choosedSquad = freeSquads[UnityEngine.Random.Range(0, freeSquads.Count)];
+
+            EnemysSquadsMovement enemySquadMovement = new(choosedSquad,
                 (fromCell,toCell), null,this);
 
             ServiceRegistry.WorkWithService<CommandBus>().Enqueue(enemySquadMovement);
+
+            if (transferMove) 
+            {
+                squadsInControlledArea.Remove(choosedSquad);
+
+                cellToSquads[fromCell].Remove(choosedSquad);
+
+                headquartersAreaCasing.RecalculateAllDangers();
+            }
 
             return true;
         }
@@ -70,10 +86,6 @@ public class HeadquartersSquadsManager
     public void TryToSwitchSquad(AbstractSquad squad, GameObject fromCell, GameObject toCell)
     {
         if (cellToSquads.ContainsKey(fromCell) && fromCell != toCell) { cellToSquads[fromCell].Remove(squad); cellToSquads[toCell].Add(squad); }
-    }
-    public void TryToTransferSquad(AbstractSquad squad, GameObject fromCell, GameObject toCell)
-    {
-
     }
     public bool TryToRemoveSquad(AbstractSquad squad, GameObject fromCell)
     {

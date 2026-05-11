@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -24,21 +25,31 @@ public class HeadquartersAreaCasing
         this.headquartersBuild = headquartersBuild;
         dangerDistance = dangeDistanceParameter;
 
-        headquartersBuild.GetCellsInArea_BySide(SideEnum.Enemys).ForEach(cell => { RecalculateLocalDanger();});
+        //headquartersBuild.GetCellsInArea_BySide(SideEnum.Enemys).ForEach(cell => { RecalculateLocalDanger();});
+        RecalculateLocalDanger();
 
         squadsManager = new HeadquartersSquadsManager(headquartersBuild.GetCellsInArea_BySide(SideEnum.Enemys),this);
     }
 
-    public void RecalculateAllDangers(GameObject cell)
+
+    public void RecalculateAllDangers(GameObject cellInitiator = null, GameObject cellNeedRecalculation = null)
     {
-        RecalculateLocalDanger(cell,headquartersBuild.GetCellsInArea_BySide(SideEnum.Enemys).Contains(cell));
+        if (cellNeedRecalculation != null)
+        {
+            localCellDangerPoints[cellNeedRecalculation] = CalculateLocalDanger(cellNeedRecalculation);
+        }
+        else
+        {
+            if (cellInitiator == null) RecalculateLocalDanger();
+            else RecalculateLocalDanger(cellInitiator, headquartersBuild.GetCellsInArea_BySide(SideEnum.Enemys).Contains(cellInitiator));
+        }
 
         RecalculateGeneralDanger();
     }
 
-    private void RecalculateLocalDanger(GameObject cell = null, bool recalculationByCellInArea = false)
+    private void RecalculateLocalDanger(GameObject cellInitiator = null, bool recalculationByCellInArea = false)
     {
-        if (cell == null)
+        if (cellInitiator == null)
         {
             foreach(var cellInArea in headquartersBuild.GetCellsInArea_BySide(SideEnum.Enemys))
             {
@@ -49,17 +60,17 @@ public class HeadquartersAreaCasing
         {
             if (!recalculationByCellInArea)
             {
-                CustomLog.PurpleText($"Recalculation by {cell.name}.");
+                CustomLog.PurpleText($"Recalculation by {cellInitiator.name}.");
 
                 List<GameObject> cellsInDangerZone = new();
 
                 foreach (var cellInArea in headquartersBuild.GetCellsInArea_BySide(SideEnum.Enemys))
                 {
-                    float currentDistance = Vector3.Distance(cellInArea.transform.position, cell.transform.position);
+                    float currentDistance = Vector3.Distance(cellInArea.transform.position, cellInitiator.transform.position);
 
                     if (currentDistance <= dangerDistance)
                     {
-                        CustomLog.YellowText($"{cellInArea.name} in danger distance of {cell.name} | {currentDistance}<={dangerDistance}");
+                        CustomLog.YellowText($"{cellInArea.name} in danger distance of {cellInitiator.name} | {currentDistance}<={dangerDistance}");
 
                         localCellDangerPoints[cellInArea] = CalculateLocalDanger(cellInArea);
 
@@ -75,9 +86,9 @@ public class HeadquartersAreaCasing
             }
             else
             {
-                CustomLog.PurpleText($"Recalculation by {cell.name} what in area.");
+                CustomLog.PurpleText($"Recalculation by {cellInitiator.name} what in area.");
 
-                CellParametersHandler cellParametersHandler = ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell);
+                CellParametersHandler cellParametersHandler = ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cellInitiator);
                 CellArea cellArea = cellParametersHandler.GetParameter<CellArea>();
 
                 List<GameObject> cellsInDangerZone = new();
@@ -94,11 +105,11 @@ public class HeadquartersAreaCasing
                     case SideEnum.Allies:
                         foreach (var cellInArea in headquartersBuild.GetCellsInArea_BySide(SideEnum.Enemys))
                         {
-                            if (cellInArea == cell) { localCellDangerPoints[cell] = -1; continue; }
+                            if (cellInArea == cellInitiator) { localCellDangerPoints[cellInitiator] = -1; continue; }
 
                             CellParametersHandler cellInAreaParametersHandler = ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cellInArea);
 
-                            if (cellInAreaParametersHandler.GetParameter<CellArea>().IsCellNeighbor(cell)) {
+                            if (cellInAreaParametersHandler.GetParameter<CellArea>().IsCellNeighbor(cellInitiator)) {
                                 localCellDangerPoints[cellInArea] = 0;
                                 cellsInDangerZone.Add(cellInArea);
                                 continue; }
@@ -215,14 +226,14 @@ public class HeadquartersAreaCasing
 
         while (dangerLimit > 10)
         {
-            List<GameObject> cellsWithLowestDanger = localCellDangerPoints.Keys.Where(cell => localCellDangerPoints[cell] >=  dangerLimit 
+            List<GameObject> cellsWithLowestDanger = localCellDangerPoints.Keys.Where(cell => localCellDangerPoints[cell] >= dangerLimit
             && !forCells.Contains(cell)).ToList();
 
             CustomLog.GreenText($"Found {cellsWithLowestDanger.Count} donors with danger lowest then {dangerLimit}");
 
             if (cellsWithLowestDanger.Count > 0)
             {
-                while(forCells.Count > 0)
+                while (forCells.Count > 0)
                 {
                     int randomIndex = UnityEngine.Random.Range(0, cellsWithLowestDanger.Count);
 
@@ -246,17 +257,24 @@ public class HeadquartersAreaCasing
                     needSquads[forCells[randomIndex_ForCells]] -= 1;
                     CustomLog.GreenText($"Need squads - {needSquads[forCells[randomIndex_ForCells]]} for cell {forCells[randomIndex_ForCells]}");
 
-                    if (needSquads[forCells[randomIndex_ForCells]] == 0) { needSquads.Remove(forCells[randomIndex_ForCells]); 
+                    if (needSquads[forCells[randomIndex_ForCells]] == 0)
+                    {
+                        needSquads.Remove(forCells[randomIndex_ForCells]);
                         forCells.RemoveAt(randomIndex_ForCells);
 
                         if (forCells.Count == 0) { reinforced = true; break; }
-                    } 
+                    }
                 }
             }
 
             if (reinforced) { break; }
 
             dangerLimit -= 20;
+        }
+
+        if (needSquads.Keys.Count() > 0)
+        {
+            ServiceRegistry.WorkWithService<EventBus>().Publish<HeadquartersAreaCasing, HeadquartersBuild, List<GameObject>>(this, headquartersBuild, needSquads.Keys.ToList());
         }
     }
 
@@ -285,5 +303,21 @@ public class HeadquartersAreaCasing
         }
 
         return localCellDangerPoints.OrderByDescending(x => x.Value).First().Key;
+    }
+
+    public void SupportAction(List<GameObject> cellNeedHelp)
+    {
+        for(int i = 0; i < cellNeedHelp.Count; i++)
+        {
+            GameObject cellWithHighReliability = GetCellWithHighReliability(10 * (1 + i));
+
+            int randomIndex = UnityEngine.Random.Range(0,cellNeedHelp.Count);
+            bool commandMoveResult = squadsManager.ComandToMove(cellWithHighReliability, cellNeedHelp[randomIndex]);
+
+            CustomLog.PurpleText_Warning($"Founded cell:{cellWithHighReliability.name} to help cell:{cellNeedHelp[randomIndex]}");
+
+            if (commandMoveResult) { continue; }
+            else { i--; continue; }
+        }
     }
 }

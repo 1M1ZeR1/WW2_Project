@@ -51,15 +51,8 @@ public class AlliesCellsAnalyzer
 
     private void HeadquartersAwakener(GameObject cell)
     {
-        float minDistance = float.MaxValue;
-        HeadquartersBuild choosedHeadquarters = null;
+        var headquarters = ServiceRegistry.WorkWithController<EnemysController>().FindNearestHeadquarters(cell);
 
-        foreach (var headquarters in ServiceRegistry.WorkWithController<EnemysController>().CellWithHeadquarters_Bot)
-        {
-            var distance = Vector3.Distance(headquarters.Key.transform.position, cell.transform.position);
-            if (distance < minDistance) { choosedHeadquarters = headquarters.Value; minDistance = distance; }
-        }
-
-        if (choosedHeadquarters != null)ServiceRegistry.WorkWithController<EnemysController>().HeadquartersCasing[choosedHeadquarters].RecalculateAllDangers(cell);
+        if(headquarters!= null) ServiceRegistry.WorkWithController<EnemysController>().HeadquartersCasing[headquarters].RecalculateAllDangers(cell);
     }
 }
