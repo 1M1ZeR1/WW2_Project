@@ -262,7 +262,7 @@ public class HeadquartersPanel : MonoBehaviour
     }
     private void UpdateText()
     {
-        text_countOfHardCells.text = $"{_currentWorkingHeadquarters.GetCountOfHardCells()}/{_currentWorkingHeadquarters.MaxCountOfHardCells}";
+        text_countOfHardCells.text = $"{_currentWorkingHeadquarters.GetCountOfHardCells()} из {_currentWorkingHeadquarters.MaxCountOfHardCells}";
     }
     private void OpenHardCategory()
     {
