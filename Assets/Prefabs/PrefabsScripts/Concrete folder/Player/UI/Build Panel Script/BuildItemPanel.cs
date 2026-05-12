@@ -8,6 +8,8 @@ public class BuildItemPanel : MonoBehaviour
 {
     public string id { set; get; }
 
+    [SerializeField] private GameObject buildPanel;
+
     [SerializeField] private Button buildButton;
     private GameObject buildButtonObject;
     [SerializeField] private Button upgradeButton;
@@ -20,11 +22,19 @@ public class BuildItemPanel : MonoBehaviour
         buildButtonObject = buildButton.gameObject;
         upgradeButtonObject = upgradeButton.gameObject;
 
+        ServiceRegistry.WorkWithService<EventBus>().Subscribe<GeneralUiWindowsManager, GameObject, GameObject>((sender, taker, cell) =>
+        {
+            currentCell = cell;
+
+            CheckBuildForButtonState();
+        });
+
         ServiceRegistry.WorkWithService<EventBus>().Subscribe<InteractableScript, GameObject, bool>((sender, cell, UI_resolution) =>
         {
             if (!UI_resolution) return;
             currentCell = cell;
         });
+
         ServiceRegistry.WorkWithService<EventBus>().Subscribe<ButtonInteraction,BuildItemPanel>((sender,key) =>
         {
             CheckBuildForButtonState();

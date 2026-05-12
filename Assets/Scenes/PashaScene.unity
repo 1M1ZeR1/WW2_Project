@@ -57826,7 +57826,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.00000066971353, y: -0.0022346673}
+  m_AnchoredPosition: {x: -0.00000066971353, y: 0.0017492103}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &490206286
@@ -60262,6 +60262,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0ae3fa51a60871419fc93ea4e53f84d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StateSaverEnable: 1
 --- !u!114 &504829523
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77879,6 +77880,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0ae3fa51a60871419fc93ea4e53f84d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StateSaverEnable: 0
 --- !u!114 &689502182
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -90705,6 +90707,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0ae3fa51a60871419fc93ea4e53f84d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StateSaverEnable: 1
 --- !u!1 &798058641
 GameObject:
   m_ObjectHideFlags: 0
@@ -114152,6 +114155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0ae3fa51a60871419fc93ea4e53f84d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StateSaverEnable: 1
 --- !u!43 &1020214918
 Mesh:
   m_ObjectHideFlags: 0
@@ -115788,8 +115792,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 386257653}
   m_HandleRect: {fileID: 386257652}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.99998885
+  m_Value: 0
+  m_Size: 0.99998516
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -142649,6 +142653,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0ae3fa51a60871419fc93ea4e53f84d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StateSaverEnable: 1
 --- !u!1 &1298850499
 GameObject:
   m_ObjectHideFlags: 0
@@ -151755,6 +151760,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0ae3fa51a60871419fc93ea4e53f84d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StateSaverEnable: 1
 --- !u!114 &1373111573
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -153082,6 +153088,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0ae3fa51a60871419fc93ea4e53f84d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StateSaverEnable: 1
 --- !u!43 &1381222506
 Mesh:
   m_ObjectHideFlags: 0
@@ -164801,6 +164808,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0ae3fa51a60871419fc93ea4e53f84d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StateSaverEnable: 1
 --- !u!114 &1469622378
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -173980,7 +173988,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 911179389}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.9999509
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -178959,6 +178967,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0ae3fa51a60871419fc93ea4e53f84d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StateSaverEnable: 1
 --- !u!114 &1585733463
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -184550,7 +184559,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.00093597465, y: -0.0043390025}
+  m_AnchoredPosition: {x: 0.0004057717, y: -0.0043390025}
   m_SizeDelta: {x: -0.012822282, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1616701515
@@ -187055,6 +187064,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0ae3fa51a60871419fc93ea4e53f84d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StateSaverEnable: 1
 --- !u!43 &1640049238
 Mesh:
   m_ObjectHideFlags: 0
@@ -189989,6 +189999,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0ae3fa51a60871419fc93ea4e53f84d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StateSaverEnable: 1
 --- !u!114 &1663668893
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -203725,6 +203736,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0ae3fa51a60871419fc93ea4e53f84d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StateSaverEnable: 1
 --- !u!114 &1788215218
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -205810,7 +205822,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.0000037542538, y: -0.00081387296}
+  m_AnchoredPosition: {x: -0.0000037542538, y: 0.0020811271}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1813302272
@@ -217192,8 +217204,8 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1514018496}
-        m_TargetAssemblyTypeName: GeneralUICloser, Assembly-CSharp
-        m_MethodName: CloseWindow
+        m_TargetAssemblyTypeName: GeneralUiWindowsManager, Assembly-CSharp
+        m_MethodName: PopFromStack
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

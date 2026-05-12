@@ -6,7 +6,8 @@ using UnityEngine.InputSystem;
 
 public class GeneralUiWindowsManager : MonoBehaviour
 {
-    private List<GameObject> panels;
+    private Stack<GameObject> panels;
+    private Stack<GameObject> cellsInteracted;
 
     [Header("Окно лагеря")]
     [SerializeField] private GameObject campPanel;
@@ -14,12 +15,23 @@ public class GeneralUiWindowsManager : MonoBehaviour
 
     [SerializeField] private GameObject[] smartInteractionPanels;
 
+    private Dictionary<GameObject,PanelStateSaver> panelStateSavers = new();
+
     private GameObject currentSmartInteracted;
+    private GameObject currentCellInteracted;
 
     public void Start()
     {
+        foreach (var item in GameObject.FindObjectsByType<PanelStateSaver>(FindObjectsInactive.Include,FindObjectsSortMode.None))
+        {
+            Debug.LogError(item.gameObject.name);
+
+            panelStateSavers[item.gameObject] = item;
+        }
+
         trainingPanelScript = campPanel.GetComponent<TrainingPanelScript>();
         panels = new();
+        cellsInteracted = new();
 
         ServiceRegistry.WorkWithService<EventBus>().Subscribe<BuildItemPanel, string, GameObject>((sender, id,cell) =>
         {
@@ -29,32 +41,67 @@ public class GeneralUiWindowsManager : MonoBehaviour
             }
         });
 
-        ServiceRegistry.WorkWithService<EventBus>().Subscribe<GeneralUiWindowsManager, PanelStateSaver, GameObject>((key, sender, panel) =>
+        ServiceRegistry.WorkWithService<EventBus>().Subscribe<WindowsOpener, GameObject, bool>((sender, panel, state) =>
         {
-            panels.Add(panel);
+            if (state) 
+            { 
+                panelStateSavers[panel].OpenWindowByGeneralUI();
+
+                if (currentSmartInteracted != null) { panelStateSavers[currentSmartInteracted].NeedSaveNotifier(); panelStateSavers[currentSmartInteracted].CloseWindowByGeneralUI(); }
+
+                currentSmartInteracted = panel;
+            }
+
+            else
+            {
+                panelStateSavers[panel].CloseWindowByGeneralUI();
+
+                currentSmartInteracted = null;
+
+                panels.Clear();
+            }
+
+
         });
 
-        ServiceRegistry.WorkWithService<EventBus>().Subscribe<GeneralUiWindowsManager, PanelSmartInteraction, GameObject>((key, sender, panel) =>
+        ServiceRegistry.WorkWithService<EventBus>().Subscribe<GeneralUiWindowsManager, PanelStateSaver, GameObject, bool>((key, sender, panel, stateSaver) =>
         {
-            if (currentSmartInteracted == panel) return;
+            if(!stateSaver || panels.Contains(panel))return;
 
-            if(smartInteractionPanels.Contains(panel))
+            panels.Push(panel);
+
+            cellsInteracted.Push(currentCellInteracted);
+        });
+
+        ServiceRegistry.WorkWithService<EventBus>().Subscribe<InteractableScript, GameObject, bool>((sender, cell, state) =>
+        {
+            if (state)
             {
-                currentSmartInteracted.SetActive(false);
-                currentSmartInteracted = panel;
+                currentCellInteracted = cell;
             }
         });
     }
 
 
-    public void CloseWindow(InputAction.CallbackContext context)
+    public void PopFromStack(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
-            if (panels.Count == 0) return;
+            if (panels.Count == 0)
+            {
+                if(currentSmartInteracted != null) { panelStateSavers[currentSmartInteracted].CloseWindowByGeneralUI(); currentSmartInteracted = null; }
+                return;
+            }
 
-            panels[panels.Count-1].SetActive(false);
-            panels.RemoveAt(panels.Count - 1);
+            var takenPanel = panels.Pop();
+
+            panelStateSavers[takenPanel].OpenWindowByGeneralUI();
+
+            ServiceRegistry.WorkWithService<EventBus>().Publish<GeneralUiWindowsManager, GameObject, GameObject>(this, takenPanel.gameObject, cellsInteracted.Pop());
+
+            if (currentSmartInteracted != null) panelStateSavers[currentSmartInteracted].CloseWindowByGeneralUI();
+
+            currentSmartInteracted = takenPanel;
         }
     }
 }

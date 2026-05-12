@@ -14,7 +14,7 @@ public class WindowsOpener : MonoBehaviour
     {
         if (!freeClickBlocked)
         {
-            windowToOpen.SetActive(!windowToOpen.activeSelf);
+            ServiceRegistry.WorkWithService<EventBus>().Publish<WindowsOpener,GameObject,bool>(this,windowToOpen,!windowToOpen.activeSelf);
         }
     }
 }

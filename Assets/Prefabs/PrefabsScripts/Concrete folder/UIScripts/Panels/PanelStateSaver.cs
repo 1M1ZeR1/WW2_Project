@@ -5,14 +5,26 @@ using UnityEngine;
 [DefaultExecutionOrder(100)]
 public class PanelStateSaver : MonoBehaviour
 {
+    [SerializeField] private bool StateSaverEnable = true;
+
     private void Awake()
     {
         this.enabled = false;
         this.enabled = true;
+
     }
 
-    private void OnEnable()
+    public void OpenWindowByGeneralUI()
     {
-        ServiceRegistry.WorkWithService<EventBus>().Publish<GeneralUiWindowsManager,PanelStateSaver,GameObject>(null,this,gameObject);
+        gameObject.SetActive(true);
+    }
+    public void NeedSaveNotifier()
+    {
+        ServiceRegistry.WorkWithService<EventBus>().Publish<GeneralUiWindowsManager, PanelStateSaver, GameObject, bool>(null, this, gameObject, StateSaverEnable);
+    }
+
+    public void CloseWindowByGeneralUI()
+    {
+        gameObject.SetActive(false);
     }
 }

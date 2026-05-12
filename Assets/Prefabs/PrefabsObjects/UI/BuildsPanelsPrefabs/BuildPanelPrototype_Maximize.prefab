@@ -230,6 +230,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f03ba4a8d23f4634dbf9660c66d9b160, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buildPanel: {fileID: 0}
   buildButton: {fileID: 671964089666331109}
   upgradeButton: {fileID: 6999352681737292155}
 --- !u!114 &135589219811451530
@@ -1736,8 +1737,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "\u041F\u043E\u0441\u0442\u0440\u043E\u0439\u043A\u0430 \u0434\u043B\u044F
-    \u043A\u043E\u043D\u0442\u0440\u043E\u043B\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u044F
-    \u043F\u043E\u0437\u0438\u0446\u0438\u0439"
+    \u0443\u043A\u0440\u0435\u043F\u043B\u0435\u043D\u0438\u044F \u043F\u043E\u0437\u0438\u0446\u0438\u0439"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 62054ecafcccd8043b8bf732dbc5d828, type: 2}
   m_sharedMaterial: {fileID: 6741274786139581222, guid: 62054ecafcccd8043b8bf732dbc5d828, type: 2}

@@ -66,6 +66,11 @@ public class CellUIScript : MonoBehaviour
         skillControllerObject.TryGetComponent(out skillControllerScript);
 
         ServiceRegistry.WorkWithController<BuilderController>().RequestUIUpdate += UpdateByBuildingsController;
+
+        ServiceRegistry.WorkWithService<EventBus>().Subscribe<GeneralUiWindowsManager, GameObject, GameObject>((sender, taker, cell) =>
+        {
+            if(taker == informationPanel.gameObject)_currentInteractionCell = cell;
+        });
     }
 
     private TextMeshProUGUI nameCell;
