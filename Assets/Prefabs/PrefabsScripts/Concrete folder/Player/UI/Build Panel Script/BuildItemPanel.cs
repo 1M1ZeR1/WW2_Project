@@ -32,6 +32,8 @@ public class BuildItemPanel : MonoBehaviour
         ServiceRegistry.WorkWithService<EventBus>().Subscribe<InteractableScript, GameObject, bool>((sender, cell, UI_resolution) =>
         {
             if (!UI_resolution) return;
+
+            if (ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell).GetParameter<CellArea>().Side != SideEnum.Allies) return;
             currentCell = cell;
         });
 
