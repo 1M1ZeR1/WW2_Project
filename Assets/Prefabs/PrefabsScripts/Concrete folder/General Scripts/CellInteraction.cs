@@ -67,14 +67,23 @@ public class CellInteraction
 
     private void PlayerInteractWithGameObject(GameObject interableGameObject)
     {
+        SideEnum interactableCellSide = ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(interableGameObject).GetParameter<CellArea>().Side;
+
+        if(interactableCellSide == SideEnum.Enemys) return;
+
+
         if (interableGameObject == _cellInterectWith)
         {
             SetMaterialBySide_Interact
                 (
-                ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(interableGameObject).GetParameter<CellArea>().Side,
+                interactableCellSide,
                 interableGameObject,
                 false
                 );
+
+            _cellInterectWith.layer = 6;
+
+            _cellInterectWith.transform.position += new Vector3(0f,-3f,0f);
         }
         else
         {
@@ -89,16 +98,24 @@ public class CellInteraction
                     buff,
                     false
                     );
+
+                buff.layer = 6;
+
+                buff.transform.position += new Vector3(0f, -3f, 0f);
             }
 
             _cellInterectWith = interableGameObject;
 
             SetMaterialBySide_Interact
                 (
-                ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(interableGameObject).GetParameter<CellArea>().Side,
+                interactableCellSide,
                 interableGameObject,
                 true
                 );
+
+            _cellInterectWith.layer = 8;
+
+            _cellInterectWith.transform.position += new Vector3(0f, +3f, 0f);
         }
     }
 
