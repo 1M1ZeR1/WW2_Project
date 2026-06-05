@@ -38,7 +38,6 @@ public class CommandBus : ICommandBus
                     {
                         case CommandState.Created:
                             cmd.Prepare();
-                            //if (cmd.CanExecute()) cmd.Execute();
                             break;
 
                         case CommandState.Prepared:

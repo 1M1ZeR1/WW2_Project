@@ -27,7 +27,7 @@ public class CreatingPanelScript : MonoBehaviour
     private Dictionary<SquadWeapon, string> weponDictionary_temporarily = new()
     {
         {SquadWeapon.Tank,"Танк" },
-        {SquadWeapon.MachineHun,"Пистолет-пулимёт" },
+        {SquadWeapon.MachineHun,"Пистолет-пулемёт" },
         {SquadWeapon.Artillery,"Артиллерия" },
         {SquadWeapon.SniperRifle,"Снайперская винтовка" },
         {SquadWeapon.AssautRifle,"Автомат" },
@@ -122,6 +122,15 @@ public class CreatingPanelScript : MonoBehaviour
         {
             dropDown_WeaponType.options.Add(new TMP_Dropdown.OptionData(weponDictionary_temporarily[weapon]));
         }
+
+        dropDown_WeaponType.value = 0;
+        dropDown_WeaponType.RefreshShownValue();
+
+        dropDown_TransportType.value = 0;
+        dropDown_TransportType.RefreshShownValue();
+
+        OnValueChanged_WeaponDropDown(0);
+        OnValueChanged_TransportDropDown(0);
     }
 
     public void OnValueChanged_WeaponDropDown(int index){ currentWeapon = currentWeaponList[index]; CalculateTotalCost(); }

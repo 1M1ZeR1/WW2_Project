@@ -9,8 +9,6 @@ public class EventBus
 
     public void Subscribe<T1>(Action<T1> callback)
     {
-        //Debug.Log($"<b><color=green>{callback.Target}:Subscribe to Event({typeof(T1)})</color></b>");
-
         var key = typeof(Action<T1>);
         if (!events.ContainsKey(key)) events[key] = null;
         events[key] = (Action<T1>)events[key] + callback;
@@ -25,8 +23,6 @@ public class EventBus
 
     public void Subscribe<T1, T2>(Action<T1, T2> callback)
     {
-        //Debug.Log($"<b><color=green>{callback.Target}:Subscribe to Event({typeof(T1)},{typeof(T2)})</color></b>");
-
         var key = typeof(Action<T1, T2>);
         if (!events.ContainsKey(key)) events[key] = null;
         events[key] = (Action<T1, T2>)events[key] + callback;

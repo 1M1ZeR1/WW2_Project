@@ -136,6 +136,7 @@ public class ControllersHub
 
 
         Register_Controller(GameObject.FindAnyObjectByType<MessageScript>(FindObjectsInactive.Include));
+        Register_Controller(GameObject.FindAnyObjectByType<DescriptionScript>(FindObjectsInactive.Include));
         Register_Controller(GameObject.FindAnyObjectByType<WorldOnCanvasScript>());
 
         Register_Controller(new BuilderController());
@@ -151,10 +152,5 @@ public class ControllersHub
         Register_Controller(GameObject.FindAnyObjectByType<HoverHandler>());
 
     }
-
-    //private IEnumerator ServicesLoader()
-    //{
-
-    //}
 }
 

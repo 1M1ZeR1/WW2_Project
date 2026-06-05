@@ -4,12 +4,17 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class HoverHandler : MonoBehaviour
 {
     private GameObject currentHoveredCell;
 
     [SerializeField] private TextMeshProUGUI textTip;
+
+    [Header("Обработка кликов на UI")]
+    [SerializeField] private GraphicRaycaster graphicRaycaster_PlayerCanvas;
+    [SerializeField] private GraphicRaycaster graphicRaycaster_ExplorationCanvas;
 
     public Action<GameObject> SendCurrentHoveredCell;
 
@@ -31,10 +36,10 @@ public class HoverHandler : MonoBehaviour
     private GameObject actionStartedCell;
 
     public bool SeeHoveredCell { private get; set; } = false;
-    
+
     private void Update()
     {
-        if (IsPointerOverUI_ByTag("Interactable UI")) 
+        if (IsPointerOverUI_ByTag()) 
         {
 
             if (currentHoveredCell != null) 
@@ -98,19 +103,20 @@ public class HoverHandler : MonoBehaviour
         }
     }
 
-    private bool IsPointerOverUI_ByTag(string tag)
+    private bool IsPointerOverUI_ByTag()
     {
-        PointerEventData pointerEventData = new PointerEventData(EventSystem.current);
-        pointerEventData.position = Input.mousePosition;
-
-        List<RaycastResult> results = new ();
-        EventSystem.current.RaycastAll(pointerEventData, results);
-
-        foreach (var ray in results)
+        PointerEventData pointerEventData = new PointerEventData(EventSystem.current)
         {
-            if(ray.gameObject.CompareTag(tag))return true;
-        }
-        return false;
+            position = Input.mousePosition
+        };
+
+        List<RaycastResult> resultsHitUI = new List<RaycastResult>();
+        graphicRaycaster_PlayerCanvas.Raycast(pointerEventData, resultsHitUI);
+        graphicRaycaster_ExplorationCanvas.Raycast(pointerEventData, resultsHitUI);
+
+
+
+        return resultsHitUI.Count > 0;
     }
 
     private void SetTextTip_CellsInfo(GameObject hoveredCell)

@@ -24,8 +24,6 @@ public class GeneralUiWindowsManager : MonoBehaviour
     {
         foreach (var item in GameObject.FindObjectsByType<PanelStateSaver>(FindObjectsInactive.Include,FindObjectsSortMode.None))
         {
-            Debug.LogError(item.gameObject.name);
-
             panelStateSavers[item.gameObject] = item;
         }
 

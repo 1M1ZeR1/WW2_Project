@@ -15,6 +15,8 @@ public class BuildItemPanel : MonoBehaviour
     [SerializeField] private Button upgradeButton;
     private GameObject upgradeButtonObject;
 
+    [SerializeField] private Button descriptionButton;
+
     private GameObject currentCell;
 
     public void InstantiateComponent()
@@ -63,6 +65,8 @@ public class BuildItemPanel : MonoBehaviour
 
             var coroutine = ServiceRegistry.WorkWithController<BuilderController>().StartBuildProccess(currentCell, id, 1);
 
+            ServiceRegistry.WorkWithController<FocusOnCellScript>().FocusToCell(currentCell);
+
             if (coroutine != null)
             {
                 ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(currentCell).GetParameter<CellBuildings>().buildInBuilding = id;
@@ -76,12 +80,22 @@ public class BuildItemPanel : MonoBehaviour
 
             var coroutine = ServiceRegistry.WorkWithController<BuilderController>().StartBuildProccess(currentCell, id, 2);
 
+            ServiceRegistry.WorkWithController<FocusOnCellScript>().FocusToCell(currentCell);
+
             if (coroutine != null)
             {
                 ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(currentCell).GetParameter<CellBuildings>().buildInBuilding = id;
                 GameController.AddActionToQueue(() => StartCoroutine(coroutine));
             }
         });
+
+        if (descriptionButton != null)
+        {
+            descriptionButton.onClick.AddListener(() =>
+            {
+                ServiceRegistry.WorkWithController<DescriptionScript>().SendDescription(id);
+            });
+        }
 
         EventTrigger.Entry entry = new EventTrigger.Entry { eventID = EventTriggerType.PointerClick };
 

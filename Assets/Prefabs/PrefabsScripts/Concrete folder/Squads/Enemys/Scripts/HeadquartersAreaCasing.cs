@@ -200,77 +200,77 @@ public class HeadquartersAreaCasing
             List<GameObject> cellsDonors = cellWithHeadquartersParameters.GetParameter<CellArea>().
                 GetNeighbores().Where(cell => localCellDangerPoints.ContainsKey(cell)).ToList();
 
-            while (needSquads[cellWithThisHeadquarters] != 0)
-            {
-                int randomIndex = UnityEngine.Random.Range(0, cellsDonors.Count);
+            //while (needSquads[cellWithThisHeadquarters] != 0)
+            //{
+            //    int randomIndex = UnityEngine.Random.Range(0, cellsDonors.Count);
 
-                CellParametersHandler cellParametersHandler = ServiceRegistry.WorkWithController<CellController>()
-                        .WorkWithCell<CellParametersHandler>(cellsDonors[randomIndex]);
+            //    CellParametersHandler cellParametersHandler = ServiceRegistry.WorkWithController<CellController>()
+            //            .WorkWithCell<CellParametersHandler>(cellsDonors[randomIndex]);
 
-                CellSquadsOnArea cellSquadsOnArea = cellParametersHandler.GetParameter<CellSquadsOnArea>();
+            //    CellSquadsOnArea cellSquadsOnArea = cellParametersHandler.GetParameter<CellSquadsOnArea>();
 
-                if (cellSquadsOnArea.GetCountCurrentMax().Item1 <= 1)
-                {
-                    cellsDonors.RemoveAt(randomIndex);
+            //    if (cellSquadsOnArea.GetCountCurrentMax().Item1 <= 1)
+            //    {
+            //        cellsDonors.RemoveAt(randomIndex);
 
-                    if (cellsDonors.Count == 0) break;
+            //        if (cellsDonors.Count == 0) break;
 
-                    continue;
-                }
+            //        continue;
+            //    }
 
-                squadsManager.ComandToMove(cellsDonors[randomIndex], cellWithThisHeadquarters, true);
+            //    squadsManager.ComandToMove(cellsDonors[randomIndex], cellWithThisHeadquarters, true);
 
-                needSquads[cellWithThisHeadquarters] -= 1;
-            }
+            //    needSquads[cellWithThisHeadquarters] -= 1;
+            //}
         }
 
-        while (dangerLimit > 10)
-        {
-            List<GameObject> cellsWithLowestDanger = localCellDangerPoints.Keys.Where(cell => localCellDangerPoints[cell] >= dangerLimit
-            && !forCells.Contains(cell)).ToList();
+        //while (dangerLimit > 10)
+        //{
+        //    List<GameObject> cellsWithLowestDanger = localCellDangerPoints.Keys.Where(cell => localCellDangerPoints[cell] >= dangerLimit
+        //    && !forCells.Contains(cell)).ToList();
 
-            CustomLog.GreenText($"Found {cellsWithLowestDanger.Count} donors with danger lowest then {dangerLimit}");
+        //    CustomLog.GreenText($"Found {cellsWithLowestDanger.Count} donors with danger lowest then {dangerLimit}");
 
-            if (cellsWithLowestDanger.Count > 0)
-            {
-                while (forCells.Count > 0)
-                {
-                    int randomIndex = UnityEngine.Random.Range(0, cellsWithLowestDanger.Count);
+        //    if (cellsWithLowestDanger.Count > 0)
+        //    {
+        //        while (forCells.Count > 0)
+        //        {
+        //            int randomIndex = UnityEngine.Random.Range(0, cellsWithLowestDanger.Count);
 
-                    CellParametersHandler cellParametersHandler = ServiceRegistry.WorkWithController<CellController>()
-                        .WorkWithCell<CellParametersHandler>(cellsWithLowestDanger[randomIndex]);
+        //            CellParametersHandler cellParametersHandler = ServiceRegistry.WorkWithController<CellController>()
+        //                .WorkWithCell<CellParametersHandler>(cellsWithLowestDanger[randomIndex]);
 
-                    CellSquadsOnArea cellSquadsOnArea = cellParametersHandler.GetParameter<CellSquadsOnArea>();
+        //            CellSquadsOnArea cellSquadsOnArea = cellParametersHandler.GetParameter<CellSquadsOnArea>();
 
-                    if (cellSquadsOnArea.GetCountCurrentMax().Item1 <= 1)
-                    {
-                        cellsWithLowestDanger.RemoveAt(randomIndex);
+        //            if (cellSquadsOnArea.GetCountCurrentMax().Item1 <= 1)
+        //            {
+        //                cellsWithLowestDanger.RemoveAt(randomIndex);
 
-                        continue;
-                    }
+        //                continue;
+        //            }
 
-                    int randomIndex_ForCells = UnityEngine.Random.Range(0, forCells.Count);
+        //            int randomIndex_ForCells = UnityEngine.Random.Range(0, forCells.Count);
 
-                    CustomLog.GreenText($"Send squad from {cellsWithLowestDanger[randomIndex]} to {forCells[randomIndex_ForCells]}");
-                    squadsManager.ComandToMove(cellsWithLowestDanger[randomIndex], forCells[randomIndex_ForCells], true);
+        //            CustomLog.GreenText($"Send squad from {cellsWithLowestDanger[randomIndex]} to {forCells[randomIndex_ForCells]}");
+        //            squadsManager.ComandToMove(cellsWithLowestDanger[randomIndex], forCells[randomIndex_ForCells], true);
 
-                    needSquads[forCells[randomIndex_ForCells]] -= 1;
-                    CustomLog.GreenText($"Need squads - {needSquads[forCells[randomIndex_ForCells]]} for cell {forCells[randomIndex_ForCells]}");
+        //            needSquads[forCells[randomIndex_ForCells]] -= 1;
+        //            CustomLog.GreenText($"Need squads - {needSquads[forCells[randomIndex_ForCells]]} for cell {forCells[randomIndex_ForCells]}");
 
-                    if (needSquads[forCells[randomIndex_ForCells]] == 0)
-                    {
-                        needSquads.Remove(forCells[randomIndex_ForCells]);
-                        forCells.RemoveAt(randomIndex_ForCells);
+        //            if (needSquads[forCells[randomIndex_ForCells]] == 0)
+        //            {
+        //                needSquads.Remove(forCells[randomIndex_ForCells]);
+        //                forCells.RemoveAt(randomIndex_ForCells);
 
-                        if (forCells.Count == 0) { reinforced = true; break; }
-                    }
-                }
-            }
+        //                if (forCells.Count == 0) { reinforced = true; break; }
+        //            }
+        //        }
+        //    }
 
-            if (reinforced) { break; }
+        //    if (reinforced) { break; }
 
-            dangerLimit -= 20;
-        }
+        //    dangerLimit -= 20;
+        //}
 
         if (needSquads.Keys.Count() > 0)
         {
@@ -312,7 +312,7 @@ public class HeadquartersAreaCasing
             GameObject cellWithHighReliability = GetCellWithHighReliability(10 * (1 + i));
 
             int randomIndex = UnityEngine.Random.Range(0,cellNeedHelp.Count);
-            bool commandMoveResult = squadsManager.ComandToMove(cellWithHighReliability, cellNeedHelp[randomIndex]);
+            bool commandMoveResult = squadsManager.ComandToMove(cellWithHighReliability, cellNeedHelp[randomIndex],true,true);
 
             CustomLog.PurpleText_Warning($"Founded cell:{cellWithHighReliability.name} to help cell:{cellNeedHelp[randomIndex]}");
 

@@ -82,6 +82,14 @@ public class SelectedObjectScript : MonoBehaviour
             }
         }
     }
+
+    public void SpawnParticles(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+           
+        }
+    }
     public GameObject GetSelectedObject() { return _selectedGameObject; }
     public void SetInConfigureMode() { _inConfigureMode = true; }
 }

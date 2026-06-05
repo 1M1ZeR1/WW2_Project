@@ -40,12 +40,83 @@ public class EnemysController
 
         ServiceRegistry.WorkWithService<EventBus>().Subscribe<HeadquartersAreaCasing, HeadquartersBuild, List<GameObject>>((sender, headquartersBuild, needHelp) =>
         {
+            CustomLog.BlueText($"I realy want to get help {headquartersBuild.CellWithThisBuild}");
+
             HeadquartersAreaCasing foundedHeadquarterToHelp = GetHeadquartersToSupport(headquartersBuild,3);
 
             foundedHeadquarterToHelp.SupportAction(needHelp);
         });
+
+
+        var result = FindHeadquartersToAttack();
+        AttackDirection attackDirection = new AttackDirection(CellWithHeadquarters_Bot[result.Item1], CellWithHeadquarters_Player[result.Item2]);
     }
     private void AddToTimer() { timer++;if(timer == 10) { DecisionTree.OneStep(); } }
+
+    private (GameObject,GameObject) FindHeadquartersToAttack()
+    {
+        List<GameObject> playerCells = CellWithHeadquarters_Player.Keys.ToList();
+        List<GameObject> botCells = CellWithHeadquarters_Bot.Keys.ToList();
+
+        GameObject nearestBot = null, nearestPlayer = null;
+
+        float minSqrDist = float.MaxValue;
+
+        if(playerCells.Count > botCells.Count)
+        {
+            foreach(var botCell in botCells)
+            {
+                Vector3 cellPosBot = botCell.transform.position;
+
+                foreach(var playerCell in playerCells)
+                {
+                    Vector3 cellPosPlayer = playerCell.transform.position;
+
+                    float dx = cellPosPlayer.x - cellPosBot.x;
+                    float dy = cellPosPlayer.y - cellPosBot.y;
+                    float dz = cellPosPlayer.z - cellPosBot.z;
+
+                    float sqrDist = dx * dx + dy * dy + dz * dz;
+
+                    if (sqrDist < minSqrDist) 
+                    {
+                        minSqrDist = sqrDist;
+                        nearestBot = botCell; nearestPlayer = playerCell;
+
+                        if (sqrDist <= 100) return (nearestBot,nearestPlayer);
+                    }
+                }
+            }
+        }
+        else
+        {
+            foreach (var playerCell in playerCells)
+            {
+                Vector3 cellPosPlayer = playerCell.transform.position;
+
+                foreach(var botCell in botCells) 
+                {
+                    Vector3 cellPosBot = botCell.transform.position;
+
+                    float dx = cellPosBot.x - cellPosPlayer.x;
+                    float dy = cellPosBot.y - cellPosPlayer.y;
+                    float dz = cellPosBot.z - cellPosPlayer.z;
+
+                    float sqrDist = dx * dx + dy * dy + dz * dz;
+
+                    if (sqrDist < minSqrDist)
+                    {
+                        minSqrDist = sqrDist;
+                        nearestBot = botCell; nearestPlayer = playerCell;
+
+                        if (sqrDist <= 100) return (nearestBot, nearestPlayer);
+                    }
+                }
+            }
+        }
+
+        return (nearestBot, nearestPlayer);
+    }
 
 
     public HeadquartersBuild FindNearestHeadquarters(GameObject cellNeedFor)
@@ -193,9 +264,9 @@ public class DecisionTree
         {
             List<ActionType_Attack> listOfActionsType = new();
 
-            //listOfActionsType.Add(_dangerPointToAction_Attack[(int)dangerPoints][UnityEngine.Random.Range(0, _dangerPointToAction_Attack[(int)dangerPoints].Count-1)]);
+            listOfActionsType.Add(_dangerPointToAction_Attack[(int)dangerPoints][UnityEngine.Random.Range(0, _dangerPointToAction_Attack[(int)dangerPoints].Count-1)]);
 
-            //if (_necessarilyActions.ContainsKey((int)dangerPoints)) { listOfActionsType.AddRange(_necessarilyActions[(int)dangerPoints]); }
+            if (_necessarilyActions.ContainsKey((int)dangerPoints)) { listOfActionsType.AddRange(_necessarilyActions[(int)dangerPoints]); }
 
             return listOfActionsType;
         }
@@ -221,8 +292,9 @@ public enum ActionType_Attack
 public class NodeFactory
 {
     private EconomyNode economyNode;
+    private AttackNode attackNode;
 
-    public NodeFactory(DecisionTree actionTree) { economyNode = new(actionTree); }
+    public NodeFactory(DecisionTree actionTree) { economyNode = new(actionTree); attackNode = new(actionTree); }
     public List<ICommand> CreateCommands(List<ActionType_Economy> actionsType_Economy, List<ActionType_Attack> actionsType_Attack)
     {
         Debug.LogError($"{actionsType_Economy.Count}");
@@ -237,6 +309,18 @@ public class NodeFactory
                 newCreatedCommand_Economy.ActionType_Economy = action;
 
                 createdCommands.Add(newCreatedCommand_Economy);
+            }
+        }
+
+        if(actionsType_Attack.Count != 0)
+        {
+            foreach (var action in actionsType_Attack)
+            {
+                AttackNode newCreatedCommand_Attack = (AttackNode)attackNode.Clone();
+
+                newCreatedCommand_Attack.ActionType_Attack = action;
+
+                createdCommands.Add(newCreatedCommand_Attack);
             }
         }
 
@@ -401,11 +485,23 @@ public class AttackNode: INode, IClone, ICommand
         switch (ActionType_Attack)
         {
             case ActionType_Attack.Attack_Exploration:break;
+            case ActionType_Attack.Attack_LowPower:break;
+            case ActionType_Attack.Attack_MediumPower:break;
+            case ActionType_Attack.Attack_HighPower:break;
         }
     }
     private void Attack_Exploration()
     {
 
+    }
+    private void Attack_LowPower()
+    {
+
+    }
+
+    private (HeadquartersBuild,HeadquartersBuild) GetHeadquartersToAttack()
+    {
+        return (null, null);
     }
 
     public bool CanExecute()

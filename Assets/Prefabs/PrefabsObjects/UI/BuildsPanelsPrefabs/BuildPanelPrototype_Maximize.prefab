@@ -233,6 +233,7 @@ MonoBehaviour:
   buildPanel: {fileID: 0}
   buildButton: {fileID: 671964089666331109}
   upgradeButton: {fileID: 6999352681737292155}
+  descriptionButton: {fileID: 4743988348103895057}
 --- !u!114 &135589219811451530
 MonoBehaviour:
   m_ObjectHideFlags: 0

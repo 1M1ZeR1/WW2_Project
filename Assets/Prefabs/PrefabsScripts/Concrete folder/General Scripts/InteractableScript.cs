@@ -19,11 +19,6 @@ public class InteractableScript : MonoBehaviour
 
     private bool subscribedOnHoverEvent = false;
 
-
-    /// <summary>
-    /// 
-    /// </summary>
-
     private void Start()
     {
         choosingScript = GetComponent<ChoosingScript>();
