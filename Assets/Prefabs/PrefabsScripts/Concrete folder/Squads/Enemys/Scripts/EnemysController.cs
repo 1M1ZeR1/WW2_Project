@@ -25,7 +25,7 @@ public class EnemysController
 
     public AlliesCellsAnalyzer AlliesCellsAnalyzer { get; private set; } = new();
 
-
+    public List<AttackDirection> AttackDirections { get; private set; } = new();
 
     public GameObject mainEnemysCell { get; private set; }
     public GameObject mainAlliesCell{ get; private set; }
@@ -50,6 +50,8 @@ public class EnemysController
 
         var result = FindHeadquartersToAttack();
         AttackDirection attackDirection = new AttackDirection(CellWithHeadquarters_Bot[result.Item1], CellWithHeadquarters_Player[result.Item2]);
+
+        AttackDirections.Add(attackDirection);
     }
     private void AddToTimer() { timer++;if(timer == 10) { DecisionTree.OneStep(); } }
 
@@ -208,6 +210,8 @@ public class DecisionTree
         var commands = nodeFactory.CreateCommands(_actionConstructor.Construct_Economy(DangerPoints, EconomyPoints), _actionConstructor.Construct_Attack(DangerPoints, EconomyPoints));
 
         foreach (var command in commands) { ServiceRegistry.WorkWithService<CommandBus>().Enqueue(command, CommandPriority.High); }
+
+        foreach(var attackDirection in ServiceRegistry.WorkWithController<EnemysController>().AttackDirections) { attackDirection.Step(); }
     }
 
     private class ActionConstructor
@@ -264,9 +268,9 @@ public class DecisionTree
         {
             List<ActionType_Attack> listOfActionsType = new();
 
-            listOfActionsType.Add(_dangerPointToAction_Attack[(int)dangerPoints][UnityEngine.Random.Range(0, _dangerPointToAction_Attack[(int)dangerPoints].Count-1)]);
+            //listOfActionsType.Add(_dangerPointToAction_Attack[(int)dangerPoints][UnityEngine.Random.Range(0, _dangerPointToAction_Attack[(int)dangerPoints].Count - 1)]);
 
-            if (_necessarilyActions.ContainsKey((int)dangerPoints)) { listOfActionsType.AddRange(_necessarilyActions[(int)dangerPoints]); }
+            //if (_necessarilyActions.ContainsKey((int)dangerPoints)) { listOfActionsType.AddRange(_necessarilyActions[(int)dangerPoints]); }
 
             return listOfActionsType;
         }

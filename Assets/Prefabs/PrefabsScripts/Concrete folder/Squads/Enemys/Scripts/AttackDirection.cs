@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class AttackDirection
 {
+    private int attackMinLimit = 0;
+
     private HeadquartersBuild responsibleHeadquarters;
 
     private HeadquartersBuild purposeHeadquarters;
@@ -14,8 +17,12 @@ public class AttackDirection
 
     private List<GameObject> cellIncluded = new();
 
-    public AttackDirection(HeadquartersBuild responsibleHeadquarters, HeadquartersBuild purposeHeadquarters)
+    private Dictionary<GameObject, List<GameObject>> cellToCellFronts = new();
+
+    public AttackDirection(HeadquartersBuild responsibleHeadquarters, HeadquartersBuild purposeHeadquarters, int attackMinLimit = 200)
     {
+        this.attackMinLimit = attackMinLimit;
+
         this.responsibleHeadquarters = responsibleHeadquarters;
         this.purposeHeadquarters = purposeHeadquarters;
 
@@ -27,6 +34,71 @@ public class AttackDirection
         RecalculateAttackPower();
     }
 
+    public void Step()
+    {
+        if(attackPower >= attackMinLimit)
+        {
+            Debug.LogError("We can start attack action");
+
+            AttackAction();
+        }
+    }
+
+    private void AttackAction()
+    {
+        var selectedCellToAttack = cellToCellFronts.Keys.ToList()[UnityEngine.Random.Range(0, cellToCellFronts.Keys.Count)];
+        Debug.LogError($"Selected cell to attack {selectedCellToAttack}");
+
+
+        var parameters = ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(selectedCellToAttack);
+
+        var squadsOnCell = parameters.GetParameter<CellSquadsOnArea>().squadsOnCell;
+        int attackSummaryOnCell = 0;
+
+        foreach (var squad in squadsOnCell) { attackSummaryOnCell += squad.GetAllAttack(); }
+
+        if(attackSummaryOnCell >= 0)//Action of attack
+        {
+            Debug.LogError($"Want to attack {attackSummaryOnCell}");
+
+            ServiceRegistry.WorkWithController<BattleController>().TryStartBattle(cellToCellFronts[selectedCellToAttack][UnityEngine.Random.Range(0, cellToCellFronts[selectedCellToAttack].Count)],
+                selectedCellToAttack, parameters.GetParameter<CellSquadsOnArea>().squadsOnCell);
+        }
+        else //Action of move
+        {
+            Debug.LogError($"Need more squads {attackSummaryOnCell}");
+        }
+    }
+    private void GetFrontCells()
+    {
+        List<CellParametersHandler> frontPlayer = new(), frontBot = new();
+
+        foreach (var cell in cellIncluded) 
+        {
+            var parameters = ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell);
+
+            if (parameters.GetParameter<CellArea>().IsFrontCell)
+            {
+                if(parameters.GetParameter<CellArea>().Side == SideEnum.Enemys) { frontBot.Add(parameters); }
+                if(parameters.GetParameter<CellArea>().Side == SideEnum.Allies) { frontPlayer.Add(parameters); }
+            }
+        }
+
+        foreach(var parameters in frontBot)
+        {
+            cellToCellFronts[parameters.GetCellWorkWith()] = new();
+
+            foreach(var playerParam in frontPlayer)
+            {
+                if (parameters.GetParameter<CellArea>().IsCellNeighbor(playerParam.GetCellWorkWith()))
+                {
+                    cellToCellFronts[parameters.GetCellWorkWith()].Add(playerParam.GetCellWorkWith());
+
+                    Debug.LogError($"Im {parameters.GetCellWorkWith()} and i can attack {playerParam.GetCellWorkWith()}");
+                }
+            }
+        }
+    }
     private void GetCellsAttackDir(int angle = 60)//expensive 
     {
         Vector3 direction = (cellWithPurpHead.transform.position - cellWithRescHead.transform.position).normalized;
@@ -52,6 +124,9 @@ public class AttackDirection
                 findedCell.transform.position += new Vector3(0f, 100f, 0f);
             }
         }
+
+
+        GetFrontCells();
     }
     public void RecalculateAttackPower(GameObject cellInitiator = null)
     {
@@ -59,8 +134,6 @@ public class AttackDirection
         {
             foreach(var cell in cellIncluded)
             {
-                Debug.LogError(cell.name);
-
                 foreach(AbstractSquad squad in ServiceRegistry.WorkWithController<CellController>().WorkWithCell<CellParametersHandler>(cell)
                     .GetParameter<CellSquadsOnArea>().squadsOnCell)
                 {
